@@ -9,3 +9,5 @@ include ':module:latency-logger'
 
 include ':module:jpa-test'
 include ':module:race-condition-test'
+
+include 'domain-rds'
