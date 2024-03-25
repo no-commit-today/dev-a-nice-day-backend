@@ -6,6 +6,7 @@ include 'lock-handler-rds'
 include 'domain-code'
 include 'domain-code-api'
 include 'latency-logger'
+include 'web-dto'
 
 include 'jpa-test'
 include 'race-condition-test'

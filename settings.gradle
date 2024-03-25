@@ -14,6 +14,7 @@ include ':module:lock-handler-rds'
 include ':module:domain-code'
 include ':module:domain-code-api'
 include ':module:latency-logger'
+include ':module:web-dto'
 
 include ':module:jpa-test'
 include ':module:race-condition-test'
