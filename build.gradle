@@ -3,6 +3,7 @@ plugins {
 	id 'org.springframework.boot' apply(false)
 	id 'io.spring.dependency-management' apply(false)
 	id 'org.asciidoctor.jvm.convert' apply(false)
+	id 'io.spring.javaformat' apply(false)
 }
 
 allprojects {
