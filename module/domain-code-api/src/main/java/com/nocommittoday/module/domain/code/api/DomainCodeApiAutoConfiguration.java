@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 public class DomainCodeApiAutoConfiguration {
 
     @Bean
-    public DomainCodeController domainCodeController(final EnumMapperFactory enumMapperFactory) {
-        return new DomainCodeController(enumMapperFactory);
+    public DomainCodeController domainCodeController(final DomainCodeFactory domainCodeFactory) {
+        return new DomainCodeController(domainCodeFactory);
     }
 }

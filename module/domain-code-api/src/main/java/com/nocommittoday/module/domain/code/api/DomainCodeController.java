@@ -8,18 +8,18 @@ import java.util.Map;
 
 public class DomainCodeController {
 
-    private final EnumMapperFactory enumMapperFactory;
+    private final DomainCodeFactory domainCodeFactory;
 
-    public DomainCodeController(final EnumMapperFactory enumMapperFactory) {
-        this.enumMapperFactory = enumMapperFactory;
+    public DomainCodeController(final DomainCodeFactory domainCodeFactory) {
+        this.domainCodeFactory = domainCodeFactory;
     }
 
     @GetMapping("/code")
-    public Map<String, List<EnumMapperValue>> getCode(@RequestParam(required = false) List<String> codes) {
+    public Map<String, List<DomainCodeValue>> getCode(@RequestParam(required = false) List<String> codes) {
         if (codes == null || codes.isEmpty()) {
-            return enumMapperFactory.getAll();
+            return domainCodeFactory.getAll();
         }
 
-        return enumMapperFactory.get(codes);
+        return domainCodeFactory.get(codes);
     }
 }
