@@ -1,6 +1,7 @@
-package com.nocommittoday.module.domain.code.api;
+package com.nocommittoday.module.domain.code.api.config;
 
 import com.nocommittoday.module.domain.code.DomainCode;
+import com.nocommittoday.module.domain.code.api.DomainCodeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

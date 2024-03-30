@@ -1,1 +1,1 @@
-com.nocommittoday.module.domain.code.api.DomainCodeApiAutoConfiguration
+com.nocommittoday.module.domain.code.api.config.DomainCodeApiAutoConfiguration

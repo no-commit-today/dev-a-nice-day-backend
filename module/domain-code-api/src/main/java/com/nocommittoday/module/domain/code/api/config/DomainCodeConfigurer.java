@@ -1,4 +1,4 @@
-package com.nocommittoday.module.domain.code.api;
+package com.nocommittoday.module.domain.code.api.config;
 
 import com.nocommittoday.module.domain.code.DomainCode;
 
