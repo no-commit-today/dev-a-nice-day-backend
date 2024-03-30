@@ -14,7 +14,11 @@ public class BaseSoftDeleteEntity extends BaseTimeEntity {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    public Boolean isDeleted() {
+    public boolean isDeleted() {
+        return Boolean.TRUE.equals(deleted);
+    }
+
+    public Boolean getDeleted() {
         return deleted;
     }
 
