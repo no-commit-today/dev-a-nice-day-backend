@@ -1,0 +1,26 @@
+pluginManagement {
+    plugins {
+        id 'org.springframework.boot' version "${springBootVersion}"
+        id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+        id 'org.asciidoctor.jvm.convert' version "${asciidoctorConvertVersion}"
+        id 'io.spring.javaformat' version "${springJavaFormatVersion}"
+    }
+}
+
+rootProject.name = 'tech-swipe-backend'
+
+include ':module:exception-core'
+include ':module:exception-handler-servlet'
+include ':module:lock-handler-rds'
+include ':module:domain-code'
+include ':module:domain-code-api'
+include ':module:domain-dto'
+include ':module:latency-logger'
+
+include ':module:jpa-test'
+include ':module:race-condition-test'
+
+include 'domain-rds'
+include 'api'
+
+include 'archtest'

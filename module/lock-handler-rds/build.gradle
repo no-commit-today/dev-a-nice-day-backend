@@ -1,0 +1,18 @@
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+dependencies {
+    implementation project(":module:exception-core")
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    testImplementation project(":module:jpa-test")
+    testImplementation project(":module:race-condition-test")
+    testRuntimeOnly 'com.h2database:h2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

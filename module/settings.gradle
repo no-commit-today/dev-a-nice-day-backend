@@ -1,0 +1,12 @@
+rootProject.name = 'module'
+
+include 'exception-core'
+include 'exception-handler-servlet'
+include 'lock-handler-rds'
+include 'domain-code'
+include 'domain-code-api'
+include 'domain-dto'
+include 'latency-logger'
+
+include 'jpa-test'
+include 'race-condition-test'
