@@ -16,7 +16,7 @@ public class TechBlog extends BaseSoftDeleteEntity {
     @Column(name = "name", length = 45, nullable = false)
     private TechBlogType type;
 
-    @Enumerated
+    @Enumerated(STRING)
     @Column(name = "feed_type", length = 45, nullable = false)
     private TechBlogFeedType feedType;
 
