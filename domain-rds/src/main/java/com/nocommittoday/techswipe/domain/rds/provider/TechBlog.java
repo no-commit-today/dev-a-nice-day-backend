@@ -13,14 +13,14 @@ import static jakarta.persistence.EnumType.STRING;
 public class TechBlog extends BaseSoftDeleteEntity {
 
     @Enumerated(STRING)
-    @Column(name = "name", length = 45, nullable = false)
+    @Column(name = "type", length = 45, nullable = false)
     private TechBlogType type;
 
     @Enumerated(STRING)
     @Column(name = "feed_type", length = 45, nullable = false)
     private TechBlogFeedType feedType;
 
-    @Column(name = "title", length = 105, nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "link", length = 1000, nullable = false)
