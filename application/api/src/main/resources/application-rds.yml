@@ -26,9 +26,6 @@ spring:
     init:
       mode: never
 
-  flyway:
-    enabled: true
-
 ---
 spring:
   config:
@@ -38,9 +35,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-
-  flyway:
-    baseline-on-migrate: true
 
 logging:
   level:
