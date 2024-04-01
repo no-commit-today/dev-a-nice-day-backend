@@ -7,7 +7,7 @@ import com.tngtech.archunit.lang.ArchRule;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 @AnalyzeClasses(packages = "com.nocommittoday")
-class ArchtectureTest {
+class ArchitectureTest {
 
     @ArchTest
     ArchRule module패키지는_techswipe패키지를_참조하지_않음 = noClasses().that().resideInAPackage("..module..")

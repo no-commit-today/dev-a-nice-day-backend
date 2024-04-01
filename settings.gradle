@@ -26,4 +26,4 @@ include 'application:domain-rds'
 include 'application:api'
 include 'application:rds-migration'
 
-include 'archtest'
+include 'arch-test'
