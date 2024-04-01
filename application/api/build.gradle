@@ -3,7 +3,7 @@ jar.enabled = false
 
 
 dependencies {
-    implementation project(':domain-rds')
+    implementation project(':application:domain-rds')
     implementation project(':module:exception-handler-servlet')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
