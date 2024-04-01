@@ -2,6 +2,9 @@ package com.nocommittoday.techswipe.domain.rds.content;
 
 import com.nocommittoday.module.domain.code.DomainCode;
 
+/**
+ * 기타 카테고리는 추후 데이터 확인 후 다른 카테고리로 분리될 수 있음
+ */
 public enum TechCategory implements DomainCode {
 
     BACKEND("백엔드"),
@@ -9,9 +12,7 @@ public enum TechCategory implements DomainCode {
     ANDROID("안드로이드"),
     IOS("iOS"),
     INFRA("인프라"),
-    MACHINE_LEARNING("인공지능"),
-    CLEAN_CODE("클린코드"),
-    TEST("테스트"),
+    ETC("기타"),
     ;
 
     private final String title;
