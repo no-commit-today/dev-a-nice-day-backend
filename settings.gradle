@@ -22,5 +22,6 @@ include ':module:race-condition-test'
 
 include ':application:domain-rds'
 include ':application:api'
+include ':application:rds-migration'
 
 include 'archtest'
