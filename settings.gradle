@@ -21,6 +21,6 @@ include ':module:jpa-test'
 include ':module:race-condition-test'
 
 include 'domain-rds'
-include 'api'
+include ':application:api'
 
 include 'archtest'
