@@ -48,18 +48,10 @@ public class TechPost extends BaseSoftDeleteEntity {
     @Column(name = "published_at", nullable = false)
     private LocalDateTime publishedAt;
 
-    @OneToMany(
-            mappedBy = "post",
-            orphanRemoval = true,
-            cascade = CascadeType.ALL
-    )
+    @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<TechPostKeyword> keywords;
 
-    @OneToMany(
-            mappedBy = "post",
-            orphanRemoval = true,
-            cascade = CascadeType.ALL
-    )
+    @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<TechPostCategory> categories;
 
     public static TechPostBuilder builder() {
