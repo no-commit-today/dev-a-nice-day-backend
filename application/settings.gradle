@@ -1,0 +1,7 @@
+rootProject.name = 'application'
+
+include 'api'
+include 'domain-rds'
+include 'rds-migration'
+
+include 'arch-test'
