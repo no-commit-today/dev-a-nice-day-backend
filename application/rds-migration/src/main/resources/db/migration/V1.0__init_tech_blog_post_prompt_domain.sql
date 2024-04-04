@@ -1,11 +1,11 @@
 create table tech_post
 (
     uid              varchar(45)   not null,
-    link             varchar(1000) not null,
+    link             varchar(500)  not null,
     title            varchar(1000) not null,
     content          longtext      not null,
     published_at     timestamp(6)  not null,
-    summary          text      not null,
+    summary          text          not null,
     deleted          tinyint(1)    not null,
     deleted_at       timestamp(6),
     created_at       timestamp(6)  not null,
@@ -75,7 +75,7 @@ create table prompt
 (
     version          varchar(25)  not null,
     type             varchar(45)  not null,
-    content          text     not null,
+    content          text         not null,
     created_at       timestamp(6) not null,
     last_modified_at timestamp(6) not null,
     id               bigint auto_increment,
@@ -89,7 +89,7 @@ alter table prompt
 create table tech_blog
 (
     type             varchar(45)   not null,
-    feed_type        varchar(45)       not null,
+    feed_type        varchar(45)   not null,
     title            varchar(255)  not null,
     feed_link        varchar(1000) not null,
     link             varchar(1000) not null,
