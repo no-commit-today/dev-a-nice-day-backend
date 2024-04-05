@@ -20,6 +20,8 @@ include ':module:latency-logger'
 include ':module:jpa-test'
 include ':module:race-condition-test'
 
+include ':client:openai'
+
 include ':application:domain-rds'
 include ':application:api'
 include ':application:rds-migration'
