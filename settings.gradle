@@ -9,21 +9,21 @@ pluginManagement {
 
 rootProject.name = 'tech-swipe-backend'
 
-include ':module:exception-core'
-include ':module:exception-handler-servlet'
-include ':module:lock-handler-rds'
-include ':module:domain-code'
-include ':module:domain-code-api'
-include ':module:domain-dto'
-include ':module:latency-logger'
+include 'module:exception-core'
+include 'module:exception-handler-servlet'
+include 'module:lock-handler-rds'
+include 'module:domain-code'
+include 'module:domain-code-api'
+include 'module:domain-dto'
+include 'module:latency-logger'
 
-include ':module:jpa-test'
-include ':module:race-condition-test'
+include 'module:jpa-test'
+include 'module:race-condition-test'
 
-include ':client:openai'
+include 'client:openai'
 
-include ':application:domain-rds'
-include ':application:api'
-include ':application:rds-migration'
+include 'application:domain-rds'
+include 'application:api'
+include 'application:rds-migration'
 
 include 'archtest'
