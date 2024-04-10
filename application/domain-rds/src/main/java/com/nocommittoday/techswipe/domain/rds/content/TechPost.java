@@ -38,11 +38,11 @@ public class TechPost extends BaseSoftDeleteEntity {
     private String title;
 
     @Lob
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", length = 100_000_000, nullable = false)
     private String content;
 
     @Lob
-    @Column(name = "summary", nullable = false)
+    @Column(name = "summary", length = 2_000, nullable = false)
     private String summary;
 
     @Column(name = "published_at", nullable = false)

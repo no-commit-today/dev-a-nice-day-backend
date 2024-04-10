@@ -20,14 +20,14 @@ import static jakarta.persistence.EnumType.*;
 public class Prompt extends BaseTimeEntity {
 
     @Enumerated(STRING)
-    @Column(name = "type", length = 45, nullable = false)
+    @Column(name = "type", columnDefinition = "varchar(45)", nullable = false)
     private PromptType type;
 
     @Column(name = "version", length = 25, nullable = false)
     private String version;
 
     @Lob
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", length = 2_000, nullable = false)
     private String content;
 
     protected Prompt() {
