@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 @ConfigurationProperties(prefix = "app.client.openai")
 public record OpenAiClientProperties(
         @DefaultValue("https://api.openai.com") String baseUrl,
-        String apiKey
+        String apiKey,
+        @DefaultValue("30000") int timeoutMillis
 ) {
 }

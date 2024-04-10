@@ -24,7 +24,8 @@ public class OpenAiClient {
     private final RestTemplate restTemplate;
 
     public OpenAiClient(
-            final RestTemplateBuilder restTemplateBuilder, final String baseUrl, final String apiKey
+            final RestTemplateBuilder restTemplateBuilder,
+            final String baseUrl, final String apiKey, final int timeoutMillis
     ) {
         final MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter =
                 new MappingJackson2HttpMessageConverter();
@@ -41,7 +42,7 @@ public class OpenAiClient {
                 .rootUri(baseUrl)
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + apiKey)
                 .messageConverters(mappingJackson2HttpMessageConverter)
-                .setConnectTimeout(Duration.ofSeconds(30))
+                .setConnectTimeout(Duration.ofMillis(timeoutMillis))
                 .build();
     }
 

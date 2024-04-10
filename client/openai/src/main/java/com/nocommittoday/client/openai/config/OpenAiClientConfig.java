@@ -14,6 +14,8 @@ public class OpenAiClientConfig {
     public OpenAiClient openAiClient(
             final RestTemplateBuilder restTemplateBuilder, final OpenAiClientProperties properties
     ) {
-        return new OpenAiClient(restTemplateBuilder, properties.baseUrl(), properties.apiKey());
+        return new OpenAiClient(
+                restTemplateBuilder, properties.baseUrl(), properties.apiKey(), properties.timeoutMillis()
+        );
     }
 }
