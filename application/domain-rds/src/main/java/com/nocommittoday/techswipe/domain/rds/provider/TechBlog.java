@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.domain.rds.provider;
 
 import com.nocommittoday.techswipe.domain.rds.core.BaseSoftDeleteEntity;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -16,18 +17,15 @@ public class TechBlog extends BaseSoftDeleteEntity {
     @Column(name = "type", columnDefinition = "varchar(45)", nullable = false)
     private TechBlogType type;
 
-    @Enumerated(STRING)
-    @Column(name = "feed_type", columnDefinition = "varchar(45)", nullable = false)
-    private TechBlogFeedType feedType;
-
     @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "link", length = 1000, nullable = false)
     private String link;
 
-    @Column(name = "feed_link", length = 1000, nullable = false)
-    private String feedLink;
+    @Column(name = "icon_url", length = 1000)
+    private String iconUrl;
+
 
     public static TechBlogBuilder builder() {
         return new TechBlogBuilder();
@@ -40,10 +38,6 @@ public class TechBlog extends BaseSoftDeleteEntity {
         return type;
     }
 
-    public TechBlogFeedType getFeedType() {
-        return feedType;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -52,53 +46,45 @@ public class TechBlog extends BaseSoftDeleteEntity {
         return link;
     }
 
-    public String getFeedLink() {
-        return feedLink;
+    public String getIconUrl() {
+        return iconUrl;
     }
-
 
     public static final class TechBlogBuilder {
         private TechBlogType type;
-        private TechBlogFeedType feedType;
         private String title;
         private String link;
-        private String feedLink;
+        private String iconUrl;
 
-        TechBlogBuilder() {
+        private TechBlogBuilder() {
         }
 
-        public TechBlogBuilder type(TechBlogType type) {
+        public TechBlogBuilder type(final TechBlogType type) {
             this.type = type;
             return this;
         }
 
-        public TechBlogBuilder feedType(TechBlogFeedType feedType) {
-            this.feedType = feedType;
-            return this;
-        }
-
-        public TechBlogBuilder title(String title) {
+        public TechBlogBuilder title(final String title) {
             this.title = title;
             return this;
         }
 
-        public TechBlogBuilder link(String link) {
+        public TechBlogBuilder link(final String link) {
             this.link = link;
             return this;
         }
 
-        public TechBlogBuilder feedLink(String feedLink) {
-            this.feedLink = feedLink;
+        public TechBlogBuilder iconUrl(@Nullable final String iconUrl) {
+            this.iconUrl = iconUrl;
             return this;
         }
 
         public TechBlog build() {
             TechBlog techBlog = new TechBlog();
-            techBlog.feedType = this.feedType;
-            techBlog.link = this.link;
-            techBlog.title = this.title;
             techBlog.type = this.type;
-            techBlog.feedLink = this.feedLink;
+            techBlog.title = this.title;
+            techBlog.link = this.link;
+            techBlog.iconUrl = this.iconUrl;
             return techBlog;
         }
     }
