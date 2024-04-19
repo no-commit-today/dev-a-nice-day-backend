@@ -8,6 +8,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-batch'
 
+    implementation "org.jsoup:jsoup:${jsoupVersion}"
+
     runtimeOnly 'com.mysql:mysql-connector-j'
 
     testRuntimeOnly 'com.h2database:h2'
