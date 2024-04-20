@@ -6,12 +6,23 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+
+import java.util.UUID;
 
 import static jakarta.persistence.EnumType.STRING;
 
 @Entity
-@Table(name = "tech_blog")
+@Table(
+        name = "tech_blog",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "uk_tech_blog__uid", columnNames = {"uid"})
+        }
+)
 public class TechBlog extends BaseSoftDeleteEntity {
+
+    @Column(name = "uid", length = 45, nullable = false)
+    private String uid;
 
     @Enumerated(STRING)
     @Column(name = "type", columnDefinition = "varchar(45)", nullable = false)
@@ -26,12 +37,19 @@ public class TechBlog extends BaseSoftDeleteEntity {
     @Column(name = "icon_url", length = 1000)
     private String iconUrl;
 
+    @Column(name = "image_url", length = 1000)
+    private String imageUrl;
+
 
     public static TechBlogBuilder builder() {
         return new TechBlogBuilder();
     }
 
     protected TechBlog() {
+    }
+
+    public String getUid() {
+        return uid;
     }
 
     public TechBlogType getType() {
@@ -50,11 +68,16 @@ public class TechBlog extends BaseSoftDeleteEntity {
         return iconUrl;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
     public static final class TechBlogBuilder {
         private TechBlogType type;
         private String title;
         private String url;
         private String iconUrl;
+        private String imageUrl;
 
         private TechBlogBuilder() {
         }
@@ -79,12 +102,19 @@ public class TechBlog extends BaseSoftDeleteEntity {
             return this;
         }
 
+        public TechBlogBuilder imageUrl(@Nullable final String imageUrl) {
+            this.imageUrl = imageUrl;
+            return this;
+        }
+
         public TechBlog build() {
             TechBlog techBlog = new TechBlog();
+            techBlog.uid = UUID.randomUUID().toString();
             techBlog.type = this.type;
             techBlog.title = this.title;
             techBlog.url = this.url;
             techBlog.iconUrl = this.iconUrl;
+            techBlog.imageUrl = this.imageUrl;
             return techBlog;
         }
     }
