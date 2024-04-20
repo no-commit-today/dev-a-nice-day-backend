@@ -1,0 +1,1 @@
+alter table tech_blog change link url varchar(1000) not null;

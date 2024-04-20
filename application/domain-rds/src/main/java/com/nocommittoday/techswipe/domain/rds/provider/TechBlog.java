@@ -20,8 +20,8 @@ public class TechBlog extends BaseSoftDeleteEntity {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "link", length = 1000, nullable = false)
-    private String link;
+    @Column(name = "url", length = 1000, nullable = false)
+    private String url;
 
     @Column(name = "icon_url", length = 1000)
     private String iconUrl;
@@ -42,8 +42,8 @@ public class TechBlog extends BaseSoftDeleteEntity {
         return title;
     }
 
-    public String getLink() {
-        return link;
+    public String getUrl() {
+        return url;
     }
 
     public String getIconUrl() {
@@ -53,7 +53,7 @@ public class TechBlog extends BaseSoftDeleteEntity {
     public static final class TechBlogBuilder {
         private TechBlogType type;
         private String title;
-        private String link;
+        private String url;
         private String iconUrl;
 
         private TechBlogBuilder() {
@@ -69,8 +69,8 @@ public class TechBlog extends BaseSoftDeleteEntity {
             return this;
         }
 
-        public TechBlogBuilder link(final String link) {
-            this.link = link;
+        public TechBlogBuilder url(final String url) {
+            this.url = url;
             return this;
         }
 
@@ -83,7 +83,7 @@ public class TechBlog extends BaseSoftDeleteEntity {
             TechBlog techBlog = new TechBlog();
             techBlog.type = this.type;
             techBlog.title = this.title;
-            techBlog.link = this.link;
+            techBlog.url = this.url;
             techBlog.iconUrl = this.iconUrl;
             return techBlog;
         }
