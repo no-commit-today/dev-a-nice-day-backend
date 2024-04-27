@@ -24,6 +24,7 @@ include 'client:openai'
 
 include 'application:api'
 include 'application:batch'
+include 'application:admin'
 include 'application:domain-rds'
 include 'application:rds-migration'
 include 'application:arch-test'
