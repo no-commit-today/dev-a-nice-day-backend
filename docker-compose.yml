@@ -1,6 +1,6 @@
 services:
   mysql:
-    container_name: mysql
+    container_name: tech-swipe-mysql
     image: mysql:8.0.36
     ports:
       - "3306:3306"
@@ -12,4 +12,5 @@ services:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
     volumes:
-        - ./docker/mysql:/var/lib/mysql
+        - ./docker/mysql/var/lib/mysql:/var/lib/mysql
+
