@@ -21,6 +21,9 @@ public abstract class BaseTimeEntity extends BaseIdEntity {
     @Column(name = "last_modified_at", nullable = false)
     private LocalDateTime lastModifiedAt;
 
+    protected BaseTimeEntity() {
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }

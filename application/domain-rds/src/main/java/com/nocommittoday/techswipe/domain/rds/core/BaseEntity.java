@@ -21,6 +21,9 @@ public abstract class BaseEntity extends BaseSoftDeleteEntity {
     @Column(name = "last_modified_by", nullable = false)
     private String lastModifiedBy;
 
+    protected BaseEntity() {
+    }
+
     public Integer getVersion() {
         return version;
     }
