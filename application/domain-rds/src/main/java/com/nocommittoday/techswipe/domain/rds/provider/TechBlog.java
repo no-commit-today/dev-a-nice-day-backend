@@ -1,10 +1,14 @@
 package com.nocommittoday.techswipe.domain.rds.provider;
 
 import com.nocommittoday.techswipe.domain.rds.core.BaseSoftDeleteEntity;
+import com.nocommittoday.techswipe.domain.rds.image.UrlImage;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
@@ -34,12 +38,9 @@ public class TechBlog extends BaseSoftDeleteEntity {
     @Column(name = "url", length = 1000, nullable = false)
     private String url;
 
-    @Column(name = "icon_url", length = 1000)
-    private String iconUrl;
-
-    @Column(name = "image_url", length = 1000)
-    private String imageUrl;
-
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "icon_id")
+    private UrlImage icon;
 
     public static TechBlogBuilder builder() {
         return new TechBlogBuilder();
@@ -64,20 +65,15 @@ public class TechBlog extends BaseSoftDeleteEntity {
         return url;
     }
 
-    public String getIconUrl() {
-        return iconUrl;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
+    public UrlImage getIcon() {
+        return icon;
     }
 
     public static final class TechBlogBuilder {
         private TechBlogType type;
         private String title;
         private String url;
-        private String iconUrl;
-        private String imageUrl;
+        private UrlImage icon;
 
         private TechBlogBuilder() {
         }
@@ -97,13 +93,8 @@ public class TechBlog extends BaseSoftDeleteEntity {
             return this;
         }
 
-        public TechBlogBuilder iconUrl(@Nullable final String iconUrl) {
-            this.iconUrl = iconUrl;
-            return this;
-        }
-
-        public TechBlogBuilder imageUrl(@Nullable final String imageUrl) {
-            this.imageUrl = imageUrl;
+        public TechBlogBuilder icon(@Nullable final UrlImage icon) {
+            this.icon = icon;
             return this;
         }
 
@@ -113,8 +104,7 @@ public class TechBlog extends BaseSoftDeleteEntity {
             techBlog.type = this.type;
             techBlog.title = this.title;
             techBlog.url = this.url;
-            techBlog.iconUrl = this.iconUrl;
-            techBlog.imageUrl = this.imageUrl;
+            techBlog.icon = this.icon;
             return techBlog;
         }
     }
