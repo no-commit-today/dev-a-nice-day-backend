@@ -6,8 +6,8 @@ spring:
     active: local
     group:
       local: rds
-      dev: rds
-      prod: rds
+      dev: rds,s3
+      prod: rds,s3
 
   batch:
     job:
