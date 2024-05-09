@@ -1,4 +1,4 @@
-package com.nocommittoday.client.openai.domain;
+package com.nocommittoday.client.openai.model;
 
 public enum ChatModel implements OpenAiCode {
 

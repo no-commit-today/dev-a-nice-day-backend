@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.nocommittoday.client.openai.domain.OpenAiCode;
+import com.nocommittoday.client.openai.model.OpenAiCode;
 
 import java.io.IOException;
 import java.util.EnumSet;

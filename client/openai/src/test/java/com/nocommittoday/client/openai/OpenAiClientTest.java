@@ -1,12 +1,12 @@
 package com.nocommittoday.client.openai;
 
 import com.nocommittoday.client.openai.config.OpenAiClientConfig;
-import com.nocommittoday.client.openai.domain.ChatCompletionCreate;
-import com.nocommittoday.client.openai.domain.ChatModel;
-import com.nocommittoday.client.openai.domain.ChatObject;
-import com.nocommittoday.client.openai.domain.FinishReason;
-import com.nocommittoday.client.openai.domain.MessageRequest;
-import com.nocommittoday.client.openai.domain.MessageRole;
+import com.nocommittoday.client.openai.model.ChatCompletionCreate;
+import com.nocommittoday.client.openai.model.ChatModel;
+import com.nocommittoday.client.openai.model.ChatObject;
+import com.nocommittoday.client.openai.model.FinishReason;
+import com.nocommittoday.client.openai.model.MessageRequest;
+import com.nocommittoday.client.openai.model.MessageRole;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

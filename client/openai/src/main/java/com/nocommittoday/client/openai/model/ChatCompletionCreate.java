@@ -1,4 +1,4 @@
-package com.nocommittoday.client.openai.domain;
+package com.nocommittoday.client.openai.model;
 
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
