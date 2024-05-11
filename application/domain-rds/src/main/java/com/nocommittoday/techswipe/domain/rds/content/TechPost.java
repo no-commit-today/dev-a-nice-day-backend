@@ -14,7 +14,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -54,8 +54,8 @@ public class TechPost extends BaseSoftDeleteEntity {
     @Column(name = "summary", length = 2_000, nullable = false)
     private String summary;
 
-    @Column(name = "published_at", nullable = false)
-    private LocalDateTime publishedAt;
+    @Column(name = "published_date", nullable = false)
+    private LocalDate publishedDate;
 
     @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<TechPostKeyword> keywords = new ArrayList<>();
@@ -78,7 +78,7 @@ public class TechPost extends BaseSoftDeleteEntity {
             final String title,
             final String content,
             final String summary,
-            final LocalDateTime publishedAt,
+            final LocalDate publishedDate,
             @Nullable final List<TechKeyword> keywords,
             @Nullable final List<TechCategory> categories
     ) {
@@ -87,7 +87,7 @@ public class TechPost extends BaseSoftDeleteEntity {
         this.title = title;
         this.content = content;
         this.summary = summary;
-        this.publishedAt = publishedAt;
+        this.publishedDate = publishedDate;
         this.keywords = Optional.ofNullable(keywords)
                 .map(item -> item.stream()
                         .map(keyword -> new TechPostKeyword(this, keyword))
