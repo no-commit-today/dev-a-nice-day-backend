@@ -5,8 +5,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import static lombok.AccessLevel.PROTECTED;
 
 @MappedSuperclass
+@Getter
+@NoArgsConstructor(access = PROTECTED)
 public abstract class BaseIdEntity {
 
     @Id
@@ -14,10 +20,4 @@ public abstract class BaseIdEntity {
     @Column(name = "id")
     private Long id;
 
-    public Long getId() {
-        return id;
-    }
-
-    protected BaseIdEntity() {
-    }
 }
