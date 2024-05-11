@@ -8,8 +8,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-batch'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    implementation 'org.springframework:spring-web'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
     implementation "org.jsoup:jsoup:${jsoupVersion}"
     implementation "net.htmlparser.jericho:jericho-html:${jerichoHtmlVersion}"
+    implementation "com.rometools:rome:${romeVersion}"
+
     implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3'
 
     runtimeOnly 'com.mysql:mysql-connector-j'
