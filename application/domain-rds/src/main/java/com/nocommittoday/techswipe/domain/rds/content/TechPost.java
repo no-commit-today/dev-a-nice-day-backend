@@ -1,12 +1,18 @@
 package com.nocommittoday.techswipe.domain.rds.content;
 
 import com.nocommittoday.techswipe.domain.rds.core.BaseSoftDeleteEntity;
+import com.nocommittoday.techswipe.domain.rds.provider.TechBlog;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -30,7 +36,11 @@ import static lombok.AccessLevel.PROTECTED;
                 @UniqueConstraint(name = "uk_tech_post__url", columnNames = {"url"})
         },
         indexes = {
-                @Index(name = "ix_tech_post__published_at", columnList = "published_at desc")
+                @Index(
+                        name = "ix_tech_post__tech_blog_id_published_date",
+                        columnList = "tech_blog_id, published_date desc"
+                ),
+                @Index(name = "ix_tech_post__published_date", columnList = "published_date desc")
         }
 )
 @Getter
@@ -57,6 +67,10 @@ public class TechPost extends BaseSoftDeleteEntity {
     @Column(name = "published_date", nullable = false)
     private LocalDate publishedDate;
 
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "tech_blog_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    private TechBlog techBlog;
+
     @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<TechPostKeyword> keywords = new ArrayList<>();
 
@@ -79,6 +93,7 @@ public class TechPost extends BaseSoftDeleteEntity {
             final String content,
             final String summary,
             final LocalDate publishedDate,
+            final TechBlog techBlog,
             @Nullable final List<TechKeyword> keywords,
             @Nullable final List<TechCategory> categories
     ) {
@@ -88,6 +103,7 @@ public class TechPost extends BaseSoftDeleteEntity {
         this.content = content;
         this.summary = summary;
         this.publishedDate = publishedDate;
+        this.techBlog = techBlog;
         this.keywords = Optional.ofNullable(keywords)
                 .map(item -> item.stream()
                         .map(keyword -> new TechPostKeyword(this, keyword))
