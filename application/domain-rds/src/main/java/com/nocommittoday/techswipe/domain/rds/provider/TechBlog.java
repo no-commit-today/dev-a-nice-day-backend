@@ -4,9 +4,11 @@ import com.nocommittoday.techswipe.domain.rds.core.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.domain.rds.image.UrlImage;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -40,7 +42,7 @@ public class TechBlog extends BaseSoftDeleteEntity {
     private String url;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "icon_id")
+    @JoinColumn(name = "icon_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private UrlImage icon;
 
     public static TechBlogBuilder builder() {
