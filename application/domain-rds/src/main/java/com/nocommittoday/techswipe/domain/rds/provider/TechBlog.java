@@ -13,10 +13,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-
-import java.util.UUID;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.EnumType.STRING;
+import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Table(
@@ -26,6 +28,8 @@ import static jakarta.persistence.EnumType.STRING;
                 @UniqueConstraint(name = "uk_tech_blog__url", columnNames = {"url"})
         }
 )
+@Getter
+@NoArgsConstructor(access = PROTECTED)
 public class TechBlog extends BaseSoftDeleteEntity {
 
     @Column(name = "uid", length = 45, nullable = false)
@@ -43,72 +47,21 @@ public class TechBlog extends BaseSoftDeleteEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "icon_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @Nullable
     private UrlImage icon;
 
-    public static TechBlogBuilder builder() {
-        return new TechBlogBuilder();
-    }
-
-    protected TechBlog() {
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public TechBlogType getType() {
-        return type;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public UrlImage getIcon() {
-        return icon;
-    }
-
-    public static final class TechBlogBuilder {
-        private TechBlogType type;
-        private String title;
-        private String url;
-        private UrlImage icon;
-
-        private TechBlogBuilder() {
-        }
-
-        public TechBlogBuilder type(final TechBlogType type) {
-            this.type = type;
-            return this;
-        }
-
-        public TechBlogBuilder title(final String title) {
-            this.title = title;
-            return this;
-        }
-
-        public TechBlogBuilder url(final String url) {
-            this.url = url;
-            return this;
-        }
-
-        public TechBlogBuilder icon(@Nullable final UrlImage icon) {
-            this.icon = icon;
-            return this;
-        }
-
-        public TechBlog build() {
-            TechBlog techBlog = new TechBlog();
-            techBlog.uid = UUID.randomUUID().toString();
-            techBlog.type = this.type;
-            techBlog.title = this.title;
-            techBlog.url = this.url;
-            techBlog.icon = this.icon;
-            return techBlog;
-        }
+    @Builder
+    public TechBlog(
+            final String uid,
+            final TechBlogType type,
+            final String title,
+            final String url,
+            @Nullable final UrlImage icon
+    ) {
+        this.uid = uid;
+        this.type = type;
+        this.title = title;
+        this.url = url;
+        this.icon = icon;
     }
 }
