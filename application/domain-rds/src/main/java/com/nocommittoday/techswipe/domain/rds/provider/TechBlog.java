@@ -20,7 +20,8 @@ import static jakarta.persistence.EnumType.STRING;
 @Table(
         name = "tech_blog",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uk_tech_blog__uid", columnNames = {"uid"})
+                @UniqueConstraint(name = "uk_tech_blog__uid", columnNames = {"uid"}),
+                @UniqueConstraint(name = "uk_tech_blog__url", columnNames = {"url"})
         }
 )
 public class TechBlog extends BaseSoftDeleteEntity {
@@ -35,7 +36,7 @@ public class TechBlog extends BaseSoftDeleteEntity {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "url", length = 1000, nullable = false)
+    @Column(name = "url", length = 500, nullable = false)
     private String url;
 
     @OneToOne(fetch = FetchType.LAZY)

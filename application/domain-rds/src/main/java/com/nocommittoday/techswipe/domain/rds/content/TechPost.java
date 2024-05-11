@@ -27,10 +27,10 @@ import static lombok.AccessLevel.PROTECTED;
         name = "tech_post",
         uniqueConstraints = {
                 @UniqueConstraint(name = "uk_tech_post__uid", columnNames = {"uid"}),
-                @UniqueConstraint(name = "uk_tech_post__link", columnNames = {"link"})
+                @UniqueConstraint(name = "uk_tech_post__url", columnNames = {"url"})
         },
         indexes = {
-                @Index(name = "ix_tech_post__published_at", columnList = "published_at")
+                @Index(name = "ix_tech_post__published_at", columnList = "published_at desc")
         }
 )
 @Getter
@@ -40,10 +40,10 @@ public class TechPost extends BaseSoftDeleteEntity {
     @Column(name = "uid", length = 45, nullable = false)
     private String uid;
 
-    @Column(name = "link", length = 1000, nullable = false)
-    private String link;
+    @Column(name = "url", length = 500, nullable = false)
+    private String url;
 
-    @Column(name = "title", length = 1000, nullable = false)
+    @Column(name = "title", length = 500, nullable = false)
     private String title;
 
     @Lob
@@ -74,7 +74,7 @@ public class TechPost extends BaseSoftDeleteEntity {
     @Builder
     public TechPost(
             final String uid,
-            final String link,
+            final String url,
             final String title,
             final String content,
             final String summary,
@@ -83,7 +83,7 @@ public class TechPost extends BaseSoftDeleteEntity {
             @Nullable final List<TechCategory> categories
     ) {
         this.uid = uid;
-        this.link = link;
+        this.url = url;
         this.title = title;
         this.content = content;
         this.summary = summary;
