@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.domain.rds.content;
 
 import com.nocommittoday.techswipe.domain.rds.core.BaseSoftDeleteEntity;
+import com.nocommittoday.techswipe.domain.rds.image.UrlImage;
 import com.nocommittoday.techswipe.domain.rds.provider.TechBlog;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
@@ -14,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Builder;
@@ -56,6 +58,11 @@ public class TechPost extends BaseSoftDeleteEntity {
     @Column(name = "title", length = 500, nullable = false)
     private String title;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @Nullable
+    private UrlImage image;
+
     @Lob
     @Column(name = "content", length = 100_000_000, nullable = false)
     private String content;
@@ -90,6 +97,7 @@ public class TechPost extends BaseSoftDeleteEntity {
             final String uid,
             final String url,
             final String title,
+            @Nullable final UrlImage image,
             final String content,
             final String summary,
             final LocalDate publishedDate,
@@ -100,6 +108,7 @@ public class TechPost extends BaseSoftDeleteEntity {
         this.uid = uid;
         this.url = url;
         this.title = title;
+        this.image = image;
         this.content = content;
         this.summary = summary;
         this.publishedDate = publishedDate;
