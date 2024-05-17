@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.batch.service;
 
 import jakarta.annotation.Nullable;
+import lombok.Builder;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -31,6 +32,7 @@ public class TechPostUrlCrawlingIterator implements Iterator<String> {
 
     private final Queue<String> postUrls = new LinkedList<>();
 
+    @Builder
     public TechPostUrlCrawlingIterator(
             final String postLinkElementSelector,
             final String postListPageUrl,

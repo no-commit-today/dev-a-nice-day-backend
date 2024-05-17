@@ -24,4 +24,12 @@ public class TechPostRepositoryCustomImpl implements TechPostRepositoryCustom {
                 .where(techPost.url.in(urls))
                 .fetch();
     }
+
+    @Override
+    public List<String> findAllUrl() {
+        return queryFactory
+                .select(techPost.url)
+                .from(techPost)
+                .fetch();
+    }
 }
