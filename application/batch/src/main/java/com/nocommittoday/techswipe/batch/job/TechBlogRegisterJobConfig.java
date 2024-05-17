@@ -9,8 +9,7 @@ import com.nocommittoday.techswipe.domain.rds.image.repository.UrlImageRepositor
 import com.nocommittoday.techswipe.domain.rds.provider.TechBlog;
 import com.nocommittoday.techswipe.domain.rds.provider.TechBlogType;
 import com.nocommittoday.techswipe.domain.rds.provider.repository.TechBlogRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersValidator;
 import org.springframework.batch.core.Step;
@@ -28,10 +27,10 @@ import org.springframework.util.StringUtils;
 
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Configuration
 public class TechBlogRegisterJobConfig {
 
-    private static final Logger log = LoggerFactory.getLogger(TechBlogRegisterJobConfig.class);
     private static final String JOB_NAME = "techBlogRegisterJob";
     private static final String STEP_NAME = "techBlogRegisterStep";
 
@@ -42,24 +41,6 @@ public class TechBlogRegisterJobConfig {
     private final TechBlogProfileService techBlogProfileService;
     private final UrlImageService urlImageService;
     private final UrlImageRepository urlImageRepository;
-
-    public TechBlogRegisterJobConfig(
-            final JobRepository jobRepository,
-            final PlatformTransactionManager txManager,
-            final TechBlogRegisterJobParameters techBlogRegisterJobParameters,
-            final TechBlogRepository techBlogRepository,
-            final TechBlogProfileService techBlogProfileService,
-            final UrlImageService urlImageService,
-            final UrlImageRepository urlImageRepository
-    ) {
-        this.jobRepository = jobRepository;
-        this.txManager = txManager;
-        this.techBlogRegisterJobParameters = techBlogRegisterJobParameters;
-        this.techBlogRepository = techBlogRepository;
-        this.techBlogProfileService = techBlogProfileService;
-        this.urlImageService = urlImageService;
-        this.urlImageRepository = urlImageRepository;
-    }
 
     @Bean
     @JobScope
