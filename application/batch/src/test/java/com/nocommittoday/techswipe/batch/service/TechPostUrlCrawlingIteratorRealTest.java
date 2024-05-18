@@ -10,20 +10,6 @@ import java.util.List;
 class TechPostUrlCrawlingIteratorRealTest {
 
     @Test
-    void 토스() {
-        final TechPostUrlCrawlingIterator iterator = new TechPostUrlCrawlingIterator(
-                "div#__next > div > div.p-container > div.p-container__inner div.css-clywuu.e143n5sn1",
-                "https://toss.tech/tech",
-                null
-        );
-        final List<String> urlList = new ArrayList<>();
-        while (iterator.hasNext()) {
-            urlList.add(iterator.next());
-        }
-        System.out.println(urlList);
-    }
-
-    @Test
     void 리디() {
         final TechPostUrlCrawlingIterator iterator = new TechPostUrlCrawlingIterator(
                 "div#page > main#primary > div.inner > ul",
