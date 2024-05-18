@@ -10,6 +10,7 @@ dependencies {
 
     implementation 'org.springframework:spring-web'
     implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
     implementation "org.jsoup:jsoup:${jsoupVersion}"
     implementation "net.htmlparser.jericho:jericho-html:${jerichoHtmlVersion}"
