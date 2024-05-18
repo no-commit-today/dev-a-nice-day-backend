@@ -32,7 +32,7 @@ public class TechPostCrawler {
             DateTimeFormatter.ofPattern("yy.MM.dd"),
             DateTimeFormatter.ofPattern("yyyy.M.d."),
             DateTimeFormatter.ofPattern("yyyy. M. d."),
-            DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"),
+            DateTimeFormatter.ofPattern("yyyy년 M월 d일"),
             DateTimeFormatter.ofPattern("dd M월 yyyy"),
             DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.ENGLISH),
             DateTimeFormatter.ofPattern("MMM.d.yyyy", Locale.ENGLISH),
