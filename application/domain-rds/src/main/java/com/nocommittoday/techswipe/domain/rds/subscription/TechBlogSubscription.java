@@ -1,14 +1,19 @@
 package com.nocommittoday.techswipe.domain.rds.subscription;
 
 import jakarta.annotation.Nullable;
+import lombok.Builder;
 
 import java.util.List;
+import java.util.Optional;
 
 
+@Builder
 public record TechBlogSubscription(
         long techBlogId,
         TechBlogSubscriptionType type,
+        @Nullable
         String rssUrl,
+        @Nullable
         String atomUrl,
         @Nullable
         PostCrawlingSelectors postCrawlingSelectors,
@@ -21,15 +26,15 @@ public record TechBlogSubscription(
 
     public TechBlogSubscription {
         if (type == TechBlogSubscriptionType.LIST_CRAWLING) {
-            validateListCrawlings();
-            validatePostCrawlingSelectors();
+            validateListCrawlings(listCrawlings);
+            validatePostCrawlingSelectors(postCrawlingSelectors);
         } else if (type == TechBlogSubscriptionType.RSS) {
-            validatePostCrawling();
+            validatePostCrawling(postCrawlingNeeds, postCrawlingSelectors);
             if (rssUrl == null) {
                 throw new IllegalArgumentException("rssUrl 은 필수입니다.");
             }
         } else if (type == TechBlogSubscriptionType.ATOM) {
-            validatePostCrawling();
+            validatePostCrawling(postCrawlingNeeds, postCrawlingSelectors);
             if (atomUrl == null) {
                 throw new IllegalArgumentException("atomUrl 은 필수입니다.");
             }
@@ -61,7 +66,7 @@ public record TechBlogSubscription(
                 ).toList();
     }
 
-    private void validateListCrawlings() {
+    private static void validateListCrawlings(final List<ListCrawling> listCrawlings) {
         if (listCrawlings == null || listCrawlings.isEmpty()) {
             throw new IllegalArgumentException("listCrawlings 는 필수입니다.");
         }
@@ -78,7 +83,7 @@ public record TechBlogSubscription(
         }
     }
 
-    private void validatePostCrawlingSelectors() {
+    private static void validatePostCrawlingSelectors(final PostCrawlingSelectors postCrawlingSelectors) {
         if (postCrawlingSelectors == null) {
             throw new IllegalArgumentException("postCrawlingSelectors 는 null 일 수 없습니다.");
         }
@@ -91,18 +96,24 @@ public record TechBlogSubscription(
         }
     }
 
-    private void validatePostCrawling() {
-        if (postCrawlingSelectors == null) {
-            throw new IllegalArgumentException("postCrawlingSelectors 는 필수입니다.");
-        }
+    private static void validatePostCrawling(
+            final PostCrawlingNeeds postCrawlingNeeds,
+            final PostCrawlingSelectors postCrawlingSelectors
+    ) {
         if (postCrawlingNeeds == null) {
             throw new IllegalArgumentException("postCrawlingNeeds 는 필수입니다.");
         }
+        final boolean dateSelectorPresent = Optional.ofNullable(postCrawlingSelectors)
+                .map(PostCrawlingSelectors::date)
+                .isPresent();
+        final boolean contentSelectorPresent = Optional.ofNullable(postCrawlingSelectors)
+                .map(PostCrawlingSelectors::content)
+                .isPresent();
         // title 이 null 일 경우 html 의 title 가져옴
-        if (postCrawlingNeeds.date() && postCrawlingSelectors.date() == null) {
+        if (postCrawlingNeeds.date() && dateSelectorPresent) {
             throw new IllegalArgumentException("Date crawling selector 가 필요합니다.");
         }
-        if (postCrawlingNeeds.content() && postCrawlingSelectors.content() == null) {
+        if (postCrawlingNeeds.content() && contentSelectorPresent) {
             throw new IllegalArgumentException("Content crawling selector 가 필요합니다.");
         }
     }

@@ -23,6 +23,9 @@ spring:
     activate:
       on-profile: local
 
+logging:
+  level:
+    com.nocommittoday.techswipe: DEBUG
 ---
 spring:
   config:
