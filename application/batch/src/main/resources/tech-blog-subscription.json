@@ -1,2 +1,12 @@
 [
+  {
+    "blogUrl": "https://toss.tech/",
+    "type": "RSS",
+    "rssUrl": "https://toss.tech/rss.xml",
+    "postCrawlingNeeds": {
+      "title": false,
+      "content": false,
+      "date": false
+    }
+  }
 ]
