@@ -47,4 +47,13 @@ class TechPostCrawlerRealTest {
         System.out.println("[날짜]\n" + techPostCrawler.getDate("div#___gatsby > div#gatsby-focus-wrapper > div > div#wrap > main#contents > div.post_wrap > article.post_area > section.post_header > div.post_meta > div.written_by > div.text_area > span.text_date"));
         System.out.println("[본문]\n" + techPostCrawler.getContent("div#___gatsby > div#gatsby-focus-wrapper > div > div#wrap > main#contents > div.post_wrap > article.post_area > section.post_content_wrap > div.content_inner"));
     }
+
+    @Test
+    void 토스() {
+        final TechPostCrawler crawler = new TechPostCrawler("https://toss.tech/article/monitoring-traffic");
+        System.out.println("[이미지 URL]\n" + crawler.getImageUrl());
+        System.out.println("[제목]\n" + crawler.getTitle("div#__next > div > div.p-container > div.p-container__inner > div > article > header > h1"));
+        System.out.println("[날짜]\n" + crawler.getDate("div#__next > div > div.p-container > div.p-container__inner > div > article > header > section.author-container > div.e2c667z3 > div.e2c667z0"));
+        System.out.println("[본문]\n" + crawler.getContent("div#__next > div > div.p-container > div.p-container__inner > div > article > div"));
+    }
 }

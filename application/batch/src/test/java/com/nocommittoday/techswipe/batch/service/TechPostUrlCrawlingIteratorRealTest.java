@@ -12,7 +12,7 @@ class TechPostUrlCrawlingIteratorRealTest {
     @Test
     void 토스() {
         final TechPostUrlCrawlingIterator iterator = new TechPostUrlCrawlingIterator(
-                "div#__next > div.p-container > div.p-container__inner > div > ul",
+                "div#__next > div > div.p-container > div.p-container__inner div.css-clywuu.e143n5sn1",
                 "https://toss.tech/tech",
                 null
         );
