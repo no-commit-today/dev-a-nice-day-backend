@@ -1,9 +1,6 @@
 package com.nocommittoday.techswipe.batch.service;
 
 import jakarta.annotation.Nullable;
-import net.htmlparser.jericho.Renderer;
-import net.htmlparser.jericho.Segment;
-import net.htmlparser.jericho.Source;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -100,13 +97,11 @@ public class TechPostCrawler {
     public String getContent(final String selector) {
         final Element element = document.body().select(selector).first();
         Assert.notNull(element, "본문 추출 실패. url =" + document.baseUri() + ", selector = " + selector);
-        final String html = element.html();
-        final Source source = new Source(html);
-        final Segment segment = new Segment(source, 0, source.length());
-        final Renderer renderer = new Renderer(segment)
-                .setIncludeHyperlinkURLs(false)
-                .setMaxLineLength(Integer.MAX_VALUE);
-        return renderer.toString();
+        return element.text();
+    }
+
+    public String cleanHtmlTag(final String html) {
+        return Jsoup.parse(html).text();
     }
 
 }

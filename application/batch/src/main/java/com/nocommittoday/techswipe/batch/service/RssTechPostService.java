@@ -7,6 +7,7 @@ import com.nocommittoday.techswipe.domain.rds.subscription.RssTechBlogSubscripti
 import com.rometools.rome.feed.rss.Channel;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.WireFeedInput;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,21 +18,19 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Objects;
 
+@Slf4j
 @Service
 public class RssTechPostService {
 
     private final RestTemplate restTemplate;
     private final TechPostUrlSetService techPostUrlSetService;
-    private final HtmlTagCleaner htmlTagCleaner;
 
     public RssTechPostService(
             final RestTemplateBuilder restTemplateBuilder,
-            final TechPostUrlSetService techPostUrlSetService,
-            final HtmlTagCleaner htmlTagCleaner
+            final TechPostUrlSetService techPostUrlSetService
     ) {
         this.restTemplate = restTemplateBuilder.build();
         this.techPostUrlSetService = techPostUrlSetService;
-        this.htmlTagCleaner = htmlTagCleaner;
     }
 
     public List<SubscribedTechPost> getTechPostList(final RssTechBlogSubscription subscription) {
@@ -43,7 +42,7 @@ public class RssTechPostService {
         return channel.getItems().stream()
                 .filter(item -> techPostUrlSetService.add(item.getLink()))
                 .map(item -> {
-                    // TODO 필요에 따라 연결하도록
+                    log.debug("item: {}", item.getLink());
                     final TechPostCrawler crawler = new TechPostCrawler(item.getLink());
                     final String title = crawlingNeeds.title() ?
                             crawler.getTitle(crawlingSelectors.title()) : item.getTitle();
@@ -53,7 +52,7 @@ public class RssTechPostService {
                             item.getPubDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     final String content = crawlingNeeds.content() ?
                             crawler.getContent(crawlingSelectors.content()) :
-                            htmlTagCleaner.clean(item.getDescription().getValue());
+                            crawler.cleanHtmlTag(item.getContent().getValue());
 
                     return SubscribedTechPost.builder()
                             .url(item.getLink())
