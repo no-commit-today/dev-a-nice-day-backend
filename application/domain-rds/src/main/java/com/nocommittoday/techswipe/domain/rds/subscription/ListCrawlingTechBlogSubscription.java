@@ -4,7 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record ListCrawlingTechBlogSubscription(
-        PostCrawlingSelectors postCrawlingSelectors,
+        PostCrawlingIndexes postCrawlingIndexes,
         ListCrawling listCrawling
 ) {
 }

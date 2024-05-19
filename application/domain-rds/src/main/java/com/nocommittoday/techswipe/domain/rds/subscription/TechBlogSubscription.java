@@ -16,7 +16,7 @@ public record TechBlogSubscription(
         @Nullable
         String atomUrl,
         @Nullable
-        PostCrawlingSelectors postCrawlingSelectors,
+        PostCrawlingIndexes postCrawlingIndexes,
         @Nullable
         PostCrawlingNeeds postCrawlingNeeds,
         @Nullable
@@ -27,14 +27,14 @@ public record TechBlogSubscription(
     public TechBlogSubscription {
         if (type == TechBlogSubscriptionType.LIST_CRAWLING) {
             validateListCrawlings(listCrawlings);
-            validatePostCrawlingSelectors(postCrawlingSelectors);
+            validatePostCrawlingSelectors(postCrawlingIndexes);
         } else if (type == TechBlogSubscriptionType.RSS) {
-            validatePostCrawling(postCrawlingNeeds, postCrawlingSelectors);
+            validatePostCrawling(postCrawlingNeeds, postCrawlingIndexes);
             if (rssUrl == null) {
                 throw new IllegalArgumentException("rssUrl 은 필수입니다.");
             }
         } else if (type == TechBlogSubscriptionType.ATOM) {
-            validatePostCrawling(postCrawlingNeeds, postCrawlingSelectors);
+            validatePostCrawling(postCrawlingNeeds, postCrawlingIndexes);
             if (atomUrl == null) {
                 throw new IllegalArgumentException("atomUrl 은 필수입니다.");
             }
@@ -44,7 +44,7 @@ public record TechBlogSubscription(
     public RssTechBlogSubscription toRss() {
         return RssTechBlogSubscription.builder()
                 .url(rssUrl)
-                .postCrawlingSelectors(postCrawlingSelectors)
+                .postCrawlingIndexes(postCrawlingIndexes)
                 .postCrawlingNeeds(postCrawlingNeeds)
                 .build();
     }
@@ -52,7 +52,7 @@ public record TechBlogSubscription(
     public AtomTechBlogSubscription toAtom() {
         return AtomTechBlogSubscription.builder()
                 .url(atomUrl)
-                .postCrawlingSelectors(postCrawlingSelectors)
+                .postCrawlingIndexes(postCrawlingIndexes)
                 .postCrawlingNeeds(postCrawlingNeeds)
                 .build();
     }
@@ -60,7 +60,7 @@ public record TechBlogSubscription(
     public List<ListCrawlingTechBlogSubscription> toListCrawling() {
         return listCrawlings.stream()
                 .map(listCrawling -> ListCrawlingTechBlogSubscription.builder()
-                        .postCrawlingSelectors(postCrawlingSelectors)
+                        .postCrawlingIndexes(postCrawlingIndexes)
                         .listCrawling(listCrawling)
                         .build()
                 ).toList();
@@ -77,37 +77,37 @@ public record TechBlogSubscription(
             if (listCrawling.url() == null) {
                 throw new IllegalArgumentException("listCrawling.url 는 필수입니다.");
             }
-            if (listCrawling.selector() == null) {
+            if (listCrawling.indexes() == null) {
                 throw new IllegalArgumentException("listCrawling.listSelector 는 필수입니다.");
             }
         }
     }
 
-    private static void validatePostCrawlingSelectors(final PostCrawlingSelectors postCrawlingSelectors) {
-        if (postCrawlingSelectors == null) {
+    private static void validatePostCrawlingSelectors(final PostCrawlingIndexes postCrawlingIndexes) {
+        if (postCrawlingIndexes == null) {
             throw new IllegalArgumentException("postCrawlingSelectors 는 null 일 수 없습니다.");
         }
         // title 이 null 일 경우 html 의 title 가져옴
-        if (postCrawlingSelectors.date() == null) {
+        if (postCrawlingIndexes.date() == null) {
             throw new IllegalArgumentException("postCrawlingSelectors.date 는 null 일 수 없습니다.");
         }
-        if (postCrawlingSelectors.content() == null) {
+        if (postCrawlingIndexes.content() == null) {
             throw new IllegalArgumentException("postCrawlingSelectors.content 는 null 일 수 없습니다.");
         }
     }
 
     private static void validatePostCrawling(
             final PostCrawlingNeeds postCrawlingNeeds,
-            final PostCrawlingSelectors postCrawlingSelectors
+            final PostCrawlingIndexes postCrawlingIndexes
     ) {
         if (postCrawlingNeeds == null) {
             throw new IllegalArgumentException("postCrawlingNeeds 는 필수입니다.");
         }
-        final boolean dateSelectorPresent = Optional.ofNullable(postCrawlingSelectors)
-                .map(PostCrawlingSelectors::date)
+        final boolean dateSelectorPresent = Optional.ofNullable(postCrawlingIndexes)
+                .map(PostCrawlingIndexes::date)
                 .isPresent();
-        final boolean contentSelectorPresent = Optional.ofNullable(postCrawlingSelectors)
-                .map(PostCrawlingSelectors::content)
+        final boolean contentSelectorPresent = Optional.ofNullable(postCrawlingIndexes)
+                .map(PostCrawlingIndexes::content)
                 .isPresent();
         // title 이 null 일 경우 html 의 title 가져옴
         if (postCrawlingNeeds.date() && dateSelectorPresent) {

@@ -5,7 +5,7 @@ import lombok.Builder;
 @Builder
 public record RssTechBlogSubscription(
         String url,
-        PostCrawlingSelectors postCrawlingSelectors,
+        PostCrawlingIndexes postCrawlingIndexes,
         PostCrawlingNeeds postCrawlingNeeds
 ) {
 }

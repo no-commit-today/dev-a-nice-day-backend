@@ -5,7 +5,7 @@ import lombok.Builder;
 @Builder
 public record AtomTechBlogSubscription(
         String url,
-        PostCrawlingSelectors postCrawlingSelectors,
+        PostCrawlingIndexes postCrawlingIndexes,
         PostCrawlingNeeds postCrawlingNeeds
 ) {
 }

@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.batch.service;
 
 import com.nocommittoday.techswipe.batch.model.SubscribedTechPost;
 import com.nocommittoday.techswipe.domain.rds.subscription.PostCrawlingNeeds;
-import com.nocommittoday.techswipe.domain.rds.subscription.PostCrawlingSelectors;
+import com.nocommittoday.techswipe.domain.rds.subscription.PostCrawlingIndexes;
 import com.nocommittoday.techswipe.domain.rds.subscription.RssTechBlogSubscription;
 import com.rometools.rome.feed.rss.Channel;
 import com.rometools.rome.io.FeedException;
@@ -38,20 +38,20 @@ public class RssTechPostService {
                 .replaceAll("[^\\u0009\\u000A\\u000D\\u0020-\\uD7FF\\uE000-\\uFFFD\\u10000-\\u10FFF]+", " ");
         final Channel channel = mapToChannel(xmlString);
         final PostCrawlingNeeds crawlingNeeds = subscription.postCrawlingNeeds();
-        final PostCrawlingSelectors crawlingSelectors = subscription.postCrawlingSelectors();
+        final PostCrawlingIndexes crawlingIndexes = subscription.postCrawlingIndexes();
         return channel.getItems().stream()
                 .filter(item -> techPostUrlSetService.add(item.getLink()))
                 .map(item -> {
                     log.debug("item: {}", item.getLink());
-                    final TechPostCrawler crawler = new TechPostCrawler(item.getLink());
+                    final TechPostHtmlIndexCrawler crawler = new TechPostHtmlIndexCrawler(item.getLink());
                     final String title = crawlingNeeds.title() ?
-                            crawler.getTitle(crawlingSelectors.title()) : item.getTitle();
+                            crawler.getTitle(crawlingIndexes.title()) : item.getTitle();
                     final String imageUrl = crawler.getImageUrl();
                     final LocalDate publishedDate = crawlingNeeds.date() ?
-                            crawler.getDate(crawlingSelectors.date()) :
+                            crawler.getDate(crawlingIndexes.date()) :
                             item.getPubDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     final String content = crawlingNeeds.content() ?
-                            crawler.getContent(crawlingSelectors.content()) :
+                            crawler.getContent(crawlingIndexes.content()) :
                             crawler.cleanHtmlTag(item.getContent().getValue());
 
                     return SubscribedTechPost.builder()
