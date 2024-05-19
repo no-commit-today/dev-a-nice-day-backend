@@ -1,0 +1,1 @@
+alter table tech_post change published_at published_date date not null;

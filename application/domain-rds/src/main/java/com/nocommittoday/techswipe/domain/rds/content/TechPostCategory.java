@@ -31,7 +31,7 @@ public class TechPostCategory extends BaseIdEntity {
     private TechPost post;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "category", length = 45, nullable = false)
+    @Column(name = "category", columnDefinition = "varchar(45)", nullable = false)
     private TechCategory category;
 
     protected TechPostCategory() {

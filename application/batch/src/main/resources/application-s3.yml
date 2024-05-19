@@ -1,0 +1,31 @@
+spring:
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+
+app:
+  s3:
+    bucket-name: ${AWS_S3_BUCKET}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+      credentials:
+        access-key: local-access-key
+        secret-key: local-secret-key
+      endpoint: http://localhost.localstack.cloud:4566
+
+app:
+  s3:
+    bucket-name: local-bucket

@@ -4,7 +4,8 @@ import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.nocommittoday.client.openai.domain.OpenAiCode;
+import com.nocommittoday.client.openai.exception.OpenAiCodeDeserializeFailureException;
+import com.nocommittoday.client.openai.model.OpenAiCode;
 
 import java.io.IOException;
 import java.util.EnumSet;
@@ -24,8 +25,6 @@ public class OpenAiCodeDeserializer<E extends Enum<E> & OpenAiCode> extends Json
         return EnumSet.allOf(targetEnumClass).stream()
                 .filter(e -> e.getCode().equals(code))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(String.format(
-                        "OpenAiCode=[%s], code=[%s] 가 존재하지 않음", targetEnumClass.getSimpleName(), code))
-                );
+                .orElseThrow(() -> new OpenAiCodeDeserializeFailureException(targetEnumClass, code));
     }
 }
