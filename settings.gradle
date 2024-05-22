@@ -22,11 +22,11 @@ include 'module:race-condition-test'
 
 include 'client:openai'
 
-include 'application:api'
-include 'application:batch'
-include 'application:admin'
-include 'application:domain-rds'
-include 'application:rds-migration'
-include 'application:arch-test'
+include 'app:api'
+include 'app:batch'
+include 'app:admin'
+include 'app:domain-rds'
+include 'app:rds-migration'
+include 'app:arch-test'
 
 include 'arch-test'

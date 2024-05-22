@@ -1,4 +1,4 @@
-rootProject.name = 'application'
+rootProject.name = 'app'
 
 include 'api'
 include 'batch'

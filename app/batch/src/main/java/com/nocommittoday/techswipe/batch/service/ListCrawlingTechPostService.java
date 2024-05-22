@@ -32,7 +32,8 @@ public class ListCrawlingTechPostService {
                 final String title = crawler.getTitle(postCrawlingIndexes.title());
                 crawler.getDate(postCrawlingIndexes.date());
                 final String imageUrl = crawler.getImageUrl();
-                final String content = crawler.getContent(postCrawlingIndexes.content());
+                final String content = crawler.getContent(postCrawlingIndexes.content())
+                        .replaceAll("[^\\u0009\\u000A\\u000D\\u0020-\\uD7FF\\uE000-\\uFFFD\\u10000-\\u10FFF]+", " ");
                 postList.add(SubscribedTechPost.builder()
                         .title(title)
                         .imageUrl(imageUrl)
