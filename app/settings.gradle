@@ -1,9 +1,0 @@
-rootProject.name = 'app'
-
-include 'api'
-include 'batch'
-
-include 'domain-rds'
-include 'rds-migration'
-
-include 'arch-test'
