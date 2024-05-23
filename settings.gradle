@@ -27,6 +27,11 @@ include 'app:core:core-web-servlet'
 include 'app:core:core-adapter-out-system'
 include 'app:core:core-infra-mysql'
 
+include 'app:image:image-domain'
+include 'app:image:image-application'
+include 'app:image:image-adapter-out'
+include 'app:image:image-infra-mysql'
+
 include 'app:api'
 include 'app:batch'
 include 'app:admin'

@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(":app:image:image-application")
+    implementation project(":app:image:image-infra-mysql")
+    implementation("io.awspring.cloud:spring-cloud-aws-starter-s3")
+}
