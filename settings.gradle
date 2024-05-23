@@ -23,6 +23,7 @@ include 'module:race-condition-test'
 include 'client:openai'
 
 include 'app:core:domain'
+include 'app:core:web-servlet'
 include 'app:api'
 include 'app:batch'
 include 'app:admin'
