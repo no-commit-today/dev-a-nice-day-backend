@@ -24,6 +24,8 @@ include 'client:openai'
 
 include 'app:core:domain'
 include 'app:core:web-servlet'
+include 'app:core:infra-mysql'
+
 include 'app:api'
 include 'app:batch'
 include 'app:admin'
