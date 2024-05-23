@@ -22,7 +22,9 @@ include 'module:race-condition-test'
 include 'client:openai'
 
 include 'app:core:core-domain'
+include 'app:core:core-application'
 include 'app:core:core-web-servlet'
+include 'app:core:core-adapter-out-system'
 include 'app:core:core-infra-mysql'
 
 include 'app:api'
