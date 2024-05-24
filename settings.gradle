@@ -11,9 +11,6 @@ rootProject.name = 'tech-swipe-backend'
 
 include 'module:exception-core'
 include 'module:lock-handler-rds'
-include 'module:domain-code'
-include 'module:domain-code-api'
-include 'module:domain-dto'
 include 'module:latency-logger'
 
 include 'module:jpa-test'
