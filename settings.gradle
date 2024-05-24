@@ -10,11 +10,7 @@ pluginManagement {
 rootProject.name = 'tech-swipe-backend'
 
 include 'module:exception-core'
-include 'module:exception-handler-servlet'
 include 'module:lock-handler-rds'
-include 'module:domain-code'
-include 'module:domain-code-api'
-include 'module:domain-dto'
 include 'module:latency-logger'
 
 include 'module:jpa-test'
@@ -22,11 +18,29 @@ include 'module:race-condition-test'
 
 include 'client:openai'
 
-include 'application:api'
-include 'application:batch'
-include 'application:admin'
-include 'application:domain-rds'
-include 'application:rds-migration'
-include 'application:arch-test'
+include 'app:core:core-domain'
+include 'app:core:core-application'
+include 'app:core:core-web-servlet'
+include 'app:core:core-adapter-out-system'
+include 'app:core:core-infra-mysql'
+
+include 'app:image:image-domain'
+include 'app:image:image-application'
+include 'app:image:image-adapter-out'
+include 'app:image:image-infra-mysql'
+
+include 'app:content:content-domain'
+include 'app:content:content-application'
+include 'app:content:content-infra-mysql'
+
+include 'app:subscription:subscription-domain'
+include 'app:subscription:subscription-application'
+include 'app:subscription:subscription-infra-mysql'
+
+include 'app:api'
+include 'app:batch'
+include 'app:admin'
+include 'app:domain-rds'
+include 'app:rds-migration'
 
 include 'arch-test'

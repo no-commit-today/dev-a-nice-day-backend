@@ -1,0 +1,18 @@
+bootJar.enabled = true
+jar.enabled = false
+
+
+dependencies {
+    implementation project(':app:domain-rds')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    implementation "org.jsoup:jsoup:${jsoupVersion}"
+
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    testRuntimeOnly 'com.h2database:h2'
+    testImplementation 'org.springframework.security:spring-security-test'
+}
