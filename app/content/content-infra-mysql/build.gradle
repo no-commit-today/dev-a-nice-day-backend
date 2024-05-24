@@ -1,7 +1,7 @@
 dependencies {
     api project(":app:core:core-infra-mysql")
     api project(":app:image:image-infra-mysql")
-    implementation project(":app:content:content-domain")
+    api project(":app:content:content-domain")
 
     //Querydsl
     implementation "com.querydsl:querydsl-jpa:5.0.0:jakarta"
