@@ -32,6 +32,7 @@ include 'app:image:image-infra-mysql'
 include 'app:content:content-domain'
 include 'app:content:content-application'
 include 'app:content:content-adapter-out-mysql'
+include 'app:content:content-adapter-in-web'
 include 'app:content:content-infra-mysql'
 
 include 'app:subscription:subscription-domain'
