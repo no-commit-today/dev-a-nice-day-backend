@@ -39,7 +39,6 @@ include 'app:subscription:subscription-domain'
 include 'app:subscription:subscription-application'
 include 'app:subscription:subscription-infra-mysql'
 
-include 'app:api'
 include 'app:batch'
 include 'app:admin'
 include 'app:domain-rds'
