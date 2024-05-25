@@ -10,4 +10,6 @@ interface TechContentJpaRepositoryCustom {
     List<TechContentEntity> findAllWithProviderByCategoryInOrderByPublishedDateDesc(
             final Pageable pageable, final List<TechCategory> categories
     );
+
+    List<TechContentEntity> findAllWithProviderOrderByPublishedDateDesc(final Pageable pageable);
 }

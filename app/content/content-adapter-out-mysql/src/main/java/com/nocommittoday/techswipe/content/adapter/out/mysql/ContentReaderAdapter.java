@@ -8,7 +8,6 @@ import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,8 +21,8 @@ class ContentReaderAdapter implements ContentReaderPort {
     @NonNull
     @Override
     public List<TechContent> getList(@NonNull final PageParam pageParam) {
-        return techContentJpaRepository.findAllWithProvider(
-                PageRequest.of(pageParam.page(), pageParam.size(), Sort.by(Sort.Order.desc("publishedDate")))
+        return techContentJpaRepository.findAllWithProviderOrderByPublishedDateDesc(
+                PageRequest.of(pageParam.page(), pageParam.size())
         ).stream()
                 .map(TechContentEntity::toDomain)
                 .toList();

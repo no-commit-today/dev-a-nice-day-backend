@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static com.nocommittoday.techswipe.content.infrastructure.mysql.QTechCategoryEntity.techCategoryEntity;
+import static com.nocommittoday.techswipe.content.infrastructure.mysql.QTechContentEntity.techContentEntity;
 
 
 @Repository
@@ -36,4 +37,15 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
                 .fetch();
     }
 
+    @Override
+    public List<TechContentEntity> findAllWithProviderOrderByPublishedDateDesc(final Pageable pageable) {
+        return queryFactory
+                .selectFrom(techContentEntity)
+                .join(techContentEntity).fetchJoin()
+                .join(techContentEntity.provider).fetchJoin()
+                .orderBy(techContentEntity.publishedDate.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+    }
 }
