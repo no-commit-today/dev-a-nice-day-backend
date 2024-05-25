@@ -9,6 +9,8 @@ pluginManagement {
 
 rootProject.name = 'tech-swipe-backend'
 
+include 'bootstrap:tech-swipe-api'
+
 include 'module:exception-core'
 include 'module:lock-handler-rds'
 include 'module:latency-logger'
