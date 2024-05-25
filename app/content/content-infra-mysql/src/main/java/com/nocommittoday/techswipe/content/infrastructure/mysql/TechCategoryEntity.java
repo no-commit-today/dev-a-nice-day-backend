@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.content.infrastructure.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
+import com.nocommittoday.techswipe.core.infrastructure.mysql.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
@@ -34,7 +35,7 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 @Getter
 @AllArgsConstructor
-public class TechCategoryEntity {
+public class TechCategoryEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
