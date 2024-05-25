@@ -1,0 +1,8 @@
+dependencies {
+    implementation(project(":app:core:core-domain"))
+    implementation(project(":app:core:core-infra-mysql"))
+
+    implementation(project(":app:content:content-domain"))
+    implementation(project(":app:content:content-application"))
+    implementation(project(":app:content:content-infra-mysql"))
+}
