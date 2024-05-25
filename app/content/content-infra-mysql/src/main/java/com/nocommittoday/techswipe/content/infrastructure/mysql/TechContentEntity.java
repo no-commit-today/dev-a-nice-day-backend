@@ -41,8 +41,8 @@ import static lombok.AccessLevel.PROTECTED;
         },
         indexes = {
                 @Index(
-                        name = "ix_tech_content__tech_blog_id_published_date",
-                        columnList = "tech_blog_id, published_date desc"
+                        name = "ix_tech_content__provider_published_date",
+                        columnList = "provider_id, published_date desc"
                 ),
                 @Index(name = "ix_tech_content__published_date", columnList = "published_date desc")
         }
