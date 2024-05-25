@@ -47,3 +47,5 @@ include 'app:domain-rds'
 include 'app:rds-migration'
 
 include 'arch-test'
+
+include 'support:monitoring'

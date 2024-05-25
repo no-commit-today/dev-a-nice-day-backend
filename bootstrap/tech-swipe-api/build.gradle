@@ -27,6 +27,8 @@ dependencies {
     implementation(project(":app:content:content-domain"))
     implementation(project(":app:content:content-infra-mysql"))
 
+    implementation(project(":support:monitoring"))
+
     implementation("org.springframework.boot:spring-boot-starter")
 
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'

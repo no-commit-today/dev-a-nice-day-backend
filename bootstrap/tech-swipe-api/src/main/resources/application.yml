@@ -5,6 +5,10 @@ spring:
   profiles:
     active: local
 
+  config:
+    import:
+      - monitoring.yml
+
   data:
     web:
       pageable:
