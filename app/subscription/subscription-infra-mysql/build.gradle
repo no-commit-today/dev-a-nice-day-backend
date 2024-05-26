@@ -1,7 +1,10 @@
 dependencies {
-    api project(":app:core:core-infra-mysql")
-    api project(":app:content:content-infra-mysql")
-    api(project(":app:subscription:subscription-domain"))
+    implementation(project(":app:core:core-infra-mysql"))
+
+    implementation(project(":app:core:core-domain"))
+    implementation(project(":app:content:content-domain"))
+    implementation(project(":app:subscription:subscription-domain"))
+
     implementation("com.vladmihalcea:hibernate-types-60:2.21.1")
     implementation("com.fasterxml.jackson.core:jackson-databind")
 }
