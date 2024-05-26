@@ -44,7 +44,6 @@ include 'app:subscription:subscription-infra-mysql'
 include 'app:batch'
 include 'app:admin'
 include 'app:domain-rds'
-include 'app:rds-migration'
 
 include 'arch-test'
 

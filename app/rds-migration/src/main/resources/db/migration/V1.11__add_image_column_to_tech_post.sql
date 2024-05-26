@@ -1,1 +1,0 @@
-alter table tech_post add column image_id bigint after title;
