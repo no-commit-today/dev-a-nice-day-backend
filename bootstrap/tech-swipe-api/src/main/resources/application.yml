@@ -8,6 +8,7 @@ spring:
   config:
     import:
       - monitoring.yml
+      - mysql-migration.yml
 
   data:
     web:
