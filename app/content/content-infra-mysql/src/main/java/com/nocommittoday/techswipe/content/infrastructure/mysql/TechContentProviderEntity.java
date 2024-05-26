@@ -1,26 +1,25 @@
 package com.nocommittoday.techswipe.content.infrastructure.mysql;
 
+import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.core.infrastructure.mysql.BaseSoftDeleteEntity;
-import com.nocommittoday.techswipe.image.infrastructure.mysql.ImageEntity;
 import jakarta.annotation.Nullable;
+import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
-import jakarta.persistence.ConstraintMode;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.Optional;
 
 import static lombok.AccessLevel.PROTECTED;
 
@@ -51,7 +50,17 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity {
     private String url;
 
     @Nullable
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "icon_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private ImageEntity icon;
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "icon_id"))
+    private ImageIdEmbeddable iconId;
+
+    public TechContentProvider toDomain() {
+        return new TechContentProvider(
+                new TechContentProvider.TechContentProviderId(id),
+                type,
+                title,
+                url,
+                Optional.ofNullable(iconId).map(ImageIdEmbeddable::toDomain).orElse(null)
+        );
+    }
 }

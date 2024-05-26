@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.image.infrastructure.mysql;
 
 import com.nocommittoday.techswipe.core.infrastructure.mysql.BaseTimeEntity;
+import com.nocommittoday.techswipe.image.domain.Image;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,4 +33,13 @@ public class ImageEntity extends BaseTimeEntity {
 
     @Column(name = "stored_name", length = 1000, nullable = false)
     private String storedName;
+
+    public Image toDomain() {
+        return new Image(
+                new Image.ImageId(id),
+                url,
+                originalUrl,
+                storedName
+        );
+    }
 }

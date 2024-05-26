@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 @RequiredArgsConstructor
 public enum ImageErrorCode implements ErrorCodeType {
     NOT_SUPPORTED_IMAGE("IMAGE-001", "지원하지 않는 이미지입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
+    IMAGE_NOT_FOUND("IMAGE-002", "이미지를 찾을 수 없습니다.", HttpURLConnection.HTTP_NOT_FOUND),
     ;
 
     private final String code;

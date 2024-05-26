@@ -1,0 +1,55 @@
+bootJar.enabled = true
+jar.enabled = false
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+configurations {
+    asciidoctorExt
+}
+
+dependencies {
+    implementation(project(":app:core:core-domain"))
+    implementation(project(":app:core:core-application"))
+    implementation(project(":app:core:core-web-servlet"))
+    implementation(project(":app:core:core-adapter-out-system"))
+    implementation(project(":app:core:core-infra-mysql"))
+
+    implementation(project(":app:image:image-domain"))
+    implementation(project(":app:image:image-application"))
+    implementation(project(":app:image:image-adapter-out"))
+    implementation(project(":app:image:image-infra-mysql"))
+
+    implementation(project(":app:content:content-adapter-in-web"))
+    implementation(project(":app:content:content-adapter-out-mysql"))
+    implementation(project(":app:content:content-application"))
+    implementation(project(":app:content:content-domain"))
+    implementation(project(":app:content:content-infra-mysql"))
+
+    implementation(project(":support:monitoring"))
+    implementation(project(":support:mysql-migration"))
+
+    implementation("org.springframework.boot:spring-boot-starter")
+
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+}
+
+test {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    configurations 'asciidoctorExt'
+    dependsOn test
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from ("${asciidoctor.outputDir}") {
+        into 'static/docs'
+    }
+}

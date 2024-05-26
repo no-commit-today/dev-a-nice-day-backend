@@ -1,0 +1,13 @@
+= Content
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+
+[[get-list]]
+== 컨텐츠_리스트_조회
+
+operation::content/get-list[snippets='http-request,query-parameters,http-response,response-fields']

@@ -6,7 +6,7 @@ import jakarta.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-public abstract class BaseSoftDeleteEntity {
+public abstract class BaseSoftDeleteEntity extends BaseTimeEntity {
 
     @Column(name = "deleted", nullable = false)
     private Boolean deleted = false;
