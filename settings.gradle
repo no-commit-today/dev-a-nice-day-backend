@@ -42,7 +42,6 @@ include 'app:subscription:subscription-application'
 include 'app:subscription:subscription-infra-mysql'
 
 include 'app:batch'
-include 'app:admin'
 include 'app:domain-rds'
 
 include 'arch-test'
