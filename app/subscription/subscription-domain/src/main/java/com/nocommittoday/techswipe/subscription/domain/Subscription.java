@@ -19,6 +19,8 @@ import java.util.List;
 @Getter
 public class Subscription {
 
+    private final SubscriptionId id;
+
     @NonNull
     private final TechContentProvider.TechContentProviderId providerId;
 
@@ -57,4 +59,6 @@ public class Subscription {
                         new ListCrawlingSubscription(contentCrawlingIndexes, listCrawling)
                 ).toList();
     }
+
+    public record SubscriptionId(long value) {}
 }
