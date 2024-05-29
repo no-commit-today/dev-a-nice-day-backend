@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 public record AtomSubscription(
         @NonNull String url,
-        @Nullable ContentCrawlingIndexes contentCrawlingIndexes,
-        @NonNull ContentCrawlingNeeds contentCrawlingNeeds
+        @Nullable ContentCrawlingIndexes contentCrawlingIndexes
 ) {
 }

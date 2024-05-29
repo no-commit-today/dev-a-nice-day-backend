@@ -4,7 +4,6 @@ import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawlingIndexes;
-import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawlingNeeds;
 import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawling;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +28,6 @@ class SubscriptionEntityTest {
                                 List.of(4, 5, 6),
                                 List.of(7, 8, 9)
                         ),
-                        new ContentCrawlingNeeds(true, true, true),
                         List.of(
                                 new ListCrawling("url1", List.of(1, 2, 3), "pageUrlFormat")
                         )
@@ -51,7 +49,6 @@ class SubscriptionEntityTest {
                 List.of(4, 5, 6),
                 List.of(7, 8, 9)
         ));
-        assertThat(result.getContentCrawlingNeeds()).isEqualTo(new ContentCrawlingNeeds(true, true, true));
         assertThat(result.getListCrawlings()).containsExactly(new ListCrawling("url1", List.of(1, 2, 3), "pageUrlFormat"));
     }
 }

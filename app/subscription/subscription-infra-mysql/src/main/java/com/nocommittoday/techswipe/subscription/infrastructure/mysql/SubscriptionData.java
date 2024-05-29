@@ -1,7 +1,6 @@
 package com.nocommittoday.techswipe.subscription.infrastructure.mysql;
 
 import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawlingIndexes;
-import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawlingNeeds;
 import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawling;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,8 +21,6 @@ public class SubscriptionData {
     private String atomUrl;
     @Nullable
     private ContentCrawlingIndexes contentCrawlingIndexes;
-    @Nullable
-    private ContentCrawlingNeeds contentCrawlingNeeds;
     @Nullable
     private List<ListCrawling> listCrawlings;
 }

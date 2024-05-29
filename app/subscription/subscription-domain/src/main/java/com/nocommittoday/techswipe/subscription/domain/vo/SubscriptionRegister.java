@@ -11,7 +11,6 @@ public record SubscriptionRegister(
         @NonNull SubscriptionType type,
         @Nullable String rssUrl,
         @Nullable String atomUrl,
-        @Nullable ContentCrawlingNeeds contentCrawlingNeeds,
         @Nullable ContentCrawlingIndexes contentCrawlingIndexes,
         @Nullable List<ListCrawling> listCrawlings
 ) {
@@ -19,14 +18,14 @@ public record SubscriptionRegister(
     public void validate() {
         if (type == SubscriptionType.LIST_CRAWLING) {
             validateListCrawlings();
-            validatePostCrawlingSelectors();
+            validateContentCrawlingIndexes();
         } else if (type == SubscriptionType.RSS) {
-            validatePostCrawling();
+            validateContentCrawling();
             if (rssUrl == null) {
                 throw new IllegalArgumentException("rssUrl 은 필수입니다.");
             }
         } else if (type == SubscriptionType.ATOM) {
-            validatePostCrawling();
+            validateContentCrawling();
             if (atomUrl == null) {
                 throw new IllegalArgumentException("atomUrl 은 필수입니다.");
             }
@@ -46,7 +45,7 @@ public record SubscriptionRegister(
         }
     }
 
-    private void validatePostCrawlingSelectors() {
+    private void validateContentCrawlingIndexes() {
         if (contentCrawlingIndexes == null) {
             throw new IllegalArgumentException("postCrawlingSelectors 는 null 일 수 없습니다.");
         }
@@ -59,10 +58,7 @@ public record SubscriptionRegister(
         }
     }
 
-    private void validatePostCrawling() {
-        if (contentCrawlingNeeds == null) {
-            throw new IllegalArgumentException("postCrawlingNeeds 는 필수입니다.");
-        }
+    private void validateContentCrawling() {
         final boolean dateSelectorPresent = Optional.ofNullable(contentCrawlingIndexes)
                 .map(ContentCrawlingIndexes::date)
                 .isPresent();
@@ -70,10 +66,10 @@ public record SubscriptionRegister(
                 .map(ContentCrawlingIndexes::content)
                 .isPresent();
         // title 이 null 일 경우 html 의 title 가져옴
-        if (contentCrawlingNeeds.date() && dateSelectorPresent) {
+        if (dateSelectorPresent) {
             throw new IllegalArgumentException("Date crawling selector 가 필요합니다.");
         }
-        if (contentCrawlingNeeds.content() && contentSelectorPresent) {
+        if (contentSelectorPresent) {
             throw new IllegalArgumentException("Content crawling selector 가 필요합니다.");
         }
     }
