@@ -12,6 +12,7 @@ import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -24,21 +25,26 @@ class SubscribedContentListQueryService implements SubscribedContentListQuery {
     private final ListCrawlingContentReaderPort listCrawlingContentReaderPort;
 
     @Override
-    public List<SubscribedContent> getList(final TechContentProvider.TechContentProviderId providerId) {
+    public List<SubscribedContent> getList(
+            final TechContentProvider.TechContentProviderId providerId,
+            final LocalDate date
+    ) {
         final Subscription subscription = subscriptionReaderPort.getByProviderId(providerId);
-        return getSubscribedContentList(subscription);
+        return getSubscribedContentList(subscription, date);
     }
 
-    private List<SubscribedContent> getSubscribedContentList(final Subscription subscription) {
+    private List<SubscribedContent> getSubscribedContentList(
+            final Subscription subscription, final LocalDate date
+    ) {
         if (SubscriptionType.LIST_CRAWLING == subscription.getType()) {
             return subscription.toListCrawling().stream()
-                    .map(listCrawlingContentReaderPort::getList)
+                    .map(listCrawling -> listCrawlingContentReaderPort.getList(listCrawling, date))
                     .flatMap(List::stream)
                     .toList();
         } else if (SubscriptionType.RSS == subscription.getType()) {
-            return rssContentReaderPort.getList(subscription.toRss());
+            return rssContentReaderPort.getList(subscription.toRss(), date);
         } else if (SubscriptionType.ATOM == subscription.getType()) {
-            return atomContentReaderPort.getList(subscription.toAtom());
+            return atomContentReaderPort.getList(subscription.toAtom(), date);
         }
         throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getType());
     }
