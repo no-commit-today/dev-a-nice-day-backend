@@ -20,4 +20,12 @@ public record Crawling(
             throw new IllegalArgumentException(CrawlingType.SELECTOR + "타입은 selector가 필수입니다.");
         }
     }
+
+    public static Crawling ofSelector(final String selector) {
+        return new Crawling(CrawlingType.SELECTOR, selector, null);
+    }
+
+    public static Crawling ofIndex(final List<Integer> indexes) {
+        return new Crawling(CrawlingType.INDEX, null, indexes);
+    }
 }

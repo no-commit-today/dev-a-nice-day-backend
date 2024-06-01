@@ -3,6 +3,7 @@ dependencies {
     implementation(project(":app:core:core-application"))
 
     implementation(project(":app:content:content-domain"))
+    implementation(project(":app:content:content-application"))
 
     implementation(project(":app:subscription:subscription-domain"))
 

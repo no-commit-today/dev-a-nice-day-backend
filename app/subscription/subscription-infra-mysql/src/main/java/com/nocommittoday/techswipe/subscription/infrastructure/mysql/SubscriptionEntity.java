@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.subscription.infrastructure.mysql;
 import com.nocommittoday.techswipe.core.infrastructure.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
+import com.nocommittoday.techswipe.subscription.domain.vo.SubscriptionRegister;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -59,6 +60,20 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
                 data.getAtomUrl(),
                 data.getContentCrawling(),
                 data.getListCrawlings()
+        );
+    }
+
+    public static SubscriptionEntity from(final SubscriptionRegister register) {
+        return new SubscriptionEntity(
+                null,
+                TechContentProviderIdEmbeddable.from(register.providerId()),
+                register.type(),
+                new SubscriptionData(
+                        register.rssUrl(),
+                        register.atomUrl(),
+                        register.contentCrawling(),
+                        register.listCrawlings()
+                )
         );
     }
 }

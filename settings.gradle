@@ -41,6 +41,7 @@ include 'app:subscription:subscription-domain'
 include 'app:subscription:subscription-application'
 include 'app:subscription:subscription-adapter-out-mysql'
 include 'app:subscription:subscription-adapter-out-web'
+include 'app:subscription:subscription-adapter-in-web-admin'
 include 'app:subscription:subscription-infra-mysql'
 
 include 'app:batch'
