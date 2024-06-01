@@ -7,7 +7,7 @@ import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
 import com.rometools.rome.feed.atom.Content;
 import com.rometools.rome.feed.atom.Entry;
 import com.rometools.rome.feed.atom.Feed;
-import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,10 +21,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-@RequiredArgsConstructor
 class AtomContentReaderAdapter implements AtomContentReaderPort {
 
     private final RestTemplate restTemplate;
+
+    public AtomContentReaderAdapter(final RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
+    }
 
     @Override
     public List<SubscribedContent> getList(

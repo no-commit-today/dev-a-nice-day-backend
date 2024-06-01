@@ -8,7 +8,7 @@ import com.rometools.rome.feed.rss.Channel;
 import com.rometools.rome.feed.rss.Item;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.WireFeedInput;
-import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,10 +22,13 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Component
-@RequiredArgsConstructor
 class RssContentReaderAdapter implements RssContentReaderPort {
 
     private final RestTemplate restTemplate;
+
+    public RssContentReaderAdapter(final RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
+    }
 
     @Override
     public List<SubscribedContent> getList(
