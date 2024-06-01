@@ -36,21 +36,20 @@ class RssContentReaderAdapter implements RssContentReaderPort {
         final Channel channel = mapToChannel(xmlString);
         final List<SubscribedContent> result = new ArrayList<>();
         for (Item item : channel.getItems()) {
-            final LocalDate pubDate = item.getPubDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            if (date.isAfter(pubDate)) {
+            final ContentCrawler crawler = new ContentCrawler(item.getLink());
+            final LocalDate publishedDate = Optional.of(subscription.contentCrawling())
+                    .map(ContentCrawling::date)
+                    .map(crawler::getDate)
+                    .orElse(item.getPubDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            if (date.isAfter(publishedDate)) {
                 break;
             }
 
-            final ContentCrawler crawler = new ContentCrawler(item.getLink());
             final String imageUrl = crawler.getImageUrl();
             final String title = Optional.of(subscription.contentCrawling())
                     .map(ContentCrawling::title)
                     .map(crawler::getTitle)
                     .orElse(item.getTitle());
-            final LocalDate publishedDate = Optional.of(subscription.contentCrawling())
-                    .map(ContentCrawling::date)
-                    .map(crawler::getDate)
-                    .orElse(pubDate);
             final String content = Optional.of(subscription.contentCrawling())
                     .map(ContentCrawling::content)
                     .map(crawler::getContent)

@@ -33,20 +33,21 @@ class AtomContentReaderAdapter implements AtomContentReaderPort {
         final Feed feed = Objects.requireNonNull(restTemplate.getForObject(subscription.url(), Feed.class));
         final List<SubscribedContent> result = new ArrayList<>();
         for (Entry item : feed.getEntries()) {
-            if (date.isAfter(getDate(item))) {
+            final ContentCrawler crawler = new ContentCrawler(item.getId());
+            final LocalDate publishedDate = Optional.of(subscription.contentCrawling())
+                    .map(ContentCrawling::date)
+                    .map(crawler::getDate)
+                    .orElseGet(() -> getDate(item));
+
+            if (date.isAfter(publishedDate)) {
                 break;
             }
-            final ContentCrawler crawler = new ContentCrawler(item.getId());
             final String imageUrl = crawler.getImageUrl();
             final String title = Optional.of(subscription.contentCrawling())
                     .map(ContentCrawling::title)
                     .map(crawler::getTitle)
                     .orElse(item.getTitle());
 
-            final LocalDate publishedDate = Optional.of(subscription.contentCrawling())
-                    .map(ContentCrawling::date)
-                    .map(crawler::getDate)
-                    .orElseGet(() -> getDate(item));
 
             final String content = Optional.of(subscription.contentCrawling())
                     .map(ContentCrawling::content)

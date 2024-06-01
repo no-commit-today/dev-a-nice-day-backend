@@ -29,8 +29,12 @@ class ListCrawlingContentReaderAdapter implements ListCrawlingContentReaderPort 
         while (iterator.hasNext()) {
             final String url = iterator.next();
             final ContentCrawler crawler = new ContentCrawler(url);
-            final String title = crawler.getTitle(Objects.requireNonNull(contentCrawling.title()));
             final LocalDate publishedDate = crawler.getDate(Objects.requireNonNull(contentCrawling.date()));
+            if (date.isAfter(publishedDate)) {
+                break;
+            }
+
+            final String title = crawler.getTitle(Objects.requireNonNull(contentCrawling.title()));
             final String imageUrl = crawler.getImageUrl();
             final String content = crawler.getContent(Objects.requireNonNull(contentCrawling.content()));
             result.add(new SubscribedContent(
