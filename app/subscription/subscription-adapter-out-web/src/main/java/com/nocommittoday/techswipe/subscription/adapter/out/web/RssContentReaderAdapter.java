@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.subscription.adapter.out.web;
 
 import com.nocommittoday.techswipe.subscription.application.port.out.RssContentReaderPort;
 import com.nocommittoday.techswipe.subscription.application.port.vo.SubscribedContent;
-import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawlingIndexes;
+import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.vo.RssSubscription;
 import com.rometools.rome.feed.rss.Channel;
 import com.rometools.rome.feed.rss.Item;
@@ -41,21 +41,18 @@ class RssContentReaderAdapter implements RssContentReaderPort {
                 break;
             }
 
-            final IndexContentCrawler crawler = new IndexContentCrawler(item.getLink());
+            final ContentCrawler crawler = new ContentCrawler(item.getLink());
             final String imageUrl = crawler.getImageUrl();
-            final String title = Optional.of(subscription)
-                    .map(RssSubscription::contentCrawlingIndexes)
-                    .map(ContentCrawlingIndexes::title)
+            final String title = Optional.of(subscription.contentCrawling())
+                    .map(ContentCrawling::title)
                     .map(crawler::getTitle)
                     .orElse(item.getTitle());
-            final LocalDate publishedDate = Optional.of(subscription)
-                    .map(RssSubscription::contentCrawlingIndexes)
-                    .map(ContentCrawlingIndexes::date)
+            final LocalDate publishedDate = Optional.of(subscription.contentCrawling())
+                    .map(ContentCrawling::date)
                     .map(crawler::getDate)
                     .orElse(pubDate);
-            final String content = Optional.of(subscription)
-                    .map(RssSubscription::contentCrawlingIndexes)
-                    .map(ContentCrawlingIndexes::content)
+            final String content = Optional.of(subscription.contentCrawling())
+                    .map(ContentCrawling::content)
                     .map(crawler::getContent)
                     .orElse(crawler.cleanHtmlTag(item.getDescription().getValue()));
 

@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.subscription.adapter.out.web;
 import com.nocommittoday.techswipe.subscription.application.port.out.AtomContentReaderPort;
 import com.nocommittoday.techswipe.subscription.application.port.vo.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.vo.AtomSubscription;
-import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawlingIndexes;
+import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
 import com.rometools.rome.feed.atom.Content;
 import com.rometools.rome.feed.atom.Entry;
 import com.rometools.rome.feed.atom.Feed;
@@ -36,23 +36,20 @@ class AtomContentReaderAdapter implements AtomContentReaderPort {
             if (date.isAfter(getDate(item))) {
                 break;
             }
-            final IndexContentCrawler crawler = new IndexContentCrawler(item.getId());
+            final ContentCrawler crawler = new ContentCrawler(item.getId());
             final String imageUrl = crawler.getImageUrl();
-            final String title = Optional.of(subscription)
-                    .map(AtomSubscription::contentCrawlingIndexes)
-                    .map(ContentCrawlingIndexes::title)
+            final String title = Optional.of(subscription.contentCrawling())
+                    .map(ContentCrawling::title)
                     .map(crawler::getTitle)
                     .orElse(item.getTitle());
 
-            final LocalDate publishedDate = Optional.of(subscription)
-                    .map(AtomSubscription::contentCrawlingIndexes)
-                    .map(ContentCrawlingIndexes::date)
+            final LocalDate publishedDate = Optional.of(subscription.contentCrawling())
+                    .map(ContentCrawling::date)
                     .map(crawler::getDate)
                     .orElseGet(() -> getDate(item));
 
-            final String content = Optional.of(subscription)
-                    .map(AtomSubscription::contentCrawlingIndexes)
-                    .map(ContentCrawlingIndexes::content)
+            final String content = Optional.of(subscription.contentCrawling())
+                    .map(ContentCrawling::content)
                     .map(crawler::getContent)
                     .orElseGet(() -> item.getContents()
                             .stream()

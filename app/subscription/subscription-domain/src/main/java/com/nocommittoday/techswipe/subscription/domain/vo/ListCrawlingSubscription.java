@@ -1,10 +1,11 @@
 package com.nocommittoday.techswipe.subscription.domain.vo;
 
 import lombok.Builder;
+import lombok.NonNull;
 
 @Builder
 public record ListCrawlingSubscription(
-        ContentCrawlingIndexes contentCrawlingIndexes,
-        ListCrawling listCrawling
+        @NonNull ListCrawling listCrawling,
+        @NonNull ContentCrawling contentCrawling
 ) {
 }

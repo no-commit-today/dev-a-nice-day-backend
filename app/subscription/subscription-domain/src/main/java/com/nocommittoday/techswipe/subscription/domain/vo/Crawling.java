@@ -1,0 +1,23 @@
+package com.nocommittoday.techswipe.subscription.domain.vo;
+
+import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
+import lombok.NonNull;
+
+import javax.annotation.Nullable;
+import java.util.List;
+
+public record Crawling(
+        @NonNull CrawlingType type,
+        @Nullable String selector,
+        @Nullable List<Integer> indexes
+) {
+
+    public Crawling {
+        if (CrawlingType.INDEX == type && (indexes == null || indexes.isEmpty())) {
+            throw new IllegalArgumentException(CrawlingType.INDEX + "타입은 indexes가 필수입니다.");
+        }
+        if (CrawlingType.SELECTOR == type && (selector == null || selector.isEmpty())) {
+            throw new IllegalArgumentException(CrawlingType.SELECTOR + "타입은 selector가 필수입니다.");
+        }
+    }
+}

@@ -2,8 +2,10 @@ package com.nocommittoday.techswipe.subscription.infrastructure.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
+import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
-import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawlingIndexes;
+import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
+import com.nocommittoday.techswipe.subscription.domain.vo.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawling;
 import org.junit.jupiter.api.Test;
 
@@ -23,13 +25,17 @@ class SubscriptionEntityTest {
                 new SubscriptionData(
                         "rssUrl",
                         "atomUrl",
-                        new ContentCrawlingIndexes(
-                                List.of(1, 2, 3),
-                                List.of(4, 5, 6),
-                                List.of(7, 8, 9)
+                        new ContentCrawling(
+                                new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
+                                new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
+                                new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3))
                         ),
                         List.of(
-                                new ListCrawling("url1", List.of(1, 2, 3), "pageUrlFormat")
+                                new ListCrawling(
+                                        "url1",
+                                        new Crawling(CrawlingType.INDEX, null, List.of(1, 2)),
+                                        "pageUrlFormat"
+                                )
                         )
                 )
         );
@@ -44,11 +50,11 @@ class SubscriptionEntityTest {
         assertThat(result.getType()).isEqualTo(SubscriptionType.RSS);
         assertThat(result.getRssUrl()).isEqualTo("rssUrl");
         assertThat(result.getAtomUrl()).isEqualTo("atomUrl");
-        assertThat(result.getContentCrawlingIndexes()).isEqualTo(new ContentCrawlingIndexes(
-                List.of(1, 2, 3),
-                List.of(4, 5, 6),
-                List.of(7, 8, 9)
+        assertThat(result.getContentCrawling()).isEqualTo(new ContentCrawling(
+                new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
+                new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
+                new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3))
         ));
-        assertThat(result.getListCrawlings()).containsExactly(new ListCrawling("url1", List.of(1, 2, 3), "pageUrlFormat"));
+        assertThat(result.getListCrawlings()).containsExactly(new ListCrawling("url1", new Crawling(CrawlingType.INDEX, null, List.of(1, 2)), "pageUrlFormat"));
     }
 }

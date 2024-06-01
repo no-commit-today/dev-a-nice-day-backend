@@ -57,7 +57,7 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
                 type,
                 data.getRssUrl(),
                 data.getAtomUrl(),
-                data.getContentCrawlingIndexes(),
+                data.getContentCrawling(),
                 data.getListCrawlings()
         );
     }

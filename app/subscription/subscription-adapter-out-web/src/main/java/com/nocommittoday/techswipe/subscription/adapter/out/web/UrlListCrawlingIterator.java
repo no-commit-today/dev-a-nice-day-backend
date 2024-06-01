@@ -1,7 +1,8 @@
 package com.nocommittoday.techswipe.subscription.adapter.out.web;
 
+import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
+import com.nocommittoday.techswipe.subscription.domain.vo.Crawling;
 import jakarta.annotation.Nullable;
-import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -17,26 +18,25 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Queue;
-import java.util.Set;
 
 @Slf4j
-class SelectorUrlCrawlingIterator implements Iterator<String> {
+class UrlListCrawlingIterator implements Iterator<String> {
 
-    private final String postLinkElementSelector;
+    private final Crawling crawling;
     private String postListPageUrl;
     private final boolean paginated;
-    @Nullable private final String postListPageUrlFormat;
+    @Nullable
+    private final String postListPageUrlFormat;
     private int page = 1;
 
     private final Queue<String> postUrls = new LinkedList<>();
 
-    @Builder
-    public SelectorUrlCrawlingIterator(
-            final String postLinkElementSelector,
+    public UrlListCrawlingIterator(
+            final Crawling crawling,
             final String postListPageUrl,
             @Nullable final String postListPageUrlFormat
     ) {
-        this.postLinkElementSelector = postLinkElementSelector;
+        this.crawling = crawling;
         this.postListPageUrl = postListPageUrl;
         postUrls.addAll(getNextPostUrls());
 
@@ -79,10 +79,30 @@ class SelectorUrlCrawlingIterator implements Iterator<String> {
             throw new UncheckedIOException(e);
         }
 
-        final Element element = Objects.requireNonNull(document.body().select(postLinkElementSelector).first());
+        if (CrawlingType.INDEX == crawling.type()) {
+            return crawlByIndex(document, Objects.requireNonNull(crawling.indexes()));
+        } else if (CrawlingType.SELECTOR == crawling.type()) {
+            return crawlBySelector(document, Objects.requireNonNull(crawling.selector()));
+        } else {
+            throw new IllegalArgumentException("지원하지 않는 크롤링 타입입니다: " + crawling.type());
 
-        final Set<String> urlSet = new LinkedHashSet<>(element.select("a").eachAttr("abs:href"));
-        return urlSet.stream().toList();
+        }
     }
 
+    private List<String> crawlByIndex(final Document document, final List<Integer> postUrlListIndexes) {
+        Element element = document.body();
+        log.debug("{} [body]\n{}", document.baseUri(), element.html());
+        for (int i = 0; i < postUrlListIndexes.size(); i++) {
+            final int index = postUrlListIndexes.get(i);
+            element = element.child(index);
+            log.debug("{} [child{} index{}]\n{}", document.baseUri(), i, index, element.html());
+        }
+
+        return new LinkedList<>(element.select("a").eachAttr("abs:href")).stream().toList();
+    }
+
+    private List<String> crawlBySelector(final Document document, final String selector) {
+        final Element element = Objects.requireNonNull(document.body().select(selector).first());
+        return new LinkedHashSet<>(element.select("a").eachAttr("abs:href")).stream().toList();
+    }
 }
