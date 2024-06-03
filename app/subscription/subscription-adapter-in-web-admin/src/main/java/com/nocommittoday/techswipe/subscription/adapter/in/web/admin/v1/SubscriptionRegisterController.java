@@ -16,7 +16,7 @@ class SubscriptionRegisterController {
 
     private final SubscriptionRegisterUseCase subscriptionRegisterUseCase;
 
-    @PostMapping("/api/subscription/v1/admin/subscriptions")
+    @PostMapping("/api/subscription/admin/subscriptions")
     ResponseEntity<Void> register(@Validated @RequestBody final SubscriptionRegisterRequest request) {
         subscriptionRegisterUseCase.register(request.toDomain());
         return ResponseEntity.status(HttpStatus.CREATED).build();
