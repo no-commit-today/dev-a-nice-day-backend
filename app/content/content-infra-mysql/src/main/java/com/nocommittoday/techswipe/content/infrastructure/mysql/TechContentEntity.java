@@ -72,10 +72,6 @@ public class TechContentEntity extends BaseSoftDeleteEntity {
     private String title;
 
     @Lob
-    @Column(name = "content", length = 100_000_000, nullable = false)
-    private String content;
-
-    @Lob
     @Column(name = "summary", length = 2_000, nullable = false)
     private String summary;
 
