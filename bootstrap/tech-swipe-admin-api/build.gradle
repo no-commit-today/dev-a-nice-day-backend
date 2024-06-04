@@ -1,0 +1,20 @@
+bootJar.enabled = true
+jar.enabled = false
+
+dependencies {
+    implementation(project(":app:content:content-adapter-out-mysql"))
+    implementation(project(":app:content:content-application"))
+    implementation(project(":app:content:content-domain"))
+    implementation(project(":app:content:content-infra-mysql"))
+
+    implementation(project(":app:subscription:subscription-adapter-in-web-admin"))
+    implementation(project(":app:subscription:subscription-adapter-out-mysql"))
+    implementation(project(":app:subscription:subscription-adapter-out-web"))
+    implementation(project(":app:subscription:subscription-application"))
+    implementation(project(":app:subscription:subscription-domain"))
+    implementation(project(":app:subscription:subscription-infra-mysql"))
+
+    implementation(project(":support:mysql-migration"))
+
+    implementation("org.springframework.boot:spring-boot-starter")
+}

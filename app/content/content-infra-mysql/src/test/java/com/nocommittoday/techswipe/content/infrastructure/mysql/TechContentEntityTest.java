@@ -30,7 +30,6 @@ class TechContentEntityTest {
                 new ImageIdEmbeddable(2L),
                 "url",
                 "title",
-                "content",
                 "summary",
                 LocalDate.of(2021, 1, 1),
                 List.of(new TechCategoryEntity(5L, mock(TechContentEntity.class), TechCategory.INFRA)

@@ -1,6 +1,8 @@
 package com.nocommittoday.techswipe.image.application.port.in;
 
+import com.nocommittoday.techswipe.image.domain.Image;
+
 public interface ImageStoreUseCase {
 
-    long store(String originUrl, String dirToStore);
+    Image.ImageId store(String originUrl, String dirToStore);
 }

@@ -10,11 +10,12 @@ pluginManagement {
 rootProject.name = 'tech-swipe-backend'
 
 include 'bootstrap:tech-swipe-api'
+include 'bootstrap:tech-swipe-admin-api'
+include 'bootstrap:tech-swipe-batch'
 
 include 'module:exception-core'
 include 'module:lock-handler-rds'
 include 'module:latency-logger'
-
 include 'module:jpa-test'
 include 'module:race-condition-test'
 
@@ -35,11 +36,20 @@ include 'app:content:content-domain'
 include 'app:content:content-application'
 include 'app:content:content-adapter-out-mysql'
 include 'app:content:content-adapter-in-web'
+include 'app:content:content-adapter-in-web-admin'
 include 'app:content:content-infra-mysql'
 
 include 'app:subscription:subscription-domain'
 include 'app:subscription:subscription-application'
+include 'app:subscription:subscription-adapter-out-mysql'
+include 'app:subscription:subscription-adapter-out-web'
+include 'app:subscription:subscription-adapter-in-web-admin'
 include 'app:subscription:subscription-infra-mysql'
+
+include 'app:collection:collection-domain'
+include 'app:collection:collection-application'
+include 'app:collection:collection-adapter-out-mysql'
+include 'app:collection:collection-infra-mysql'
 
 include 'app:batch'
 include 'app:domain-rds'

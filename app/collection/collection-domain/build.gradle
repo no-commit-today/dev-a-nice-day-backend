@@ -1,0 +1,7 @@
+dependencies {
+    implementation(project(":app:core:core-domain"))
+
+    implementation(project(":app:content:content-domain"))
+
+    implementation(project(":app:subscription:subscription-domain"))
+}
