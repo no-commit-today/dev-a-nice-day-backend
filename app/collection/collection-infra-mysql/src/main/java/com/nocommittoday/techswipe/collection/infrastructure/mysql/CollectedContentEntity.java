@@ -19,6 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.annotation.Nullable;
+import java.time.LocalDate;
 import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -51,6 +52,9 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
     @Column(name = "title", length = 500, nullable = false)
     private String title;
 
+    @Column(name = "published_date", nullable = false)
+    private LocalDate publishedDate;
+
     @Lob
     @Column(name = "content", length = 100_000_000, nullable = false)
     private String content;
@@ -71,6 +75,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
                 new TechContentProvider.TechContentProviderId(providerId),
                 url,
                 title,
+                publishedDate,
                 content,
                 imageUrl,
                 categories
@@ -84,6 +89,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
                 contentCollect.providerId().value(),
                 contentCollect.url(),
                 contentCollect.title(),
+                contentCollect.publishedDate(),
                 contentCollect.content(),
                 contentCollect.imageUrl(),
                 null

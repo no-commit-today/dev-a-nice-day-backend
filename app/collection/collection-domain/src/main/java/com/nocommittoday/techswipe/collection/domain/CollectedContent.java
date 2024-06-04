@@ -8,6 +8,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import javax.annotation.Nullable;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -28,6 +29,9 @@ public class CollectedContent {
 
     @NonNull
     private final String title;
+
+    @NonNull
+    private final LocalDate publishedDate;
 
     @NonNull
     private final String content;
