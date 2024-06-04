@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.subscription.adapter.out.web;
 
 import com.nocommittoday.techswipe.subscription.application.port.out.ListCrawlingContentReaderPort;
-import com.nocommittoday.techswipe.subscription.application.port.vo.SubscribedContent;
+import com.nocommittoday.techswipe.subscription.application.port.out.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawling;
 import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawlingSubscription;

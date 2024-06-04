@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.subscription.application.port.vo;
+package com.nocommittoday.techswipe.subscription.application.port.out;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;

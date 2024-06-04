@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.subscription.adapter.out.web;
 
 import com.nocommittoday.techswipe.subscription.application.port.out.RssContentReaderPort;
-import com.nocommittoday.techswipe.subscription.application.port.vo.SubscribedContent;
+import com.nocommittoday.techswipe.subscription.application.port.out.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.vo.RssSubscription;
 import com.rometools.rome.feed.rss.Channel;

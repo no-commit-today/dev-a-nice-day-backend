@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.subscription.adapter.out.web;
 
 import com.nocommittoday.techswipe.subscription.application.port.out.AtomContentReaderPort;
-import com.nocommittoday.techswipe.subscription.application.port.vo.SubscribedContent;
+import com.nocommittoday.techswipe.subscription.application.port.out.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.vo.AtomSubscription;
 import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
 import com.rometools.rome.feed.atom.Content;
