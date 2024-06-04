@@ -7,6 +7,7 @@ import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,6 +23,7 @@ class CollectedContentEntityTest {
                 2L,
                 "url",
                 "title",
+                LocalDate.of(2021, 1, 1),
                 "content",
                 "imageUrl",
                 List.of(TechCategory.INFRA, TechCategory.BACKEND)
@@ -49,6 +51,7 @@ class CollectedContentEntityTest {
                 new TechContentProvider.TechContentProviderId(2L),
                 "url",
                 "title",
+                LocalDate.of(2021, 1, 1),
                 "content",
                 "imageUrl"
         );
