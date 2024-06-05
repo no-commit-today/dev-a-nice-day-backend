@@ -51,8 +51,6 @@ include 'app:collection:collection-application'
 include 'app:collection:collection-adapter-out-mysql'
 include 'app:collection:collection-infra-mysql'
 
-include 'app:domain-rds'
-
 include 'arch-test'
 
 include 'support:monitoring'
