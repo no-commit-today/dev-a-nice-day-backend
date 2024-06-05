@@ -9,9 +9,9 @@ pluginManagement {
 
 rootProject.name = 'tech-swipe-backend'
 
-include 'bootstrap:tech-swipe-api'
-include 'bootstrap:tech-swipe-admin-api'
-include 'bootstrap:tech-swipe-batch'
+include 'app:tech-swipe-api'
+include 'app:tech-swipe-admin-api'
+include 'app:tech-swipe-batch'
 
 include 'module:exception-core'
 include 'module:lock-handler-rds'
