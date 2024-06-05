@@ -13,8 +13,6 @@ include 'app:tech-swipe-api'
 include 'app:tech-swipe-admin-api'
 include 'app:tech-swipe-batch'
 
-include 'module:exception-core'
-include 'module:lock-handler-rds'
 include 'module:latency-logger'
 include 'module:jpa-test'
 include 'module:race-condition-test'
