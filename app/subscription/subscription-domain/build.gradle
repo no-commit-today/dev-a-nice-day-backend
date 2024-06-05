@@ -1,4 +1,0 @@
-dependencies {
-    implementation(project(":app:core:core-domain"))
-    implementation(project(":app:content:content-domain"))
-}

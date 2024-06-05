@@ -2,17 +2,17 @@ bootJar.enabled = true
 jar.enabled = false
 
 dependencies {
-    implementation(project(":app:content:content-adapter-out-mysql"))
-    implementation(project(":app:content:content-application"))
-    implementation(project(":app:content:content-domain"))
-    implementation(project(":app:content:content-infra-mysql"))
+    implementation(project(":domain:content:content-adapter-out-mysql"))
+    implementation(project(":domain:content:content-application"))
+    implementation(project(":domain:content:content-domain"))
+    implementation(project(":domain:content:content-infra-mysql"))
 
-    implementation(project(":app:subscription:subscription-adapter-in-web-admin"))
-    implementation(project(":app:subscription:subscription-adapter-out-mysql"))
-    implementation(project(":app:subscription:subscription-adapter-out-web"))
-    implementation(project(":app:subscription:subscription-application"))
-    implementation(project(":app:subscription:subscription-domain"))
-    implementation(project(":app:subscription:subscription-infra-mysql"))
+    implementation(project(":domain:subscription:subscription-adapter-in-web-admin"))
+    implementation(project(":domain:subscription:subscription-adapter-out-mysql"))
+    implementation(project(":domain:subscription:subscription-adapter-out-web"))
+    implementation(project(":domain:subscription:subscription-application"))
+    implementation(project(":domain:subscription:subscription-domain"))
+    implementation(project(":domain:subscription:subscription-infra-mysql"))
 
     implementation(project(":support:mysql-migration"))
 

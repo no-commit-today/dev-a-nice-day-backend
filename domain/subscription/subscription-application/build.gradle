@@ -1,0 +1,11 @@
+dependencies {
+    implementation(project(":domain:core:core-domain"))
+    implementation(project(":domain:core:core-application"))
+
+    implementation(project(":domain:content:content-domain"))
+    implementation(project(":domain:content:content-application"))
+
+    implementation(project(":domain:subscription:subscription-domain"))
+
+    implementation("org.springframework.boot:spring-boot-starter")
+}

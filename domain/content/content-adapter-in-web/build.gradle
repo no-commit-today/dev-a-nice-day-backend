@@ -1,0 +1,13 @@
+dependencies {
+    implementation(project(":domain:core:core-domain"))
+    implementation(project(":domain:core:core-web-servlet"))
+
+    implementation(project(":domain:content:content-domain"))
+    implementation(project(":domain:content:content-application"))
+
+    implementation(project(":domain:image:image-domain"))
+    implementation(project(":domain:image:image-application"))
+
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+}
