@@ -1,6 +1,0 @@
-dependencies {
-    implementation(project(":app:image:image-domain"))
-    implementation(project(":app:core:core-application"))
-
-    implementation("org.springframework.boot:spring-boot-starter")
-}

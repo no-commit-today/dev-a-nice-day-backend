@@ -1,0 +1,32 @@
+bootJar.enabled = true
+jar.enabled = false
+
+dependencies {
+    implementation(project(":domain:core:core-domain"))
+    implementation(project(":domain:core:core-application"))
+    implementation(project(":domain:core:core-adapter-out-system"))
+
+    implementation(project(":domain:content:content-adapter-out-mysql"))
+    implementation(project(":domain:content:content-application"))
+    implementation(project(":domain:content:content-domain"))
+
+    implementation(project(":domain:subscription:subscription-adapter-out-mysql"))
+    implementation(project(":domain:subscription:subscription-adapter-out-web"))
+    implementation(project(":domain:subscription:subscription-application"))
+    implementation(project(":domain:subscription:subscription-domain"))
+
+    implementation(project(":domain:collection:collection-adapter-out-mysql"))
+    implementation(project(":domain:collection:collection-application"))
+    implementation(project(":domain:collection:collection-domain"))
+
+    implementation(project(":domain:image:image-adapter-out"))
+    implementation(project(":domain:image:image-application"))
+    implementation(project(":domain:image:image-domain"))
+
+    implementation(project(":storage:storage-mysql"))
+
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    testImplementation 'org.springframework.batch:spring-batch-test'
+}

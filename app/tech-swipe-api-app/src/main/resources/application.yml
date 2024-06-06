@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: tech-swipe-api
+
+  profiles:
+    active: local
+
+  config:
+    import:
+      - monitoring.yml
+      - storage-mysql.yml
+
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+
+app:
+  s3:
+    bucket-name: ${AWS_S3_BUCKET}
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+logging:
+  level:
+    org.apache.coyote.http11: debug
+---
+spring:
+  config:
+    activate:
+      on-profile: local-dev
+
+logging:
+  level:
+    org.apache.coyote.http11: debug
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+logging:
+  level:
+    org.apache.coyote.http11: debug
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod

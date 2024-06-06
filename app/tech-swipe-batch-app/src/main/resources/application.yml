@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: tech-swipe-batch
+
+  profiles:
+    active: local
+
+  config:
+    import:
+      - storage-mysql.yml
+
+  batch:
+    job:
+      enabled: true
+      name: ${job.name:NONE}
+    jdbc:
+      initialize-schema: never
+      isolation-level-for-create: default
+
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+
+app:
+  s3:
+    bucket-name: ${AWS_S3_BUCKET}
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local-dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod

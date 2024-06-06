@@ -9,52 +9,41 @@ pluginManagement {
 
 rootProject.name = 'tech-swipe-backend'
 
-include 'bootstrap:tech-swipe-api'
-include 'bootstrap:tech-swipe-admin-api'
-include 'bootstrap:tech-swipe-batch'
+include 'app:tech-swipe-api-app'
+include 'app:tech-swipe-admin-api-app'
+include 'app:tech-swipe-batch-app'
 
-include 'module:exception-core'
-include 'module:lock-handler-rds'
+include 'domain:core:core-domain'
+include 'domain:core:core-application'
+include 'domain:core:core-web-servlet'
+include 'domain:core:core-adapter-out-system'
+
+include 'domain:image:image-domain'
+include 'domain:image:image-application'
+include 'domain:image:image-adapter-out'
+
+include 'domain:content:content-domain'
+include 'domain:content:content-application'
+include 'domain:content:content-adapter-out-mysql'
+include 'domain:content:content-adapter-in-web'
+include 'domain:content:content-adapter-in-web-admin'
+
+include 'domain:subscription:subscription-domain'
+include 'domain:subscription:subscription-application'
+include 'domain:subscription:subscription-adapter-out-mysql'
+include 'domain:subscription:subscription-adapter-out-web'
+include 'domain:subscription:subscription-adapter-in-web-admin'
+
+include 'domain:collection:collection-domain'
+include 'domain:collection:collection-application'
+include 'domain:collection:collection-adapter-out-mysql'
+
+include 'storage:storage-mysql'
+
 include 'module:latency-logger'
 include 'module:jpa-test'
 include 'module:race-condition-test'
 
-include 'client:openai'
-
-include 'app:core:core-domain'
-include 'app:core:core-application'
-include 'app:core:core-web-servlet'
-include 'app:core:core-adapter-out-system'
-include 'app:core:core-infra-mysql'
-
-include 'app:image:image-domain'
-include 'app:image:image-application'
-include 'app:image:image-adapter-out'
-include 'app:image:image-infra-mysql'
-
-include 'app:content:content-domain'
-include 'app:content:content-application'
-include 'app:content:content-adapter-out-mysql'
-include 'app:content:content-adapter-in-web'
-include 'app:content:content-adapter-in-web-admin'
-include 'app:content:content-infra-mysql'
-
-include 'app:subscription:subscription-domain'
-include 'app:subscription:subscription-application'
-include 'app:subscription:subscription-adapter-out-mysql'
-include 'app:subscription:subscription-adapter-out-web'
-include 'app:subscription:subscription-adapter-in-web-admin'
-include 'app:subscription:subscription-infra-mysql'
-
-include 'app:collection:collection-domain'
-include 'app:collection:collection-application'
-include 'app:collection:collection-adapter-out-mysql'
-include 'app:collection:collection-infra-mysql'
-
-include 'app:batch'
-include 'app:domain-rds'
-
-include 'arch-test'
+include 'client:openai-client'
 
 include 'support:monitoring'
-include 'support:mysql-migration'
