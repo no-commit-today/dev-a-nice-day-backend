@@ -2,8 +2,8 @@ package com.nocommittoday.techswipe.subscription.adapter.out.mysql;
 
 import com.nocommittoday.techswipe.subscription.application.port.out.SubscriptionSavePort;
 import com.nocommittoday.techswipe.subscription.domain.vo.SubscriptionRegister;
-import com.nocommittoday.techswipe.subscription.infrastructure.mysql.SubscriptionEntity;
-import com.nocommittoday.techswipe.subscription.infrastructure.mysql.SubscriptionJpaRepository;
+import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
+import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
