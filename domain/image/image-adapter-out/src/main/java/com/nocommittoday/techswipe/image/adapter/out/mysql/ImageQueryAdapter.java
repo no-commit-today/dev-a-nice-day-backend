@@ -3,8 +3,8 @@ package com.nocommittoday.techswipe.image.adapter.out.mysql;
 import com.nocommittoday.techswipe.image.application.port.out.ImageQueryPort;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.domain.exception.ImageNotFoundException;
-import com.nocommittoday.techswipe.image.infrastructure.mysql.ImageEntity;
-import com.nocommittoday.techswipe.image.infrastructure.mysql.ImageJpaRepository;
+import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
+import com.nocommittoday.techswipe.image.storage.mysql.ImageJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
