@@ -49,6 +49,8 @@ include 'domain:collection:collection-application'
 include 'domain:collection:collection-adapter-out-mysql'
 include 'domain:collection:collection-infra-mysql'
 
+include 'storage:mysql'
+
 include 'arch-test'
 
 include 'support:monitoring'
