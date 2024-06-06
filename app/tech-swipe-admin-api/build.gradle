@@ -5,14 +5,14 @@ dependencies {
     implementation(project(":domain:content:content-adapter-out-mysql"))
     implementation(project(":domain:content:content-application"))
     implementation(project(":domain:content:content-domain"))
-    implementation(project(":domain:content:content-infra-mysql"))
 
     implementation(project(":domain:subscription:subscription-adapter-in-web-admin"))
     implementation(project(":domain:subscription:subscription-adapter-out-mysql"))
     implementation(project(":domain:subscription:subscription-adapter-out-web"))
     implementation(project(":domain:subscription:subscription-application"))
     implementation(project(":domain:subscription:subscription-domain"))
-    implementation(project(":domain:subscription:subscription-infra-mysql"))
+
+    implementation(project(":storage:mysql"))
 
     implementation(project(":support:mysql-migration"))
 
