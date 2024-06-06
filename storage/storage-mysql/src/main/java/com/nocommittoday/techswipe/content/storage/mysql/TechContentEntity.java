@@ -14,7 +14,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -70,7 +69,6 @@ public class TechContentEntity extends BaseSoftDeleteEntity {
     @Column(name = "title", length = 500, nullable = false)
     private String title;
 
-    @Lob
     @Column(name = "summary", length = 2_000, nullable = false)
     private String summary;
 
