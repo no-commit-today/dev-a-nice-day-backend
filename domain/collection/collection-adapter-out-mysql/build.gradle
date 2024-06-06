@@ -6,5 +6,5 @@ dependencies {
     implementation(project(":domain:collection:collection-domain"))
     implementation(project(":domain:collection:collection-application"))
 
-    implementation(project(":storage:mysql"))
+    implementation(project(":storage:storage-mysql"))
 }

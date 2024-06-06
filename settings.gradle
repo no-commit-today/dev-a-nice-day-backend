@@ -38,7 +38,7 @@ include 'domain:collection:collection-domain'
 include 'domain:collection:collection-application'
 include 'domain:collection:collection-adapter-out-mysql'
 
-include 'storage:mysql'
+include 'storage:storage-mysql'
 
 include 'module:latency-logger'
 include 'module:jpa-test'
