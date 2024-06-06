@@ -2,8 +2,8 @@ package com.nocommittoday.techswipe.content.adapter.out.mysql;
 
 import com.nocommittoday.techswipe.content.application.port.out.ContentReaderPort;
 import com.nocommittoday.techswipe.content.domain.TechContent;
-import com.nocommittoday.techswipe.content.infrastructure.mysql.TechContentEntity;
-import com.nocommittoday.techswipe.content.infrastructure.mysql.TechContentJpaRepository;
+import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
+import com.nocommittoday.techswipe.content.storage.mysql.TechContentJpaRepository;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

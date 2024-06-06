@@ -3,9 +3,9 @@ package com.nocommittoday.techswipe.content.adapter.out.mysql;
 import com.nocommittoday.techswipe.content.application.port.out.ProviderSave;
 import com.nocommittoday.techswipe.content.application.port.out.ProviderSavePort;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.infrastructure.mysql.ImageIdEmbeddable;
-import com.nocommittoday.techswipe.content.infrastructure.mysql.TechContentProviderEntity;
-import com.nocommittoday.techswipe.content.infrastructure.mysql.TechContentProviderJpaRepository;
+import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
+import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderJpaRepository;
+import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +24,7 @@ class ProviderSaveAdapter implements ProviderSavePort {
                 command.type(),
                 command.title(),
                 command.url(),
-                Optional.ofNullable(command.iconId()).map(ImageIdEmbeddable::from).orElse(null)
+                Optional.ofNullable(command.iconId()).map(ImageEntity::from).orElse(null)
         )).getId());
     }
 }
