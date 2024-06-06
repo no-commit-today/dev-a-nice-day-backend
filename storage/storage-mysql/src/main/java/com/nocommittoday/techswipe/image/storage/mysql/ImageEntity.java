@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.image.storage.mysql;
 
-import com.nocommittoday.techswipe.core.storage.mysql.BaseTimeEntity;
+import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.image.domain.Image;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +19,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor
-public class ImageEntity extends BaseTimeEntity {
+public class ImageEntity extends BaseSoftDeleteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
