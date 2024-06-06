@@ -47,6 +47,5 @@ include 'module:race-condition-test'
 include 'client:openai'
 
 include 'support:monitoring'
-include 'support:mysql-migration'
 
 include 'arch-test'
