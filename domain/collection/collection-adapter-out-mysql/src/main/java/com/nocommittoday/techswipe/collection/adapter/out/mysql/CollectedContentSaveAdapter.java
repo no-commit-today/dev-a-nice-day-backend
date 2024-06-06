@@ -2,8 +2,8 @@ package com.nocommittoday.techswipe.collection.adapter.out.mysql;
 
 import com.nocommittoday.techswipe.collection.application.port.out.CollectedContentSavePort;
 import com.nocommittoday.techswipe.collection.domain.vo.ContentCollect;
-import com.nocommittoday.techswipe.collection.infrastructure.mysql.CollectedContentEntity;
-import com.nocommittoday.techswipe.collection.infrastructure.mysql.CollectedContentJpaRepository;
+import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
+import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
