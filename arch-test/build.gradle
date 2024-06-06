@@ -1,4 +1,0 @@
-dependencies {
-    // add archunit
-    testImplementation "com.tngtech.archunit:archunit-junit5:${archUnitVersion}"
-}

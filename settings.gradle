@@ -47,5 +47,3 @@ include 'module:race-condition-test'
 include 'client:openai-client'
 
 include 'support:monitoring'
-
-include 'arch-test'
