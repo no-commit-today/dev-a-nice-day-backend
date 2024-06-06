@@ -44,7 +44,7 @@ include 'module:latency-logger'
 include 'module:jpa-test'
 include 'module:race-condition-test'
 
-include 'client:openai'
+include 'client:openai-client'
 
 include 'support:monitoring'
 
