@@ -24,10 +24,7 @@ dependencies {
     implementation(project(":domain:content:content-application"))
     implementation(project(":domain:content:content-domain"))
 
-    implementation(project(":storage:mysql"))
-
     implementation(project(":support:monitoring"))
-    implementation(project(":support:mysql-migration"))
 
     implementation("org.springframework.boot:spring-boot-starter")
 
