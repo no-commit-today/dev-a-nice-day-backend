@@ -4,7 +4,6 @@ import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
-import com.nocommittoday.techswipe.collection.domain.vo.ContentCollect;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;
@@ -29,6 +28,7 @@ import lombok.NoArgsConstructor;
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -85,6 +85,23 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
     @Column(name = "summary", length = 2_000)
     private String summary;
 
+    public static CollectedContentEntity from(final CollectedContent collectedContent) {
+        return new CollectedContentEntity(
+                Optional.ofNullable(collectedContent.getId())
+                        .map(CollectedContent.CollectedContentId::id).orElse(null),
+                collectedContent.getType(),
+                collectedContent.getStatus(),
+                TechContentProviderEntity.from(collectedContent.getProviderId()),
+                collectedContent.getUrl(),
+                collectedContent.getTitle(),
+                collectedContent.getPublishedDate(),
+                collectedContent.getContent(),
+                collectedContent.getImageUrl(),
+                collectedContent.getCategories(),
+                collectedContent.getSummary()
+        );
+    }
+
     public CollectedContent toDomain() {
         return new CollectedContent(
                 new CollectedContent.CollectedContentId(id),
@@ -101,19 +118,4 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
         );
     }
 
-    public static CollectedContentEntity from(final ContentCollect contentCollect) {
-        return new CollectedContentEntity(
-                null,
-                contentCollect.type(),
-                CollectionStatus.NONE,
-                TechContentProviderEntity.from(contentCollect.providerId()),
-                contentCollect.url(),
-                contentCollect.title(),
-                contentCollect.publishedDate(),
-                contentCollect.content(),
-                contentCollect.imageUrl(),
-                null,
-                null
-        );
-    }
 }

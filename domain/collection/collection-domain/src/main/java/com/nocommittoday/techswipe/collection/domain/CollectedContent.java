@@ -5,7 +5,6 @@ import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import lombok.Getter;
-import lombok.NonNull;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
@@ -14,13 +13,10 @@ import java.util.List;
 @Getter
 public class CollectedContent {
 
-    @NonNull
     private final CollectedContentId id;
 
-    @NonNull
     private final CollectionType type;
 
-    @NonNull
     private final CollectionStatus status;
 
     @Nullable
@@ -29,34 +25,28 @@ public class CollectedContent {
     @Nullable
     private final String summary;
 
-    @NonNull
     private final TechContentProvider.TechContentProviderId providerId;
 
-    @NonNull
     private final String url;
 
-    @NonNull
     private final String title;
 
-    @NonNull
     private final LocalDate publishedDate;
 
-    @NonNull
     private final String content;
 
-    @Nullable
     private final String imageUrl;
 
     public record CollectedContentId(long id) { }
 
     public CollectedContent(
-            @NonNull final CollectedContentId id,
-            @NonNull final CollectionType type,
-            @NonNull final TechContentProvider.TechContentProviderId providerId,
-            @NonNull final String url,
-            @NonNull final String title,
-            @NonNull final LocalDate publishedDate,
-            @NonNull final String content,
+            final CollectedContentId id,
+            final CollectionType type,
+            final TechContentProvider.TechContentProviderId providerId,
+            final String url,
+            final String title,
+            final LocalDate publishedDate,
+            final String content,
             @Nullable final String imageUrl
     ) {
         this.id = id;
@@ -73,16 +63,16 @@ public class CollectedContent {
     }
 
     public CollectedContent(
-            @NonNull final CollectedContentId id,
-            @NonNull final CollectionType type,
-            @NonNull final CollectionStatus status,
+            final CollectedContentId id,
+            final CollectionType type,
+            final CollectionStatus status,
             @Nullable final List<CollectionCategory> categories,
             @Nullable final String summary,
-            @NonNull final TechContentProvider.TechContentProviderId providerId,
-            @NonNull final String url,
-            @NonNull final String title,
-            @NonNull final LocalDate publishedDate,
-            @NonNull final String content,
+            final TechContentProvider.TechContentProviderId providerId,
+            final String url,
+            final String title,
+            final LocalDate publishedDate,
+            final String content,
             @Nullable final String imageUrl
     ) {
         this.id = id;

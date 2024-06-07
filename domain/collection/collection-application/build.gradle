@@ -3,6 +3,7 @@ dependencies {
     implementation(project(":domain:core:core-application"))
 
     implementation(project(":domain:content:content-domain"))
+    implementation(project(":domain:content:content-application"))
 
     implementation(project(":domain:collection:collection-domain"))
 
