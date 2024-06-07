@@ -6,5 +6,5 @@ import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 
 public interface PromptReaderPort {
 
-    Prompt get(TechContentProviderType providerType, PromptType type);
+    Prompt get(PromptType type, TechContentProviderType providerType);
 }

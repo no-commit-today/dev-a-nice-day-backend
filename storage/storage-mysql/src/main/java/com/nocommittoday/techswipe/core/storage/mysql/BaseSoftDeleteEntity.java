@@ -29,6 +29,10 @@ public abstract class BaseSoftDeleteEntity extends BaseTimeEntity {
         return Boolean.TRUE.equals(deleted);
     }
 
+    public boolean isUsed() {
+        return Boolean.FALSE.equals(deleted);
+    }
+
     public void delete() {
         this.deleted = true;
         this.deletedAt = LocalDateTime.now();

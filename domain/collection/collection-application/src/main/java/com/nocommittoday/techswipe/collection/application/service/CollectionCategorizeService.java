@@ -32,7 +32,7 @@ class CollectionCategorizeService implements CollectionCategorizeUseCase {
     public void categorize(final CollectedContent.CollectedContentId id) {
         final CollectedContent collectedContent = collectedContentReaderPort.get(id);
         final TechContentProvider contentProvider = providerReaderPort.get(collectedContent.getProviderId());
-        final Prompt prompt = promptReaderPort.get(contentProvider.getType(), PromptType.CATEGORIZE);
+        final Prompt prompt = promptReaderPort.get(PromptType.CATEGORIZE, contentProvider.getType());
         final List<CollectionCategory> categories = categorizePort.categorize(
                 prompt.getContent(), collectedContent.getContent());
 
