@@ -1,14 +1,17 @@
 package com.nocommittoday.techswipe.collection.storage.mysql;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
+import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
 import com.nocommittoday.techswipe.collection.domain.vo.ContentCollect;
-import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
@@ -43,6 +46,10 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
     @Column(name = "type", columnDefinition = "varchar(45)", nullable = false)
     private CollectionType type;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", columnDefinition = "varchar(45)", nullable = false)
+    private CollectionStatus status;
+
     @Column(name = "provider_id", nullable = false)
     private Long providerId;
 
@@ -66,19 +73,25 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
     @Nullable
     @Convert(converter = CategoryListConverter.class)
     @Column(name = "categories", length = 500)
-    private List<TechCategory> categories;
+    private List<CollectionCategory> categories;
+
+    @Nullable
+    @Column(name = "summary", length = 2_000)
+    private String summary;
 
     public CollectedContent toDomain() {
         return new CollectedContent(
                 new CollectedContent.CollectedContentId(id),
                 type,
+                status,
+                categories,
+                summary,
                 new TechContentProvider.TechContentProviderId(providerId),
                 url,
                 title,
                 publishedDate,
                 content,
-                imageUrl,
-                categories
+                imageUrl
         );
     }
 
@@ -86,12 +99,14 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
         return new CollectedContentEntity(
                 null,
                 contentCollect.type(),
+                CollectionStatus.NONE,
                 contentCollect.providerId().value(),
                 contentCollect.url(),
                 contentCollect.title(),
                 contentCollect.publishedDate(),
                 contentCollect.content(),
                 contentCollect.imageUrl(),
+                null,
                 null
         );
     }

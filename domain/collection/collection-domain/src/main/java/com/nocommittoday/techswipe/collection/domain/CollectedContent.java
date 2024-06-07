@@ -72,7 +72,7 @@ public class CollectedContent {
         this.imageUrl = imageUrl;
     }
 
-    private CollectedContent(
+    public CollectedContent(
             @NonNull final CollectedContentId id,
             @NonNull final CollectionType type,
             @NonNull final CollectionStatus status,
