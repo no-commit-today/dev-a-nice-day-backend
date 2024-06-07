@@ -30,7 +30,6 @@ class CollectedContentEntityTest {
                 LocalDate.of(2021, 1, 1),
                 "content",
                 "imageUrl"
-
         );
 
         // when
@@ -79,6 +78,53 @@ class CollectedContentEntityTest {
         assertThat(result.getContent()).isEqualTo("content");
         assertThat(result.getImageUrl()).isEqualTo("imageUrl");
         assertThat(result.getCategories()).containsExactly(CollectionCategory.DEVOPS, CollectionCategory.SERVER);
+    }
+
+    @Test
+    void 도메인_엔티티로부터_업데이트할_수_있다() {
+        CollectedContentEntity entity = new CollectedContentEntity(
+                1L,
+                CollectionType.RSS,
+                CollectionStatus.NONE,
+                TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(2L)),
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                "content",
+                "imageUrl",
+                null,
+                null
+        );
+
+        final CollectedContent domain = new CollectedContent(
+                new CollectedContent.CollectedContentId(1L),
+                CollectionType.LIST_CRAWLING,
+                CollectionStatus.CATEGORIZED,
+                List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
+                "summary",
+                new TechContentProvider.TechContentProviderId(3L),
+                "updated-url",
+                "updated-title",
+                LocalDate.of(2021, 1, 2),
+                "updated-content",
+                "updated-imageUrl"
+        );
+
+        // when
+        entity.update(domain);
+
+        // then
+        assertThat(entity.getType()).isEqualTo(CollectionType.LIST_CRAWLING);
+        assertThat(entity.getStatus()).isEqualTo(CollectionStatus.CATEGORIZED);
+        assertThat(entity.getCategories()).containsExactly(CollectionCategory.DEVOPS, CollectionCategory.SERVER);
+        assertThat(entity.getSummary()).isEqualTo("summary");
+        assertThat(entity.getProvider().getId()).isEqualTo(3L);
+        assertThat(entity.getUrl()).isEqualTo("updated-url");
+        assertThat(entity.getTitle()).isEqualTo("updated-title");
+        assertThat(entity.getPublishedDate()).isEqualTo(LocalDate.of(2021, 1, 2));
+        assertThat(entity.getContent()).isEqualTo("updated-content");
+        assertThat(entity.getImageUrl()).isEqualTo("updated-imageUrl");
+
     }
 
 }

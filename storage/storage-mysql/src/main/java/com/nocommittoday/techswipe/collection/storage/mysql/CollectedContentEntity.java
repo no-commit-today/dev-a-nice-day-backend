@@ -118,4 +118,17 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
         );
     }
 
+    public void update(final CollectedContent collectedContent) {
+        this.type = collectedContent.getType();
+        this.status = collectedContent.getStatus();
+        this.provider = TechContentProviderEntity.from(collectedContent.getProviderId());
+        this.url = collectedContent.getUrl();
+        this.title = collectedContent.getTitle();
+        this.publishedDate = collectedContent.getPublishedDate();
+        this.content = collectedContent.getContent();
+        this.imageUrl = collectedContent.getImageUrl();
+        this.categories = collectedContent.getCategories();
+        this.summary = collectedContent.getSummary();
+    }
+
 }

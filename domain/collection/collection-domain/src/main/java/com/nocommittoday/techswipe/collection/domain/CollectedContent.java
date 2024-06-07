@@ -64,6 +64,7 @@ public class CollectedContent {
         this.imageUrl = imageUrl;
     }
 
+    // FIXME 해당 생성자를 사용하지 않는 방법 고민해야 겠음. status 가 도메인 로직에 의해서 변경되어야 함
     public CollectedContent(
             final CollectedContentId id,
             final CollectionType type,
