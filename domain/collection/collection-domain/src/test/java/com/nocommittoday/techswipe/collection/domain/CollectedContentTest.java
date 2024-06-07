@@ -3,6 +3,8 @@ package com.nocommittoday.techswipe.collection.domain;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategorizeUnableException;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionSummarizeUnableException;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import org.junit.jupiter.api.Test;
 
@@ -61,6 +63,26 @@ class CollectedContentTest {
     }
 
     @Test
+    void NONE_상태가_아닐_경우_카테고리를_분류할_수_없다() {
+        // given
+        CollectedContent collectedContent = new CollectedContent(
+                new CollectedContent.CollectedContentId(1L),
+                CollectionType.RSS,
+                new TechContentProvider.TechContentProviderId(2L),
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                "content",
+                "imageUrl"
+        ).categorize(List.of(CollectionCategory.DEVOPS));
+
+        // when
+        // then
+        assertThatThrownBy(() -> collectedContent.categorize(List.of(CollectionCategory.SERVER)))
+                .isInstanceOf(CollectionCategorizeUnableException.class);
+    }
+
+    @Test
     void 카테고리가_분류된_후_내용_요약을_추가하면_status_가_SUMMARIZED_로_변경된다() {
         // given
         CollectedContent collectedContent = new CollectedContent(
@@ -103,7 +125,7 @@ class CollectedContentTest {
         // when
         // then
         assertThatThrownBy(() -> collectedContent.summarize("summary"))
-                .isInstanceOf(IllegalStateException.class);
+                .isInstanceOf(CollectionSummarizeUnableException.class);
     }
 
     @Test
@@ -127,6 +149,6 @@ class CollectedContentTest {
         // when
         // then
         assertThatThrownBy(() -> filtered.summarize("summary"))
-                .isInstanceOf(IllegalStateException.class);
+                .isInstanceOf(CollectionSummarizeUnableException.class);
     }
 }

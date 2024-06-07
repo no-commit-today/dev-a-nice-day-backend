@@ -3,6 +3,8 @@ package com.nocommittoday.techswipe.collection.domain;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategorizeUnableException;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionSummarizeUnableException;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import lombok.Getter;
 
@@ -89,6 +91,9 @@ public class CollectedContent {
     }
 
     public CollectedContent categorize(final List<CollectionCategory> categories) {
+        if (status != CollectionStatus.NONE) {
+            throw new CollectionCategorizeUnableException(id, status);
+        }
         final CollectionStatus nextStatus = categories.stream()
                 .anyMatch(category -> !category.isUsed())
                 ? CollectionStatus.FILTERED : CollectionStatus.CATEGORIZED;
@@ -110,7 +115,7 @@ public class CollectedContent {
 
     public CollectedContent summarize(final String summary) {
         if (status != CollectionStatus.CATEGORIZED) {
-            throw new IllegalStateException("카테고리가 분류되지 않은 컨텐츠는 요약할 수 없습니다.");
+            throw new CollectionSummarizeUnableException(id, status);
         }
         return new CollectedContent(
                 id,
