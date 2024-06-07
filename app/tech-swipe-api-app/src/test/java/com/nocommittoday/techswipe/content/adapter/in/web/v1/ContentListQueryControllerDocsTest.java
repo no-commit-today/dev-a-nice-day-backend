@@ -8,15 +8,15 @@ import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
+import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
+import com.nocommittoday.techswipe.docs.restdocs.RestDocsAttribute;
 import com.nocommittoday.techswipe.image.application.port.in.ImageUrlQuery;
 import com.nocommittoday.techswipe.image.application.port.in.ImageUrlResult;
 import com.nocommittoday.techswipe.image.domain.Image;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.restdocs.operation.preprocess.Preprocessors;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -33,8 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @WebMvcTest(ContentListQueryController.class)
-@AutoConfigureRestDocs
-class ContentListQueryControllerDocsTest {
+class ContentListQueryControllerDocsTest extends AbstractDocsTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -80,13 +79,7 @@ class ContentListQueryControllerDocsTest {
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andDo(document("content/get-list",
-                        Preprocessors.preprocessRequest(
-                                Preprocessors.prettyPrint()
-                        ),
-                        Preprocessors.preprocessResponse(
-                                Preprocessors.prettyPrint()
-                        ),
+                .andDo(document("content/get-content-list",
                         queryParameters(
                                 parameterWithName("page").description("페이지 번호"),
                                 parameterWithName("size").description("페이지 크기"),
@@ -99,7 +92,8 @@ class ContentListQueryControllerDocsTest {
                                 fieldWithPath("content[].title").description("컨텐츠 제목"),
                                 fieldWithPath("content[].summary").description("컨텐츠 요약"),
                                 fieldWithPath("content[].imageUrl").description("컨텐츠 이미지 URL"),
-                                fieldWithPath("content[].categories").description("카테고리 목록"),
+                                fieldWithPath("content[].categories").description("카테고리 목록")
+                                        .attributes(RestDocsAttribute.type(TechCategory.class)),
                                 fieldWithPath("content[].providerId").description("제공자 ID"),
                                 fieldWithPath("content[].providerTitle").description("제공자 제목"),
                                 fieldWithPath("content[].providerUrl").description("제공자 URL"),
