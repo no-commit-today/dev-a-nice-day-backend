@@ -26,6 +26,9 @@ public class CollectedContent {
     @Nullable
     private final List<CollectionCategory> categories;
 
+    @Nullable
+    private final String summary;
+
     @NonNull
     private final TechContentProvider.TechContentProviderId providerId;
 
@@ -60,6 +63,7 @@ public class CollectedContent {
         this.type = type;
         this.status = CollectionStatus.NONE;
         this.categories = null;
+        this.summary = null;
         this.providerId = providerId;
         this.url = url;
         this.title = title;
@@ -73,6 +77,7 @@ public class CollectedContent {
             @NonNull final CollectionType type,
             @NonNull final CollectionStatus status,
             @Nullable final List<CollectionCategory> categories,
+            @Nullable final String summary,
             @NonNull final TechContentProvider.TechContentProviderId providerId,
             @NonNull final String url,
             @NonNull final String title,
@@ -84,6 +89,7 @@ public class CollectedContent {
         this.type = type;
         this.status = status;
         this.categories = categories;
+        this.summary = summary;
         this.providerId = providerId;
         this.url = url;
         this.title = title;
@@ -102,6 +108,26 @@ public class CollectedContent {
                 type,
                 nextStatus,
                 categories,
+                summary,
+                providerId,
+                url,
+                title,
+                publishedDate,
+                content,
+                imageUrl
+        );
+    }
+
+    public CollectedContent summarize(final String summary) {
+        if (status != CollectionStatus.CATEGORIZED) {
+            throw new IllegalStateException("카테고리가 분류되지 않은 컨텐츠는 요약할 수 없습니다.");
+        }
+        return new CollectedContent(
+                id,
+                type,
+                CollectionStatus.SUMMARIZED,
+                categories,
+                summary,
                 providerId,
                 url,
                 title,
