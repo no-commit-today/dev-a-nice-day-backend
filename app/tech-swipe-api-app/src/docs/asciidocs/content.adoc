@@ -1,4 +1,4 @@
-= Content
+= 컨텐츠
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
@@ -7,7 +7,7 @@
 :sectlinks:
 
 
-[[get-list]]
-== 컨텐츠_리스트_조회
+[[get-content-list]]
+== 컨텐츠 리스트 조회
 
-operation::content/get-list[snippets='http-request,query-parameters,http-response,response-fields']
+operation::content/get-content-list[snippets='http-request,query-parameters,http-response,response-fields']

@@ -1,0 +1,17 @@
+= 코드
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[get-list]]
+== 특정 코드 조회
+
+operation::code/get-list[snippets='http-request,query-parameters,http-response,response-fields']
+
+[[get-all]]
+== 전체 코드 조회
+
+operation::code/get-all[snippets='http-request,http-response,response-fields']

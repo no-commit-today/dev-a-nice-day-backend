@@ -26,7 +26,7 @@ class CollectedContentEntityTest {
                 LocalDate.of(2021, 1, 1),
                 "content",
                 "imageUrl",
-                List.of(TechCategory.INFRA, TechCategory.BACKEND)
+                List.of(TechCategory.DEVOPS, TechCategory.SERVER)
         );
 
         // when
@@ -40,7 +40,7 @@ class CollectedContentEntityTest {
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getContent()).isEqualTo("content");
         assertThat(result.getImageUrl()).isEqualTo("imageUrl");
-        assertThat(result.getCategories()).containsExactly(TechCategory.INFRA, TechCategory.BACKEND);
+        assertThat(result.getCategories()).containsExactly(TechCategory.DEVOPS, TechCategory.SERVER);
     }
 
     @Test

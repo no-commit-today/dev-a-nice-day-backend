@@ -53,7 +53,7 @@ class TechContentEntityTest {
                 "title",
                 "summary",
                 LocalDate.of(2021, 1, 1),
-                List.of(new TechCategoryEntity(null, null, TechCategory.INFRA)
+                List.of(new TechCategoryEntity(null, null, TechCategory.DEVOPS)
         ));
 
         // when
@@ -70,7 +70,7 @@ class TechContentEntityTest {
         assertThat(result.getUrl()).isEqualTo("url");
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getSummary()).isEqualTo("summary");
-        assertThat(result.getCategories()).containsExactly(TechCategory.INFRA);
+        assertThat(result.getCategories()).containsExactly(TechCategory.DEVOPS);
     }
 
 }
