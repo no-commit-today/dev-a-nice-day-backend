@@ -39,10 +39,10 @@ class CategoryListConverterTest {
         CategoryListConverter converter = new CategoryListConverter();
 
         // when
-        String result = converter.convertToDatabaseColumn(List.of(TechCategory.INFRA, TechCategory.BACKEND));
+        String result = converter.convertToDatabaseColumn(List.of(TechCategory.SERVER, TechCategory.DEVOPS));
 
         // then
-        assertThat(result).isEqualTo("BACKEND,INFRA");
+        assertThat(result).isEqualTo("DEVOPS,SERVER");
     }
 
     @Test
@@ -75,10 +75,10 @@ class CategoryListConverterTest {
         CategoryListConverter converter = new CategoryListConverter();
 
         // when
-        List<TechCategory> result = converter.convertToEntityAttribute("BACKEND,INFRA");
+        List<TechCategory> result = converter.convertToEntityAttribute("DEVOPS,SERVER");
 
         // then
-        assertThat(result).containsExactly(TechCategory.BACKEND, TechCategory.INFRA);
+        assertThat(result).containsExactly(TechCategory.DEVOPS, TechCategory.SERVER);
     }
 
 }

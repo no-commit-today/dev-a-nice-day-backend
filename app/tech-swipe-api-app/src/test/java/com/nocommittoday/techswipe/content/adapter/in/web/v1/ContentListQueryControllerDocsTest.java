@@ -48,7 +48,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
     void 컨텐츠_리스트_조회_Docs() throws Exception {
         // given
         given(contentListQuery.getList(
-                new PageParam(1, 10), new ContentListQueryParam(List.of(TechCategory.BACKEND))
+                new PageParam(1, 10), new ContentListQueryParam(List.of(TechCategory.SERVER))
         )).willReturn(List.of(
                 new ContentResult(
                         new TechContent.TechContentId(1L),
@@ -62,7 +62,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                         "title",
                         new Image.ImageId(4L),
                         "summary",
-                        List.of(TechCategory.BACKEND)
+                        List.of(TechCategory.SERVER)
                 )
         ));
         given(imageUrlQuery.getAll(List.of(new Image.ImageId(4L), new Image.ImageId(3L)))).willReturn(List.of(
@@ -75,7 +75,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/content/v1/contents")
                         .param("page", "1")
                         .param("size", "10")
-                        .param("categories", TechCategory.BACKEND.name())
+                        .param("categories", TechCategory.SERVER.name())
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
