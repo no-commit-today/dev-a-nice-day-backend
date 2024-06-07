@@ -6,6 +6,7 @@ import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
 import com.nocommittoday.techswipe.collection.domain.vo.ContentCollect;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ class CollectedContentEntityTest {
                 1L,
                 CollectionType.RSS,
                 CollectionStatus.CATEGORIZED,
-                2L,
+                TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(2L)),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -65,7 +66,7 @@ class CollectedContentEntityTest {
         // then
         assertThat(result.getId()).isNull();
         assertThat(result.getType()).isEqualTo(CollectionType.RSS);
-        assertThat(result.getProviderId()).isEqualTo(2L);
+        assertThat(result.getProvider().getId()).isEqualTo(2L);
         assertThat(result.getUrl()).isEqualTo("url");
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getContent()).isEqualTo("content");

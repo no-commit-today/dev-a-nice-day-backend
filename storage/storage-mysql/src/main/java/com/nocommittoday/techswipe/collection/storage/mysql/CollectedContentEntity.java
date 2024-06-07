@@ -5,16 +5,21 @@ import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
 import com.nocommittoday.techswipe.collection.domain.vo.ContentCollect;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;
+import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -50,8 +55,9 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
     @Column(name = "status", columnDefinition = "varchar(45)", nullable = false)
     private CollectionStatus status;
 
-    @Column(name = "provider_id", nullable = false)
-    private Long providerId;
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "provider_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    private TechContentProviderEntity provider;
 
     @Column(name = "url", length = 500, nullable = false)
     private String url;
@@ -86,7 +92,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
                 status,
                 categories,
                 summary,
-                new TechContentProvider.TechContentProviderId(providerId),
+                provider.toDomainId(),
                 url,
                 title,
                 publishedDate,
@@ -100,7 +106,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
                 null,
                 contentCollect.type(),
                 CollectionStatus.NONE,
-                contentCollect.providerId().value(),
+                TechContentProviderEntity.from(contentCollect.providerId()),
                 contentCollect.url(),
                 contentCollect.title(),
                 contentCollect.publishedDate(),
