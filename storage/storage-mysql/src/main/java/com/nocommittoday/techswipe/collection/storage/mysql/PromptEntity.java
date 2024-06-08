@@ -39,6 +39,9 @@ public class PromptEntity extends BaseSoftDeleteEntity {
     @Column(name = "prompt_version", length = 25, nullable = false)
     private String promptVersion;
 
+    @Column(name = "model", nullable = false)
+    private String model;
+
     @Column(name = "content", length = 2000, nullable = false)
     private String content;
 
@@ -48,6 +51,7 @@ public class PromptEntity extends BaseSoftDeleteEntity {
                 type,
                 providerType,
                 promptVersion,
+                model,
                 content
         );
     }

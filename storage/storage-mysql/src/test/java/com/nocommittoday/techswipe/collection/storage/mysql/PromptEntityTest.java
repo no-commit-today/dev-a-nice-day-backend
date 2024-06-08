@@ -17,6 +17,7 @@ class PromptEntityTest {
                 PromptType.CATEGORIZE,
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "v1",
+                "model",
                 "content"
         );
 
@@ -28,6 +29,7 @@ class PromptEntityTest {
         assertThat(result.getType()).isEqualTo(PromptType.CATEGORIZE);
         assertThat(result.getProviderType()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(result.getVersion()).isEqualTo("v1");
+        assertThat(result.getModel()).isEqualTo("model");
         assertThat(result.getContent()).isEqualTo("content");
     }
 }

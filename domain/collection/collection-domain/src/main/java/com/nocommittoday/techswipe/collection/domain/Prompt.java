@@ -17,6 +17,8 @@ public class Prompt {
 
     private final String version;
 
+    private final String model;
+
     private final String content;
 
     public record PromptId(long value) { }
