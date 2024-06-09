@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategorizeUnableException;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionSummarizeUnableException;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class CollectedContentTest {
 
@@ -150,5 +152,71 @@ class CollectedContentTest {
         // then
         assertThatThrownBy(() -> filtered.summarize("summary"))
                 .isInstanceOf(CollectionSummarizeUnableException.class);
+    }
+
+    @Test
+    void 발행_완료로_상태를_변경할_수_있다() {
+        // given
+        CollectedContent collectedContent = new CollectedContent(
+                new CollectedContent.CollectedContentId(1L),
+                CollectionType.RSS,
+                new TechContentProvider.TechContentProviderId(2L),
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                "content",
+                "imageUrl"
+        );
+
+        CollectedContent categorized = collectedContent.categorize(
+                List.of(CollectionCategory.DEVOPS)
+        );
+
+        CollectedContent summarized = categorized.summarize("summary");
+
+        // when
+        CollectedContent result = summarized.published();
+
+        // then
+        assertThat(result.getStatus()).isEqualTo(CollectionStatus.PUBLISHED);
+
+        assertThat(result.getId()).isEqualTo(new CollectedContent.CollectedContentId(1L));
+        assertThat(result.getType()).isEqualTo(CollectionType.RSS);
+        assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.TechContentProviderId(2L));
+        assertThat(result.getUrl()).isEqualTo("url");
+        assertThat(result.getTitle()).isEqualTo("title");
+        assertThat(result.getPublishedDate()).isEqualTo(LocalDate.of(2021, 1, 1));
+        assertThat(result.getContent()).isEqualTo("content");
+        assertThat(result.getImageUrl()).isEqualTo("imageUrl");
+        assertThat(result.getCategories()).containsExactly(CollectionCategory.DEVOPS);
+        assertThat(result.getSummary()).isEqualTo("summary");
+    }
+
+    @Test
+    void 요약_완료된_상태가_아니면_발행_완료_상태로_변경할_수_없다() {
+        // given
+        CollectedContent none = new CollectedContent(
+                new CollectedContent.CollectedContentId(1L),
+                CollectionType.RSS,
+                new TechContentProvider.TechContentProviderId(2L),
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                "content",
+                "imageUrl"
+        );
+
+        CollectedContent categorized = none.categorize(
+                List.of(CollectionCategory.DEVOPS)
+        );
+
+        // when
+        // then
+        assertAll(
+                () -> assertThatThrownBy(() -> none.published())
+                        .isInstanceOf(CollectionPublishUnableException.class),
+                () -> assertThatThrownBy(() -> categorized.published())
+                        .isInstanceOf(CollectionPublishUnableException.class)
+        );
     }
 }

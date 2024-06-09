@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategorizeUnableException;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionSummarizeUnableException;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import lombok.Getter;
@@ -122,6 +123,25 @@ public class CollectedContent {
                 id,
                 type,
                 CollectionStatus.SUMMARIZED,
+                categories,
+                summary,
+                providerId,
+                url,
+                title,
+                publishedDate,
+                content,
+                imageUrl
+        );
+    }
+
+    public CollectedContent published() {
+        if (status != CollectionStatus.SUMMARIZED) {
+            throw new CollectionPublishUnableException(id, status);
+        }
+        return new CollectedContent(
+                id,
+                type,
+                CollectionStatus.PUBLISHED,
                 categories,
                 summary,
                 providerId,

@@ -14,6 +14,7 @@ public enum CollectionErrorCode implements ErrorCodeType {
     NOT_FOUND("COLLECTION-003", "수집된 컨텐츠를 찾을 수 없습니다.", HttpURLConnection.HTTP_NOT_FOUND),
     PROMPT_NOT_FOUND("COLLECTION-004", "프롬프트를 찾을 수 없습니다.", HttpURLConnection.HTTP_NOT_FOUND),
     CATEGORIZE_FAILURE("COLLECTION-005", "카테고리 분류를 실패했습니다.", HttpURLConnection.HTTP_INTERNAL_ERROR),
+    PUBLISH_UNABLE("COLLECTION-006", "컨텐츠를 발행할 수 없습니다.", HttpURLConnection.HTTP_BAD_REQUEST),
     ;
 
     private final String code;
