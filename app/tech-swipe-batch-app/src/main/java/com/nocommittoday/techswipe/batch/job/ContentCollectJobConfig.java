@@ -19,8 +19,8 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.database.JpaItemWriter;
+import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
 import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
@@ -81,7 +81,7 @@ public class ContentCollectJobConfig {
 
     @Bean(STEP_NAME + "ItemReader")
     @StepScope
-    public ItemReader<TechContentProviderEntity> itemReader() {
+    public JpaPagingItemReader<TechContentProviderEntity> itemReader() {
         return new JpaPagingItemReaderBuilder<TechContentProviderEntity>()
                 .name(STEP_NAME + "ItemReader")
                 .entityManagerFactory(emf)
