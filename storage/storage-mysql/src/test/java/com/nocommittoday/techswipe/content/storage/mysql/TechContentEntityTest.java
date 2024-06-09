@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
+import com.nocommittoday.techswipe.content.domain.vo.TechContentCreate;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import org.junit.jupiter.api.Test;
@@ -16,11 +17,38 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TechContentEntityTest {
 
     @Test
+    void TechContentCreate_도메인_모델로부터_생성할_수_있다() {
+        // given
+        final TechContentCreate domain = new TechContentCreate(
+                new TechContentProvider.TechContentProviderId(3),
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                new Image.ImageId(2),
+                "summary",
+                List.of(TechCategory.DEVOPS)
+        );
+
+        // when
+        final TechContentEntity result = TechContentEntity.from(domain);
+
+        // then
+        assertThat(result.getId()).isNull();
+        assertThat(result.getProvider().getId()).isEqualTo(3);
+        assertThat(result.getImage().getId()).isEqualTo(2);
+        assertThat(result.getUrl()).isEqualTo("url");
+        assertThat(result.getTitle()).isEqualTo("title");
+        assertThat(result.getSummary()).isEqualTo("summary");
+        assertThat(result.getSummary()).isEqualTo("summary");
+        assertThat(result.getCategories()).hasSize(1);
+        assertThat(result.getCategories().get(0).getCategory()).isEqualTo(TechCategory.DEVOPS);
+    }
+
+    @Test
     void 도메인_엔티티_ID로_전환할_수_있다() {
         // given
         final TechContentEntity content = new TechContentEntity(
                 1L,
-                null,
                 null,
                 null,
                 null,
@@ -52,9 +80,9 @@ class TechContentEntityTest {
                 "url",
                 "title",
                 "summary",
-                LocalDate.of(2021, 1, 1),
-                List.of(new TechCategoryEntity(null, null, TechCategory.DEVOPS)
-        ));
+                LocalDate.of(2021, 1, 1)
+        );
+        content.addCategory(TechCategory.DEVOPS);
 
         // when
         final TechContent result = content.toDomain();

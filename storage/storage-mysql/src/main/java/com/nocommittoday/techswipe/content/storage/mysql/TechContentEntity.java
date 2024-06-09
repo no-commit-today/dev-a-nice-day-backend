@@ -1,6 +1,8 @@
 package com.nocommittoday.techswipe.content.storage.mysql;
 
+import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
+import com.nocommittoday.techswipe.content.domain.vo.TechContentCreate;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import jakarta.annotation.Nullable;
@@ -19,7 +21,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -47,7 +48,6 @@ import static lombok.AccessLevel.PROTECTED;
 )
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-@AllArgsConstructor
 public class TechContentEntity extends BaseSoftDeleteEntity {
 
     @Id
@@ -78,12 +78,48 @@ public class TechContentEntity extends BaseSoftDeleteEntity {
     @OneToMany(mappedBy = "content", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<TechCategoryEntity> categories = new ArrayList<>();
 
+    public TechContentEntity(
+            @Nullable final Long id,
+            final TechContentProviderEntity provider,
+            @Nullable final ImageEntity image,
+            final String url,
+            final String title,
+            final String summary,
+            final LocalDate publishedDate
+    ) {
+        this.id = id;
+        this.image = image;
+        this.provider = provider;
+        this.publishedDate = publishedDate;
+        this.summary = summary;
+        this.title = title;
+        this.url = url;
+    }
+
     public List<TechCategoryEntity> getCategories() {
         return Collections.unmodifiableList(categories);
     }
 
+    public void addCategory(final TechCategory category) {
+        categories.add(new TechCategoryEntity(this, category));
+    }
+
     public TechContent.TechContentId toDomainId() {
         return new TechContent.TechContentId(id);
+    }
+
+    public static TechContentEntity from(final TechContentCreate techContentCreate) {
+        final TechContentEntity entity = new TechContentEntity(
+                null,
+                TechContentProviderEntity.from(techContentCreate.providerId()),
+                techContentCreate.imageId() == null ? null : ImageEntity.from(techContentCreate.imageId()),
+                techContentCreate.url(),
+                techContentCreate.title(),
+                techContentCreate.summary(),
+                techContentCreate.publishedDate()
+        );
+        techContentCreate.categories().forEach(entity::addCategory);
+        return entity;
     }
 
     public TechContent toDomain() {
@@ -93,6 +129,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity {
                 image == null ? null : image.toDomainId(),
                 url,
                 title,
+                publishedDate,
                 summary,
                 categories.stream().map(TechCategoryEntity::getCategory).toList()
         );
