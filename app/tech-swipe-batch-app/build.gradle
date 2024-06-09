@@ -16,6 +16,7 @@ dependencies {
     implementation(project(":domain:subscription:subscription-domain"))
 
     implementation(project(":domain:collection:collection-adapter-out-mysql"))
+    implementation(project(":domain:collection:collection-adapter-out-web"))
     implementation(project(":domain:collection:collection-application"))
     implementation(project(":domain:collection:collection-domain"))
 
@@ -25,8 +26,20 @@ dependencies {
 
     implementation(project(":storage:storage-mysql"))
 
+    // Spring
     implementation 'org.springframework.boot:spring-boot-starter-batch'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    // Querydsl
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
     testImplementation 'org.springframework.batch:spring-batch-test'
+}
+
+//Querydsl 추가, 자동 생성된 Q클래스 gradle clean으로 제거
+clean {
+    delete file('src/main/generated')
 }

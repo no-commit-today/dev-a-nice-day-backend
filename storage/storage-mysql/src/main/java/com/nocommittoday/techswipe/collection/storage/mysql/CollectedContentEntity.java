@@ -1,17 +1,24 @@
 package com.nocommittoday.techswipe.collection.storage.mysql;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
+import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
-import com.nocommittoday.techswipe.collection.domain.vo.ContentCollect;
-import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;
+import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -21,6 +28,7 @@ import lombok.NoArgsConstructor;
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -43,8 +51,13 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
     @Column(name = "type", columnDefinition = "varchar(45)", nullable = false)
     private CollectionType type;
 
-    @Column(name = "provider_id", nullable = false)
-    private Long providerId;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", columnDefinition = "varchar(45)", nullable = false)
+    private CollectionStatus status;
+
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "provider_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    private TechContentProviderEntity provider;
 
     @Column(name = "url", length = 500, nullable = false)
     private String url;
@@ -66,33 +79,56 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
     @Nullable
     @Convert(converter = CategoryListConverter.class)
     @Column(name = "categories", length = 500)
-    private List<TechCategory> categories;
+    private List<CollectionCategory> categories;
+
+    @Nullable
+    @Column(name = "summary", length = 2_000)
+    private String summary;
+
+    public static CollectedContentEntity from(final CollectedContent collectedContent) {
+        return new CollectedContentEntity(
+                Optional.ofNullable(collectedContent.getId())
+                        .map(CollectedContent.CollectedContentId::id).orElse(null),
+                collectedContent.getType(),
+                collectedContent.getStatus(),
+                TechContentProviderEntity.from(collectedContent.getProviderId()),
+                collectedContent.getUrl(),
+                collectedContent.getTitle(),
+                collectedContent.getPublishedDate(),
+                collectedContent.getContent(),
+                collectedContent.getImageUrl(),
+                collectedContent.getCategories(),
+                collectedContent.getSummary()
+        );
+    }
 
     public CollectedContent toDomain() {
         return new CollectedContent(
                 new CollectedContent.CollectedContentId(id),
                 type,
-                new TechContentProvider.TechContentProviderId(providerId),
+                status,
+                categories,
+                summary,
+                provider.toDomainId(),
                 url,
                 title,
                 publishedDate,
                 content,
-                imageUrl,
-                categories
+                imageUrl
         );
     }
 
-    public static CollectedContentEntity from(final ContentCollect contentCollect) {
-        return new CollectedContentEntity(
-                null,
-                contentCollect.type(),
-                contentCollect.providerId().value(),
-                contentCollect.url(),
-                contentCollect.title(),
-                contentCollect.publishedDate(),
-                contentCollect.content(),
-                contentCollect.imageUrl(),
-                null
-        );
+    public void update(final CollectedContent collectedContent) {
+        this.type = collectedContent.getType();
+        this.status = collectedContent.getStatus();
+        this.provider = TechContentProviderEntity.from(collectedContent.getProviderId());
+        this.url = collectedContent.getUrl();
+        this.title = collectedContent.getTitle();
+        this.publishedDate = collectedContent.getPublishedDate();
+        this.content = collectedContent.getContent();
+        this.imageUrl = collectedContent.getImageUrl();
+        this.categories = collectedContent.getCategories();
+        this.summary = collectedContent.getSummary();
     }
+
 }

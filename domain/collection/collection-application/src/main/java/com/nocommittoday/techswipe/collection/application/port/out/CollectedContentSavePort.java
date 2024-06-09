@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.collection.application.port.out;
 
-import com.nocommittoday.techswipe.collection.domain.vo.ContentCollect;
+import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 
 public interface CollectedContentSavePort {
 
-    void save(final ContentCollect contentCollect);
+    void save(final CollectedContent collectedContent);
 }

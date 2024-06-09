@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.collection.storage.mysql;
 
-import com.nocommittoday.techswipe.content.domain.TechCategory;
+import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
@@ -11,28 +11,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Converter
-public class CategoryListConverter implements AttributeConverter<List<TechCategory>, String> {
+public class CategoryListConverter implements AttributeConverter<List<CollectionCategory>, String> {
 
     @Nullable
     @Override
-    public String convertToDatabaseColumn(@Nullable final List<TechCategory> attribute) {
+    public String convertToDatabaseColumn(@Nullable final List<CollectionCategory> attribute) {
         if (attribute == null || attribute.isEmpty()) {
             return null;
         }
         return attribute.stream()
-                .map(TechCategory::name)
+                .map(CollectionCategory::name)
                 .sorted(Comparator.naturalOrder())
                 .collect(Collectors.joining(","));
     }
 
     @Nullable
     @Override
-    public List<TechCategory> convertToEntityAttribute(@Nullable final String dbData) {
+    public List<CollectionCategory> convertToEntityAttribute(@Nullable final String dbData) {
         if (dbData == null || dbData.isEmpty()) {
             return List.of();
         }
         return Arrays.stream(dbData.split(","))
-                .map(TechCategory::valueOf)
+                .map(CollectionCategory::valueOf)
                 .toList();
     }
 }

@@ -15,6 +15,6 @@ class ContentCollectService implements ContentCollectUseCase {
 
     @Override
     public void collect(final @NonNull ContentCollect command) {
-        collectedContentSavePort.save(command);
+        collectedContentSavePort.save(command.toDomain());
     }
 }

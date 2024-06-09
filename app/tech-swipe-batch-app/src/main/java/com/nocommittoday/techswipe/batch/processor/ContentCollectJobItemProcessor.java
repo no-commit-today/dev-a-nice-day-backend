@@ -45,6 +45,7 @@ public class ContentCollectJobItemProcessor implements ItemProcessor<TechContent
                         subscribedContent.content(),
                         subscribedContent.imageUrl()
                 ))
+                .map(ContentCollect::toDomain)
                 .map(CollectedContentEntity::from)
                 .toList();
     }

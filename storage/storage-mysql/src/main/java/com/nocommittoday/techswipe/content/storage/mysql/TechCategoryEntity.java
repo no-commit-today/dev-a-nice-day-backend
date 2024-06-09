@@ -14,7 +14,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -34,7 +33,6 @@ import static lombok.AccessLevel.PROTECTED;
 )
 @NoArgsConstructor(access = PROTECTED)
 @Getter
-@AllArgsConstructor
 public class TechCategoryEntity extends BaseTimeEntity {
 
     @Id
@@ -48,4 +46,9 @@ public class TechCategoryEntity extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "category", columnDefinition = "varchar(45)", nullable = false)
     private TechCategory category;
+
+    public TechCategoryEntity(final TechContentEntity content, final TechCategory category) {
+        this.content = content;
+        this.category = category;
+    }
 }

@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.collection.storage.mysql;
 
-import com.nocommittoday.techswipe.content.domain.TechCategory;
+import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -39,7 +39,7 @@ class CategoryListConverterTest {
         CategoryListConverter converter = new CategoryListConverter();
 
         // when
-        String result = converter.convertToDatabaseColumn(List.of(TechCategory.SERVER, TechCategory.DEVOPS));
+        String result = converter.convertToDatabaseColumn(List.of(CollectionCategory.SERVER, CollectionCategory.DEVOPS));
 
         // then
         assertThat(result).isEqualTo("DEVOPS,SERVER");
@@ -51,7 +51,7 @@ class CategoryListConverterTest {
         CategoryListConverter converter = new CategoryListConverter();
 
         // when
-        List<TechCategory> result = converter.convertToEntityAttribute(null);
+        List<CollectionCategory> result = converter.convertToEntityAttribute(null);
 
         // then
         assertThat(result).isEmpty();
@@ -63,7 +63,7 @@ class CategoryListConverterTest {
         CategoryListConverter converter = new CategoryListConverter();
 
         // when
-        List<TechCategory> result = converter.convertToEntityAttribute("");
+        List<CollectionCategory> result = converter.convertToEntityAttribute("");
 
         // then
         assertThat(result).isEmpty();
@@ -75,10 +75,10 @@ class CategoryListConverterTest {
         CategoryListConverter converter = new CategoryListConverter();
 
         // when
-        List<TechCategory> result = converter.convertToEntityAttribute("DEVOPS,SERVER");
+        List<CollectionCategory> result = converter.convertToEntityAttribute("DEVOPS,SERVER");
 
         // then
-        assertThat(result).containsExactly(TechCategory.DEVOPS, TechCategory.SERVER);
+        assertThat(result).containsExactly(CollectionCategory.DEVOPS, CollectionCategory.SERVER);
     }
 
 }
