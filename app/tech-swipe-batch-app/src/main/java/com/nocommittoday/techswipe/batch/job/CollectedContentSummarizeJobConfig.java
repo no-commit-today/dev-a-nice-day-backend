@@ -1,11 +1,11 @@
 package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.application.PromptWithInMemoryCacheReader;
-import com.nocommittoday.techswipe.batch.exception.CategorizeFailureException;
-import com.nocommittoday.techswipe.batch.listener.CollectedContentCategorizeSkipListener;
-import com.nocommittoday.techswipe.batch.processor.CollectedContentCategorizeProcessor;
-import com.nocommittoday.techswipe.collection.application.port.out.CategorizePort;
+import com.nocommittoday.techswipe.batch.exception.SummarizeFailureException;
+import com.nocommittoday.techswipe.batch.listener.CollectedContentSummarizeSkipListener;
+import com.nocommittoday.techswipe.batch.processor.CollectedContentSummarizeProcessor;
 import com.nocommittoday.techswipe.collection.application.port.out.PromptReaderPort;
+import com.nocommittoday.techswipe.collection.application.port.out.SummarizePort;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import jakarta.persistence.EntityManagerFactory;
@@ -31,10 +31,10 @@ import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
-public class CollectedContentCategorizeJonConfig {
+public class CollectedContentSummarizeJobConfig {
 
-    private static final String JOB_NAME = "collectedContentCategorizeJob";
-    private static final String STEP_NAME = "collectedContentCategorizeStep";
+    private static final String JOB_NAME = "collectedContentSummarizeJob";
+    private static final String STEP_NAME = "collectedContentSummarizeStep";
     private static final int CHUNK_SIZE = 100;
 
     private final JobRepository jobRepository;
@@ -42,7 +42,7 @@ public class CollectedContentCategorizeJonConfig {
     private final EntityManagerFactory emf;
 
     private final PromptReaderPort promptReaderPort;
-    private final CategorizePort categorizePort;
+    private final SummarizePort summarizePort;
 
     @Bean(JOB_NAME)
     public Job job() {
@@ -64,7 +64,7 @@ public class CollectedContentCategorizeJonConfig {
                 .writer(writer())
 
                 .faultTolerant()
-                .skip(CategorizeFailureException.class)
+                .skip(SummarizeFailureException.class)
                 .skipPolicy(new AlwaysSkipItemSkipPolicy())
                 .listener(listener())
 
@@ -83,16 +83,16 @@ public class CollectedContentCategorizeJonConfig {
                         where c.status = :status and c.deleted = false
                         """)
                 .parameterValues(Map.of(
-                        "status", CollectionStatus.NONE
+                        "status", CollectionStatus.CATEGORIZED
                 ))
                 .build();
     }
 
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
-    public CollectedContentCategorizeProcessor processor() {
-        return new CollectedContentCategorizeProcessor(
-                promptWithInMemoryCacheReader(), categorizePort
+    public CollectedContentSummarizeProcessor processor() {
+        return new CollectedContentSummarizeProcessor(
+                promptWithInMemoryCacheReader(), summarizePort
         );
     }
 
@@ -113,7 +113,7 @@ public class CollectedContentCategorizeJonConfig {
 
     @Bean(STEP_NAME + "SkipListener")
     @StepScope
-    public CollectedContentCategorizeSkipListener listener() {
-        return new CollectedContentCategorizeSkipListener();
+    public CollectedContentSummarizeSkipListener listener() {
+        return new CollectedContentSummarizeSkipListener();
     }
 }
