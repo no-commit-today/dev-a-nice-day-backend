@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.image.adapter.out.aws;
+package com.nocommittoday.techswipe.image.infrastructure;
 
 import com.nocommittoday.techswipe.image.application.port.out.FileStorePort;
 import io.awspring.cloud.s3.ObjectMetadata;

@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.image.adapter.out.mysql;
+package com.nocommittoday.techswipe.image.infrastructure;
 
 import com.nocommittoday.techswipe.image.application.port.out.ImageQueryPort;
 import com.nocommittoday.techswipe.image.domain.Image;
