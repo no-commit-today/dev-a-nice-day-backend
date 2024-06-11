@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.collection.adapter.out.web;
+package com.nocommittoday.techswipe.collection.infrastructure;
 
 import com.nocommittoday.techswipe.collection.application.port.out.CategorizePort;
 import com.nocommittoday.techswipe.collection.application.port.out.SummarizationResult;

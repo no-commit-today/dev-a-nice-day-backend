@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.collection.adapter.out.web;
+package com.nocommittoday.techswipe.collection.infrastructure;
 
 import com.theokanning.openai.service.OpenAiService;
 import org.springframework.beans.factory.annotation.Value;
