@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.subscription.adapter.in.web.admin.v1.request;
+package com.nocommittoday.techswipe.subscription.controller.admin.request;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
