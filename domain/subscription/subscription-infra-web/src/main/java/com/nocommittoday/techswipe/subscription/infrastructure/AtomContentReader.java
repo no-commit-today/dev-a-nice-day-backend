@@ -21,11 +21,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-class AtomContentReaderAdapter implements AtomContentReaderPort {
+public class AtomContentReader implements AtomContentReaderPort {
 
     private final RestTemplate restTemplate;
 
-    public AtomContentReaderAdapter(final RestTemplateBuilder restTemplateBuilder) {
+    public AtomContentReader(final RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 

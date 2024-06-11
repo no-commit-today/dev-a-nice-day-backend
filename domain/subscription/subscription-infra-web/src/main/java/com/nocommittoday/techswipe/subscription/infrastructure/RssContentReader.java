@@ -22,11 +22,11 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Component
-class RssContentReaderAdapter implements RssContentReaderPort {
+public class RssContentReader implements RssContentReaderPort {
 
     private final RestTemplate restTemplate;
 
-    public RssContentReaderAdapter(final RestTemplateBuilder restTemplateBuilder) {
+    public RssContentReader(final RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 

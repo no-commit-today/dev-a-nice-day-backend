@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
-class ListCrawlingContentReaderAdapter implements ListCrawlingContentReaderPort {
+public class ListCrawlingContentReader implements ListCrawlingContentReaderPort {
 
     @Override
     public List<SubscribedContent> getList(final ListCrawlingSubscription subscription, final LocalDate date) {
