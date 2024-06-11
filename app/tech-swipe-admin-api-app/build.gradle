@@ -2,7 +2,7 @@ bootJar.enabled = true
 jar.enabled = false
 
 dependencies {
-    implementation(project(":domain:core:core-adapter-out-system"))
+    implementation(project(":domain:core:core-infra"))
     implementation(project(":domain:core:core-application"))
     implementation(project(":domain:core:core-domain"))
     implementation(project(":domain:core:core-web-servlet"))

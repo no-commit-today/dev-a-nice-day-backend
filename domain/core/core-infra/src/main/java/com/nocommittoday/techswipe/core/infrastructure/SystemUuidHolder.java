@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.core.adapter.out.system;
+package com.nocommittoday.techswipe.core.infrastructure;
 
 import com.nocommittoday.techswipe.core.application.port.out.UuidHolder;
 import org.springframework.stereotype.Service;
