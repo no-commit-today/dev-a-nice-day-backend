@@ -1,7 +1,7 @@
-package com.nocommittoday.techswipe.content.adapter.in.web.admin;
+package com.nocommittoday.techswipe.content.controller.admin;
 
-import com.nocommittoday.techswipe.content.adapter.in.web.admin.request.ProviderRegisterRequest;
-import com.nocommittoday.techswipe.content.adapter.in.web.admin.response.ProviderRegisterResponse;
+import com.nocommittoday.techswipe.content.controller.admin.request.ProviderRegisterRequest;
+import com.nocommittoday.techswipe.content.controller.admin.response.ProviderRegisterResponse;
 import com.nocommittoday.techswipe.content.application.port.in.ProviderRegisterUseCase;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import jakarta.validation.Valid;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-class ProviderRegisterController {
+public class ProviderRegisterController {
 
     private final ProviderRegisterUseCase providerRegisterUseCase;
 
