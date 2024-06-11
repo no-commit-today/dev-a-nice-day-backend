@@ -10,9 +10,9 @@ import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import com.nocommittoday.techswipe.docs.restdocs.RestDocsAttribute;
-import com.nocommittoday.techswipe.image.application.port.in.ImageUrlQuery;
-import com.nocommittoday.techswipe.image.application.port.in.ImageUrlResult;
+import com.nocommittoday.techswipe.image.service.ImageUrlResult;
 import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.service.ImageUrlQueryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -42,7 +42,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
     private ContentListQuery contentListQuery;
 
     @MockBean
-    private ImageUrlQuery imageUrlQuery;
+    private ImageUrlQueryService imageUrlQueryService;
 
     @Test
     void 컨텐츠_리스트_조회_Docs() throws Exception {
@@ -65,7 +65,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                         List.of(TechCategory.SERVER)
                 )
         ));
-        given(imageUrlQuery.getAll(List.of(new Image.ImageId(4L), new Image.ImageId(3L)))).willReturn(List.of(
+        given(imageUrlQueryService.getAll(List.of(new Image.ImageId(4L), new Image.ImageId(3L)))).willReturn(List.of(
                 new ImageUrlResult(new Image.ImageId(4L), "https://content-image-url"),
                 new ImageUrlResult(new Image.ImageId(3L), "https://provider-icon-url")
         ));

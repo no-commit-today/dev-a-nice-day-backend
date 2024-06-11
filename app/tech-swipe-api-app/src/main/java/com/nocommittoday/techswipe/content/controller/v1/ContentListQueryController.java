@@ -6,11 +6,11 @@ import com.nocommittoday.techswipe.content.application.port.in.ContentListQuery;
 import com.nocommittoday.techswipe.content.application.port.in.ContentListQueryParam;
 import com.nocommittoday.techswipe.content.application.port.in.ContentResult;
 import com.nocommittoday.techswipe.content.application.port.in.ProviderResult;
-import com.nocommittoday.techswipe.image.application.port.in.ImageUrlQuery;
-import com.nocommittoday.techswipe.image.application.port.in.ImageUrlResult;
+import com.nocommittoday.techswipe.image.service.ImageUrlResult;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.core.adapter.in.web.servlet.ListResponse;
 import com.nocommittoday.techswipe.core.adapter.in.web.servlet.PageRequest;
+import com.nocommittoday.techswipe.image.service.ImageUrlQueryService;
 import jakarta.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 public class ContentListQueryController {
 
     private final ContentListQuery contentListQuery;
-    private final ImageUrlQuery imageUrlQuery;
+    private final ImageUrlQueryService imageUrlQueryService;
 
     @GetMapping("/api/content/v1/contents")
     ResponseEntity<ListResponse<ContentResponse>> getList(
@@ -70,7 +70,7 @@ public class ContentListQueryController {
                 .map(ProviderResult::iconId)
                 .filter(Objects::nonNull)
                 .forEach(imageIds::add);
-        return imageUrlQuery.getAll(imageIds).stream()
+        return imageUrlQueryService.getAll(imageIds).stream()
                 .collect(Collectors.toMap(ImageUrlResult::id, ImageUrlResult::url));
     }
 }

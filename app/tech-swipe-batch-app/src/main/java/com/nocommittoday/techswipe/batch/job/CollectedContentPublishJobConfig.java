@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.batch.processor.CollectedContentPublishProces
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
-import com.nocommittoday.techswipe.image.application.port.in.ImageStoreUseCase;
+import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -37,7 +37,7 @@ public class CollectedContentPublishJobConfig {
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
 
-    private final ImageStoreUseCase imageStoreUseCase;
+    private final ImageStoreService imageStoreUseCase;
 
     @Bean(JOB_NAME)
     public Job job() {

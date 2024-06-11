@@ -5,8 +5,8 @@ import com.nocommittoday.techswipe.content.application.port.in.ProviderRegisterU
 import com.nocommittoday.techswipe.content.application.port.out.ProviderSave;
 import com.nocommittoday.techswipe.content.application.port.out.ProviderSavePort;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.image.application.port.in.ImageStoreUseCase;
 import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +16,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 class ProviderRegisterService implements ProviderRegisterUseCase {
 
-    private final ImageStoreUseCase imageStoreUseCase;
+    private final ImageStoreService imageStoreService;
     private final ProviderSavePort providerSavePort;
 
     @Override
     public TechContentProvider.TechContentProviderId register(final ProviderRegisterCommand command) {
         final Image.ImageId iconId = Optional.ofNullable(command.iconUrl())
-                .map(url -> imageStoreUseCase.store(url, "provider-icon"))
+                .map(url -> imageStoreService.store(url, "provider-icon"))
                 .orElse(null);
         return providerSavePort.save(new ProviderSave(
                 command.type(),

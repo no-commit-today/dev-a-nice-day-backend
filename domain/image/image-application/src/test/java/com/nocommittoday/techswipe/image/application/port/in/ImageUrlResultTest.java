@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.image.application.port.in;
 
+import com.nocommittoday.techswipe.image.service.ImageUrlResult;
 import com.nocommittoday.techswipe.image.domain.Image;
 import org.junit.jupiter.api.Test;
 

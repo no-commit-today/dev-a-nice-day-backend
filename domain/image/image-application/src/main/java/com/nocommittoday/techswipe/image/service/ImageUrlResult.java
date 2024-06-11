@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.image.application.port.in;
+package com.nocommittoday.techswipe.image.service;
 
 import com.nocommittoday.techswipe.image.domain.Image;
 

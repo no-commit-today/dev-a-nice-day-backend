@@ -1,7 +1,6 @@
-package com.nocommittoday.techswipe.image.application.service;
+package com.nocommittoday.techswipe.image.service;
 
 import com.nocommittoday.techswipe.core.application.port.out.UuidHolder;
-import com.nocommittoday.techswipe.image.application.port.in.ImageStoreUseCase;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.domain.exception.NotSupportedImageException;
 import com.nocommittoday.techswipe.image.infrastructure.FileStore;
@@ -18,13 +17,12 @@ import java.nio.file.Paths;
 
 @Service
 @RequiredArgsConstructor
-class ImageStoreService implements ImageStoreUseCase {
+public class ImageStoreService {
 
     private final FileStore fileStore;
     private final ImageAppender imageSavePort;
     private final UuidHolder uuidHolder;
 
-    @Override
     public Image.ImageId store(final String originUrl, final String dirToStore) {
         final UrlResource resource = UrlResource.from(originUrl);
         final String filename = resource.getFilename();
