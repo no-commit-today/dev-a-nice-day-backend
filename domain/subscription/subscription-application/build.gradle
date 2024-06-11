@@ -7,6 +7,7 @@ dependencies {
 
     implementation(project(":domain:subscription:subscription-domain"))
     implementation(project(":domain:subscription:subscription-infra-web"))
+    implementation(project(":domain:subscription:subscription-infra-mysql"))
 
     implementation("org.springframework.boot:spring-boot-starter")
 }

@@ -4,7 +4,6 @@ dependencies {
     implementation(project(":domain:content:content-domain"))
 
     implementation(project(":domain:subscription:subscription-domain"))
-    implementation(project(":domain:subscription:subscription-application"))
 
     implementation(project(":storage:storage-mysql"))
 }

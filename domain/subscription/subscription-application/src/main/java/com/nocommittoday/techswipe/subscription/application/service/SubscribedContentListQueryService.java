@@ -4,13 +4,13 @@ import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentAllListQuery;
 import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentListQuery;
 import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentResult;
-import com.nocommittoday.techswipe.subscription.application.port.out.SubscriptionReaderPort;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.infrastructure.AtomContentReader;
 import com.nocommittoday.techswipe.subscription.infrastructure.ListCrawlingContentReader;
 import com.nocommittoday.techswipe.subscription.infrastructure.RssContentReader;
 import com.nocommittoday.techswipe.subscription.infrastructure.SubscribedContent;
+import com.nocommittoday.techswipe.subscription.infrastructure.SubscriptionReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 class SubscribedContentListQueryService implements SubscribedContentListQuery, SubscribedContentAllListQuery {
 
-    private final SubscriptionReaderPort subscriptionReader;
+    private final SubscriptionReader subscriptionReader;
     private final RssContentReader rssContentReader;
     private final AtomContentReader atomContentReader;
     private final ListCrawlingContentReader listCrawlingContentReader;
