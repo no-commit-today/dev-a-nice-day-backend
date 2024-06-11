@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.content.adapter.out.mysql;
+package com.nocommittoday.techswipe.content.infrastructure;
 
 import com.nocommittoday.techswipe.content.application.port.out.ProviderExistsReaderPort;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;

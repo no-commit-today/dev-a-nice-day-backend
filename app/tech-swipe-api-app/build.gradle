@@ -19,7 +19,7 @@ dependencies {
     implementation(project(":domain:image:image-application"))
     implementation(project(":domain:image:image-infra"))
 
-    implementation(project(":domain:content:content-adapter-out-mysql"))
+    implementation(project(":domain:content:content-infra-mysql"))
     implementation(project(":domain:content:content-application"))
     implementation(project(":domain:content:content-domain"))
 

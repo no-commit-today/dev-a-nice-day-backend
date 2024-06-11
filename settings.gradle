@@ -24,7 +24,7 @@ include 'domain:image:image-infra'
 
 include 'domain:content:content-domain'
 include 'domain:content:content-application'
-include 'domain:content:content-adapter-out-mysql'
+include 'domain:content:content-infra-mysql'
 
 include 'domain:subscription:subscription-domain'
 include 'domain:subscription:subscription-application'
