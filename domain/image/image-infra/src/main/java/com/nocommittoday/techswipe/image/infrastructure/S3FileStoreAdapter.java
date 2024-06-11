@@ -1,6 +1,5 @@
 package com.nocommittoday.techswipe.image.infrastructure;
 
-import com.nocommittoday.techswipe.image.application.port.out.FileStorePort;
 import io.awspring.cloud.s3.ObjectMetadata;
 import io.awspring.cloud.s3.S3Resource;
 import io.awspring.cloud.s3.S3Template;
@@ -19,7 +18,7 @@ import java.util.Optional;
 
 @Component
 @Profile("!local")
-public class S3FileStoreAdapter implements FileStorePort {
+public class S3FileStoreAdapter implements FileStore {
 
     private final S3Template s3Template;
     private final String bucketName;
