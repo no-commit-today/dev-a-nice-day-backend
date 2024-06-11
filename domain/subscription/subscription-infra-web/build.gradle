@@ -1,6 +1,5 @@
 dependencies {
     implementation project(":domain:subscription:subscription-domain")
-    implementation project(":domain:subscription:subscription-application")
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.fasterxml.jackson.core:jackson-databind'

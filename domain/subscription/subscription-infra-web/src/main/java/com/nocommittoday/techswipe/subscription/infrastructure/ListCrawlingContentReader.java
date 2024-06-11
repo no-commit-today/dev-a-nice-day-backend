@@ -1,7 +1,5 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.techswipe.subscription.application.port.out.ListCrawlingContentReaderPort;
-import com.nocommittoday.techswipe.subscription.application.port.out.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawling;
 import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawlingSubscription;
@@ -14,9 +12,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
-public class ListCrawlingContentReader implements ListCrawlingContentReaderPort {
+public class ListCrawlingContentReader {
 
-    @Override
     public List<SubscribedContent> getList(final ListCrawlingSubscription subscription, final LocalDate date) {
         final ListCrawling listCrawling = subscription.listCrawling();
         final ContentCrawling contentCrawling = subscription.contentCrawling();

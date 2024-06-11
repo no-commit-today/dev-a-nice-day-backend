@@ -1,7 +1,5 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.techswipe.subscription.application.port.out.AtomContentReaderPort;
-import com.nocommittoday.techswipe.subscription.application.port.out.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.vo.AtomSubscription;
 import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
 import com.rometools.rome.feed.atom.Content;
@@ -21,7 +19,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class AtomContentReader implements AtomContentReaderPort {
+public class AtomContentReader {
 
     private final RestTemplate restTemplate;
 
@@ -29,7 +27,6 @@ public class AtomContentReader implements AtomContentReaderPort {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    @Override
     public List<SubscribedContent> getList(
             final AtomSubscription subscription, final LocalDate date
     ) {

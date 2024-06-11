@@ -1,7 +1,5 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.techswipe.subscription.application.port.out.RssContentReaderPort;
-import com.nocommittoday.techswipe.subscription.application.port.out.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.vo.RssSubscription;
 import com.rometools.rome.feed.rss.Channel;
@@ -22,7 +20,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Component
-public class RssContentReader implements RssContentReaderPort {
+public class RssContentReader {
 
     private final RestTemplate restTemplate;
 
@@ -30,7 +28,6 @@ public class RssContentReader implements RssContentReaderPort {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    @Override
     public List<SubscribedContent> getList(
             final RssSubscription subscription, final LocalDate date
     ) {

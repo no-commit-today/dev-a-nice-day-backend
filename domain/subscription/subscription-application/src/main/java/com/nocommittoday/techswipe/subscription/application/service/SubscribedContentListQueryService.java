@@ -4,13 +4,13 @@ import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentAllListQuery;
 import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentListQuery;
 import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentResult;
-import com.nocommittoday.techswipe.subscription.application.port.out.AtomContentReaderPort;
-import com.nocommittoday.techswipe.subscription.application.port.out.ListCrawlingContentReaderPort;
-import com.nocommittoday.techswipe.subscription.application.port.out.RssContentReaderPort;
-import com.nocommittoday.techswipe.subscription.application.port.out.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.application.port.out.SubscriptionReaderPort;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
+import com.nocommittoday.techswipe.subscription.infrastructure.AtomContentReader;
+import com.nocommittoday.techswipe.subscription.infrastructure.ListCrawlingContentReader;
+import com.nocommittoday.techswipe.subscription.infrastructure.RssContentReader;
+import com.nocommittoday.techswipe.subscription.infrastructure.SubscribedContent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,17 +21,17 @@ import java.util.List;
 @RequiredArgsConstructor
 class SubscribedContentListQueryService implements SubscribedContentListQuery, SubscribedContentAllListQuery {
 
-    private final SubscriptionReaderPort subscriptionReaderPort;
-    private final RssContentReaderPort rssContentReaderPort;
-    private final AtomContentReaderPort atomContentReaderPort;
-    private final ListCrawlingContentReaderPort listCrawlingContentReaderPort;
+    private final SubscriptionReaderPort subscriptionReader;
+    private final RssContentReader rssContentReader;
+    private final AtomContentReader atomContentReader;
+    private final ListCrawlingContentReader listCrawlingContentReader;
 
     @Override
     public List<SubscribedContentResult> getList(
             final TechContentProvider.TechContentProviderId providerId,
             final LocalDate date
     ) {
-        final Subscription subscription = subscriptionReaderPort.getByProviderId(providerId);
+        final Subscription subscription = subscriptionReader.getByProviderId(providerId);
         return getSubscribedContentList(subscription, date);
     }
 
@@ -40,16 +40,16 @@ class SubscribedContentListQueryService implements SubscribedContentListQuery, S
     ) {
         if (SubscriptionType.LIST_CRAWLING == subscription.getType()) {
             return subscription.toListCrawling().stream()
-                    .map(listCrawling -> listCrawlingContentReaderPort.getList(listCrawling, date))
+                    .map(listCrawling -> listCrawlingContentReader.getList(listCrawling, date))
                     .flatMap(List::stream)
                     .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
                     .toList();
         } else if (SubscriptionType.RSS == subscription.getType()) {
-            return rssContentReaderPort.getList(subscription.toRss(), date).stream()
+            return rssContentReader.getList(subscription.toRss(), date).stream()
                     .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
                     .toList();
         } else if (SubscriptionType.ATOM == subscription.getType()) {
-            return atomContentReaderPort.getList(subscription.toAtom(), date).stream()
+            return atomContentReader.getList(subscription.toAtom(), date).stream()
                     .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
                     .toList();
         }
@@ -58,9 +58,9 @@ class SubscribedContentListQueryService implements SubscribedContentListQuery, S
 
     @Override
     public List<SubscribedContentResult> getAllList(final TechContentProvider.TechContentProviderId providerId) {
-        final Subscription subscription = subscriptionReaderPort.getByProviderId(providerId);
+        final Subscription subscription = subscriptionReader.getByProviderId(providerId);
         return subscription.toListCrawling().stream()
-                .map(listCrawling -> listCrawlingContentReaderPort.getList(listCrawling, LocalDate.MIN))
+                .map(listCrawling -> listCrawlingContentReader.getList(listCrawling, LocalDate.MIN))
                 .flatMap(List::stream)
                 .map(subscribedContent -> convertToResult(subscribedContent, SubscriptionType.LIST_CRAWLING))
                 .toList();
