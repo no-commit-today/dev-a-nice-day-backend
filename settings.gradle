@@ -28,7 +28,7 @@ include 'domain:content:content-adapter-out-mysql'
 
 include 'domain:subscription:subscription-domain'
 include 'domain:subscription:subscription-application'
-include 'domain:subscription:subscription-adapter-out-mysql'
+include 'domain:subscription:subscription-infra-mysql'
 include 'domain:subscription:subscription-infra-web'
 
 include 'domain:collection:collection-domain'
