@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.subscription.adapter.out.web;
+package com.nocommittoday.techswipe.subscription.infrastructure;
 
 import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.vo.Crawling;

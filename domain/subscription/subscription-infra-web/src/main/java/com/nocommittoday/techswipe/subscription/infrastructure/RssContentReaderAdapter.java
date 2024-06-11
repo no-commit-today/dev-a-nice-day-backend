@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.subscription.adapter.out.web;
+package com.nocommittoday.techswipe.subscription.infrastructure;
 
 import com.nocommittoday.techswipe.subscription.application.port.out.RssContentReaderPort;
 import com.nocommittoday.techswipe.subscription.application.port.out.SubscribedContent;
