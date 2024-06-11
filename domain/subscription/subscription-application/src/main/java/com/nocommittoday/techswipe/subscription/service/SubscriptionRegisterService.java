@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.subscription.application.service;
+package com.nocommittoday.techswipe.subscription.service;
 
 import com.nocommittoday.techswipe.content.application.port.in.ProviderExistsValidationUseCase;
 import com.nocommittoday.techswipe.subscription.application.port.in.SubscriptionRegisterUseCase;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-class SubscriptionRegisterService implements SubscriptionRegisterUseCase {
+public class SubscriptionRegisterService implements SubscriptionRegisterUseCase {
 
     private final SubscriptionAppender subscriptionSavePort;
     private final ProviderExistsValidationUseCase providerExistsValidationUseCase;

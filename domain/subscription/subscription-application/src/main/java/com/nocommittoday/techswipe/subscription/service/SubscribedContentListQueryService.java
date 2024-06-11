@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.subscription.application.service;
+package com.nocommittoday.techswipe.subscription.service;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentAllListQuery;
@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-class SubscribedContentListQueryService implements SubscribedContentListQuery, SubscribedContentAllListQuery {
+public class SubscribedContentListQueryService implements SubscribedContentListQuery, SubscribedContentAllListQuery {
 
     private final SubscriptionReader subscriptionReader;
     private final RssContentReader rssContentReader;
