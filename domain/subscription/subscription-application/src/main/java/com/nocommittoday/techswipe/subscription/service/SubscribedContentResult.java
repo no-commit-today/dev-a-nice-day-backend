@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.subscription.application.port.in;
+package com.nocommittoday.techswipe.subscription.service;
 
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
 

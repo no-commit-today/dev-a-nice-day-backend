@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.subscription.controller.admin;
 
 import com.nocommittoday.techswipe.subscription.controller.admin.request.SubscriptionRegisterRequest;
-import com.nocommittoday.techswipe.subscription.application.port.in.SubscriptionRegisterUseCase;
+import com.nocommittoday.techswipe.subscription.service.SubscriptionRegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 class SubscriptionRegisterController {
 
-    private final SubscriptionRegisterUseCase subscriptionRegisterUseCase;
+    private final SubscriptionRegisterService subscriptionRegisterService;
 
     @PostMapping("/api/subscription/admin/subscriptions")
     ResponseEntity<Void> register(@Validated @RequestBody final SubscriptionRegisterRequest request) {
-        subscriptionRegisterUseCase.register(request.toDomain());
+        subscriptionRegisterService.register(request.toDomain());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

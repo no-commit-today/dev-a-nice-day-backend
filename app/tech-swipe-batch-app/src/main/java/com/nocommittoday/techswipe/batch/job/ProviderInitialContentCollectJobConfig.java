@@ -6,8 +6,8 @@ import com.nocommittoday.techswipe.collection.domain.vo.ContentCollect;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentJpaRepository;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentAllListQuery;
-import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentResult;
+import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
+import com.nocommittoday.techswipe.subscription.service.SubscribedContentResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersValidator;
@@ -37,7 +37,7 @@ public class ProviderInitialContentCollectJobConfig {
     private final PlatformTransactionManager txManager;
     private final CollectedContentJpaRepository collectedContentJpaRepository;
 
-    private final SubscribedContentAllListQuery subscribedContentAllListQuery;
+    private final SubscribedContentListQueryService subscribedContentListQueryService;
 
     @Bean(JOB_NAME + ProviderIdJobParameters.NAME)
     @JobScope
@@ -69,7 +69,7 @@ public class ProviderInitialContentCollectJobConfig {
         final TaskletStepBuilder taskletStepBuilder = new TaskletStepBuilder(new StepBuilder(STEP_NAME, jobRepository));
         return taskletStepBuilder.tasklet((contribution, chunkContext) -> {
             final TechContentProvider.TechContentProviderId providerId = providerIdJobParameters().getProviderId();
-            final List<SubscribedContentResult> subscribedContentList = subscribedContentAllListQuery
+            final List<SubscribedContentResult> subscribedContentList = subscribedContentListQueryService
                     .getAllList(providerId);
             final List<CollectedContentEntity> collectedContentEntityList = subscribedContentList.stream()
                     .map(item -> new ContentCollect(

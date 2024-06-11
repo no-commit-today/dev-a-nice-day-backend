@@ -1,9 +1,6 @@
 package com.nocommittoday.techswipe.subscription.service;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentAllListQuery;
-import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentListQuery;
-import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.infrastructure.AtomContentReader;
@@ -19,14 +16,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SubscribedContentListQueryService implements SubscribedContentListQuery, SubscribedContentAllListQuery {
+public class SubscribedContentListQueryService {
 
     private final SubscriptionReader subscriptionReader;
     private final RssContentReader rssContentReader;
     private final AtomContentReader atomContentReader;
     private final ListCrawlingContentReader listCrawlingContentReader;
 
-    @Override
     public List<SubscribedContentResult> getList(
             final TechContentProvider.TechContentProviderId providerId,
             final LocalDate date
@@ -56,7 +52,6 @@ public class SubscribedContentListQueryService implements SubscribedContentListQ
         throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getType());
     }
 
-    @Override
     public List<SubscribedContentResult> getAllList(final TechContentProvider.TechContentProviderId providerId) {
         final Subscription subscription = subscriptionReader.getByProviderId(providerId);
         return subscription.toListCrawling().stream()
