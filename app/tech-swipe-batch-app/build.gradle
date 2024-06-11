@@ -15,7 +15,7 @@ dependencies {
     implementation(project(":domain:subscription:subscription-application"))
     implementation(project(":domain:subscription:subscription-domain"))
 
-    implementation(project(":domain:collection:collection-adapter-out-mysql"))
+    implementation(project(":domain:collection:collection-infra-mysql"))
     implementation(project(":domain:collection:collection-adapter-out-web"))
     implementation(project(":domain:collection:collection-application"))
     implementation(project(":domain:collection:collection-domain"))
