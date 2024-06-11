@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.content.adapter.in.web.v1;
+package com.nocommittoday.techswipe.content.controller.v1;
 
 import com.nocommittoday.techswipe.content.application.port.in.ContentListQuery;
 import com.nocommittoday.techswipe.content.application.port.in.ContentListQueryParam;

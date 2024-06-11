@@ -1,7 +1,7 @@
-package com.nocommittoday.techswipe.content.adapter.in.web.v1;
+package com.nocommittoday.techswipe.content.controller.v1;
 
-import com.nocommittoday.techswipe.content.adapter.in.web.v1.request.ContentListQueryRequest;
-import com.nocommittoday.techswipe.content.adapter.in.web.v1.response.ContentResponse;
+import com.nocommittoday.techswipe.content.controller.v1.request.ContentListQueryRequest;
+import com.nocommittoday.techswipe.content.controller.v1.response.ContentResponse;
 import com.nocommittoday.techswipe.content.application.port.in.ContentListQuery;
 import com.nocommittoday.techswipe.content.application.port.in.ContentListQueryParam;
 import com.nocommittoday.techswipe.content.application.port.in.ContentResult;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-class ContentListQueryController {
+public class ContentListQueryController {
 
     private final ContentListQuery contentListQuery;
     private final ImageUrlQuery imageUrlQuery;

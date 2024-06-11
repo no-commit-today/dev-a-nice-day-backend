@@ -25,7 +25,6 @@ include 'domain:image:image-adapter-out'
 include 'domain:content:content-domain'
 include 'domain:content:content-application'
 include 'domain:content:content-adapter-out-mysql'
-include 'domain:content:content-adapter-in-web'
 include 'domain:content:content-adapter-in-web-admin'
 
 include 'domain:subscription:subscription-domain'

@@ -19,7 +19,6 @@ dependencies {
     implementation(project(":domain:image:image-application"))
     implementation(project(":domain:image:image-adapter-out"))
 
-    implementation(project(":domain:content:content-adapter-in-web"))
     implementation(project(":domain:content:content-adapter-out-mysql"))
     implementation(project(":domain:content:content-application"))
     implementation(project(":domain:content:content-domain"))
@@ -27,6 +26,7 @@ dependencies {
     implementation(project(":support:monitoring"))
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'

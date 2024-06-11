@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.content.adapter.in.web.v1.response;
+package com.nocommittoday.techswipe.content.controller.v1.response;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 
