@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-class SubscriptionReaderAdapter implements SubscriptionReaderPort {
+public class SubscriptionReader implements SubscriptionReaderPort {
 
     private final SubscriptionJpaRepository subscriptionRepository;
 

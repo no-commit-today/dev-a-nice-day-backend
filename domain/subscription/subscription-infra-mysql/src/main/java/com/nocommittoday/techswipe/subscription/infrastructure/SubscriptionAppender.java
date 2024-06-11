@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-class SubscriptionSaveAdapter implements SubscriptionSavePort {
+public class SubscriptionAppender implements SubscriptionSavePort {
 
     private final SubscriptionJpaRepository subscriptionJpaRepository;
 
