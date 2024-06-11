@@ -20,7 +20,7 @@ include 'domain:core:core-adapter-out-system'
 
 include 'domain:image:image-domain'
 include 'domain:image:image-application'
-include 'domain:image:image-adapter-out'
+include 'domain:image:image-infra'
 
 include 'domain:content:content-domain'
 include 'domain:content:content-application'
