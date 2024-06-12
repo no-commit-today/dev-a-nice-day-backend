@@ -1,7 +1,6 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
 import com.nocommittoday.techswipe.content.domain.vo.ProviderSave;
-import com.nocommittoday.techswipe.content.application.port.out.ProviderSavePort;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderJpaRepository;
@@ -13,11 +12,10 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-class ProviderSaveAdapter implements ProviderSavePort {
+public class ProviderAppender {
 
     private final TechContentProviderJpaRepository repository;
 
-    @Override
     public TechContentProvider.TechContentProviderId save(final ProviderSave command) {
         return new TechContentProvider.TechContentProviderId(repository.save(new TechContentProviderEntity(
                 null,

@@ -6,6 +6,7 @@ dependencies {
     implementation(project(":domain:image:image-application"))
 
     implementation(project(":domain:content:content-domain"))
+    implementation(project(":domain:content:content-infra-mysql"))
 
     implementation("org.springframework.boot:spring-boot-starter")
 }

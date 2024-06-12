@@ -1,9 +1,9 @@
 package com.nocommittoday.techswipe.content.application.service;
 
 import com.nocommittoday.techswipe.content.application.port.in.ProviderExistsValidationUseCase;
-import com.nocommittoday.techswipe.content.application.port.out.ProviderExistsReaderPort;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.exception.ContentProviderNotFoundException;
+import com.nocommittoday.techswipe.content.infrastructure.ProviderExistsReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 class ProviderExistsValidationUseCaseService implements ProviderExistsValidationUseCase {
 
-    private final ProviderExistsReaderPort providerExistsReaderPort;
+    private final ProviderExistsReader providerExistsReader;
 
     @Override
     public void validate(final TechContentProvider.TechContentProviderId id) {
-        if (!providerExistsReaderPort.exists(id)) {
+        if (!providerExistsReader.exists(id)) {
             throw new ContentProviderNotFoundException(id);
         }
     }

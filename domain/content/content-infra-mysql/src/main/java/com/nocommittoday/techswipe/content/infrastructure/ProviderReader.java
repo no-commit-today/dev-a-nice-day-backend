@@ -1,6 +1,5 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
-import com.nocommittoday.techswipe.content.application.port.out.ProviderReaderPort;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.exception.ContentProviderNotFoundException;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
@@ -10,11 +9,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class ProviderReaderAdapter implements ProviderReaderPort {
+public class ProviderReader {
 
     private final TechContentProviderJpaRepository providerJpaRepository;
 
-    @Override
     public TechContentProvider get(final TechContentProvider.TechContentProviderId id) {
         return providerJpaRepository.findById(id.value())
                 .map(TechContentProviderEntity::toDomain)
