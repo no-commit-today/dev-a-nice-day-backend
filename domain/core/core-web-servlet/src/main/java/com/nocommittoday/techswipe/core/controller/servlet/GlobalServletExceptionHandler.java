@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.core.adapter.in.web.servlet;
+package com.nocommittoday.techswipe.core.controller.servlet;
 
 
 import com.nocommittoday.techswipe.core.domain.exception.AbstractDomainException;

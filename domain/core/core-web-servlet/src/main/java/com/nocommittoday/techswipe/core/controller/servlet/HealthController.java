@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.core.adapter.in.web.servlet;
+package com.nocommittoday.techswipe.core.controller.servlet;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

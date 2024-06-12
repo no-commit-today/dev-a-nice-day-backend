@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.core.adapter.in.web.servlet;
+package com.nocommittoday.techswipe.core.controller.servlet;
 
 public record FieldErrorResponse(
         String field,
