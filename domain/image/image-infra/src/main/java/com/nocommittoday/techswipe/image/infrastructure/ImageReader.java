@@ -1,0 +1,30 @@
+package com.nocommittoday.techswipe.image.infrastructure;
+
+import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.exception.ImageNotFoundException;
+import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
+import com.nocommittoday.techswipe.image.storage.mysql.ImageJpaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+@RequiredArgsConstructor
+public class ImageReader {
+
+    private final ImageJpaRepository imageRepository;
+
+    public Image get(final Image.ImageId id) {
+        return imageRepository.findById(id.value())
+                .map(ImageEntity::toDomain)
+                .orElseThrow(() -> new ImageNotFoundException(id));
+    }
+
+    public List<Image> getAll(final List<Image.ImageId> ids) {
+        return imageRepository.findAllById(ids.stream().map(Image.ImageId::value).toList())
+                .stream()
+                .map(ImageEntity::toDomain)
+                .toList();
+    }
+}

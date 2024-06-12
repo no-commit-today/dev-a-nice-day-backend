@@ -7,8 +7,8 @@ import com.nocommittoday.techswipe.collection.domain.exception.CollectionPublish
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.content.domain.vo.TechContentCreate;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
-import com.nocommittoday.techswipe.image.application.port.in.ImageStoreUseCase;
 import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;
 
@@ -18,7 +18,7 @@ import java.util.Objects;
 public class CollectedContentPublishProcessor
         implements ItemProcessor<CollectedContentEntity, TechContentEntity> {
 
-    private final ImageStoreUseCase imageStoreUseCase;
+    private final ImageStoreService imageStoreService;
 
     @Override
     public TechContentEntity process(final CollectedContentEntity item) throws Exception {
@@ -26,7 +26,7 @@ public class CollectedContentPublishProcessor
         if (collectedContent.getStatus() != CollectionStatus.SUMMARIZED) {
             throw new CollectionPublishUnableException(collectedContent.getId(), collectedContent.getStatus());
         }
-        final Image.ImageId imageId = imageStoreUseCase.store(collectedContent.getImageUrl(), "content");
+        final Image.ImageId imageId = imageStoreService.store(collectedContent.getImageUrl(), "content");
         final TechContentCreate content = new TechContentCreate(
                 collectedContent.getProviderId(),
                 collectedContent.getUrl(),

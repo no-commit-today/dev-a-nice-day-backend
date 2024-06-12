@@ -4,9 +4,9 @@ import com.nocommittoday.techswipe.batch.application.PromptWithInMemoryCacheRead
 import com.nocommittoday.techswipe.batch.exception.SummarizeFailureException;
 import com.nocommittoday.techswipe.batch.listener.CollectedContentSummarizeSkipListener;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentSummarizeProcessor;
-import com.nocommittoday.techswipe.collection.application.port.out.PromptReaderPort;
-import com.nocommittoday.techswipe.collection.application.port.out.SummarizePort;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
+import com.nocommittoday.techswipe.collection.infrastructure.CollectionProcessor;
+import com.nocommittoday.techswipe.collection.infrastructure.PromptReader;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
@@ -41,8 +41,8 @@ public class CollectedContentSummarizeJobConfig {
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
 
-    private final PromptReaderPort promptReaderPort;
-    private final SummarizePort summarizePort;
+    private final PromptReader promptReader;
+    private final CollectionProcessor collectionProcessor;
 
     @Bean(JOB_NAME)
     public Job job() {
@@ -92,7 +92,7 @@ public class CollectedContentSummarizeJobConfig {
     @StepScope
     public CollectedContentSummarizeProcessor processor() {
         return new CollectedContentSummarizeProcessor(
-                promptWithInMemoryCacheReader(), summarizePort
+                promptWithInMemoryCacheReader(), collectionProcessor
         );
     }
 
@@ -108,7 +108,7 @@ public class CollectedContentSummarizeJobConfig {
     @Bean(STEP_NAME + "PromptWithInMemoryCacheReader")
     @StepScope
     public PromptWithInMemoryCacheReader promptWithInMemoryCacheReader() {
-        return new PromptWithInMemoryCacheReader(promptReaderPort);
+        return new PromptWithInMemoryCacheReader(promptReader);
     }
 
     @Bean(STEP_NAME + "SkipListener")

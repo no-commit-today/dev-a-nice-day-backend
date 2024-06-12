@@ -6,9 +6,9 @@ import com.nocommittoday.techswipe.collection.domain.vo.ContentCollect;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
-import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentListQuery;
-import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
+import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
+import com.nocommittoday.techswipe.subscription.service.SubscribedContentResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
@@ -26,14 +26,14 @@ public class ContentCollectJobItemProcessor implements ItemProcessor<TechContent
             SubscriptionType.ATOM, CollectionType.ATOM
     );
 
-    private final SubscribedContentListQuery subscribedContentListQuery;
+    private final SubscribedContentListQueryService subscribedContentListQueryService;
     private final DateJobParameters dateJobParameters;
 
     @Override
     public List<CollectedContentEntity> process(final TechContentProviderEntity item) throws Exception {
         final TechContentProvider.TechContentProviderId providerId = new TechContentProvider.TechContentProviderId(
                 item.getId());
-        final List<SubscribedContentResult> subscribedContentList = subscribedContentListQuery.getList(
+        final List<SubscribedContentResult> subscribedContentList = subscribedContentListQueryService.getList(
                 providerId, dateJobParameters.getDate());
         return subscribedContentList.stream()
                 .map(subscribedContent -> new ContentCollect(

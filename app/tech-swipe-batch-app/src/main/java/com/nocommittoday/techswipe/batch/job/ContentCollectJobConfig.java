@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.batch.processor.ContentCollectJobItemProcesso
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
-import com.nocommittoday.techswipe.subscription.application.port.in.SubscribedContentListQuery;
+import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -41,7 +41,7 @@ public class ContentCollectJobConfig {
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
 
-    private final SubscribedContentListQuery subscribedContentListQuery;
+    private final SubscribedContentListQueryService subscribedContentListQueryService;
 
     @Bean(JOB_NAME + DateJobParameters.NAME)
     @JobScope
@@ -97,7 +97,7 @@ public class ContentCollectJobConfig {
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
     public ItemProcessor<TechContentProviderEntity, List<CollectedContentEntity>> itemProcessor() {
-        return new ContentCollectJobItemProcessor(subscribedContentListQuery, dateJobParameters());
+        return new ContentCollectJobItemProcessor(subscribedContentListQueryService, dateJobParameters());
     }
 
     @Bean(STEP_NAME + "ItemWriter")
