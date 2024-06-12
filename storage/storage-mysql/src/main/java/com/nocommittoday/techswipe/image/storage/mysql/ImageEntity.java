@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.image.storage.mysql;
 
-import com.nocommittoday.techswipe.common.storage.mysql.BaseSoftDeleteEntity;
+import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.image.domain.Image;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

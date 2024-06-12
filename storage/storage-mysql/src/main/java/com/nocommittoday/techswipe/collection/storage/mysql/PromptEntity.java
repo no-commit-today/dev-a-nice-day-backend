@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.collection.storage.mysql;
 import com.nocommittoday.techswipe.collection.domain.Prompt;
 import com.nocommittoday.techswipe.collection.domain.enums.PromptType;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
-import com.nocommittoday.techswipe.common.storage.mysql.BaseSoftDeleteEntity;
+import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

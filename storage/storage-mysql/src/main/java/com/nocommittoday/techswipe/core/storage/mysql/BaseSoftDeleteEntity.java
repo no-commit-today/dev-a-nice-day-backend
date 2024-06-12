@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.common.storage.mysql;
+package com.nocommittoday.techswipe.core.storage.mysql;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
