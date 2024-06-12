@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.content.application.service;
 
 import com.nocommittoday.techswipe.content.application.port.in.ProviderRegisterCommand;
 import com.nocommittoday.techswipe.content.application.port.in.ProviderRegisterUseCase;
-import com.nocommittoday.techswipe.content.application.port.out.ProviderSave;
+import com.nocommittoday.techswipe.content.domain.vo.ProviderSave;
 import com.nocommittoday.techswipe.content.application.port.out.ProviderSavePort;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.image.domain.Image;

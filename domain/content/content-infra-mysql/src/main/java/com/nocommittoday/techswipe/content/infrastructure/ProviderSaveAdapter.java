@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
-import com.nocommittoday.techswipe.content.application.port.out.ProviderSave;
+import com.nocommittoday.techswipe.content.domain.vo.ProviderSave;
 import com.nocommittoday.techswipe.content.application.port.out.ProviderSavePort;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;

@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.content.application.port.out;
+package com.nocommittoday.techswipe.content.domain.vo;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.image.domain.Image;
