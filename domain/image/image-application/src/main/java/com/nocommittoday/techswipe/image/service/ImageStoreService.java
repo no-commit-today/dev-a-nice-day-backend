@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.image.service;
 
-import com.nocommittoday.techswipe.core.application.port.out.UuidHolder;
+import com.nocommittoday.techswipe.core.infrastructure.UuidHolder;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.domain.exception.NotSupportedImageException;
 import com.nocommittoday.techswipe.image.infrastructure.FileStore;
