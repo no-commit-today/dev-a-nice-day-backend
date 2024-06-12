@@ -1,8 +1,5 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
-import com.nocommittoday.techswipe.collection.application.port.out.CategorizePort;
-import com.nocommittoday.techswipe.collection.application.port.out.SummarizationResult;
-import com.nocommittoday.techswipe.collection.application.port.out.SummarizePort;
 import com.nocommittoday.techswipe.collection.domain.Prompt;
 import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
@@ -22,7 +19,7 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-class CollectionProcessingAdapter implements CategorizePort, SummarizePort {
+public class CollectionProcessor {
 
     private static final Pattern CATEGORIZATION_RESULT_PATTERN = Pattern.compile("^-\\s("
             + Arrays.stream(CollectionCategory.values())
@@ -34,7 +31,6 @@ class CollectionProcessingAdapter implements CategorizePort, SummarizePort {
 
     private final OpenAiService openAiService;
 
-    @Override
     public List<CollectionCategory> categorize(final Prompt prompt, final String content) {
         final ChatCompletionRequest request = createRequest(prompt, content);
         final ChatCompletionResult chatCompletionResponse = openAiService.createChatCompletion(request);
@@ -59,7 +55,6 @@ class CollectionProcessingAdapter implements CategorizePort, SummarizePort {
                 .toList();
     }
 
-    @Override
     public SummarizationResult summarize(final Prompt prompt, final String content) {
         final ChatCompletionRequest request = createRequest(prompt, content);
         final ChatCompletionResult chatCompletionResponse = openAiService.createChatCompletion(request);

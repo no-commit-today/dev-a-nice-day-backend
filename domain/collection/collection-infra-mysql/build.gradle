@@ -4,7 +4,6 @@ dependencies {
     implementation(project(":domain:content:content-domain"))
 
     implementation(project(":domain:collection:collection-domain"))
-    implementation(project(":domain:collection:collection-application"))
 
     implementation(project(":storage:storage-mysql"))
 }
