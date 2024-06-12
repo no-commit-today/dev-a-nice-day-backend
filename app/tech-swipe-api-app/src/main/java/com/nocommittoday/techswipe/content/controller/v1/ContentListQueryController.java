@@ -2,10 +2,10 @@ package com.nocommittoday.techswipe.content.controller.v1;
 
 import com.nocommittoday.techswipe.content.controller.v1.request.ContentListQueryRequest;
 import com.nocommittoday.techswipe.content.controller.v1.response.ContentResponse;
-import com.nocommittoday.techswipe.content.application.port.in.ContentListQuery;
-import com.nocommittoday.techswipe.content.application.port.in.ContentListQueryParam;
-import com.nocommittoday.techswipe.content.application.port.in.ContentResult;
-import com.nocommittoday.techswipe.content.application.port.in.ProviderResult;
+import com.nocommittoday.techswipe.content.service.ContentListQueryParam;
+import com.nocommittoday.techswipe.content.service.ContentListQueryService;
+import com.nocommittoday.techswipe.content.service.ContentResult;
+import com.nocommittoday.techswipe.content.service.ProviderResult;
 import com.nocommittoday.techswipe.image.service.ImageUrlResult;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.core.adapter.in.web.servlet.ListResponse;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ContentListQueryController {
 
-    private final ContentListQuery contentListQuery;
+    private final ContentListQueryService contentListQueryService;
     private final ImageUrlQueryService imageUrlQueryService;
 
     @GetMapping("/api/content/v1/contents")
@@ -38,7 +38,7 @@ public class ContentListQueryController {
             final @ModelAttribute ContentListQueryRequest request
     ) {
 
-        final List<ContentResult> contentList = contentListQuery.getList(
+        final List<ContentResult> contentList = contentListQueryService.getList(
                 pageRequest.toPageParam(), new ContentListQueryParam(request.categories())
         );
         final Map<Image.ImageId, String> imageIdToUrl = getImageIdStringMap(contentList);

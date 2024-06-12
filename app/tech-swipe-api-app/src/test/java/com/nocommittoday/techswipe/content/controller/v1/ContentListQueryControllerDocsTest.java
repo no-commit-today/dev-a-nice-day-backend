@@ -1,9 +1,9 @@
 package com.nocommittoday.techswipe.content.controller.v1;
 
-import com.nocommittoday.techswipe.content.application.port.in.ContentListQuery;
-import com.nocommittoday.techswipe.content.application.port.in.ContentListQueryParam;
-import com.nocommittoday.techswipe.content.application.port.in.ContentResult;
-import com.nocommittoday.techswipe.content.application.port.in.ProviderResult;
+import com.nocommittoday.techswipe.content.service.ContentListQueryParam;
+import com.nocommittoday.techswipe.content.service.ContentListQueryService;
+import com.nocommittoday.techswipe.content.service.ContentResult;
+import com.nocommittoday.techswipe.content.service.ProviderResult;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
@@ -39,7 +39,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private ContentListQuery contentListQuery;
+    private ContentListQueryService contentListQueryService;
 
     @MockBean
     private ImageUrlQueryService imageUrlQueryService;
@@ -47,7 +47,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
     @Test
     void 컨텐츠_리스트_조회_Docs() throws Exception {
         // given
-        given(contentListQuery.getList(
+        given(contentListQueryService.getList(
                 new PageParam(1, 10), new ContentListQueryParam(List.of(TechCategory.SERVER))
         )).willReturn(List.of(
                 new ContentResult(
