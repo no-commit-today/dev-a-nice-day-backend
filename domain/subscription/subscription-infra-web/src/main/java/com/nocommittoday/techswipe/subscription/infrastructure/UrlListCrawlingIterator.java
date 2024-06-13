@@ -2,13 +2,13 @@ package com.nocommittoday.techswipe.subscription.infrastructure;
 
 import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.vo.Crawling;
-import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.Iterator;
