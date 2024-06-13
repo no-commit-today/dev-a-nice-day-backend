@@ -22,15 +22,15 @@ public record SubscriptionRegisterRequest(
 ) {
 
     record ContentCrawling(
-            Crawling title,
-            Crawling date,
-            Crawling content
+            @NotNull Crawling title,
+            @NotNull Crawling date,
+            @NotNull Crawling content
     ) {
     }
 
     record ListCrawling(
             @URL String url,
-            Crawling crawling,
+            @NotNull Crawling crawling,
             @URL String pageUrlFormat
     ) {
     }

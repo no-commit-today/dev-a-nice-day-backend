@@ -15,6 +15,7 @@ public class SubscriptionRegisterService {
 
     public long register(final SubscriptionRegister register) {
         providerExistsValidationService.validate(register.providerId());
+        register.validate();
         return subscriptionSavePort.save(register);
     }
 }

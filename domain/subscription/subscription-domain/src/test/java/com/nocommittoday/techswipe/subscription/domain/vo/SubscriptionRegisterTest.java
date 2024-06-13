@@ -21,12 +21,16 @@ class SubscriptionRegisterTest {
         assertThatThrownBy(() -> new SubscriptionRegister(
                 new TechContentProvider.TechContentProviderId(1),
                 SubscriptionType.RSS,
-                SubscriptionInitType.LIST_CRAWLING,
+                SubscriptionInitType.NONE,
                 null,
                 null,
-                new ContentCrawling(null, null, null),
+                new ContentCrawling(
+                        new Crawling(CrawlingType.NONE, null, null),
+                        new Crawling(CrawlingType.NONE, null, null),
+                        new Crawling(CrawlingType.NONE, null, null)
+                ),
                 List.of()
-        )).isInstanceOf(SubscriptionRegisterFailureException.class);
+        ).validate()).isInstanceOf(SubscriptionRegisterFailureException.class);
     }
 
     @Test
@@ -37,12 +41,16 @@ class SubscriptionRegisterTest {
         assertThatThrownBy(() -> new SubscriptionRegister(
                 new TechContentProvider.TechContentProviderId(1),
                 SubscriptionType.ATOM,
-                SubscriptionInitType.LIST_CRAWLING,
+                SubscriptionInitType.NONE,
                 null,
                 null,
-                new ContentCrawling(null, null, null),
+                new ContentCrawling(
+                        new Crawling(CrawlingType.NONE, null, null),
+                        new Crawling(CrawlingType.NONE, null, null),
+                        new Crawling(CrawlingType.NONE, null, null)
+                ),
                 List.of()
-        )).isInstanceOf(SubscriptionRegisterFailureException.class);
+        ).validate()).isInstanceOf(SubscriptionRegisterFailureException.class);
     }
 
     @Test
@@ -56,9 +64,13 @@ class SubscriptionRegisterTest {
                 SubscriptionInitType.LIST_CRAWLING,
                 null,
                 null,
-                new ContentCrawling(new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)), new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)), new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3))),
+                new ContentCrawling(
+                        new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
+                        new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
+                        new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3))
+                ),
                 List.of()
-        )).isInstanceOf(SubscriptionRegisterFailureException.class);
+        ).validate()).isInstanceOf(SubscriptionRegisterFailureException.class);
     }
 
     @Test
@@ -72,8 +84,12 @@ class SubscriptionRegisterTest {
                 SubscriptionInitType.LIST_CRAWLING,
                 null,
                 null,
-                new ContentCrawling(null, new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)), new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3))),
+                new ContentCrawling(
+                        new Crawling(CrawlingType.NONE, null, null),
+                        new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
+                        new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3))
+                ),
                 List.of(new ListCrawling("list-url", new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)), null))
-        )).isInstanceOf(SubscriptionRegisterFailureException.class);
+        ).validate()).isInstanceOf(SubscriptionRegisterFailureException.class);
     }
 }
