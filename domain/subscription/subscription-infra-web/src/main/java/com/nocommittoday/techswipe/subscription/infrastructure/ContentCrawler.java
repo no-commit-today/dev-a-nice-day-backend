@@ -10,8 +10,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.util.StringUtils;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -36,15 +34,11 @@ class ContentCrawler {
             DateTimeFormatter.ofPattern("dd MMM, yyyy", Locale.ENGLISH)
     );
 
-    protected final Document document;
+    private final Document document;
 
-    public ContentCrawler(final String url) {
-        try {
-            this.document = Jsoup.connect(url).get();
-            document.select("style").remove();
-        } catch (final IOException e) {
-            throw new UncheckedIOException(e);
-        }
+    public ContentCrawler(final DocumentConnector connector) {
+        this.document = connector.connect();
+        this.document.select("style").remove();
     }
 
     @Nullable

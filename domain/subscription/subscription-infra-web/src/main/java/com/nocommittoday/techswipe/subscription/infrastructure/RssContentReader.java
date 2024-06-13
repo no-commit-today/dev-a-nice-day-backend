@@ -36,7 +36,7 @@ public class RssContentReader {
         final Channel channel = mapToChannel(xmlString);
         final List<SubscribedContent> result = new ArrayList<>();
         for (Item item : channel.getItems()) {
-            final ContentCrawler crawler = new ContentCrawler(item.getLink());
+            final ContentCrawler crawler = new ContentCrawler(new DocumentConnector(item.getLink()));
             final LocalDate publishedDate = Optional.of(subscription.contentCrawling())
                     .map(ContentCrawling::date)
                     .map(crawler::getDate)

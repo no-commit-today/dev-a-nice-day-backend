@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
+import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.vo.AtomSubscription;
 import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
 import com.rometools.rome.feed.atom.Content;
@@ -33,8 +34,9 @@ public class AtomContentReader {
         final Feed feed = Objects.requireNonNull(restTemplate.getForObject(subscription.url(), Feed.class));
         final List<SubscribedContent> result = new ArrayList<>();
         for (Entry item : feed.getEntries()) {
-            final ContentCrawler crawler = new ContentCrawler(item.getId());
+            final ContentCrawler crawler = new ContentCrawler(new DocumentConnector(item.getId()));
             final LocalDate publishedDate = Optional.of(subscription.contentCrawling())
+                    .filter(contentCrawling -> contentCrawling.date().type() != CrawlingType.NONE)
                     .map(ContentCrawling::date)
                     .map(crawler::getDate)
                     .orElseGet(() -> getDate(item));

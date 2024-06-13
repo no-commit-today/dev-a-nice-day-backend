@@ -25,7 +25,7 @@ public class ListCrawlingContentReader {
         final List<SubscribedContent> result = new ArrayList<>();
         while (iterator.hasNext()) {
             final String url = iterator.next();
-            final ContentCrawler crawler = new ContentCrawler(url);
+            final ContentCrawler crawler = new ContentCrawler(new DocumentConnector(url));
             final LocalDate publishedDate = crawler.getDate(Objects.requireNonNull(contentCrawling.date()));
             if (date.isAfter(publishedDate)) {
                 break;
