@@ -3,18 +3,17 @@ package com.nocommittoday.techswipe.subscription.domain.vo;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionRegisterFailureException;
-import lombok.NonNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 public record SubscriptionRegister(
-        @NonNull TechContentProvider.TechContentProviderId providerId,
-        @NonNull SubscriptionType type,
+        TechContentProvider.TechContentProviderId providerId,
+        SubscriptionType type,
         @Nullable String rssUrl,
         @Nullable String atomUrl,
-        @NonNull ContentCrawling contentCrawling,
-        @NonNull List<ListCrawling> listCrawlings
+        ContentCrawling contentCrawling,
+        List<ListCrawling> listCrawlings
 ) {
 
     public SubscriptionRegister {

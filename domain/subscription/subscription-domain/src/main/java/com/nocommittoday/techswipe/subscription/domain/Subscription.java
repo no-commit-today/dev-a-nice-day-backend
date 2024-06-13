@@ -8,9 +8,9 @@ import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawling;
 import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawlingSubscription;
 import com.nocommittoday.techswipe.subscription.domain.vo.RssSubscription;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 
@@ -18,23 +18,20 @@ import java.util.List;
 @Getter
 public class Subscription {
 
-    @NonNull
     private final SubscriptionId id;
 
-    @NonNull
     private final TechContentProvider.TechContentProviderId providerId;
 
-    @NonNull
     private final SubscriptionType type;
 
+    @Nullable
     private final String rssUrl;
 
+    @Nullable
     private final String atomUrl;
 
-    @NonNull
     private final ContentCrawling contentCrawling;
 
-    @NonNull
     private final List<ListCrawling> listCrawlings;
 
     public RssSubscription toRss() {

@@ -7,8 +7,8 @@ import javax.annotation.Nullable;
 
 @Builder
 public record ListCrawling(
-        @NonNull String url,
-        @NonNull Crawling crawling,
+        String url,
+        Crawling crawling,
         @Nullable String pageUrlFormat
 ){
 }

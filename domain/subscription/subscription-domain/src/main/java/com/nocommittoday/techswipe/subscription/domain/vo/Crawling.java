@@ -1,13 +1,12 @@
 package com.nocommittoday.techswipe.subscription.domain.vo;
 
 import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
-import lombok.NonNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 public record Crawling(
-        @NonNull CrawlingType type,
+        CrawlingType type,
         @Nullable String selector,
         @Nullable List<Integer> indexes
 ) {
