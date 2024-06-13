@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.subscription.domain.vo;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
+import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionInitType;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionRegisterFailureException;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ class SubscriptionRegisterTest {
         assertThatThrownBy(() -> new SubscriptionRegister(
                 new TechContentProvider.TechContentProviderId(1),
                 SubscriptionType.RSS,
+                SubscriptionInitType.LIST_CRAWLING,
                 null,
                 null,
                 new ContentCrawling(null, null, null),
@@ -35,6 +37,7 @@ class SubscriptionRegisterTest {
         assertThatThrownBy(() -> new SubscriptionRegister(
                 new TechContentProvider.TechContentProviderId(1),
                 SubscriptionType.ATOM,
+                SubscriptionInitType.LIST_CRAWLING,
                 null,
                 null,
                 new ContentCrawling(null, null, null),
@@ -50,6 +53,7 @@ class SubscriptionRegisterTest {
         assertThatThrownBy(() -> new SubscriptionRegister(
                 new TechContentProvider.TechContentProviderId(1),
                 SubscriptionType.LIST_CRAWLING,
+                SubscriptionInitType.LIST_CRAWLING,
                 null,
                 null,
                 new ContentCrawling(new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)), new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)), new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3))),
@@ -65,6 +69,7 @@ class SubscriptionRegisterTest {
         assertThatThrownBy(() -> new SubscriptionRegister(
                 new TechContentProvider.TechContentProviderId(1),
                 SubscriptionType.LIST_CRAWLING,
+                SubscriptionInitType.LIST_CRAWLING,
                 null,
                 null,
                 new ContentCrawling(null, new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)), new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3))),

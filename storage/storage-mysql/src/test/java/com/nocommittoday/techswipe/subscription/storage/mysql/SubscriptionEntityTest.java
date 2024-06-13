@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
+import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionInitType;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.vo.Crawling;
@@ -23,6 +24,7 @@ class SubscriptionEntityTest {
         SubscriptionRegister subscriptionRegister = new SubscriptionRegister(
                 new TechContentProvider.TechContentProviderId(1L),
                 SubscriptionType.RSS,
+                SubscriptionInitType.LIST_CRAWLING,
                 "rssUrl",
                 "atomUrl",
                 new ContentCrawling(
@@ -46,6 +48,7 @@ class SubscriptionEntityTest {
         assertThat(result.getId()).isNull();
         assertThat(result.getProvider().getId()).isEqualTo(1L);
         assertThat(result.getType()).isEqualTo(SubscriptionType.RSS);
+        assertThat(result.getInitType()).isEqualTo(SubscriptionInitType.LIST_CRAWLING);
         assertThat(result.getData().getRssUrl()).isEqualTo("rssUrl");
         assertThat(result.getData().getAtomUrl()).isEqualTo("atomUrl");
         assertThat(result.getData().getContentCrawling()).isEqualTo(new ContentCrawling(
@@ -65,6 +68,7 @@ class SubscriptionEntityTest {
                 1L,
                 TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(2L)),
                 SubscriptionType.RSS,
+                SubscriptionInitType.LIST_CRAWLING,
                 new SubscriptionData(
                         "rssUrl",
                         "atomUrl",
@@ -91,6 +95,7 @@ class SubscriptionEntityTest {
         assertThat(result.getId()).isEqualTo(new Subscription.SubscriptionId(1L));
         assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.TechContentProviderId(2L));
         assertThat(result.getType()).isEqualTo(SubscriptionType.RSS);
+        assertThat(result.getInitType()).isEqualTo(SubscriptionInitType.LIST_CRAWLING);
         assertThat(result.getRssUrl()).isEqualTo("rssUrl");
         assertThat(result.getAtomUrl()).isEqualTo("atomUrl");
         assertThat(result.getContentCrawling()).isEqualTo(new ContentCrawling(

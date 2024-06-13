@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.subscription.controller.admin.request;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
+import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionInitType;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.domain.vo.SubscriptionRegister;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import java.util.List;
 public record SubscriptionRegisterRequest(
         @NotNull @Positive Long providerId,
         @NotNull SubscriptionType type,
+        @NotNull SubscriptionInitType initType,
         @URL String rssUrl,
         @URL String atomUrl,
         @NotNull ContentCrawling contentCrawling,
@@ -44,6 +46,7 @@ public record SubscriptionRegisterRequest(
         return new SubscriptionRegister(
                 new TechContentProvider.TechContentProviderId(providerId),
                 type,
+                initType,
                 rssUrl,
                 atomUrl,
                 new com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling(

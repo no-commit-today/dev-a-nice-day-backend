@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.subscription.domain.vo;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionInitType;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionRegisterFailureException;
 
@@ -10,6 +11,7 @@ import java.util.List;
 public record SubscriptionRegister(
         TechContentProvider.TechContentProviderId providerId,
         SubscriptionType type,
+        SubscriptionInitType initType,
         @Nullable String rssUrl,
         @Nullable String atomUrl,
         ContentCrawling contentCrawling,
