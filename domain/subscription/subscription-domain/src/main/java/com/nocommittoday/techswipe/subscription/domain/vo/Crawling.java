@@ -20,6 +20,10 @@ public record Crawling(
         }
     }
 
+    public static Crawling ofNone() {
+        return new Crawling(CrawlingType.NONE, null, null);
+    }
+
     public static Crawling ofSelector(final String selector) {
         return new Crawling(CrawlingType.SELECTOR, selector, null);
     }
