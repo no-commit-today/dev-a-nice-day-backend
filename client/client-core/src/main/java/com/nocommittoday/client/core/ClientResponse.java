@@ -64,4 +64,11 @@ public class ClientResponse<T> {
     public boolean isSuccess() {
         return ClientResponseType.SUCCESS == type;
     }
+
+    public T get() {
+        if (!isSuccess()) {
+            throw exception;
+        }
+        return data;
+    }
 }
