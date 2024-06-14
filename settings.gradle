@@ -38,7 +38,6 @@ include 'domain:collection:collection-infra-web'
 
 include 'storage:storage-mysql'
 
-include 'module:latency-logger'
 include 'module:jpa-test'
 include 'module:race-condition-test'
 
