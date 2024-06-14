@@ -3,11 +3,10 @@ package com.nocommittoday.techswipe.subscription.domain;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionInitType;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
-import com.nocommittoday.techswipe.subscription.domain.vo.AtomSubscription;
 import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
+import com.nocommittoday.techswipe.subscription.domain.vo.FeedSubscription;
 import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawling;
 import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawlingSubscription;
-import com.nocommittoday.techswipe.subscription.domain.vo.RssSubscription;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -28,25 +27,15 @@ public class Subscription {
     private final SubscriptionInitType initType;
 
     @Nullable
-    private final String rssUrl;
-
-    @Nullable
-    private final String atomUrl;
+    private final String feedUrl;
 
     private final ContentCrawling contentCrawling;
 
     private final List<ListCrawling> listCrawlings;
 
-    public RssSubscription toRss() {
-        return new RssSubscription(
-                rssUrl,
-                contentCrawling
-        );
-    }
-
-    public AtomSubscription toAtom() {
-        return new AtomSubscription(
-                atomUrl,
+    public FeedSubscription toFeed() {
+        return new FeedSubscription(
+                feedUrl,
                 contentCrawling
         );
     }

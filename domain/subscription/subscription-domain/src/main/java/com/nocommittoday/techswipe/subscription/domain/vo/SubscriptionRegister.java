@@ -14,34 +14,23 @@ public record SubscriptionRegister(
         @NonNull TechContentProvider.TechContentProviderId providerId,
         @NonNull SubscriptionType type,
         @NonNull SubscriptionInitType initType,
-        @Nullable String rssUrl,
-        @Nullable String atomUrl,
+        @Nullable String feedUrl,
         @NonNull ContentCrawling contentCrawling,
         @NonNull List<ListCrawling> listCrawlings
 ) {
 
     public void validate() {
-        if (type == SubscriptionType.RSS) {
-            validateRss();
-        }
-        if (type == SubscriptionType.ATOM) {
-            validateAtom();
+        if (type == SubscriptionType.FEED) {
+            validateFeed();
         }
         if (type == SubscriptionType.LIST_CRAWLING || initType == SubscriptionInitType.LIST_CRAWLING) {
             validateListCrawling();
         }
     }
 
-    private void validateRss() {
-        if (rssUrl == null) {
+    private void validateFeed() {
+        if (feedUrl == null) {
             throw new SubscriptionRegisterFailureException("rssUrl이 필요합니다.");
-        }
-        validateContentCrawling();
-    }
-
-    private void validateAtom() {
-        if (atomUrl == null) {
-            throw new SubscriptionRegisterFailureException("atomUrl이 필요합니다.");
         }
         validateContentCrawling();
     }
