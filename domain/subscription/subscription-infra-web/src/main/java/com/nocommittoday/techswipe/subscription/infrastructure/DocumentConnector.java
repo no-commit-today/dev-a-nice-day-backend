@@ -3,16 +3,16 @@ package com.nocommittoday.techswipe.subscription.infrastructure;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
+@Component
 @RequiredArgsConstructor
-class DocumentConnector {
+public class DocumentConnector {
 
-    private final String url;
-
-    Document connect() {
+    public Document connect(final String url) {
         Document document;
         try {
             document = Jsoup.connect(url).get();

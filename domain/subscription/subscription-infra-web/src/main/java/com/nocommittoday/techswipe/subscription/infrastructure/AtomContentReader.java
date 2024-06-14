@@ -23,9 +23,14 @@ import java.util.stream.Collectors;
 public class AtomContentReader {
 
     private final RestTemplate restTemplate;
+    private final DocumentConnector documentConnector;
 
-    public AtomContentReader(final RestTemplateBuilder restTemplateBuilder) {
+    public AtomContentReader(
+            final RestTemplateBuilder restTemplateBuilder,
+            final DocumentConnector documentConnector
+    ) {
         this.restTemplate = restTemplateBuilder.build();
+        this.documentConnector = documentConnector;
     }
 
     public List<SubscribedContent> getList(
@@ -34,7 +39,7 @@ public class AtomContentReader {
         final Feed feed = Objects.requireNonNull(restTemplate.getForObject(subscription.url(), Feed.class));
         final List<SubscribedContent> result = new ArrayList<>();
         for (Entry item : feed.getEntries()) {
-            final ContentCrawler crawler = new ContentCrawler(new DocumentConnector(item.getId()));
+            final ContentCrawler crawler = new ContentCrawler(documentConnector, item.getId());
             final LocalDate publishedDate = Optional.of(subscription.contentCrawling())
                     .filter(contentCrawling -> contentCrawling.date().type() != CrawlingType.NONE)
                     .map(ContentCrawling::date)

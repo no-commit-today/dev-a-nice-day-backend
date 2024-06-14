@@ -22,9 +22,9 @@ import java.util.Queue;
 @Slf4j
 class UrlListCrawlingIterator implements Iterator<String> {
 
+    private final DocumentConnector documentConnector;
     private final Crawling crawling;
     private String postListPageUrl;
-    private final boolean paginated;
     @Nullable
     private final String postListPageUrlFormat;
     private int page = 1;
@@ -32,22 +32,23 @@ class UrlListCrawlingIterator implements Iterator<String> {
     private final Queue<String> postUrls = new LinkedList<>();
 
     public UrlListCrawlingIterator(
+            final DocumentConnector documentConnector,
             final Crawling crawling,
             final String postListPageUrl,
             @Nullable final String postListPageUrlFormat
     ) {
+        this.documentConnector = documentConnector;
         this.crawling = crawling;
         this.postListPageUrl = postListPageUrl;
         postUrls.addAll(getNextPostUrls());
 
-        this.paginated = postListPageUrlFormat != null;
         this.postListPageUrlFormat = postListPageUrlFormat;
 
     }
 
     @Override
     public boolean hasNext() {
-        if (postUrls.isEmpty() && paginated) {
+        if (postUrls.isEmpty() && isPaginated()) {
             page += 1;
             postListPageUrl = String.format(Objects.requireNonNull(postListPageUrlFormat), page);
             postUrls.addAll(getNextPostUrls());
@@ -104,5 +105,9 @@ class UrlListCrawlingIterator implements Iterator<String> {
     private List<String> crawlBySelector(final Document document, final String selector) {
         final Element element = Objects.requireNonNull(document.body().select(selector).first());
         return new LinkedHashSet<>(element.select("a").eachAttr("abs:href")).stream().toList();
+    }
+
+    private boolean isPaginated() {
+        return postListPageUrlFormat != null;
     }
 }

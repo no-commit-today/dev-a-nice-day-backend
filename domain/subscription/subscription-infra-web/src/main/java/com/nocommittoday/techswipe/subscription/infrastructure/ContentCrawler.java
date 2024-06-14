@@ -36,8 +36,8 @@ class ContentCrawler {
 
     private final Document document;
 
-    public ContentCrawler(final DocumentConnector connector) {
-        this.document = connector.connect();
+    public ContentCrawler(final DocumentConnector connector, final String url) {
+        this.document = connector.connect(url);
         this.document.select("style").remove();
     }
 

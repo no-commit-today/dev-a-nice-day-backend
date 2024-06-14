@@ -23,9 +23,14 @@ import java.util.Optional;
 public class RssContentReader {
 
     private final RestTemplate restTemplate;
+    private final DocumentConnector documentConnector;
 
-    public RssContentReader(final RestTemplateBuilder restTemplateBuilder) {
+    public RssContentReader(
+            final RestTemplateBuilder restTemplateBuilder,
+            final DocumentConnector documentConnector
+    ) {
         this.restTemplate = restTemplateBuilder.build();
+        this.documentConnector = documentConnector;
     }
 
     public List<SubscribedContent> getList(
@@ -36,7 +41,7 @@ public class RssContentReader {
         final Channel channel = mapToChannel(xmlString);
         final List<SubscribedContent> result = new ArrayList<>();
         for (Item item : channel.getItems()) {
-            final ContentCrawler crawler = new ContentCrawler(new DocumentConnector(item.getLink()));
+            final ContentCrawler crawler = new ContentCrawler(documentConnector, item.getLink());
             final LocalDate publishedDate = Optional.of(subscription.contentCrawling())
                     .map(ContentCrawling::date)
                     .map(crawler::getDate)
