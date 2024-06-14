@@ -41,6 +41,7 @@ include 'storage:storage-mysql'
 include 'module:jpa-test'
 include 'module:race-condition-test'
 
+include 'client:client-core'
 include 'client:openai-client'
 
 include 'support:monitoring'
