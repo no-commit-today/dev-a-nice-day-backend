@@ -42,6 +42,7 @@ include 'module:jpa-test'
 include 'module:race-condition-test'
 
 include 'client:client-core'
+include 'client:feed-client'
 include 'client:openai-client'
 
 include 'support:monitoring'

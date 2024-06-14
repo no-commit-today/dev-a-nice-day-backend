@@ -1,0 +1,4 @@
+dependencies {
+    api project(":client:client-core")
+    implementation "com.rometools:rome:${romeVersion}"
+}
