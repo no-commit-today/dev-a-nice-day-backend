@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import static jakarta.persistence.FetchType.*;
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -67,10 +67,9 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
                 register.type(),
                 register.initType(),
                 new SubscriptionData(
-                        register.rssUrl(),
-                        register.atomUrl(),
+                        new FeedData(register.feedUrl()),
                         register.contentCrawling(),
-                        register.listCrawlings()
+                        new ListCrawlingData(register.listCrawlings())
                 )
         );
     }
@@ -81,10 +80,9 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
                 provider.toDomainId(),
                 type,
                 initType,
-                data.getRssUrl(),
-                data.getAtomUrl(),
+                data.getFeedData().getUrl(),
                 data.getContentCrawling(),
-                data.getListCrawlings()
+                data.getListCrawling().getContent()
         );
     }
 }

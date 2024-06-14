@@ -1,17 +1,17 @@
 package com.nocommittoday.techswipe.subscription.storage.mysql;
 
-import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
+import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawling;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SubscriptionData {
+public class ListCrawlingData {
 
-    private FeedData feedData;
-    private ContentCrawling contentCrawling;
-    private ListCrawlingData listCrawling;
+    private List<ListCrawling> content;
 }

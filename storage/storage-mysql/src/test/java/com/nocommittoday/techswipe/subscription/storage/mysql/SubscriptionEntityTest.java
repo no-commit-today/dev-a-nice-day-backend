@@ -23,10 +23,9 @@ class SubscriptionEntityTest {
         // given
         SubscriptionRegister subscriptionRegister = new SubscriptionRegister(
                 new TechContentProvider.TechContentProviderId(1L),
-                SubscriptionType.RSS,
+                SubscriptionType.FEED,
                 SubscriptionInitType.LIST_CRAWLING,
-                "rssUrl",
-                "atomUrl",
+                "feedUrl",
                 new ContentCrawling(
                         new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
                         new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
@@ -47,16 +46,15 @@ class SubscriptionEntityTest {
         // then
         assertThat(result.getId()).isNull();
         assertThat(result.getProvider().getId()).isEqualTo(1L);
-        assertThat(result.getType()).isEqualTo(SubscriptionType.RSS);
+        assertThat(result.getType()).isEqualTo(SubscriptionType.FEED);
         assertThat(result.getInitType()).isEqualTo(SubscriptionInitType.LIST_CRAWLING);
-        assertThat(result.getData().getRssUrl()).isEqualTo("rssUrl");
-        assertThat(result.getData().getAtomUrl()).isEqualTo("atomUrl");
+        assertThat(result.getData().getFeedData().getUrl()).isEqualTo("feedUrl");
         assertThat(result.getData().getContentCrawling()).isEqualTo(new ContentCrawling(
                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3))
         ));
-        assertThat(result.getData().getListCrawlings()).containsExactly(
+        assertThat(result.getData().getListCrawling().getContent()).containsExactly(
                 new ListCrawling("url1", new Crawling(CrawlingType.INDEX, null, List.of(1, 2)), "pageUrlFormat")
         );
     }
@@ -67,22 +65,21 @@ class SubscriptionEntityTest {
         final SubscriptionEntity entity = new SubscriptionEntity(
                 1L,
                 TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(2L)),
-                SubscriptionType.RSS,
+                SubscriptionType.FEED,
                 SubscriptionInitType.LIST_CRAWLING,
                 new SubscriptionData(
-                        "rssUrl",
-                        "atomUrl",
+                        new FeedData("feedUrl"),
                         new ContentCrawling(
                                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
                                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
                                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3))
                         ),
-                        List.of(
+                        new ListCrawlingData(List.of(
                                 new ListCrawling(
                                         "url1",
                                         new Crawling(CrawlingType.INDEX, null, List.of(1, 2)),
                                         "pageUrlFormat"
-                                )
+                                ))
                         )
                 )
         );
@@ -94,10 +91,9 @@ class SubscriptionEntityTest {
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(new Subscription.SubscriptionId(1L));
         assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.TechContentProviderId(2L));
-        assertThat(result.getType()).isEqualTo(SubscriptionType.RSS);
+        assertThat(result.getType()).isEqualTo(SubscriptionType.FEED);
         assertThat(result.getInitType()).isEqualTo(SubscriptionInitType.LIST_CRAWLING);
-        assertThat(result.getRssUrl()).isEqualTo("rssUrl");
-        assertThat(result.getAtomUrl()).isEqualTo("atomUrl");
+        assertThat(result.getFeedUrl()).isEqualTo("feedUrl");
         assertThat(result.getContentCrawling()).isEqualTo(new ContentCrawling(
                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
