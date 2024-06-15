@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.Queue;
 
 @Slf4j
-class UrlListCrawlingIterator implements Iterator<String> {
+public class UrlListCrawlingIterator implements Iterator<String> {
 
     private final DocumentConnector documentConnector;
     private final Crawling crawling;

@@ -29,6 +29,10 @@ public class ClientResponse<T> {
         return new ClientResponse<>(ClientResponseType.SUCCESS, data, null);
     }
 
+    public static <T> ClientResponse<T> notFound(final Exception exception) {
+        return new ClientResponse<>(ClientResponseType.NOT_FOUND, null, new ClientException(exception));
+    }
+
     public static <T> ClientResponse<T> failed(final ClientException ex) {
         return new ClientResponse<>(ClientResponseType.FAILED, null, ex);
     }

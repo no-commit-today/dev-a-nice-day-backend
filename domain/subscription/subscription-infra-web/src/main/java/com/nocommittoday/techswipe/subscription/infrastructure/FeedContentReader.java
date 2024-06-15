@@ -19,6 +19,8 @@ public class FeedContentReader {
 
     private final FeedClient feedClient;
     private final DocumentConnector documentConnector;
+    private final ContentCrawlerCreator contentCrawlerCreator;
+    private final LocalDateParser localDateParser;
 
     public List<SubscribedContent> getList(
             final FeedSubscription subscription,
@@ -28,10 +30,11 @@ public class FeedContentReader {
         final List<SubscribedContent> result = new ArrayList<>();
 
         for (FeedResponse.Entry entry : feed.entries()) {
-            final ContentCrawler crawler = new ContentCrawler(documentConnector, entry.link());
+            final ContentCrawler crawler = contentCrawlerCreator.create(documentConnector, entry.link());
             final LocalDate publishedDate = Optional.of(subscription.contentCrawling().date())
                     .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
-                    .map(crawler::getDate)
+                    .map(crawler::getText)
+                    .map(localDateParser::parse)
                     .orElse(entry.date());
             if (date.isAfter(publishedDate)) {
                 break;
@@ -39,11 +42,11 @@ public class FeedContentReader {
             final String imageUrl = crawler.getImageUrl();
             final String title = Optional.of(subscription.contentCrawling().title())
                     .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
-                    .map(crawler::getTitle)
+                    .map(crawler::getText)
                     .orElse(entry.title());
             final String content = Optional.of(subscription.contentCrawling().content())
                     .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
-                    .map(crawler::getContent)
+                    .map(crawler::get)
                     .orElse(entry.content());
 
             result.add(new SubscribedContent(

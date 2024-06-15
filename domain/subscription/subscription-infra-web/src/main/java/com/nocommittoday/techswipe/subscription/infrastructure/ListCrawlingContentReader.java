@@ -10,35 +10,33 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
 public class ListCrawlingContentReader {
 
     private final DocumentConnector documentConnector;
+    private final UrlListCrawlingIteratorCreator urlListCrawlingIteratorCreator;
+    private final ContentCrawlerCreator contentCrawlerCreator;
+    private final LocalDateParser localDateParser;
 
     public List<SubscribedContent> getList(final ListCrawlingSubscription subscription, final LocalDate date) {
         final ListCrawling listCrawling = subscription.listCrawling();
         final ContentCrawling contentCrawling = subscription.contentCrawling();
-        final UrlListCrawlingIterator iterator = new UrlListCrawlingIterator(
-                documentConnector,
-                listCrawling.crawling(),
-                listCrawling.url(),
-                listCrawling.pageUrlFormat()
-        );
+        final UrlListCrawlingIterator iterator = urlListCrawlingIteratorCreator.create(documentConnector, listCrawling);
         final List<SubscribedContent> result = new ArrayList<>();
         while (iterator.hasNext()) {
             final String url = iterator.next();
-            final ContentCrawler crawler = new ContentCrawler(documentConnector, url);
-            final LocalDate publishedDate = crawler.getDate(Objects.requireNonNull(contentCrawling.date()));
+            final ContentCrawler crawler = contentCrawlerCreator.create(documentConnector, url);
+            final LocalDate publishedDate = localDateParser.parse(
+                    crawler.getText(contentCrawling.date()));
             if (date.isAfter(publishedDate)) {
                 break;
             }
 
-            final String title = crawler.getTitle(Objects.requireNonNull(contentCrawling.title()));
+            final String title = crawler.getText(contentCrawling.title());
             final String imageUrl = crawler.getImageUrl();
-            final String content = crawler.getContent(Objects.requireNonNull(contentCrawling.content()));
+            final String content = crawler.get(contentCrawling.content());
             result.add(new SubscribedContent(
                     url,
                     title,
