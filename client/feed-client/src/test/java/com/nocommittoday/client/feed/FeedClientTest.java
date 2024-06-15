@@ -56,33 +56,6 @@ class FeedClientTest {
     }
 
     @Test
-    void SyndFeed를_FeedResponse로_변환할때_url이_없으면_link를_선택한다() {
-        // given
-        final SyndFeed syndFeed = createSyndFeed();
-        final SyndImageImpl icon = new SyndImageImpl();
-        icon.setLink("icon-link");
-        syndFeed.setIcon(icon);
-
-        given(xmlClient.get("url")).willReturn("xml");
-        given(syndFeedBuilder.build("xml")).willReturn(syndFeed);
-
-        // when
-        final FeedResponse feedResponse = feedClient.get("url").getData();
-
-        // then
-        assertThat(feedResponse.link()).isEqualTo("blog-link");
-        assertThat(feedResponse.title()).isEqualTo("blog-title");
-        assertThat(feedResponse.iconUrl()).isEqualTo("icon-link");
-        assertThat(feedResponse.entries()).hasSize(1);
-
-        final FeedResponse.Entry entry = feedResponse.entries().get(0);
-        assertThat(entry.link()).isEqualTo("entry-link");
-        assertThat(entry.title()).isEqualTo("entry-title");
-        assertThat(entry.date()).isEqualTo(LocalDate.of(2021, 1, 1));
-        assertThat(entry.content()).isEqualTo("entry-content");
-    }
-
-    @Test
     void SyndFeed를_FeedResponse로_변환할때_Icon이_없으면_Image를_선택한다() {
         // given
         final SyndFeed syndFeed = createSyndFeed();

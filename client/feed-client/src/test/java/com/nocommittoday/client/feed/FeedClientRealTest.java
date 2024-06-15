@@ -27,7 +27,7 @@ class FeedClientRealTest {
         assertThat(feed).isNotNull();
         assertThat(feed.title()).isNotEmpty();
         assertThat(feed.link()).isNotEmpty();
-        assertThat(feed.iconUrl()).isNull();
+        assertThat(feed.iconUrl()).isNotNull();
         assertThat(feed.entries()).isNotEmpty();
 
         final FeedResponse.Entry entry = feed.entries().get(0);
@@ -89,7 +89,7 @@ class FeedClientRealTest {
         assertThat(feed).isNotNull();
         assertThat(feed.title()).isNotEmpty();
         assertThat(feed.link()).isNotEmpty();
-        assertThat(feed.iconUrl()).isNull();
+        assertThat(feed.iconUrl()).isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
         final FeedResponse.Entry entry = feed.entries().get(0);
@@ -109,7 +109,7 @@ class FeedClientRealTest {
         assertThat(feed).isNotNull();
         assertThat(feed.title()).isNotEmpty();
         assertThat(feed.link()).isNotEmpty();
-        assertThat(feed.iconUrl()).isNull();
+        assertThat(feed.iconUrl()).isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
         final FeedResponse.Entry entry = feed.entries().get(0);
@@ -171,7 +171,7 @@ class FeedClientRealTest {
         assertThat(feed).isNotNull();
         assertThat(feed.title()).isNotEmpty();
         assertThat(feed.link()).isNotEmpty();
-        assertThat(feed.iconUrl()).isNull();
+        assertThat(feed.iconUrl()).isNotNull();
         assertThat(feed.entries()).isNotEmpty();
 
         final FeedResponse.Entry entry = feed.entries().get(0);
@@ -191,7 +191,7 @@ class FeedClientRealTest {
         assertThat(feed).isNotNull();
         assertThat(feed.title()).isNotEmpty();
         assertThat(feed.link()).isNotEmpty();
-        assertThat(feed.iconUrl()).isNull();
+        assertThat(feed.iconUrl()).isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
         final FeedResponse.Entry entry = feed.entries().get(0);
@@ -231,7 +231,7 @@ class FeedClientRealTest {
         assertThat(feed).isNotNull();
         assertThat(feed.title()).isNotEmpty();
         assertThat(feed.link()).isNotEmpty();
-        assertThat(feed.iconUrl()).isNull();
+        assertThat(feed.iconUrl()).isNotNull();
         assertThat(feed.entries()).isNotEmpty();
 
         final FeedResponse.Entry entry = feed.entries().get(0);
@@ -251,7 +251,7 @@ class FeedClientRealTest {
         assertThat(feed).isNotNull();
         assertThat(feed.title()).isNotEmpty();
         assertThat(feed.link()).isNotEmpty();
-        assertThat(feed.iconUrl()).isNull();
+        assertThat(feed.iconUrl()).isNotNull();
         assertThat(feed.entries()).isNotEmpty();
 
         final FeedResponse.Entry entry = feed.entries().get(0);
@@ -313,7 +313,7 @@ class FeedClientRealTest {
         assertThat(feed).isNotNull();
         assertThat(feed.title()).isNotEmpty();
         assertThat(feed.link()).isNotEmpty();
-        assertThat(feed.iconUrl()).isNull();
+        assertThat(feed.iconUrl()).isNotNull();
         assertThat(feed.entries()).isNotEmpty();
 
         final FeedResponse.Entry entry = feed.entries().get(0);
@@ -353,7 +353,7 @@ class FeedClientRealTest {
         assertThat(feed).isNotNull();
         assertThat(feed.title()).isNotEmpty();
         assertThat(feed.link()).isNotEmpty();
-        assertThat(feed.iconUrl()).isNull();
+        assertThat(feed.iconUrl()).isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
         final FeedResponse.Entry entry = feed.entries().get(0);

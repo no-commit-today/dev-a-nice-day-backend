@@ -4,6 +4,7 @@ import com.nocommittoday.client.core.ClientResponse;
 import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.feed.synd.SyndImage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,9 +53,7 @@ public class FeedClient {
     private static String extractIconUrl(final SyndFeed syndFeed) {
         return Optional.ofNullable(syndFeed.getIcon())
                 .or(() -> Optional.ofNullable(syndFeed.getImage()))
-                .flatMap(image -> Optional.ofNullable(image.getUrl())
-                        .or(() -> Optional.ofNullable(image.getLink()))
-                )
+                .map(SyndImage::getUrl)
                 .orElse(null);
     }
 
