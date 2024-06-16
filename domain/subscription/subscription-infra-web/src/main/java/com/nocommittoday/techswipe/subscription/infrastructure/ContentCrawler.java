@@ -15,8 +15,14 @@ import java.util.Optional;
 public class ContentCrawler {
 
     private final Document document;
+    private final DocumentElementExtractor documentElementExtractor;
 
-    public ContentCrawler(final DocumentConnector connector, final String url) {
+    public ContentCrawler(
+            final DocumentElementExtractor documentElementExtractor,
+            final DocumentConnector connector,
+            final String url
+    ) {
+        this.documentElementExtractor = documentElementExtractor;
         this.document = connector.connect(url).get();
         this.document.select("style").remove();
     }
@@ -56,15 +62,11 @@ public class ContentCrawler {
     }
 
     private Element crawlByIndex(final List<Integer> indexes) {
-        Element element = document.body();
-        for (int index : indexes) {
-            element = element.child(index);
-        }
-        return element;
+        return documentElementExtractor.extractByIndex(document, indexes);
     }
 
     private Element crawlBySelector(final String selector) {
-        return document.body().select(selector).first();
+        return documentElementExtractor.extractBySelector(document, selector);
     }
 
 }

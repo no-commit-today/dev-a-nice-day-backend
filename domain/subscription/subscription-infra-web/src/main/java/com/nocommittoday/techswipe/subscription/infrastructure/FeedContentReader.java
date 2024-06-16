@@ -19,6 +19,7 @@ public class FeedContentReader {
 
     private final FeedClient feedClient;
     private final DocumentConnector documentConnector;
+    private final DocumentElementExtractor documentElementExtractor;
     private final ContentCrawlerCreator contentCrawlerCreator;
     private final LocalDateParser localDateParser;
 
@@ -30,7 +31,10 @@ public class FeedContentReader {
         final List<SubscribedContent> result = new ArrayList<>();
 
         for (FeedResponse.Entry entry : feed.entries()) {
-            final ContentCrawler crawler = contentCrawlerCreator.create(documentConnector, entry.link());
+            final ContentCrawler crawler = contentCrawlerCreator.create(
+                    documentElementExtractor,
+                    documentConnector, entry.link()
+            );
             final LocalDate publishedDate = Optional.of(subscription.contentCrawling().date())
                     .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
                     .map(crawler::getText)

@@ -6,8 +6,9 @@ import org.springframework.stereotype.Component;
 public class ContentCrawlerCreator {
 
     public ContentCrawler create(
+            final DocumentElementExtractor documentElementExtractor,
             final DocumentConnector documentConnector, final String url
     ) {
-        return new ContentCrawler(documentConnector, url);
+        return new ContentCrawler(documentElementExtractor, documentConnector, url);
     }
 }

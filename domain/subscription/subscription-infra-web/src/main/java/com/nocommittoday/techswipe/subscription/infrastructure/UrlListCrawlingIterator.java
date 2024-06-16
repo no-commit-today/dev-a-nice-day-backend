@@ -20,6 +20,7 @@ import java.util.Queue;
 public class UrlListCrawlingIterator implements Iterator<String> {
 
     private final DocumentConnector documentConnector;
+    private final DocumentElementExtractor documentElementExtractor;
     private final Crawling crawling;
     private String postListPageUrl;
     @Nullable
@@ -30,11 +31,13 @@ public class UrlListCrawlingIterator implements Iterator<String> {
 
     public UrlListCrawlingIterator(
             final DocumentConnector documentConnector,
+            final DocumentElementExtractor documentElementExtractor,
             final Crawling crawling,
             final String postListPageUrl,
             @Nullable final String postListPageUrlFormat
     ) {
         this.documentConnector = documentConnector;
+        this.documentElementExtractor = documentElementExtractor;
         this.crawling = crawling;
         this.postListPageUrl = postListPageUrl;
         postUrls.addAll(getNextPostUrls());
@@ -84,19 +87,12 @@ public class UrlListCrawlingIterator implements Iterator<String> {
     }
 
     private List<String> crawlByIndex(final Document document, final List<Integer> postUrlListIndexes) {
-        Element element = document.body();
-        log.debug("{} [body]\n{}", document.baseUri(), element.html());
-        for (int i = 0; i < postUrlListIndexes.size(); i++) {
-            final int index = postUrlListIndexes.get(i);
-            element = element.child(index);
-            log.debug("{} [child{} index{}]\n{}", document.baseUri(), i, index, element.html());
-        }
-
+        Element element = documentElementExtractor.extractByIndex(document, postUrlListIndexes);
         return new LinkedList<>(element.select("a").eachAttr("abs:href")).stream().toList();
     }
 
     private List<String> crawlBySelector(final Document document, final String selector) {
-        final Element element = Objects.requireNonNull(document.body().select(selector).first());
+        final Element element = documentElementExtractor.extractBySelector(document, selector);
         return new LinkedHashSet<>(element.select("a").eachAttr("abs:href")).stream().toList();
     }
 

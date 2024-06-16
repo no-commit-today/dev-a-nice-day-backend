@@ -16,6 +16,7 @@ import java.util.List;
 public class ListCrawlingContentReader {
 
     private final DocumentConnector documentConnector;
+    private final DocumentElementExtractor documentElementExtractor;
     private final UrlListCrawlingIteratorCreator urlListCrawlingIteratorCreator;
     private final ContentCrawlerCreator contentCrawlerCreator;
     private final LocalDateParser localDateParser;
@@ -23,11 +24,16 @@ public class ListCrawlingContentReader {
     public List<SubscribedContent> getList(final ListCrawlingSubscription subscription, final LocalDate date) {
         final ListCrawling listCrawling = subscription.listCrawling();
         final ContentCrawling contentCrawling = subscription.contentCrawling();
-        final UrlListCrawlingIterator iterator = urlListCrawlingIteratorCreator.create(documentConnector, listCrawling);
+        final UrlListCrawlingIterator iterator = urlListCrawlingIteratorCreator.create(
+                documentConnector,
+                documentElementExtractor,
+                listCrawling);
         final List<SubscribedContent> result = new ArrayList<>();
         while (iterator.hasNext()) {
             final String url = iterator.next();
-            final ContentCrawler crawler = contentCrawlerCreator.create(documentConnector, url);
+            final ContentCrawler crawler = contentCrawlerCreator.create(
+                    documentElementExtractor,
+                    documentConnector, url);
             final LocalDate publishedDate = localDateParser.parse(
                     crawler.getText(contentCrawling.date()));
             if (date.isAfter(publishedDate)) {

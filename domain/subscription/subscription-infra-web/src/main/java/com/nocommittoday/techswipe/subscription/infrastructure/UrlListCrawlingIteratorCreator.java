@@ -8,10 +8,12 @@ public class UrlListCrawlingIteratorCreator {
 
     public UrlListCrawlingIterator create(
             final DocumentConnector documentConnector,
+            final DocumentElementExtractor documentElementExtractor,
             final ListCrawling listCrawling
     ) {
         return new UrlListCrawlingIterator(
                 documentConnector,
+                documentElementExtractor,
                 listCrawling.crawling(),
                 listCrawling.url(),
                 listCrawling.pageUrlFormat()
