@@ -1,16 +1,13 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
+import com.nocommittoday.client.core.ClientResponse;
 import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.vo.Crawling;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.HttpStatusException;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -65,20 +62,16 @@ public class UrlListCrawlingIterator implements Iterator<String> {
     }
 
     private List<String> getNextPostUrls() {
-        Document document;
-        try {
-            document = Jsoup.connect(postListPageUrl).get();
-            document.select("style").remove();
-        } catch (final HttpStatusException e) {
-            if (e.getStatusCode() == 404) {
-                log.debug("게시글 목록 페이지가 존재하지 않습니다: {}", postListPageUrl);
-                return List.of();
-            }
-            throw new UncheckedIOException(e);
-        } catch (final IOException e) {
-            log.error("게시글 목록 페이지를 가져오는 중 오류 발생: {}", postListPageUrl);
-            throw new UncheckedIOException(e);
+        final ClientResponse<Document> documentResponse = documentConnector.connect(postListPageUrl);
+        if (documentResponse.isNotFound()) {
+            log.debug("게시글 목록 페이지가 존재하지 않습니다: {}", postListPageUrl);
+            return List.of();
         }
+        if (documentResponse.isFailed()) {
+            log.error("게시글 목록 페이지를 가져오는 중 오류 발생: {}", postListPageUrl);
+            throw documentResponse.getException();
+        }
+        final Document document = documentResponse.getData();
 
         if (CrawlingType.INDEX == crawling.type()) {
             return crawlByIndex(document, Objects.requireNonNull(crawling.indexes()));

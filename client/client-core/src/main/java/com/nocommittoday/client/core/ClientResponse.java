@@ -69,6 +69,14 @@ public class ClientResponse<T> {
         return ClientResponseType.SUCCESS == type;
     }
 
+    public boolean isNotFound() {
+        return ClientResponseType.NOT_FOUND == type;
+    }
+
+    public boolean isFailed() {
+        return ClientResponseType.FAILED == type;
+    }
+
     public T get() {
         if (!isSuccess()) {
             throw exception;
