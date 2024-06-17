@@ -15,8 +15,7 @@ public record SubscriptionRegisterRequest(
         @NotNull @Positive Long providerId,
         @NotNull SubscriptionType type,
         @NotNull SubscriptionInitType initType,
-        @URL String rssUrl,
-        @URL String atomUrl,
+        @URL String feedUrl,
         @NotNull ContentCrawling contentCrawling,
         @NotNull List<ListCrawling> listCrawlings
 ) {
@@ -47,8 +46,7 @@ public record SubscriptionRegisterRequest(
                 new TechContentProvider.TechContentProviderId(providerId),
                 type,
                 initType,
-                rssUrl,
-                atomUrl,
+                feedUrl,
                 new com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling(
                         new com.nocommittoday.techswipe.subscription.domain.vo.Crawling(
                                 contentCrawling.title().type(),

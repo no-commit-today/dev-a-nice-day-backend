@@ -20,7 +20,7 @@ class CollectedContentEntityTest {
         // given
         final CollectedContent content = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
-                CollectionType.RSS,
+                CollectionType.FEED,
                 CollectionStatus.NONE,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
                 "summary",
@@ -37,7 +37,7 @@ class CollectedContentEntityTest {
 
         // then
         assertThat(entity.getId()).isEqualTo(1L);
-        assertThat(entity.getType()).isEqualTo(CollectionType.RSS);
+        assertThat(entity.getType()).isEqualTo(CollectionType.FEED);
         assertThat(entity.getStatus()).isEqualTo(CollectionStatus.NONE);
         assertThat(entity.getCategories()).isEqualTo(List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER));
         assertThat(entity.getSummary()).isEqualTo("summary");
@@ -54,7 +54,7 @@ class CollectedContentEntityTest {
         // given
         final CollectedContentEntity entity = new CollectedContentEntity(
                 1L,
-                CollectionType.RSS,
+                CollectionType.FEED,
                 CollectionStatus.CATEGORIZED,
                 TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(2L)),
                 "url",
@@ -71,7 +71,7 @@ class CollectedContentEntityTest {
 
         // then
         assertThat(result.getId()).isEqualTo(new CollectedContent.CollectedContentId(1L));
-        assertThat(result.getType()).isEqualTo(CollectionType.RSS);
+        assertThat(result.getType()).isEqualTo(CollectionType.FEED);
         assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.TechContentProviderId(2L));
         assertThat(result.getUrl()).isEqualTo("url");
         assertThat(result.getTitle()).isEqualTo("title");
@@ -84,7 +84,7 @@ class CollectedContentEntityTest {
     void 도메인_엔티티로부터_업데이트할_수_있다() {
         CollectedContentEntity entity = new CollectedContentEntity(
                 1L,
-                CollectionType.RSS,
+                CollectionType.FEED,
                 CollectionStatus.NONE,
                 TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(2L)),
                 "url",

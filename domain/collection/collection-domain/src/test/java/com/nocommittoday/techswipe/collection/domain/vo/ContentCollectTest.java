@@ -16,7 +16,7 @@ class ContentCollectTest {
     void 도메인_엔티티로_전환할_수_있다() {
         // given
         ContentCollect contentCollect = new ContentCollect(
-                CollectionType.RSS,
+                CollectionType.FEED,
                 new TechContentProvider.TechContentProviderId(1L),
                 "url",
                 "title",
@@ -30,7 +30,7 @@ class ContentCollectTest {
 
         // then
         assertThat(result.getId()).isNull();
-        assertThat(result.getType()).isEqualTo(CollectionType.RSS);
+        assertThat(result.getType()).isEqualTo(CollectionType.FEED);
         assertThat(result.getStatus()).isEqualTo(CollectionStatus.NONE);
         assertThat(result.getCategories()).isNull();
         assertThat(result.getSummary()).isNull();

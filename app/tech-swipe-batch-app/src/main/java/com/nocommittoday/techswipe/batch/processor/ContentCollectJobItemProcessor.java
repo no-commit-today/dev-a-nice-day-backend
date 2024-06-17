@@ -22,8 +22,7 @@ public class ContentCollectJobItemProcessor implements ItemProcessor<TechContent
 
     private static final Map<SubscriptionType, CollectionType> SUBSCRIPTION_TYPE_TO_COLLECTION_TYPE = Map.of(
             SubscriptionType.LIST_CRAWLING, CollectionType.LIST_CRAWLING,
-            SubscriptionType.RSS, CollectionType.RSS,
-            SubscriptionType.ATOM, CollectionType.ATOM
+            SubscriptionType.FEED, CollectionType.FEED
     );
 
     private final SubscribedContentListQueryService subscribedContentListQueryService;
