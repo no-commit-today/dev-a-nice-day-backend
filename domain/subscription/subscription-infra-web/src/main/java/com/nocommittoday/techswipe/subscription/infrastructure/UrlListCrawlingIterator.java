@@ -1,16 +1,13 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
+import com.nocommittoday.client.core.ClientResponse;
 import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.vo.Crawling;
-import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.HttpStatusException;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
+import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -20,11 +17,12 @@ import java.util.Objects;
 import java.util.Queue;
 
 @Slf4j
-class UrlListCrawlingIterator implements Iterator<String> {
+public class UrlListCrawlingIterator implements Iterator<String> {
 
+    private final DocumentConnector documentConnector;
+    private final DocumentElementExtractor documentElementExtractor;
     private final Crawling crawling;
     private String postListPageUrl;
-    private final boolean paginated;
     @Nullable
     private final String postListPageUrlFormat;
     private int page = 1;
@@ -32,22 +30,25 @@ class UrlListCrawlingIterator implements Iterator<String> {
     private final Queue<String> postUrls = new LinkedList<>();
 
     public UrlListCrawlingIterator(
+            final DocumentConnector documentConnector,
+            final DocumentElementExtractor documentElementExtractor,
             final Crawling crawling,
             final String postListPageUrl,
             @Nullable final String postListPageUrlFormat
     ) {
+        this.documentConnector = documentConnector;
+        this.documentElementExtractor = documentElementExtractor;
         this.crawling = crawling;
         this.postListPageUrl = postListPageUrl;
         postUrls.addAll(getNextPostUrls());
 
-        this.paginated = postListPageUrlFormat != null;
         this.postListPageUrlFormat = postListPageUrlFormat;
 
     }
 
     @Override
     public boolean hasNext() {
-        if (postUrls.isEmpty() && paginated) {
+        if (postUrls.isEmpty() && isPaginated()) {
             page += 1;
             postListPageUrl = String.format(Objects.requireNonNull(postListPageUrlFormat), page);
             postUrls.addAll(getNextPostUrls());
@@ -64,20 +65,16 @@ class UrlListCrawlingIterator implements Iterator<String> {
     }
 
     private List<String> getNextPostUrls() {
-        Document document;
-        try {
-            document = Jsoup.connect(postListPageUrl).get();
-            document.select("style").remove();
-        } catch (final HttpStatusException e) {
-            if (e.getStatusCode() == 404) {
-                log.debug("게시글 목록 페이지가 존재하지 않습니다: {}", postListPageUrl);
-                return List.of();
-            }
-            throw new UncheckedIOException(e);
-        } catch (final IOException e) {
-            log.error("게시글 목록 페이지를 가져오는 중 오류 발생: {}", postListPageUrl);
-            throw new UncheckedIOException(e);
+        final ClientResponse<Document> documentResponse = documentConnector.connect(postListPageUrl);
+        if (documentResponse.isNotFound()) {
+            log.debug("게시글 목록 페이지가 존재하지 않습니다: {}", postListPageUrl);
+            return List.of();
         }
+        if (documentResponse.isFailed()) {
+            log.error("게시글 목록 페이지를 가져오는 중 오류 발생: {}", postListPageUrl);
+            throw documentResponse.getException();
+        }
+        final Document document = documentResponse.getData();
 
         if (CrawlingType.INDEX == crawling.type()) {
             return crawlByIndex(document, Objects.requireNonNull(crawling.indexes()));
@@ -90,19 +87,16 @@ class UrlListCrawlingIterator implements Iterator<String> {
     }
 
     private List<String> crawlByIndex(final Document document, final List<Integer> postUrlListIndexes) {
-        Element element = document.body();
-        log.debug("{} [body]\n{}", document.baseUri(), element.html());
-        for (int i = 0; i < postUrlListIndexes.size(); i++) {
-            final int index = postUrlListIndexes.get(i);
-            element = element.child(index);
-            log.debug("{} [child{} index{}]\n{}", document.baseUri(), i, index, element.html());
-        }
-
+        Element element = documentElementExtractor.extractByIndex(document, postUrlListIndexes);
         return new LinkedList<>(element.select("a").eachAttr("abs:href")).stream().toList();
     }
 
     private List<String> crawlBySelector(final Document document, final String selector) {
-        final Element element = Objects.requireNonNull(document.body().select(selector).first());
+        final Element element = documentElementExtractor.extractBySelector(document, selector);
         return new LinkedHashSet<>(element.select("a").eachAttr("abs:href")).stream().toList();
+    }
+
+    private boolean isPaginated() {
+        return postListPageUrlFormat != null;
     }
 }

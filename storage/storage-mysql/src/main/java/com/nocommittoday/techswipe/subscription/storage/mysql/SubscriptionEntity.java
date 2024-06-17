@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.subscription.storage.mysql;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
+import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionInitType;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.domain.vo.SubscriptionRegister;
 import jakarta.persistence.Column;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import static jakarta.persistence.FetchType.*;
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -51,6 +52,10 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
     @Column(name = "type", columnDefinition = "varchar(45)", nullable = false)
     private SubscriptionType type;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "init_type", columnDefinition = "varchar(45)", nullable = false)
+    private SubscriptionInitType initType;
+
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "data", columnDefinition = "json", nullable = false)
     private SubscriptionData data;
@@ -60,11 +65,11 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
                 null,
                 TechContentProviderEntity.from(register.providerId()),
                 register.type(),
+                register.initType(),
                 new SubscriptionData(
-                        register.rssUrl(),
-                        register.atomUrl(),
+                        new FeedData(register.feedUrl()),
                         register.contentCrawling(),
-                        register.listCrawlings()
+                        new ListCrawlingData(register.listCrawlings())
                 )
         );
     }
@@ -74,10 +79,10 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
                 new Subscription.SubscriptionId(id),
                 provider.toDomainId(),
                 type,
-                data.getRssUrl(),
-                data.getAtomUrl(),
+                initType,
+                data.getFeedData().getUrl(),
                 data.getContentCrawling(),
-                data.getListCrawlings()
+                data.getListCrawling().getContent()
         );
     }
 }

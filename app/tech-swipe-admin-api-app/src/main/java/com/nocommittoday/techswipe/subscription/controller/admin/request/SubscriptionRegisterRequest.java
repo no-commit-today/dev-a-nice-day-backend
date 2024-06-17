@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.subscription.controller.admin.request;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
+import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionInitType;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.domain.vo.SubscriptionRegister;
 import jakarta.validation.constraints.NotNull;
@@ -13,22 +14,22 @@ import java.util.List;
 public record SubscriptionRegisterRequest(
         @NotNull @Positive Long providerId,
         @NotNull SubscriptionType type,
-        @URL String rssUrl,
-        @URL String atomUrl,
+        @NotNull SubscriptionInitType initType,
+        @URL String feedUrl,
         @NotNull ContentCrawling contentCrawling,
         @NotNull List<ListCrawling> listCrawlings
 ) {
 
     record ContentCrawling(
-            Crawling title,
-            Crawling date,
-            Crawling content
+            @NotNull Crawling title,
+            @NotNull Crawling date,
+            @NotNull Crawling content
     ) {
     }
 
     record ListCrawling(
             @URL String url,
-            Crawling crawling,
+            @NotNull Crawling crawling,
             @URL String pageUrlFormat
     ) {
     }
@@ -44,8 +45,8 @@ public record SubscriptionRegisterRequest(
         return new SubscriptionRegister(
                 new TechContentProvider.TechContentProviderId(providerId),
                 type,
-                rssUrl,
-                atomUrl,
+                initType,
+                feedUrl,
                 new com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling(
                         new com.nocommittoday.techswipe.subscription.domain.vo.Crawling(
                                 contentCrawling.title().type(),

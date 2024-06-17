@@ -3,9 +3,8 @@ package com.nocommittoday.techswipe.subscription.service;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
-import com.nocommittoday.techswipe.subscription.infrastructure.AtomContentReader;
+import com.nocommittoday.techswipe.subscription.infrastructure.FeedContentReader;
 import com.nocommittoday.techswipe.subscription.infrastructure.ListCrawlingContentReader;
-import com.nocommittoday.techswipe.subscription.infrastructure.RssContentReader;
 import com.nocommittoday.techswipe.subscription.infrastructure.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.infrastructure.SubscriptionReader;
 import lombok.RequiredArgsConstructor;
@@ -19,19 +18,10 @@ import java.util.List;
 public class SubscribedContentListQueryService {
 
     private final SubscriptionReader subscriptionReader;
-    private final RssContentReader rssContentReader;
-    private final AtomContentReader atomContentReader;
+    private final FeedContentReader rssContentReader;
     private final ListCrawlingContentReader listCrawlingContentReader;
 
     public List<SubscribedContentResult> getList(
-            final TechContentProvider.TechContentProviderId providerId,
-            final LocalDate date
-    ) {
-        final Subscription subscription = subscriptionReader.getByProviderId(providerId);
-        return getSubscribedContentList(subscription, date);
-    }
-
-    private List<SubscribedContentResult> getSubscribedContentList(
             final Subscription subscription, final LocalDate date
     ) {
         if (SubscriptionType.LIST_CRAWLING == subscription.getType()) {
@@ -40,12 +30,8 @@ public class SubscribedContentListQueryService {
                     .flatMap(List::stream)
                     .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
                     .toList();
-        } else if (SubscriptionType.RSS == subscription.getType()) {
-            return rssContentReader.getList(subscription.toRss(), date).stream()
-                    .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
-                    .toList();
-        } else if (SubscriptionType.ATOM == subscription.getType()) {
-            return atomContentReader.getList(subscription.toAtom(), date).stream()
+        } else if (SubscriptionType.FEED == subscription.getType()) {
+            return rssContentReader.getList(subscription.toFeed(), date).stream()
                     .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
                     .toList();
         }

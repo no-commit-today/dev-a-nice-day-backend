@@ -1,8 +1,7 @@
 package com.nocommittoday.techswipe.collection.domain.enums;
 
 public enum CollectionType {
-    RSS,
-    ATOM,
+    FEED,
     LIST_CRAWLING,
     ;
 }

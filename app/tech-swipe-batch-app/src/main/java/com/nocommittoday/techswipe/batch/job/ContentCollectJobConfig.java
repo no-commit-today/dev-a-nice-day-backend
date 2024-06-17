@@ -2,9 +2,12 @@ package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.param.DateJobParameters;
 import com.nocommittoday.techswipe.batch.processor.ContentCollectJobItemProcessor;
+import com.nocommittoday.techswipe.batch.reader.PagingItemReaderAdapter;
+import com.nocommittoday.techswipe.batch.reader.PagingItemReaderAdapterBuilder;
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
-import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
+import com.nocommittoday.techswipe.subscription.domain.Subscription;
+import com.nocommittoday.techswipe.subscription.infrastructure.SubscriptionListReader;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +23,7 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.JpaItemWriter;
-import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
-import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -41,6 +42,7 @@ public class ContentCollectJobConfig {
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
 
+    private final SubscriptionListReader subscriptionListReader;
     private final SubscribedContentListQueryService subscribedContentListQueryService;
 
     @Bean(JOB_NAME + DateJobParameters.NAME)
@@ -72,37 +74,32 @@ public class ContentCollectJobConfig {
     public Step step() {
         final StepBuilder stepBuilder = new StepBuilder(STEP_NAME, jobRepository);
         return stepBuilder
-                .<TechContentProviderEntity, List<CollectedContentEntity>>chunk(CHUNK_SIZE, txManager)
-                .reader(itemReader())
-                .processor(itemProcessor())
-                .writer(itemWriter())
+                .<Subscription, List<CollectedContentEntity>>chunk(CHUNK_SIZE, txManager)
+                .reader(reader())
+                .processor(processor())
+                .writer(writer())
                 .build();
     }
 
     @Bean(STEP_NAME + "ItemReader")
     @StepScope
-    public JpaPagingItemReader<TechContentProviderEntity> itemReader() {
-        return new JpaPagingItemReaderBuilder<TechContentProviderEntity>()
+    public PagingItemReaderAdapter<Subscription> reader() {
+        return new PagingItemReaderAdapterBuilder<Subscription>()
                 .name(STEP_NAME + "ItemReader")
-                .entityManagerFactory(emf)
+                .readStrategy((page, size) -> subscriptionListReader.getList(page, size))
                 .pageSize(CHUNK_SIZE)
-                .queryString("""
-                        select p from TechContentProviderEntity p
-                        join SubscriptionEntity s on p.id = s.providerId
-                        where p.deleted = false
-                        """)
                 .build();
     }
 
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
-    public ItemProcessor<TechContentProviderEntity, List<CollectedContentEntity>> itemProcessor() {
-        return new ContentCollectJobItemProcessor(subscribedContentListQueryService, dateJobParameters());
+    public ItemProcessor<Subscription, List<CollectedContentEntity>> processor() {
+        return new ContentCollectJobItemProcessor(subscribedContentListQueryService, dateJobParameters().getDate());
     }
 
     @Bean(STEP_NAME + "ItemWriter")
     @StepScope
-    public JpaItemListWriter<CollectedContentEntity> itemWriter() {
+    public JpaItemListWriter<CollectedContentEntity> writer() {
         final JpaItemWriter<CollectedContentEntity> jpaItemWriter = new JpaItemWriterBuilder<CollectedContentEntity>()
                 .entityManagerFactory(emf)
                 .usePersist(true)

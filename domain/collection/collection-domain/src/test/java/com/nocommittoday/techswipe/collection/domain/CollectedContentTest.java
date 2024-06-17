@@ -23,7 +23,7 @@ class CollectedContentTest {
         // given
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
-                CollectionType.RSS,
+                CollectionType.FEED,
                 new TechContentProvider.TechContentProviderId(2L),
                 "url",
                 "title",
@@ -45,7 +45,7 @@ class CollectedContentTest {
         // given
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
-                CollectionType.RSS,
+                CollectionType.FEED,
                 new TechContentProvider.TechContentProviderId(2L),
                 "url",
                 "title",
@@ -69,7 +69,7 @@ class CollectedContentTest {
         // given
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
-                CollectionType.RSS,
+                CollectionType.FEED,
                 new TechContentProvider.TechContentProviderId(2L),
                 "url",
                 "title",
@@ -89,7 +89,7 @@ class CollectedContentTest {
         // given
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
-                CollectionType.RSS,
+                CollectionType.FEED,
                 new TechContentProvider.TechContentProviderId(2L),
                 "url",
                 "title",
@@ -115,7 +115,7 @@ class CollectedContentTest {
         // given
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
-                CollectionType.RSS,
+                CollectionType.FEED,
                 new TechContentProvider.TechContentProviderId(2L),
                 "url",
                 "title",
@@ -135,7 +135,7 @@ class CollectedContentTest {
         // given
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
-                CollectionType.RSS,
+                CollectionType.FEED,
                 new TechContentProvider.TechContentProviderId(2L),
                 "url",
                 "title",
@@ -159,7 +159,7 @@ class CollectedContentTest {
         // given
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
-                CollectionType.RSS,
+                CollectionType.FEED,
                 new TechContentProvider.TechContentProviderId(2L),
                 "url",
                 "title",
@@ -181,7 +181,7 @@ class CollectedContentTest {
         assertThat(result.getStatus()).isEqualTo(CollectionStatus.PUBLISHED);
 
         assertThat(result.getId()).isEqualTo(new CollectedContent.CollectedContentId(1L));
-        assertThat(result.getType()).isEqualTo(CollectionType.RSS);
+        assertThat(result.getType()).isEqualTo(CollectionType.FEED);
         assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.TechContentProviderId(2L));
         assertThat(result.getUrl()).isEqualTo("url");
         assertThat(result.getTitle()).isEqualTo("title");
@@ -197,7 +197,7 @@ class CollectedContentTest {
         // given
         CollectedContent none = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
-                CollectionType.RSS,
+                CollectionType.FEED,
                 new TechContentProvider.TechContentProviderId(2L),
                 "url",
                 "title",
