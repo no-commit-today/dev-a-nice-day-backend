@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.service;
 
-import com.nocommittoday.techswipe.content.service.ProviderExistsValidationService;
+import com.nocommittoday.techswipe.content.infrastructure.ContentProviderIdValidator;
 import com.nocommittoday.techswipe.subscription.domain.vo.SubscriptionRegister;
 import com.nocommittoday.techswipe.subscription.infrastructure.SubscriptionAppender;
 import lombok.RequiredArgsConstructor;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 public class SubscriptionRegisterService {
 
     private final SubscriptionAppender subscriptionSavePort;
-    private final ProviderExistsValidationService providerExistsValidationService;
+    private final ContentProviderIdValidator contentProviderIdValidator;
 
     public long register(final SubscriptionRegister register) {
-        providerExistsValidationService.validate(register.providerId());
         register.validate();
+        contentProviderIdValidator.validate(register.providerId());
         return subscriptionSavePort.save(register);
     }
 }

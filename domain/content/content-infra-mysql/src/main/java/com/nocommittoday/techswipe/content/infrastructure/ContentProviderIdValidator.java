@@ -1,14 +1,13 @@
-package com.nocommittoday.techswipe.content.service;
+package com.nocommittoday.techswipe.content.infrastructure;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderNotFoundException;
-import com.nocommittoday.techswipe.content.infrastructure.ProviderExistsReader;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-@Service
+@Repository
 @RequiredArgsConstructor
-public class ProviderExistsValidationService {
+public class ContentProviderIdValidator {
 
     private final ProviderExistsReader providerExistsReader;
 
