@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.service;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.domain.ProviderSave;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
 import com.nocommittoday.techswipe.content.infrastructure.ProviderAppender;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
@@ -21,7 +21,7 @@ public class ProviderRegisterService {
         final Image.ImageId iconId = Optional.ofNullable(command.iconUrl())
                 .map(url -> imageStoreService.store(url, "provider-icon"))
                 .orElse(null);
-        return providerSave.save(new ProviderSave(
+        return providerSave.save(new TechContentProviderCreate(
                 command.type(),
                 command.title(),
                 command.url(),

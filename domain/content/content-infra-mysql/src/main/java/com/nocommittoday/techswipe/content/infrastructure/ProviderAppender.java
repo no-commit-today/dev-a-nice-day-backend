@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
-import com.nocommittoday.techswipe.content.domain.ProviderSave;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderJpaRepository;
@@ -16,7 +16,7 @@ public class ProviderAppender {
 
     private final TechContentProviderJpaRepository repository;
 
-    public TechContentProvider.TechContentProviderId save(final ProviderSave command) {
+    public TechContentProvider.TechContentProviderId save(final TechContentProviderCreate command) {
         return new TechContentProvider.TechContentProviderId(repository.save(new TechContentProviderEntity(
                 null,
                 command.type(),

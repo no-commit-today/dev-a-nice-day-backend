@@ -5,7 +5,7 @@ import lombok.NonNull;
 
 import javax.annotation.Nullable;
 
-public record ProviderSave(
+public record TechContentProviderCreate(
         @NonNull TechContentProviderType type,
         @NonNull String title,
         @NonNull String url,
