@@ -22,14 +22,6 @@ public class SubscribedContentListQueryService {
     private final ListCrawlingContentReader listCrawlingContentReader;
 
     public List<SubscribedContentResult> getList(
-            final TechContentProvider.TechContentProviderId providerId,
-            final LocalDate date
-    ) {
-        final Subscription subscription = subscriptionReader.getByProviderId(providerId);
-        return getSubscribedContentList(subscription, date);
-    }
-
-    private List<SubscribedContentResult> getSubscribedContentList(
             final Subscription subscription, final LocalDate date
     ) {
         if (SubscriptionType.LIST_CRAWLING == subscription.getType()) {
