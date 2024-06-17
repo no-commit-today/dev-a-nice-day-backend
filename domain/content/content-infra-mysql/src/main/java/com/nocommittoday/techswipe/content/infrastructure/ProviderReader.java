@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.domain.ContentProviderNotFoundException;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderNotFoundException;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +16,6 @@ public class ProviderReader {
     public TechContentProvider get(final TechContentProvider.TechContentProviderId id) {
         return providerJpaRepository.findById(id.value())
                 .map(TechContentProviderEntity::toDomain)
-                .orElseThrow(() -> new ContentProviderNotFoundException(id));
+                .orElseThrow(() -> new TechContentProviderNotFoundException(id));
     }
 }

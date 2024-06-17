@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.service;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.domain.ContentProviderNotFoundException;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderNotFoundException;
 import com.nocommittoday.techswipe.content.infrastructure.ProviderExistsReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class ProviderExistsValidationService {
 
     public void validate(final TechContentProvider.TechContentProviderId id) {
         if (!providerExistsReader.exists(id)) {
-            throw new ContentProviderNotFoundException(id);
+            throw new TechContentProviderNotFoundException(id);
         }
     }
 }
