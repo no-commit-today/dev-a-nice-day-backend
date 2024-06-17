@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.domain.exception.ContentProviderNotFoundException;
+import com.nocommittoday.techswipe.content.domain.ContentProviderNotFoundException;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderJpaRepository;
 import lombok.RequiredArgsConstructor;

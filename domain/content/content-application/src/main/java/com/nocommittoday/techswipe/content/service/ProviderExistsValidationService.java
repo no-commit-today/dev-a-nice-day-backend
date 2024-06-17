@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.service;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.domain.exception.ContentProviderNotFoundException;
+import com.nocommittoday.techswipe.content.domain.ContentProviderNotFoundException;
 import com.nocommittoday.techswipe.content.infrastructure.ProviderExistsReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

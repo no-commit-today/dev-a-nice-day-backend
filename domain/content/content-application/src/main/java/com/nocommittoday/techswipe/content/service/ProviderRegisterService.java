@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.service;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.domain.vo.ProviderSave;
+import com.nocommittoday.techswipe.content.domain.ProviderSave;
 import com.nocommittoday.techswipe.content.infrastructure.ProviderAppender;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;

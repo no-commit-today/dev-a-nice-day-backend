@@ -1,6 +1,5 @@
-package com.nocommittoday.techswipe.content.domain.vo;
+package com.nocommittoday.techswipe.content.domain;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.image.domain.Image;
 import lombok.NonNull;
 

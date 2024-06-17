@@ -1,6 +1,5 @@
-package com.nocommittoday.techswipe.content.domain.exception;
+package com.nocommittoday.techswipe.content.domain;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.core.domain.exception.AbstractDomainException;
 import lombok.NonNull;
 

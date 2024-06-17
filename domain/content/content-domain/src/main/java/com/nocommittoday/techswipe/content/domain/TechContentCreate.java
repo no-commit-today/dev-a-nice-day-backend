@@ -1,7 +1,5 @@
-package com.nocommittoday.techswipe.content.domain.vo;
+package com.nocommittoday.techswipe.content.domain;
 
-import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.image.domain.Image;
 
 import javax.annotation.Nullable;

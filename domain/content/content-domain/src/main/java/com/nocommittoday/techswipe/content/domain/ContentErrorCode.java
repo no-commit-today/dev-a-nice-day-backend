@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.content.domain.exception;
+package com.nocommittoday.techswipe.content.domain;
 
 import com.nocommittoday.techswipe.core.domain.exception.ErrorCodeType;
 import lombok.Getter;
