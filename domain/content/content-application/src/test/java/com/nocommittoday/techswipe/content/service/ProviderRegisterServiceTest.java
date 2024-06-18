@@ -1,9 +1,9 @@
+package com.nocommittoday.techswipe.content.service;
+
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.content.infrastructure.ProviderAppender;
-import com.nocommittoday.techswipe.content.service.ProviderRegisterCommand;
-import com.nocommittoday.techswipe.content.service.ProviderRegisterService;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import org.junit.jupiter.api.Test;
