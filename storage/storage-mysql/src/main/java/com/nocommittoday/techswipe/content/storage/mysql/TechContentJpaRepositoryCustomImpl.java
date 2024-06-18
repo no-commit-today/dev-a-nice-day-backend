@@ -30,7 +30,10 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
                 .join(techContentEntity.provider).fetchJoin()
                 .join(techCategoryEntity).on(
                         techContentEntity.id.eq(techCategoryEntity.content.id))
-                .where(techCategoryEntity.category.in(categories))
+                .where(
+                        techCategoryEntity.category.in(categories),
+                        techContentEntity.deleted.isFalse()
+                )
                 .groupBy(techContentEntity.publishedDate, techContentEntity.id)
                 .orderBy(techContentEntity.publishedDate.desc())
                 .offset(pageParam.offset())
@@ -43,6 +46,7 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
         return queryFactory
                 .selectFrom(techContentEntity)
                 .join(techContentEntity.provider).fetchJoin()
+                .where(techContentEntity.deleted.isFalse())
                 .orderBy(techContentEntity.publishedDate.desc())
                 .offset(pageParam.offset())
                 .limit(pageParam.size())
