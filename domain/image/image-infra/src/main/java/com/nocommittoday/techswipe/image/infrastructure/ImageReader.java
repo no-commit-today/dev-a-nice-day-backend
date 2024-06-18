@@ -17,13 +17,14 @@ public class ImageReader {
 
     public Image get(final Image.ImageId id) {
         return imageRepository.findById(id.value())
+                .filter(ImageEntity::isUsed)
                 .map(ImageEntity::toDomain)
                 .orElseThrow(() -> new ImageNotFoundException(id));
     }
 
     public List<Image> getAll(final List<Image.ImageId> ids) {
-        return imageRepository.findAllById(ids.stream().map(Image.ImageId::value).toList())
-                .stream()
+        return imageRepository.findAllById(ids.stream().map(Image.ImageId::value).toList()).stream()
+                .filter(ImageEntity::isUsed)
                 .map(ImageEntity::toDomain)
                 .toList();
     }
