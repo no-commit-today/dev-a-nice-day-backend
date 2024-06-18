@@ -1,9 +1,9 @@
 package com.nocommittoday.techswipe.content.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
+import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,7 +23,7 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
 
     @Override
     public List<TechContentEntity> findAllWithProviderByCategoryInOrderByPublishedDateDesc(
-            final Pageable pageable, final List<TechCategory> categories
+            final PageParam pageParam, final List<TechCategory> categories
     ) {
         return queryFactory
                 .selectFrom(techContentEntity)
@@ -33,20 +33,19 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
                 .where(techCategoryEntity.category.in(categories))
                 .groupBy(techContentEntity.publishedDate, techContentEntity.id)
                 .orderBy(techContentEntity.publishedDate.desc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
+                .offset(pageParam.offset())
+                .limit(pageParam.size())
                 .fetch();
     }
 
     @Override
-    public List<TechContentEntity> findAllWithProviderOrderByPublishedDateDesc(final Pageable pageable) {
+    public List<TechContentEntity> findAllWithProviderOrderByPublishedDateDesc(final PageParam pageParam) {
         return queryFactory
                 .selectFrom(techContentEntity)
-                .join(techContentEntity).fetchJoin()
                 .join(techContentEntity.provider).fetchJoin()
                 .orderBy(techContentEntity.publishedDate.desc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
+                .offset(pageParam.offset())
+                .limit(pageParam.size())
                 .fetch();
     }
 }

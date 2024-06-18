@@ -5,7 +5,6 @@ import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentJpaRepository;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class ContentReader {
 
     public List<TechContent> getList(final PageParam pageParam) {
         return techContentJpaRepository.findAllWithProviderOrderByPublishedDateDesc(
-                PageRequest.of(pageParam.page(), pageParam.size())
+                pageParam
         ).stream()
                 .map(TechContentEntity::toDomain)
                 .toList();
