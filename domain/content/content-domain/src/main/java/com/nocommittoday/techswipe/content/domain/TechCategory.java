@@ -3,6 +3,8 @@ package com.nocommittoday.techswipe.content.domain;
 import com.nocommittoday.techswipe.core.domain.enums.EnumMapperType;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 public enum TechCategory implements EnumMapperType {
 
@@ -15,6 +17,12 @@ public enum TechCategory implements EnumMapperType {
     SW_ENGINEERING("SW 엔지니어링"),
     DEV_TOOL("개발 툴"),
     ;
+
+    private static final List<TechCategory> valueList = List.of(values());
+
+    public static List<TechCategory> valueList() {
+        return valueList;
+    }
 
     private final String title;
 

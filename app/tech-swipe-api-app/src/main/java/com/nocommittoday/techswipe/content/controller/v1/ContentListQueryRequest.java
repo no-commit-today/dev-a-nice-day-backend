@@ -3,7 +3,6 @@ package com.nocommittoday.techswipe.content.controller.v1;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
 import java.util.List;
 
 public record ContentListQueryRequest(
@@ -11,7 +10,7 @@ public record ContentListQueryRequest(
 ) {
     public ContentListQueryRequest {
         if (categories == null) {
-            categories = Arrays.stream(TechCategory.values()).toList();
+            categories = TechCategory.valueList();
         }
     }
 }
