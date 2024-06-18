@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.content.controller.v1;
 
 import com.nocommittoday.techswipe.content.service.ContentListQueryParam;
 import com.nocommittoday.techswipe.content.service.ContentListQueryService;
-import com.nocommittoday.techswipe.content.service.ContentResult;
+import com.nocommittoday.techswipe.content.service.ContentQueryResult;
 import com.nocommittoday.techswipe.core.controller.servlet.ListResponse;
 import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
 import jakarta.validation.Valid;
@@ -26,7 +26,7 @@ public class ContentListQueryController {
             final @ModelAttribute ContentListQueryRequest request
     ) {
 
-        final List<ContentResult> contentList = contentListQueryService.getList(
+        final List<ContentQueryResult> contentList = contentListQueryService.getList(
                 pageRequest.toPageParam(), new ContentListQueryParam(request.categories())
         );
 

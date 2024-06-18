@@ -6,9 +6,9 @@ import com.nocommittoday.techswipe.content.domain.TechContent;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public record ContentResult(
+public record ContentQueryResult(
         TechContent.TechContentId id,
-        ProviderResult provider,
+        ProviderQueryResult provider,
         String url,
         String title,
         @Nullable String imageUrl,

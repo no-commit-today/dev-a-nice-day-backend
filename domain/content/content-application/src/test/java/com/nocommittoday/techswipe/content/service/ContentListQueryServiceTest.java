@@ -73,38 +73,38 @@ class ContentListQueryServiceTest {
                 ));
 
         // when
-        final List<ContentResult> contentResults = contentListQueryService.getList(pageParam, new ContentListQueryParam(List.of(TechCategory.SERVER)));
+        final List<ContentQueryResult> contentQueryResults = contentListQueryService.getList(pageParam, new ContentListQueryParam(List.of(TechCategory.SERVER)));
 
         // then
-        assertThat(contentResults).hasSize(2);
-        assertThat(contentResults.get(0).id()).isEqualTo(new TechContent.TechContentId(1L));
-        assertThat(contentResults.get(0).provider().id()).isEqualTo(new TechContentProvider.TechContentProviderId(11L));
-        assertThat(contentResults.get(0).provider().title()).isEqualTo("provider-title");
-        assertThat(contentResults.get(0).provider().url()).isEqualTo("provider-url");
-        assertThat(contentResults.get(0).provider().iconUrl())
+        assertThat(contentQueryResults).hasSize(2);
+        assertThat(contentQueryResults.get(0).id()).isEqualTo(new TechContent.TechContentId(1L));
+        assertThat(contentQueryResults.get(0).provider().id()).isEqualTo(new TechContentProvider.TechContentProviderId(11L));
+        assertThat(contentQueryResults.get(0).provider().title()).isEqualTo("provider-title");
+        assertThat(contentQueryResults.get(0).provider().url()).isEqualTo("provider-url");
+        assertThat(contentQueryResults.get(0).provider().iconUrl())
                 .describedAs("이미지가 있을 경우 이미지 url 을 반환한다.")
                 .isEqualTo("url-21");
-        assertThat(contentResults.get(0).url()).isEqualTo("url-1");
-        assertThat(contentResults.get(0).title()).isEqualTo("title-1");
-        assertThat(contentResults.get(0).imageUrl())
+        assertThat(contentQueryResults.get(0).url()).isEqualTo("url-1");
+        assertThat(contentQueryResults.get(0).title()).isEqualTo("title-1");
+        assertThat(contentQueryResults.get(0).imageUrl())
                 .describedAs("이미지 ID 가 없을 경우 null 을 반환한다.")
                 .isNull();
-        assertThat(contentResults.get(0).summary()).isEqualTo("summary-1");
-        assertThat(contentResults.get(0).categories()).containsExactly(TechCategory.SERVER);
-        assertThat(contentResults.get(1).id()).isEqualTo(new TechContent.TechContentId(2L));
-        assertThat(contentResults.get(1).provider().id()).isEqualTo(new TechContentProvider.TechContentProviderId(11L));
-        assertThat(contentResults.get(1).provider().title()).isEqualTo("provider-title");
-        assertThat(contentResults.get(1).provider().url()).isEqualTo("provider-url");
-        assertThat(contentResults.get(1).provider().iconUrl())
+        assertThat(contentQueryResults.get(0).summary()).isEqualTo("summary-1");
+        assertThat(contentQueryResults.get(0).categories()).containsExactly(TechCategory.SERVER);
+        assertThat(contentQueryResults.get(1).id()).isEqualTo(new TechContent.TechContentId(2L));
+        assertThat(contentQueryResults.get(1).provider().id()).isEqualTo(new TechContentProvider.TechContentProviderId(11L));
+        assertThat(contentQueryResults.get(1).provider().title()).isEqualTo("provider-title");
+        assertThat(contentQueryResults.get(1).provider().url()).isEqualTo("provider-url");
+        assertThat(contentQueryResults.get(1).provider().iconUrl())
                 .describedAs("이미지가 있을 경우 이미지 url 을 반환한다.")
                 .isEqualTo("url-21");
-        assertThat(contentResults.get(1).url()).isEqualTo("url-2");
-        assertThat(contentResults.get(1).title()).isEqualTo("title-2");
-        assertThat(contentResults.get(1).imageUrl())
+        assertThat(contentQueryResults.get(1).url()).isEqualTo("url-2");
+        assertThat(contentQueryResults.get(1).title()).isEqualTo("title-2");
+        assertThat(contentQueryResults.get(1).imageUrl())
                 .describedAs("이미지 ID 가 있더라도 이미지가 없을 경우 null 을 반환한다.")
                 .isNull();
-        assertThat(contentResults.get(1).summary()).isEqualTo("summary-2");
-        assertThat(contentResults.get(1).categories()).containsExactly(TechCategory.SERVER);
+        assertThat(contentQueryResults.get(1).summary()).isEqualTo("summary-2");
+        assertThat(contentQueryResults.get(1).categories()).containsExactly(TechCategory.SERVER);
     }
 
 }
