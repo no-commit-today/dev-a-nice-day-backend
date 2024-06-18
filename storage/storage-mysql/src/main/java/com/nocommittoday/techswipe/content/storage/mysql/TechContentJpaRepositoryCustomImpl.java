@@ -26,12 +26,13 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
             final Pageable pageable, final List<TechCategory> categories
     ) {
         return queryFactory
-                .select(techCategoryEntity.content)
-                .from(techCategoryEntity)
-                .join(techCategoryEntity.content).fetchJoin()
-                .join(techCategoryEntity.content.provider).fetchJoin()
+                .selectFrom(techContentEntity)
+                .join(techContentEntity.provider).fetchJoin()
+                .join(techCategoryEntity).on(
+                        techContentEntity.id.eq(techCategoryEntity.content.id))
                 .where(techCategoryEntity.category.in(categories))
-                .orderBy(techCategoryEntity.content.publishedDate.desc())
+                .groupBy(techContentEntity.publishedDate, techContentEntity.id)
+                .orderBy(techContentEntity.publishedDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
