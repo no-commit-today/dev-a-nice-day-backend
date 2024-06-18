@@ -1,29 +1,63 @@
 package com.nocommittoday.techswipe.content.service;
 
-import com.nocommittoday.techswipe.content.infrastructure.ContentCategoryFilteredReader;
-import com.nocommittoday.techswipe.content.infrastructure.ContentReader;
+import com.nocommittoday.techswipe.content.domain.TechContent;
+import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.infrastructure.ContentCategorizedListReader;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
+import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.infrastructure.ImageReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ContentListQueryService {
 
-    private final ContentReader contentReader;
-    private final ContentCategoryFilteredReader contentCategoryFilteredReader;
+    private final ContentCategorizedListReader contentCategorizedListReader;
+    private final ImageReader imageReader;
 
-    public List<ContentResult> getList(final PageParam pageParam, final ContentListQueryParam queryParam) {
-        if (queryParam.categories().isEmpty()) {
-            return contentReader.getList(pageParam).stream()
-                    .map(ContentResult::from)
-                    .toList();
-        } else {
-            return contentCategoryFilteredReader.getList(pageParam, queryParam.categories()).stream()
-                    .map(ContentResult::from)
-                    .toList();
-        }
+    public List<ContentQueryResult> getList(final PageParam pageParam, final ContentListQueryParam queryParam) {
+        final List<TechContent> contents = contentCategorizedListReader.getList(pageParam, queryParam.categories());
+        final Map<Image.ImageId, String> imageIdToUrl = getImageIdStringMap(contents);
+        return contents.stream()
+                .map(content -> new ContentQueryResult(
+                                content.getId(),
+                                new ProviderQueryResult(
+                                        content.getProvider().getId(),
+                                        content.getProvider().getTitle(),
+                                        content.getProvider().getUrl(),
+                                        imageIdToUrl.getOrDefault(content.getProvider().getIconId(), null)
+                                ),
+                                content.getUrl(),
+                                content.getTitle(),
+                                imageIdToUrl.getOrDefault(content.getImageId(), null),
+                                content.getSummary(),
+                                content.getCategories()
+                        )
+                ).toList();
+    }
+
+    private Map<Image.ImageId, String> getImageIdStringMap(final List<TechContent> contentList) {
+        final Set<Image.ImageId> imageIds = new HashSet<>();
+        contentList.stream()
+                .map(TechContent::getImageId)
+                .filter(Objects::nonNull)
+                .forEach(imageIds::add);
+        contentList.stream()
+                .map(TechContent::getProvider)
+                .map(TechContentProvider::getIconId)
+                .filter(Objects::nonNull)
+                .forEach(imageIds::add);
+        return imageReader.getAll(imageIds).stream()
+                .collect(Collectors.toMap(
+                        Image::getId, Image::getUrl
+                ));
     }
 }

@@ -2,8 +2,8 @@ package com.nocommittoday.techswipe.content.controller.v1;
 
 import com.nocommittoday.techswipe.content.service.ContentListQueryParam;
 import com.nocommittoday.techswipe.content.service.ContentListQueryService;
-import com.nocommittoday.techswipe.content.service.ContentResult;
-import com.nocommittoday.techswipe.content.service.ProviderResult;
+import com.nocommittoday.techswipe.content.service.ContentQueryResult;
+import com.nocommittoday.techswipe.content.service.ProviderQueryResult;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
@@ -50,17 +50,17 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
         given(contentListQueryService.getList(
                 new PageParam(1, 10), new ContentListQueryParam(List.of(TechCategory.SERVER))
         )).willReturn(List.of(
-                new ContentResult(
+                new ContentQueryResult(
                         new TechContent.TechContentId(1L),
-                        new ProviderResult(
+                        new ProviderQueryResult(
                                 new TechContentProvider.TechContentProviderId(2L),
                                 "title",
                                 "https://provider-url",
-                                new Image.ImageId(3L)
+                                "https://provider-icon-url"
                         ),
                         "https://content-url",
                         "title",
-                        new Image.ImageId(4L),
+                        "https://content-image-url",
                         "summary",
                         List.of(TechCategory.SERVER)
                 )

@@ -1,15 +1,15 @@
 package com.nocommittoday.techswipe.content.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
-import org.springframework.data.domain.Pageable;
+import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 
 import java.util.List;
 
 interface TechContentJpaRepositoryCustom {
 
     List<TechContentEntity> findAllWithProviderByCategoryInOrderByPublishedDateDesc(
-            final Pageable pageable, final List<TechCategory> categories
+            final PageParam pageParam, final List<TechCategory> categories
     );
 
-    List<TechContentEntity> findAllWithProviderOrderByPublishedDateDesc(final Pageable pageable);
+    List<TechContentEntity> findAllWithProviderOrderByPublishedDateDesc(final PageParam pageParam);
 }

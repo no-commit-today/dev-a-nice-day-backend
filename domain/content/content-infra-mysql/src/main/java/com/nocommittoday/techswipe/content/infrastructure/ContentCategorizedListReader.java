@@ -6,14 +6,13 @@ import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentJpaRepository;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class ContentCategoryFilteredReader {
+public class ContentCategorizedListReader {
 
     private final TechContentJpaRepository techContentJpaRepository;
 
@@ -22,7 +21,7 @@ public class ContentCategoryFilteredReader {
             final List<TechCategory> categories
     ) {
         return techContentJpaRepository.findAllWithProviderByCategoryInOrderByPublishedDateDesc(
-                        PageRequest.of(pageParam.page(), pageParam.size()),
+                        pageParam,
                         categories
                 ).stream()
                 .map(TechContentEntity::toDomain)

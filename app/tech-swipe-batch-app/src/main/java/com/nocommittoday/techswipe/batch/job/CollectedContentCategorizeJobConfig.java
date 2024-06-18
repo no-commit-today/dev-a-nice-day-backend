@@ -31,7 +31,7 @@ import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
-public class CollectedContentCategorizeJonConfig {
+public class CollectedContentCategorizeJobConfig {
 
     private static final String JOB_NAME = "collectedContentCategorizeJob";
     private static final String STEP_NAME = "collectedContentCategorizeStep";
