@@ -1,7 +1,5 @@
 package com.nocommittoday.techswipe.content.controller.v1;
 
-import com.nocommittoday.techswipe.content.controller.v1.request.ContentListQueryRequest;
-import com.nocommittoday.techswipe.content.controller.v1.response.ContentResponse;
 import com.nocommittoday.techswipe.content.service.ContentListQueryParam;
 import com.nocommittoday.techswipe.content.service.ContentListQueryService;
 import com.nocommittoday.techswipe.content.service.ContentResult;

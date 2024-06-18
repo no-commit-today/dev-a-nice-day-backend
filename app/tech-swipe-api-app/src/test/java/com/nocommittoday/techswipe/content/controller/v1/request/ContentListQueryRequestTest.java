@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.content.controller.v1.request;
 
+import com.nocommittoday.techswipe.content.controller.v1.ContentListQueryRequest;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import org.junit.jupiter.api.Test;
 
