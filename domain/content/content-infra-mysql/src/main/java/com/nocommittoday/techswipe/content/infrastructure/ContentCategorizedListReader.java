@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
+import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentJpaRepository;
@@ -11,14 +12,18 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class ContentReader {
+public class ContentCategorizedListReader {
 
     private final TechContentJpaRepository techContentJpaRepository;
 
-    public List<TechContent> getList(final PageParam pageParam) {
-        return techContentJpaRepository.findAllWithProviderOrderByPublishedDateDesc(
-                pageParam
-        ).stream()
+    public List<TechContent> getList(
+            final PageParam pageParam,
+            final List<TechCategory> categories
+    ) {
+        return techContentJpaRepository.findAllWithProviderByCategoryInOrderByPublishedDateDesc(
+                        pageParam,
+                        categories
+                ).stream()
                 .map(TechContentEntity::toDomain)
                 .toList();
     }
