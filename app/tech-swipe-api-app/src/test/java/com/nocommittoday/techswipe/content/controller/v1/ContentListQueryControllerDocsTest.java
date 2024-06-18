@@ -56,11 +56,11 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                                 new TechContentProvider.TechContentProviderId(2L),
                                 "title",
                                 "https://provider-url",
-                                new Image.ImageId(3L)
+                                "https://provider-icon-url"
                         ),
                         "https://content-url",
                         "title",
-                        new Image.ImageId(4L),
+                        "https://content-image-url",
                         "summary",
                         List.of(TechCategory.SERVER)
                 )

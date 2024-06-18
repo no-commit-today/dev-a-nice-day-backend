@@ -7,6 +7,7 @@ import com.nocommittoday.techswipe.image.storage.mysql.ImageJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -22,7 +23,7 @@ public class ImageReader {
                 .orElseThrow(() -> new ImageNotFoundException(id));
     }
 
-    public List<Image> getAll(final List<Image.ImageId> ids) {
+    public List<Image> getAll(final Collection<Image.ImageId> ids) {
         return imageRepository.findAllById(ids.stream().map(Image.ImageId::value).toList()).stream()
                 .filter(ImageEntity::isUsed)
                 .map(ImageEntity::toDomain)
