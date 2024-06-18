@@ -15,6 +15,7 @@ public class ProviderReader {
 
     public TechContentProvider get(final TechContentProvider.TechContentProviderId id) {
         return providerJpaRepository.findById(id.value())
+                .filter(TechContentProviderEntity::isUsed)
                 .map(TechContentProviderEntity::toDomain)
                 .orElseThrow(() -> new TechContentProviderNotFoundException(id));
     }
