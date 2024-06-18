@@ -8,9 +8,4 @@ import java.util.List;
 public record ContentListQueryRequest(
         @Nullable List<TechCategory> categories
 ) {
-    public ContentListQueryRequest {
-        if (categories == null) {
-            categories = TechCategory.valueList();
-        }
-    }
 }

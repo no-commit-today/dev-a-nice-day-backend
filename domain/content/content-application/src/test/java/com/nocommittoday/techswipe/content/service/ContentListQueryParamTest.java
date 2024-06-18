@@ -1,17 +1,16 @@
-package com.nocommittoday.techswipe.content.controller.v1.request;
+package com.nocommittoday.techswipe.content.service;
 
-import com.nocommittoday.techswipe.content.controller.v1.ContentListQueryRequest;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ContentListQueryRequestTest {
+class ContentListQueryParamTest {
 
     @Test
     void categories가_null이면_TechCategory_모든_값으로_초기화된다() {
         // given
-        final ContentListQueryRequest request = new ContentListQueryRequest(null);
+        final ContentListQueryParam request = new ContentListQueryParam(null);
 
         // then
         assertThat(request.categories())
