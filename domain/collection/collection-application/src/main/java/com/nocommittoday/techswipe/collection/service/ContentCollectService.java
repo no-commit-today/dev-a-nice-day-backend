@@ -2,7 +2,6 @@ package com.nocommittoday.techswipe.collection.service;
 
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentAppender;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,7 @@ class ContentCollectService {
 
     private final CollectedContentAppender collectedContentAppender;
 
-    public void collect(final @NonNull ContentCollect command) {
-        collectedContentAppender.save(command.toDomain());
+    public void collect(final ContentCollect command) {
+        collectedContentAppender.save(command);
     }
 }
