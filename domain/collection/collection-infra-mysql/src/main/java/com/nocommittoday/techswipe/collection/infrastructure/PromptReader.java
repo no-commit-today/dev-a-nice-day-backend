@@ -9,6 +9,8 @@ import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Comparator;
+
 @Repository
 @RequiredArgsConstructor
 public class PromptReader {
@@ -16,8 +18,10 @@ public class PromptReader {
     private final PromptJpaRepository promptJpaRepository;
 
     public Prompt get(final PromptType type, final TechContentProviderType providerType) {
-        return promptJpaRepository.findByTypeAndProviderType(type, providerType)
+        return promptJpaRepository.findAllByTypeAndProviderTypeAndDeletedIsFalse(type, providerType)
+                .stream()
                 .filter(PromptEntity::isUsed)
+                .max(Comparator.comparing(PromptEntity::getCreatedAt))
                 .map(PromptEntity::toDomain)
                 .orElseThrow(() -> new CollectionPromptNotFoundException(type, providerType));
     }
