@@ -1,7 +1,5 @@
 package com.nocommittoday.techswipe.content.controller.admin;
 
-import com.nocommittoday.techswipe.content.controller.admin.request.ProviderRegisterRequest;
-import com.nocommittoday.techswipe.content.controller.admin.response.ProviderRegisterResponse;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.service.ProviderRegisterService;
 import jakarta.validation.Valid;
