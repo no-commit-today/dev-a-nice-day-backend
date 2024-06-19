@@ -43,7 +43,6 @@ public class ContentCollectJobItemProcessor implements ItemProcessor<Subscriptio
                         subscribedContent.content(),
                         subscribedContent.imageUrl()
                 ))
-                .map(ContentCollect::toDomain)
                 .map(CollectedContentEntity::from)
                 .toList();
     }

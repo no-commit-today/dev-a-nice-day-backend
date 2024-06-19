@@ -81,7 +81,6 @@ public class ProviderInitialContentCollectJobConfig {
                             item.content(),
                             item.imageUrl()
                     ))
-                    .map(ContentCollect::toDomain)
                     .map(CollectedContentEntity::from)
                     .toList();
             collectedContentJpaRepository.saveAll(collectedContentEntityList);

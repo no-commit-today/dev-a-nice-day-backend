@@ -15,17 +15,4 @@ public record ContentCollect(
         @NonNull String content,
         @Nullable String imageUrl
 ) {
-
-    public CollectedContent toDomain() {
-        return new CollectedContent(
-                null,
-                type,
-                providerId,
-                url,
-                title,
-                publishedDate,
-                content,
-                imageUrl
-        );
-    }
 }
