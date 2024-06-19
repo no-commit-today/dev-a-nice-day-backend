@@ -19,6 +19,11 @@ dependencies {
     implementation(project(":domain:subscription:subscription-application"))
     implementation(project(":domain:subscription:subscription-domain"))
 
+    implementation(project(":domain:collection:collection-infra-mysql"))
+    implementation(project(":domain:collection:collection-infra-web"))
+    implementation(project(":domain:collection:collection-application"))
+    implementation(project(":domain:collection:collection-domain"))
+
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
 }
