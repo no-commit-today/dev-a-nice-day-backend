@@ -1,6 +1,5 @@
-package com.nocommittoday.techswipe.collection.domain.exception;
+package com.nocommittoday.techswipe.collection.domain;
 
-import com.nocommittoday.techswipe.collection.domain.enums.PromptType;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.core.domain.exception.AbstractDomainException;
 

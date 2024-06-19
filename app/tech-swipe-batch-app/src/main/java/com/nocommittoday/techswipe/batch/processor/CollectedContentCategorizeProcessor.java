@@ -4,8 +4,8 @@ import com.nocommittoday.techswipe.batch.application.PromptWithInMemoryCacheRead
 import com.nocommittoday.techswipe.batch.exception.CategorizeFailureException;
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.Prompt;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
-import com.nocommittoday.techswipe.collection.domain.enums.PromptType;
+import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
+import com.nocommittoday.techswipe.collection.domain.PromptType;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectionProcessor;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import lombok.RequiredArgsConstructor;

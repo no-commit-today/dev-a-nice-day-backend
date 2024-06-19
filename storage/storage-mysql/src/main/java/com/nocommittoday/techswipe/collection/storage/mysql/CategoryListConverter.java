@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.collection.storage.mysql;
 
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
+import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

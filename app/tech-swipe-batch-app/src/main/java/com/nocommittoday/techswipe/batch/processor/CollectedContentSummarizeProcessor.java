@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.batch.exception.SummarizeFailureException;
 import com.nocommittoday.techswipe.collection.infrastructure.SummarizationResult;
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.Prompt;
-import com.nocommittoday.techswipe.collection.domain.enums.PromptType;
+import com.nocommittoday.techswipe.collection.domain.PromptType;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectionProcessor;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import lombok.RequiredArgsConstructor;

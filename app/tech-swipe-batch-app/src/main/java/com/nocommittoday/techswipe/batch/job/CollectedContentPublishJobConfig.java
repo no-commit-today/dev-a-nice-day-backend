@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.processor.CollectedContentPublishProcessor;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
+import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;

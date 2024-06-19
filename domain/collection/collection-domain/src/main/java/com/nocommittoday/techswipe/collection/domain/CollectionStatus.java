@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.collection.domain.enums;
+package com.nocommittoday.techswipe.collection.domain;
 
 /**
  * NONE

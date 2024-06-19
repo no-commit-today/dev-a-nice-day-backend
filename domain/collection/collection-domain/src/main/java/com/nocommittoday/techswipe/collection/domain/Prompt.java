@@ -1,6 +1,5 @@
 package com.nocommittoday.techswipe.collection.domain;
 
-import com.nocommittoday.techswipe.collection.domain.enums.PromptType;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

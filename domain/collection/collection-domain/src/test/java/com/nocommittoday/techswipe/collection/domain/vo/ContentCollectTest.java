@@ -1,8 +1,9 @@
 package com.nocommittoday.techswipe.collection.domain.vo;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
+import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
+import com.nocommittoday.techswipe.collection.domain.CollectionType;
+import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.domain.exception.CollectionNotFoundException;
+import com.nocommittoday.techswipe.collection.domain.CollectionNotFoundException;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentJpaRepository;
 import lombok.RequiredArgsConstructor;

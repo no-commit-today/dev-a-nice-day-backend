@@ -1,7 +1,5 @@
-package com.nocommittoday.techswipe.collection.domain.vo;
+package com.nocommittoday.techswipe.collection.domain;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import lombok.NonNull;
 

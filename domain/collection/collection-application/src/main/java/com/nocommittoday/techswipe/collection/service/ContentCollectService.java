@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.collection.service;
 
-import com.nocommittoday.techswipe.collection.domain.vo.ContentCollect;
+import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentAppender;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

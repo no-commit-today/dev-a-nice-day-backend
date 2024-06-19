@@ -1,9 +1,9 @@
 package com.nocommittoday.techswipe.collection.storage.mysql;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
+import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
+import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
+import com.nocommittoday.techswipe.collection.domain.CollectionType;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;

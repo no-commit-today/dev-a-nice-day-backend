@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.processor.CollectedContentPublishCompleteProcessor;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
+import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;

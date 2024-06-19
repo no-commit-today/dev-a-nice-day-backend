@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.batch.application.PromptWithInMemoryCacheRead
 import com.nocommittoday.techswipe.batch.exception.CategorizeFailureException;
 import com.nocommittoday.techswipe.batch.listener.CollectedContentCategorizeSkipListener;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentCategorizeProcessor;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
+import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectionProcessor;
 import com.nocommittoday.techswipe.collection.infrastructure.PromptReader;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;

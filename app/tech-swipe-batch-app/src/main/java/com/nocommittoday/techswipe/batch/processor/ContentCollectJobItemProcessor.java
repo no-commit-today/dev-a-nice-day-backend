@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.batch.processor;
 
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
-import com.nocommittoday.techswipe.collection.domain.vo.ContentCollect;
+import com.nocommittoday.techswipe.collection.domain.CollectionType;
+import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;

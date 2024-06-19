@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.collection.domain.enums;
+package com.nocommittoday.techswipe.collection.domain;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.core.domain.enums.EnumMapperType;

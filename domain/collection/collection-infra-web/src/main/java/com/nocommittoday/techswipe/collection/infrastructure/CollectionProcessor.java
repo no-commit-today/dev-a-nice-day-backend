@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
 import com.nocommittoday.techswipe.collection.domain.Prompt;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
+import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatCompletionResult;
 import com.theokanning.openai.completion.chat.ChatMessage;
