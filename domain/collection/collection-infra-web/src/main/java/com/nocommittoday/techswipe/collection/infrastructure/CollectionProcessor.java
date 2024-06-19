@@ -31,7 +31,7 @@ public class CollectionProcessor {
 
     private final OpenAiService openAiService;
 
-    public List<CollectionCategory> categorize(final Prompt prompt, final String content) {
+    public CategorizationResult categorize(final Prompt prompt, final String content) {
         final ChatCompletionRequest request = createRequest(prompt, content);
         final ChatCompletionResult chatCompletionResponse = openAiService.createChatCompletion(request);
         log.debug("ChatCompletionResponse: {}", chatCompletionResponse);
@@ -46,13 +46,15 @@ public class CollectionProcessor {
                 .anyMatch(line -> !CATEGORIZATION_RESULT_PATTERN.matcher(line).matches());
 
         if (resultIncorrect) {
-            return List.of();
+            return CategorizationResult.failure();
         }
 
-        return result.stream()
-                .map(line -> line.replaceFirst("^-\\s", ""))
-                .map(CollectionCategory::valueOf)
-                .toList();
+        return CategorizationResult.success(
+                result.stream()
+                        .map(line -> line.replaceFirst("^-\\s", ""))
+                        .map(CollectionCategory::valueOf)
+                        .toList()
+        );
     }
 
     public SummarizationResult summarize(final Prompt prompt, final String content) {
