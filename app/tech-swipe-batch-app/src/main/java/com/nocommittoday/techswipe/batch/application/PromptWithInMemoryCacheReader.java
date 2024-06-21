@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.batch.application;
 
 import com.nocommittoday.techswipe.collection.domain.Prompt;
-import com.nocommittoday.techswipe.collection.domain.enums.PromptType;
+import com.nocommittoday.techswipe.collection.domain.PromptType;
 import com.nocommittoday.techswipe.collection.infrastructure.PromptReader;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import lombok.RequiredArgsConstructor;

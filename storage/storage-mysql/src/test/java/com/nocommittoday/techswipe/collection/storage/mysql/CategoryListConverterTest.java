@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.collection.storage.mysql;
 
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
+import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

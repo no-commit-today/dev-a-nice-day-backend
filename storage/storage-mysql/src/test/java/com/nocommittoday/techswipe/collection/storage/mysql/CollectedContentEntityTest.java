@@ -1,9 +1,10 @@
 package com.nocommittoday.techswipe.collection.storage.mysql;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
+import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
+import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
+import com.nocommittoday.techswipe.collection.domain.CollectionType;
+import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ class CollectedContentEntityTest {
         final CollectedContent content = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
                 CollectionType.FEED,
-                CollectionStatus.NONE,
+                CollectionStatus.INIT,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
                 "summary",
                 new TechContentProvider.TechContentProviderId(2L),
@@ -38,9 +39,39 @@ class CollectedContentEntityTest {
         // then
         assertThat(entity.getId()).isEqualTo(1L);
         assertThat(entity.getType()).isEqualTo(CollectionType.FEED);
-        assertThat(entity.getStatus()).isEqualTo(CollectionStatus.NONE);
+        assertThat(entity.getStatus()).isEqualTo(CollectionStatus.INIT);
         assertThat(entity.getCategories()).isEqualTo(List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER));
         assertThat(entity.getSummary()).isEqualTo("summary");
+        assertThat(entity.getProvider().getId()).isEqualTo(2L);
+        assertThat(entity.getUrl()).isEqualTo("url");
+        assertThat(entity.getTitle()).isEqualTo("title");
+        assertThat(entity.getPublishedDate()).isEqualTo(LocalDate.of(2021, 1, 1));
+        assertThat(entity.getContent()).isEqualTo("content");
+        assertThat(entity.getImageUrl()).isEqualTo("imageUrl");
+    }
+
+    @Test
+    void ContentCollect_도메인_객체로부터_생성할_수_있다() {
+        // given
+        final ContentCollect contentCollect = new ContentCollect(
+                CollectionType.FEED,
+                new TechContentProvider.TechContentProviderId(2L),
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                "content",
+                "imageUrl"
+        );
+
+        // when
+        final CollectedContentEntity entity = CollectedContentEntity.from(contentCollect);
+
+        // then
+        assertThat(entity.getId()).isNull();
+        assertThat(entity.getType()).isEqualTo(CollectionType.FEED);
+        assertThat(entity.getStatus()).isEqualTo(CollectionStatus.INIT);
+        assertThat(entity.getCategories()).isNull();
+        assertThat(entity.getSummary()).isNull();
         assertThat(entity.getProvider().getId()).isEqualTo(2L);
         assertThat(entity.getUrl()).isEqualTo("url");
         assertThat(entity.getTitle()).isEqualTo("title");
@@ -85,7 +116,7 @@ class CollectedContentEntityTest {
         CollectedContentEntity entity = new CollectedContentEntity(
                 1L,
                 CollectionType.FEED,
-                CollectionStatus.NONE,
+                CollectionStatus.INIT,
                 TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(2L)),
                 "url",
                 "title",

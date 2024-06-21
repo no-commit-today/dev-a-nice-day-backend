@@ -1,11 +1,5 @@
 package com.nocommittoday.techswipe.collection.domain;
 
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
-import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategorizeUnableException;
-import com.nocommittoday.techswipe.collection.domain.exception.CollectionPublishUnableException;
-import com.nocommittoday.techswipe.collection.domain.exception.CollectionSummarizeUnableException;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import lombok.Getter;
 
@@ -54,7 +48,7 @@ public class CollectedContent {
     ) {
         this.id = id;
         this.type = type;
-        this.status = CollectionStatus.NONE;
+        this.status = CollectionStatus.INIT;
         this.categories = null;
         this.summary = null;
         this.providerId = providerId;
@@ -93,7 +87,7 @@ public class CollectedContent {
     }
 
     public CollectedContent categorize(final List<CollectionCategory> categories) {
-        if (status != CollectionStatus.NONE) {
+        if (status != CollectionStatus.INIT) {
             throw new CollectionCategorizeUnableException(id, status);
         }
         final CollectionStatus nextStatus = categories.stream()

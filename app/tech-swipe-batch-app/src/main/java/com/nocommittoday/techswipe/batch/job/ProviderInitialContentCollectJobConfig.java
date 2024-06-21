@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.param.ProviderIdJobParameters;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
-import com.nocommittoday.techswipe.collection.domain.vo.ContentCollect;
+import com.nocommittoday.techswipe.collection.domain.CollectionType;
+import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentJpaRepository;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
@@ -81,7 +81,6 @@ public class ProviderInitialContentCollectJobConfig {
                             item.content(),
                             item.imageUrl()
                     ))
-                    .map(ContentCollect::toDomain)
                     .map(CollectedContentEntity::from)
                     .toList();
             collectedContentJpaRepository.saveAll(collectedContentEntityList);

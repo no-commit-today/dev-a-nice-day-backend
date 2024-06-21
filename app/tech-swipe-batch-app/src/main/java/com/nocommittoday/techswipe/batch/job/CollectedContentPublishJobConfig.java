@@ -1,7 +1,8 @@
 package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.processor.CollectedContentPublishProcessor;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
+import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
+import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
@@ -16,14 +17,12 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.database.JpaItemWriter;
-import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
-import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import java.util.Map;
+import static com.nocommittoday.techswipe.collection.storage.mysql.QCollectedContentEntity.collectedContentEntity;
 
 @Configuration
 @RequiredArgsConstructor
@@ -62,19 +61,19 @@ public class CollectedContentPublishJobConfig {
 
     @Bean(STEP_NAME + "ItemReader")
     @StepScope
-    public JpaPagingItemReader<CollectedContentEntity> reader() {
-        return new JpaPagingItemReaderBuilder<CollectedContentEntity>()
-                .entityManagerFactory(emf)
-                .pageSize(CHUNK_SIZE)
-                .queryString("""
-                        select c from CollectedContentEntity c
-                        join fetch c.techContentProviderEntity
-                        where c.status = :status and c.deleted = false
-                        """)
-                .parameterValues(Map.of(
-                        "status", CollectionStatus.SUMMARIZED
-                ))
-                .build();
+    public QuerydslPagingItemReader<CollectedContentEntity> reader() {
+        final QuerydslPagingItemReader<CollectedContentEntity> reader = new QuerydslPagingItemReader<>();
+        reader.setEntityManagerFactory(emf);
+        reader.setPageSize(CHUNK_SIZE);
+        reader.setTransacted(false);
+        reader.setQueryFunction(queryFactory -> queryFactory
+                .selectFrom(collectedContentEntity)
+                .where(
+                        collectedContentEntity.status.eq(CollectionStatus.SUMMARIZED),
+                        collectedContentEntity.deleted.isFalse()
+                )
+        );
+        return reader;
     }
 
     @Bean(STEP_NAME + "ItemProcessor")

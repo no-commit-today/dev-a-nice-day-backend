@@ -1,6 +1,5 @@
 package com.nocommittoday.techswipe.subscription.controller.admin;
 
-import com.nocommittoday.techswipe.subscription.controller.admin.request.SubscriptionRegisterRequest;
 import com.nocommittoday.techswipe.subscription.service.SubscriptionRegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

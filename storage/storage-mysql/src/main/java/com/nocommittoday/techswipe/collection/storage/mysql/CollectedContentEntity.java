@@ -1,9 +1,10 @@
 package com.nocommittoday.techswipe.collection.storage.mysql;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionCategory;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionType;
+import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
+import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
+import com.nocommittoday.techswipe.collection.domain.CollectionType;
+import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;
@@ -28,7 +29,6 @@ import lombok.NoArgsConstructor;
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -48,6 +48,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type", columnDefinition = "varchar(45)", nullable = false)
     private CollectionType type;
 
@@ -87,8 +88,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
 
     public static CollectedContentEntity from(final CollectedContent collectedContent) {
         return new CollectedContentEntity(
-                Optional.ofNullable(collectedContent.getId())
-                        .map(CollectedContent.CollectedContentId::id).orElse(null),
+                collectedContent.getId().id(),
                 collectedContent.getType(),
                 collectedContent.getStatus(),
                 TechContentProviderEntity.from(collectedContent.getProviderId()),
@@ -99,6 +99,22 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
                 collectedContent.getImageUrl(),
                 collectedContent.getCategories(),
                 collectedContent.getSummary()
+        );
+    }
+
+    public static CollectedContentEntity from(final ContentCollect contentCollect) {
+        return new CollectedContentEntity(
+                null,
+                contentCollect.type(),
+                CollectionStatus.INIT,
+                TechContentProviderEntity.from(contentCollect.providerId()),
+                contentCollect.url(),
+                contentCollect.title(),
+                contentCollect.publishedDate(),
+                contentCollect.content(),
+                contentCollect.imageUrl(),
+                null,
+                null
         );
     }
 

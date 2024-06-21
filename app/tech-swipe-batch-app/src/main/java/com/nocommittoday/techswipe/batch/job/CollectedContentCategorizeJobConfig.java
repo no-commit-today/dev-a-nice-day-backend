@@ -4,7 +4,8 @@ import com.nocommittoday.techswipe.batch.application.PromptWithInMemoryCacheRead
 import com.nocommittoday.techswipe.batch.exception.CategorizeFailureException;
 import com.nocommittoday.techswipe.batch.listener.CollectedContentCategorizeSkipListener;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentCategorizeProcessor;
-import com.nocommittoday.techswipe.collection.domain.enums.CollectionStatus;
+import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
+import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectionProcessor;
 import com.nocommittoday.techswipe.collection.infrastructure.PromptReader;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
@@ -18,16 +19,13 @@ import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.core.step.skip.AlwaysSkipItemSkipPolicy;
 import org.springframework.batch.item.database.JpaItemWriter;
-import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
-import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import java.util.Map;
+import static com.nocommittoday.techswipe.collection.storage.mysql.QCollectedContentEntity.collectedContentEntity;
 
 @Configuration
 @RequiredArgsConstructor
@@ -65,7 +63,6 @@ public class CollectedContentCategorizeJobConfig {
 
                 .faultTolerant()
                 .skip(CategorizeFailureException.class)
-                .skipPolicy(new AlwaysSkipItemSkipPolicy())
                 .listener(listener())
 
                 .build();
@@ -73,19 +70,20 @@ public class CollectedContentCategorizeJobConfig {
 
     @Bean(STEP_NAME + "ItemReader")
     @StepScope
-    public JpaPagingItemReader<CollectedContentEntity> reader() {
-        return new JpaPagingItemReaderBuilder<CollectedContentEntity>()
-                .entityManagerFactory(emf)
-                .pageSize(CHUNK_SIZE)
-                .queryString("""
-                        select c from CollectedContentEntity c
-                        join fetch c.techContentProviderEntity
-                        where c.status = :status and c.deleted = false
-                        """)
-                .parameterValues(Map.of(
-                        "status", CollectionStatus.NONE
-                ))
-                .build();
+    public QuerydslPagingItemReader<CollectedContentEntity> reader() {
+        final QuerydslPagingItemReader<CollectedContentEntity> reader = new QuerydslPagingItemReader<>();
+        reader.setEntityManagerFactory(emf);
+        reader.setPageSize(CHUNK_SIZE);
+        reader.setTransacted(false);
+        reader.setQueryFunction(queryFactory -> queryFactory
+                .selectFrom(collectedContentEntity)
+                .join(collectedContentEntity.provider).fetchJoin()
+                .where(
+                        collectedContentEntity.status.eq(CollectionStatus.INIT),
+                        collectedContentEntity.deleted.isFalse()
+                )
+        );
+        return reader;
     }
 
     @Bean(STEP_NAME + "ItemProcessor")

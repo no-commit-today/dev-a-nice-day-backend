@@ -3,5 +3,6 @@ dependencies {
 
     implementation(project(":storage:storage-mysql"))
 
-    implementation("io.awspring.cloud:spring-cloud-aws-starter-s3")
+    implementation 'org.springframework:spring-web'
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3'
 }

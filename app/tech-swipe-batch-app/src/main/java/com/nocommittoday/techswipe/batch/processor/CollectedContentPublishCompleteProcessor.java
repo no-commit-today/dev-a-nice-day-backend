@@ -10,7 +10,6 @@ public class CollectedContentPublishCompleteProcessor
     @Override
     public CollectedContentEntity process(final CollectedContentEntity item) throws Exception {
         final CollectedContent collectedContent = item.toDomain();
-        collectedContent.published();
-        return CollectedContentEntity.from(collectedContent);
+        return CollectedContentEntity.from(collectedContent.published());
     }
 }
