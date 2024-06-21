@@ -106,7 +106,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
         return new CollectedContentEntity(
                 null,
                 contentCollect.type(),
-                CollectionStatus.NONE,
+                CollectionStatus.INIT,
                 TechContentProviderEntity.from(contentCollect.providerId()),
                 contentCollect.url(),
                 contentCollect.title(),

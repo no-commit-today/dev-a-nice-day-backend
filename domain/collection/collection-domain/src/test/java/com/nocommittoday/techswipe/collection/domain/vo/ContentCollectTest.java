@@ -32,7 +32,7 @@ class ContentCollectTest {
         // then
         assertThat(result.getId()).isNull();
         assertThat(result.getType()).isEqualTo(CollectionType.FEED);
-        assertThat(result.getStatus()).isEqualTo(CollectionStatus.NONE);
+        assertThat(result.getStatus()).isEqualTo(CollectionStatus.INIT);
         assertThat(result.getCategories()).isNull();
         assertThat(result.getSummary()).isNull();
         assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.TechContentProviderId(1L));

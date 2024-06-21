@@ -79,7 +79,7 @@ public class CollectedContentCategorizeJobConfig {
                 .selectFrom(collectedContentEntity)
                 .join(collectedContentEntity.provider).fetchJoin()
                 .where(
-                        collectedContentEntity.status.eq(CollectionStatus.NONE),
+                        collectedContentEntity.status.eq(CollectionStatus.INIT),
                         collectedContentEntity.deleted.isFalse()
                 )
         );

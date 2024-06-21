@@ -22,7 +22,7 @@ class CollectedContentEntityTest {
         final CollectedContent content = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
                 CollectionType.FEED,
-                CollectionStatus.NONE,
+                CollectionStatus.INIT,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
                 "summary",
                 new TechContentProvider.TechContentProviderId(2L),
@@ -39,7 +39,7 @@ class CollectedContentEntityTest {
         // then
         assertThat(entity.getId()).isEqualTo(1L);
         assertThat(entity.getType()).isEqualTo(CollectionType.FEED);
-        assertThat(entity.getStatus()).isEqualTo(CollectionStatus.NONE);
+        assertThat(entity.getStatus()).isEqualTo(CollectionStatus.INIT);
         assertThat(entity.getCategories()).isEqualTo(List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER));
         assertThat(entity.getSummary()).isEqualTo("summary");
         assertThat(entity.getProvider().getId()).isEqualTo(2L);
@@ -69,7 +69,7 @@ class CollectedContentEntityTest {
         // then
         assertThat(entity.getId()).isNull();
         assertThat(entity.getType()).isEqualTo(CollectionType.FEED);
-        assertThat(entity.getStatus()).isEqualTo(CollectionStatus.NONE);
+        assertThat(entity.getStatus()).isEqualTo(CollectionStatus.INIT);
         assertThat(entity.getCategories()).isNull();
         assertThat(entity.getSummary()).isNull();
         assertThat(entity.getProvider().getId()).isEqualTo(2L);
@@ -116,7 +116,7 @@ class CollectedContentEntityTest {
         CollectedContentEntity entity = new CollectedContentEntity(
                 1L,
                 CollectionType.FEED,
-                CollectionStatus.NONE,
+                CollectionStatus.INIT,
                 TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(2L)),
                 "url",
                 "title",

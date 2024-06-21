@@ -48,7 +48,7 @@ public class CollectedContent {
     ) {
         this.id = id;
         this.type = type;
-        this.status = CollectionStatus.NONE;
+        this.status = CollectionStatus.INIT;
         this.categories = null;
         this.summary = null;
         this.providerId = providerId;
@@ -87,7 +87,7 @@ public class CollectedContent {
     }
 
     public CollectedContent categorize(final List<CollectionCategory> categories) {
-        if (status != CollectionStatus.NONE) {
+        if (status != CollectionStatus.INIT) {
             throw new CollectionCategorizeUnableException(id, status);
         }
         final CollectionStatus nextStatus = categories.stream()
