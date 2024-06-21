@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.batch.writer;
 
+import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.database.JpaItemWriter;
 
@@ -23,5 +24,25 @@ public class JpaItemListWriter<T> extends JpaItemWriter<List<T>> {
         }
 
         jpaItemWriter.write(new Chunk<>(totalList));
+    }
+
+    @Override
+    public void setEntityManagerFactory(final EntityManagerFactory entityManagerFactory) {
+        jpaItemWriter.setEntityManagerFactory(entityManagerFactory);
+    }
+
+    @Override
+    public void setClearPersistenceContext(final boolean clearPersistenceContext) {
+        jpaItemWriter.setClearPersistenceContext(clearPersistenceContext);
+    }
+
+    @Override
+    public void setUsePersist(final boolean usePersist) {
+        jpaItemWriter.setUsePersist(usePersist);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        jpaItemWriter.afterPropertiesSet();
     }
 }
