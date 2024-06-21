@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RequiredArgsConstructor
 public class LocalCollectionProcessor implements CollectionProcessor {
@@ -27,6 +29,11 @@ public class LocalCollectionProcessor implements CollectionProcessor {
 
     @Override
     public SummarizationResult summarize(final Prompt prompt, final String content) {
-        return SummarizationResult.success("summary");
+        final int numSummaryLine = random.nextInt(MAX_SUMMARY_LINE);
+        return SummarizationResult.success(
+                IntStream.rangeClosed(1, numSummaryLine)
+                        .mapToObj(i -> "- summary-" + i)
+                        .collect(Collectors.joining("\n"))
+        );
     }
 }
