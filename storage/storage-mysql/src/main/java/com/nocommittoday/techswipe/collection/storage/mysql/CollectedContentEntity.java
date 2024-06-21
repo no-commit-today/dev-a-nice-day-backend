@@ -48,6 +48,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type", columnDefinition = "varchar(45)", nullable = false)
     private CollectionType type;
 
