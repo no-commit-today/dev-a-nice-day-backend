@@ -3,7 +3,6 @@ package com.nocommittoday.techswipe.image.infrastructure;
 import io.awspring.cloud.s3.ObjectMetadata;
 import io.awspring.cloud.s3.S3Resource;
 import io.awspring.cloud.s3.S3Template;
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
@@ -32,7 +31,7 @@ public class S3FileStoreAdapter implements FileStore {
     }
 
     @Override
-    public String store(final @NonNull Resource resource, final @NonNull String storedName) {
+    public String store(final Resource resource, final String storedName) {
         try (final InputStream input = resource.getInputStream()) {
             final String filename = Optional.ofNullable(resource.getFilename())
                     .orElseThrow(() -> new IllegalArgumentException("파일 이름 필요"));
