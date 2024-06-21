@@ -64,7 +64,6 @@ public class CollectedContentSummarizeJobConfig {
 
                 .faultTolerant()
                 .skip(SummarizeFailureException.class)
-                .skipPolicy(new AlwaysSkipItemSkipPolicy())
                 .listener(listener())
 
                 .build();

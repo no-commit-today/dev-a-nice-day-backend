@@ -5,7 +5,6 @@ import com.nocommittoday.techswipe.batch.processor.ContentCollectJobItemProcesso
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
-import com.nocommittoday.techswipe.subscription.infrastructure.SubscriptionListReader;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
 import jakarta.persistence.EntityManagerFactory;
@@ -43,7 +42,6 @@ public class ContentCollectJobConfig {
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
 
-    private final SubscriptionListReader subscriptionListReader;
     private final SubscribedContentListQueryService subscribedContentListQueryService;
 
     @Bean(JOB_NAME + DateJobParameters.NAME)
