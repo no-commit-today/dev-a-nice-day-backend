@@ -1,0 +1,1 @@
+alter table images modify deleted_at datetime null;
