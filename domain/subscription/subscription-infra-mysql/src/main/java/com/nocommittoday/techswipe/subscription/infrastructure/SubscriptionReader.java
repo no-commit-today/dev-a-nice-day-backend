@@ -18,7 +18,9 @@ public class SubscriptionReader {
     public Subscription getByProviderId(final TechContentProvider.TechContentProviderId providerId) {
         final SubscriptionEntity subscriptionEntity = subscriptionRepository.findByProvider(
                         TechContentProviderEntity.from(providerId)
-                ).orElseThrow(() -> new SubscriptionNotFoundException(providerId));
+                )
+                .filter(SubscriptionEntity::isUsed)
+                .orElseThrow(() -> new SubscriptionNotFoundException(providerId));
         return subscriptionEntity.toDomain();
     }
 }
