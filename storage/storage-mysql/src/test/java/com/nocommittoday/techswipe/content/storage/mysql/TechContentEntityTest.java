@@ -58,10 +58,10 @@ class TechContentEntityTest {
         );
 
         // when
-        final TechContent.TechContentId result = content.toDomainId();
+        final TechContent.Id result = content.toDomainId();
 
         // then
-        assertThat(result).isEqualTo(new TechContent.TechContentId(1));
+        assertThat(result).isEqualTo(new TechContent.Id(1));
     }
 
     @Test
@@ -88,7 +88,7 @@ class TechContentEntityTest {
         final TechContent result = content.toDomain();
 
         // then
-        assertThat(result.getId()).isEqualTo(new TechContent.TechContentId(1));
+        assertThat(result.getId()).isEqualTo(new TechContent.Id(1));
         assertThat(result.getProvider().getId()).isEqualTo(new TechContentProvider.Id(3));
         assertThat(result.getProvider().getType()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(result.getProvider().getTitle()).isEqualTo("providerTitle");

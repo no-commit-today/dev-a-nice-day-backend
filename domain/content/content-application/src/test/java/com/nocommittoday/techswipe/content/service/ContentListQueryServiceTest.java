@@ -47,7 +47,7 @@ class ContentListQueryServiceTest {
         given(contentCategorizedListReader.getList(pageParam, List.of(TechCategory.SERVER)))
                 .willReturn(List.of(
                         new TechContent(
-                                new TechContent.TechContentId(1L),
+                                new TechContent.Id(1L),
                                 contentProvider,
                                 null,
                                 "url-1",
@@ -57,7 +57,7 @@ class ContentListQueryServiceTest {
                                 List.of(TechCategory.SERVER)
                         ),
                         new TechContent(
-                                new TechContent.TechContentId(2L),
+                                new TechContent.Id(2L),
                                 contentProvider,
                                 new Image.ImageId(22L),
                                 "url-2",
@@ -77,7 +77,7 @@ class ContentListQueryServiceTest {
 
         // then
         assertThat(contentQueryResults).hasSize(2);
-        assertThat(contentQueryResults.get(0).id()).isEqualTo(new TechContent.TechContentId(1L));
+        assertThat(contentQueryResults.get(0).id()).isEqualTo(new TechContent.Id(1L));
         assertThat(contentQueryResults.get(0).provider().id()).isEqualTo(new TechContentProvider.Id(11L));
         assertThat(contentQueryResults.get(0).provider().title()).isEqualTo("provider-title");
         assertThat(contentQueryResults.get(0).provider().url()).isEqualTo("provider-url");
@@ -91,7 +91,7 @@ class ContentListQueryServiceTest {
                 .isNull();
         assertThat(contentQueryResults.get(0).summary()).isEqualTo("summary-1");
         assertThat(contentQueryResults.get(0).categories()).containsExactly(TechCategory.SERVER);
-        assertThat(contentQueryResults.get(1).id()).isEqualTo(new TechContent.TechContentId(2L));
+        assertThat(contentQueryResults.get(1).id()).isEqualTo(new TechContent.Id(2L));
         assertThat(contentQueryResults.get(1).provider().id()).isEqualTo(new TechContentProvider.Id(11L));
         assertThat(contentQueryResults.get(1).provider().title()).isEqualTo("provider-title");
         assertThat(contentQueryResults.get(1).provider().url()).isEqualTo("provider-url");

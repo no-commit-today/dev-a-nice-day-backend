@@ -51,7 +51,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                 new PageParam(1, 10), new ContentListQueryParam(List.of(TechCategory.SERVER))
         )).willReturn(List.of(
                 new ContentQueryResult(
-                        new TechContent.TechContentId(1L),
+                        new TechContent.Id(1L),
                         new ProviderQueryResult(
                                 new TechContentProvider.Id(2L),
                                 "title",

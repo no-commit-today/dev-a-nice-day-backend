@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public record ContentQueryResult(
-        TechContent.TechContentId id,
+        TechContent.Id id,
         ProviderQueryResult provider,
         String url,
         String title,

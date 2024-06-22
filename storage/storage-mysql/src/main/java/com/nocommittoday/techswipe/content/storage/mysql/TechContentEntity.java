@@ -104,8 +104,8 @@ public class TechContentEntity extends BaseSoftDeleteEntity {
         categories.add(new TechCategoryEntity(this, category));
     }
 
-    public TechContent.TechContentId toDomainId() {
-        return new TechContent.TechContentId(id);
+    public TechContent.Id toDomainId() {
+        return new TechContent.Id(id);
     }
 
     public static TechContentEntity from(final TechContentCreate techContentCreate) {
