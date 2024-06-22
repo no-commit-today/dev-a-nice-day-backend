@@ -9,6 +9,7 @@ import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentResult;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersValidator;
 import org.springframework.batch.core.Step;
@@ -28,6 +29,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
 public class ContentCollectProviderInitialJobConfig {
@@ -81,7 +83,13 @@ public class ContentCollectProviderInitialJobConfig {
                     .getInitList(providerId);
 
             final List<CollectedContentEntity> collectedContentEntityList = subscribedContentList.stream()
-                    .filter(item -> !urlSet.contains(item.url()))
+                    .filter(item -> {
+                        final boolean urlCollected = urlSet.contains(item.url());
+                        if (urlCollected) {
+                            log.info("provider[{}] url이 이미 수집되어 있습니다. url: {}", providerId.value(), item.url());
+                        }
+                        return !urlCollected;
+                    })
                     .map(item -> new ContentCollect(
                             providerId,
                             item.url(),
