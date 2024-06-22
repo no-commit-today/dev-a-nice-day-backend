@@ -3,8 +3,8 @@ package com.nocommittoday.techswipe.admin.controller;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionInitType;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.URL;
 

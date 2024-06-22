@@ -2,11 +2,11 @@ package com.nocommittoday.techswipe.batch.processor;
 
 import com.nocommittoday.techswipe.batch.application.PromptWithInMemoryCacheReader;
 import com.nocommittoday.techswipe.batch.exception.SummarizeFailureException;
-import com.nocommittoday.techswipe.collection.infrastructure.SummarizationResult;
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.Prompt;
 import com.nocommittoday.techswipe.collection.domain.PromptType;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectionProcessor;
+import com.nocommittoday.techswipe.collection.infrastructure.SummarizationResult;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;

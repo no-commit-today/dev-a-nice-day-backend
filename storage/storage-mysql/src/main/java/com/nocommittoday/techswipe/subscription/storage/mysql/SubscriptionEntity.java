@@ -4,8 +4,8 @@ import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEnti
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionInitType;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
