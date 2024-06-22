@@ -29,6 +29,7 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
         return queryFactory
                 .selectFrom(techContentEntity)
                 .join(techContentEntity.provider).fetchJoin()
+                .join(techContentEntity.image).fetchJoin()
                 .join(techCategoryEntity).on(
                         techContentEntity.id.eq(techCategoryEntity.content.id))
                 .where(

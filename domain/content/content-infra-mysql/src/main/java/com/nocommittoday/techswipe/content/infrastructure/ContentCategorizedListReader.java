@@ -7,6 +7,7 @@ import com.nocommittoday.techswipe.content.storage.mysql.TechContentJpaRepositor
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class ContentCategorizedListReader {
 
     private final TechContentJpaRepository techContentJpaRepository;
 
+    @Transactional(readOnly = true)
     public List<TechContent> getList(
             final PageParam pageParam,
             final List<TechCategory> categories
