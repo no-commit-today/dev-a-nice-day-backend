@@ -14,7 +14,7 @@ public class SubscriptionRegisterService {
     private final SubscriptionUpdater subscriptionUpdater;
     private final ContentProviderIdValidator contentProviderIdValidator;
 
-    public Subscription.SubscriptionId register(final SubscriptionRegister register) {
+    public Subscription.Id register(final SubscriptionRegister register) {
         register.validate();
         contentProviderIdValidator.validate(register.providerId());
         return subscriptionUpdater.update(register);

@@ -86,7 +86,7 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
 
     public Subscription toDomain() {
         return new Subscription(
-                new Subscription.SubscriptionId(id),
+                new Subscription.Id(id),
                 provider.toDomainId(),
                 type,
                 initType,

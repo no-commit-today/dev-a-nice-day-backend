@@ -89,7 +89,7 @@ class SubscriptionEntityTest {
 
         // then
         assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo(new Subscription.SubscriptionId(1L));
+        assertThat(result.getId()).isEqualTo(new Subscription.Id(1L));
         assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.Id(2L));
         assertThat(result.getType()).isEqualTo(SubscriptionType.FEED);
         assertThat(result.getInitType()).isEqualTo(SubscriptionInitType.LIST_CRAWLING);

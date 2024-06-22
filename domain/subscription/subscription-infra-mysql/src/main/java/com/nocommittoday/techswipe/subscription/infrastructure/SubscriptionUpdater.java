@@ -14,8 +14,8 @@ public class SubscriptionUpdater {
 
     private final SubscriptionJpaRepository subscriptionJpaRepository;
 
-    public Subscription.SubscriptionId update(final SubscriptionRegister register) {
-        return new Subscription.SubscriptionId(
+    public Subscription.Id update(final SubscriptionRegister register) {
+        return new Subscription.Id(
                 subscriptionJpaRepository.findByProvider(
                                 TechContentProviderEntity.from(register.providerId())
                         ).map(entity -> {
