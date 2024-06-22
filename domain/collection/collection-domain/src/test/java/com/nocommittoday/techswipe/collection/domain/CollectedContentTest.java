@@ -18,7 +18,7 @@ class CollectedContentTest {
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
                 CollectionType.FEED,
-                new TechContentProvider.TechContentProviderId(2L),
+                new TechContentProvider.Id(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -40,7 +40,7 @@ class CollectedContentTest {
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
                 CollectionType.FEED,
-                new TechContentProvider.TechContentProviderId(2L),
+                new TechContentProvider.Id(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -64,7 +64,7 @@ class CollectedContentTest {
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
                 CollectionType.FEED,
-                new TechContentProvider.TechContentProviderId(2L),
+                new TechContentProvider.Id(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -84,7 +84,7 @@ class CollectedContentTest {
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
                 CollectionType.FEED,
-                new TechContentProvider.TechContentProviderId(2L),
+                new TechContentProvider.Id(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -110,7 +110,7 @@ class CollectedContentTest {
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
                 CollectionType.FEED,
-                new TechContentProvider.TechContentProviderId(2L),
+                new TechContentProvider.Id(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -130,7 +130,7 @@ class CollectedContentTest {
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
                 CollectionType.FEED,
-                new TechContentProvider.TechContentProviderId(2L),
+                new TechContentProvider.Id(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -154,7 +154,7 @@ class CollectedContentTest {
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
                 CollectionType.FEED,
-                new TechContentProvider.TechContentProviderId(2L),
+                new TechContentProvider.Id(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -176,7 +176,7 @@ class CollectedContentTest {
 
         assertThat(result.getId()).isEqualTo(new CollectedContent.CollectedContentId(1L));
         assertThat(result.getType()).isEqualTo(CollectionType.FEED);
-        assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.TechContentProviderId(2L));
+        assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.Id(2L));
         assertThat(result.getUrl()).isEqualTo("url");
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getPublishedDate()).isEqualTo(LocalDate.of(2021, 1, 1));
@@ -192,7 +192,7 @@ class CollectedContentTest {
         CollectedContent none = new CollectedContent(
                 new CollectedContent.CollectedContentId(1L),
                 CollectionType.FEED,
-                new TechContentProvider.TechContentProviderId(2L),
+                new TechContentProvider.Id(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),

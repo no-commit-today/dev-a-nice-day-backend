@@ -14,7 +14,7 @@ public class CollectedContentUrlListReader {
 
     private final CollectedContentJpaRepository collectedContentJpaRepository;
 
-    public List<String> getAllUrlsByProvider(final TechContentProvider.TechContentProviderId providerId) {
+    public List<String> getAllUrlsByProvider(final TechContentProvider.Id providerId) {
         return collectedContentJpaRepository.findAllUrlByProvider(TechContentProviderEntity.from(providerId));
     }
 }

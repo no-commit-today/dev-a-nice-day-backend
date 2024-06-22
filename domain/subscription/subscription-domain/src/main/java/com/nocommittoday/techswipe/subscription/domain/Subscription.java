@@ -20,7 +20,7 @@ public class Subscription {
 
     private final SubscriptionId id;
 
-    private final TechContentProvider.TechContentProviderId providerId;
+    private final TechContentProvider.Id providerId;
 
     private final SubscriptionType type;
 

@@ -42,7 +42,7 @@ class SubscriptionReaderTest {
         // when
         // then
         assertThatThrownBy(() -> subscriptionReader.getByProviderId(
-                new TechContentProvider.TechContentProviderId(1)))
+                new TechContentProvider.Id(1)))
                 .isInstanceOf(SubscriptionNotFoundException.class);
 
         assertThat(providerCaptor.getValue().getId()).isEqualTo(1L);
@@ -60,7 +60,7 @@ class SubscriptionReaderTest {
         // when
         // then
         assertThatThrownBy(() -> subscriptionReader.getByProviderId(
-                new TechContentProvider.TechContentProviderId(1)))
+                new TechContentProvider.Id(1)))
                 .isInstanceOf(SubscriptionNotFoundException.class);
 
         assertThat(providerCaptor.getValue().getId()).isEqualTo(1L);

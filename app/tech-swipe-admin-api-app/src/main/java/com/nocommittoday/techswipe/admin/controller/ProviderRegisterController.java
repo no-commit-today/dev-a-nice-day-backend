@@ -18,7 +18,7 @@ public class ProviderRegisterController {
 
     @PutMapping("/api/content/admin/contents")
     ResponseEntity<ProviderRegisterResponse> register(@RequestBody @Valid final ProviderRegisterRequest request) {
-        final TechContentProvider.TechContentProviderId providerId = providerRegisterService.register(
+        final TechContentProvider.Id providerId = providerRegisterService.register(
                 request.toCommand());
         return ResponseEntity.status(HttpStatus.CREATED).body(new ProviderRegisterResponse(providerId.value()));
     }

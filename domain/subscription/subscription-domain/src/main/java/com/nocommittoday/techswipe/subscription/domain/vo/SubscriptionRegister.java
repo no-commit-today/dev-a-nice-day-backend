@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public record SubscriptionRegister(
-        @NonNull TechContentProvider.TechContentProviderId providerId,
+        @NonNull TechContentProvider.Id providerId,
         @NonNull SubscriptionType type,
         @NonNull SubscriptionInitType initType,
         @Nullable String feedUrl,

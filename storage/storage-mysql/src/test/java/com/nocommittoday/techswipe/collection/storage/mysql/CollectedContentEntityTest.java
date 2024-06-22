@@ -25,7 +25,7 @@ class CollectedContentEntityTest {
                 CollectionStatus.INIT,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
                 "summary",
-                new TechContentProvider.TechContentProviderId(2L),
+                new TechContentProvider.Id(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -55,7 +55,7 @@ class CollectedContentEntityTest {
         // given
         final ContentCollect contentCollect = new ContentCollect(
                 CollectionType.FEED,
-                new TechContentProvider.TechContentProviderId(2L),
+                new TechContentProvider.Id(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -87,7 +87,7 @@ class CollectedContentEntityTest {
                 1L,
                 CollectionType.FEED,
                 CollectionStatus.CATEGORIZED,
-                TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(2L)),
+                TechContentProviderEntity.from(new TechContentProvider.Id(2L)),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -103,7 +103,7 @@ class CollectedContentEntityTest {
         // then
         assertThat(result.getId()).isEqualTo(new CollectedContent.CollectedContentId(1L));
         assertThat(result.getType()).isEqualTo(CollectionType.FEED);
-        assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.TechContentProviderId(2L));
+        assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.Id(2L));
         assertThat(result.getUrl()).isEqualTo("url");
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getContent()).isEqualTo("content");
@@ -117,7 +117,7 @@ class CollectedContentEntityTest {
                 1L,
                 CollectionType.FEED,
                 CollectionStatus.INIT,
-                TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(2L)),
+                TechContentProviderEntity.from(new TechContentProvider.Id(2L)),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -133,7 +133,7 @@ class CollectedContentEntityTest {
                 CollectionStatus.CATEGORIZED,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
                 "summary",
-                new TechContentProvider.TechContentProviderId(3L),
+                new TechContentProvider.Id(3L),
                 "updated-url",
                 "updated-title",
                 LocalDate.of(2021, 1, 2),

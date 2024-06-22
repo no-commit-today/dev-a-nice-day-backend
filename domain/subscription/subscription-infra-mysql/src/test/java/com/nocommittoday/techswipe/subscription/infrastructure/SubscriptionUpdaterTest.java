@@ -55,7 +55,7 @@ class SubscriptionUpdaterTest {
 
         // when
         subscriptionUpdater.update(new SubscriptionRegister(
-                new TechContentProvider.TechContentProviderId(1),
+                new TechContentProvider.Id(1),
                 SubscriptionType.FEED,
                 SubscriptionInitType.NONE,
                 "feed-url",
@@ -88,7 +88,7 @@ class SubscriptionUpdaterTest {
 
         // when
         final SubscriptionRegister subscriptionRegister = new SubscriptionRegister(
-                new TechContentProvider.TechContentProviderId(1),
+                new TechContentProvider.Id(1),
                 SubscriptionType.FEED,
                 SubscriptionInitType.NONE,
                 "feed-url",

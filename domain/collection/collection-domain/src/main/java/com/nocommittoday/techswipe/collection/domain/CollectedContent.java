@@ -22,7 +22,7 @@ public class CollectedContent {
     @Nullable
     private final String summary;
 
-    private final TechContentProvider.TechContentProviderId providerId;
+    private final TechContentProvider.Id providerId;
 
     private final String url;
 
@@ -39,7 +39,7 @@ public class CollectedContent {
     public CollectedContent(
             final CollectedContentId id,
             final CollectionType type,
-            final TechContentProvider.TechContentProviderId providerId,
+            final TechContentProvider.Id providerId,
             final String url,
             final String title,
             final LocalDate publishedDate,
@@ -66,7 +66,7 @@ public class CollectedContent {
             final CollectionStatus status,
             @Nullable final List<CollectionCategory> categories,
             @Nullable final String summary,
-            final TechContentProvider.TechContentProviderId providerId,
+            final TechContentProvider.Id providerId,
             final String url,
             final String title,
             final LocalDate publishedDate,

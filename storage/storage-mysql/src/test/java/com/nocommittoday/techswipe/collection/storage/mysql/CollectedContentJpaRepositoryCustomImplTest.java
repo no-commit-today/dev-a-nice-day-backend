@@ -30,7 +30,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         null,
                         CollectionType.FEED,
                         CollectionStatus.INIT,
-                        TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(10)),
+                        TechContentProviderEntity.from(new TechContentProvider.Id(10)),
                         "url1",
                         "title1",
                         LocalDate.of(2021, 1, 1),
@@ -43,7 +43,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         null,
                         CollectionType.FEED,
                         CollectionStatus.INIT,
-                        TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(10)),
+                        TechContentProviderEntity.from(new TechContentProvider.Id(10)),
                         "url2",
                         "title2",
                         LocalDate.of(2021, 1, 1),
@@ -56,7 +56,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         null,
                         CollectionType.FEED,
                         CollectionStatus.INIT,
-                        TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(11)),
+                        TechContentProviderEntity.from(new TechContentProvider.Id(11)),
                         "url3",
                         "title3",
                         LocalDate.of(2021, 1, 1),
@@ -71,7 +71,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
 
         // when
         final List<String> result = collectedContentJpaRepository.findAllUrlByProvider(
-                TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(10))
+                TechContentProviderEntity.from(new TechContentProvider.Id(10))
         );
 
         // then

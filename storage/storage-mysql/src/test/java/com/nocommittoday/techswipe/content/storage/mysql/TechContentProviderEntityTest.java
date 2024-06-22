@@ -13,7 +13,7 @@ class TechContentProviderEntityTest {
     @Test
     void 도메인_엔티티_ID로부터_생성할_수_있다() {
         // given
-        final TechContentProvider.TechContentProviderId id = new TechContentProvider.TechContentProviderId(1);
+        final TechContentProvider.Id id = new TechContentProvider.Id(1);
 
         // when
         final TechContentProviderEntity result = TechContentProviderEntity.from(id);
@@ -34,10 +34,10 @@ class TechContentProviderEntityTest {
         );
 
         // when
-        final TechContentProvider.TechContentProviderId result = provider.toDomainId();
+        final TechContentProvider.Id result = provider.toDomainId();
 
         // then
-        assertThat(result).isEqualTo(new TechContentProvider.TechContentProviderId(1));
+        assertThat(result).isEqualTo(new TechContentProvider.Id(1));
     }
 
     @Test
@@ -55,7 +55,7 @@ class TechContentProviderEntityTest {
         final TechContentProvider result = provider.toDomain();
 
         // then
-        assertThat(result.getId()).isEqualTo(new TechContentProvider.TechContentProviderId(1));
+        assertThat(result.getId()).isEqualTo(new TechContentProvider.Id(1));
         assertThat(result.getType()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getUrl()).isEqualTo("url");

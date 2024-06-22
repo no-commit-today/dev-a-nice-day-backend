@@ -53,7 +53,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                 new ContentQueryResult(
                         new TechContent.TechContentId(1L),
                         new ProviderQueryResult(
-                                new TechContentProvider.TechContentProviderId(2L),
+                                new TechContentProvider.Id(2L),
                                 "title",
                                 "https://provider-url",
                                 "https://provider-icon-url"

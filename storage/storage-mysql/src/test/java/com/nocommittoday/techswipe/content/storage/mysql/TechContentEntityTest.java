@@ -20,7 +20,7 @@ class TechContentEntityTest {
     void TechContentCreate_도메인_모델로부터_생성할_수_있다() {
         // given
         final TechContentCreate domain = new TechContentCreate(
-                new TechContentProvider.TechContentProviderId(3),
+                new TechContentProvider.Id(3),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -89,7 +89,7 @@ class TechContentEntityTest {
 
         // then
         assertThat(result.getId()).isEqualTo(new TechContent.TechContentId(1));
-        assertThat(result.getProvider().getId()).isEqualTo(new TechContentProvider.TechContentProviderId(3));
+        assertThat(result.getProvider().getId()).isEqualTo(new TechContentProvider.Id(3));
         assertThat(result.getProvider().getType()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(result.getProvider().getTitle()).isEqualTo("providerTitle");
         assertThat(result.getProvider().getUrl()).isEqualTo("providerUrl");

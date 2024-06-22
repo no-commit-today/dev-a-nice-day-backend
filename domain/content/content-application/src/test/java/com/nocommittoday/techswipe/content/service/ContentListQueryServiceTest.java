@@ -38,7 +38,7 @@ class ContentListQueryServiceTest {
         // given
         final PageParam pageParam = new PageParam(1, 10);
         final TechContentProvider contentProvider = new TechContentProvider(
-                new TechContentProvider.TechContentProviderId(11L),
+                new TechContentProvider.Id(11L),
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
                 "provider-url",
@@ -78,7 +78,7 @@ class ContentListQueryServiceTest {
         // then
         assertThat(contentQueryResults).hasSize(2);
         assertThat(contentQueryResults.get(0).id()).isEqualTo(new TechContent.TechContentId(1L));
-        assertThat(contentQueryResults.get(0).provider().id()).isEqualTo(new TechContentProvider.TechContentProviderId(11L));
+        assertThat(contentQueryResults.get(0).provider().id()).isEqualTo(new TechContentProvider.Id(11L));
         assertThat(contentQueryResults.get(0).provider().title()).isEqualTo("provider-title");
         assertThat(contentQueryResults.get(0).provider().url()).isEqualTo("provider-url");
         assertThat(contentQueryResults.get(0).provider().iconUrl())
@@ -92,7 +92,7 @@ class ContentListQueryServiceTest {
         assertThat(contentQueryResults.get(0).summary()).isEqualTo("summary-1");
         assertThat(contentQueryResults.get(0).categories()).containsExactly(TechCategory.SERVER);
         assertThat(contentQueryResults.get(1).id()).isEqualTo(new TechContent.TechContentId(2L));
-        assertThat(contentQueryResults.get(1).provider().id()).isEqualTo(new TechContentProvider.TechContentProviderId(11L));
+        assertThat(contentQueryResults.get(1).provider().id()).isEqualTo(new TechContentProvider.Id(11L));
         assertThat(contentQueryResults.get(1).provider().title()).isEqualTo("provider-title");
         assertThat(contentQueryResults.get(1).provider().url()).isEqualTo("provider-url");
         assertThat(contentQueryResults.get(1).provider().iconUrl())

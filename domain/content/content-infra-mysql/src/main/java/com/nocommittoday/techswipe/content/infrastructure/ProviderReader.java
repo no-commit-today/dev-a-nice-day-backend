@@ -13,7 +13,7 @@ public class ProviderReader {
 
     private final TechContentProviderJpaRepository providerJpaRepository;
 
-    public TechContentProvider get(final TechContentProvider.TechContentProviderId id) {
+    public TechContentProvider get(final TechContentProvider.Id id) {
         return providerJpaRepository.findById(id.value())
                 .filter(TechContentProviderEntity::isUsed)
                 .map(TechContentProviderEntity::toDomain)

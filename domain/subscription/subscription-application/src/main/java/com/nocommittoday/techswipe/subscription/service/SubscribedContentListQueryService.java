@@ -38,7 +38,7 @@ public class SubscribedContentListQueryService {
         throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getType());
     }
 
-    public List<SubscribedContentResult> getAllList(final TechContentProvider.TechContentProviderId providerId) {
+    public List<SubscribedContentResult> getAllList(final TechContentProvider.Id providerId) {
         final Subscription subscription = subscriptionReader.getByProviderId(providerId);
         return subscription.toListCrawling().stream()
                 .map(listCrawling -> listCrawlingContentReader.getList(listCrawling, LocalDate.MIN))

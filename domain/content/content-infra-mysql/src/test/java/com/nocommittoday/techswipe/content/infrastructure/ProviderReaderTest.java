@@ -40,7 +40,7 @@ class ProviderReaderTest {
                 .willReturn(Optional.of(providerEntity));
 
         // when
-        final TechContentProvider provider = providerReader.get(new TechContentProvider.TechContentProviderId(1L));
+        final TechContentProvider provider = providerReader.get(new TechContentProvider.Id(1L));
 
         // then
         assertThat(provider).isNotNull();
@@ -63,7 +63,7 @@ class ProviderReaderTest {
 
         // when
         // then
-        assertThatThrownBy(() -> providerReader.get(new TechContentProvider.TechContentProviderId(1L)))
+        assertThatThrownBy(() -> providerReader.get(new TechContentProvider.Id(1L)))
                 .isInstanceOf(TechContentProviderNotFoundException.class);
     }
 

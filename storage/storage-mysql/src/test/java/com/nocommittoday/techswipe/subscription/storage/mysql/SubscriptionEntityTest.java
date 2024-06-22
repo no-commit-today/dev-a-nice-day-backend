@@ -22,7 +22,7 @@ class SubscriptionEntityTest {
     void SubscriptionRegister로_부터_생성할_수_있다() {
         // given
         SubscriptionRegister subscriptionRegister = new SubscriptionRegister(
-                new TechContentProvider.TechContentProviderId(1L),
+                new TechContentProvider.Id(1L),
                 SubscriptionType.FEED,
                 SubscriptionInitType.LIST_CRAWLING,
                 "feedUrl",
@@ -64,7 +64,7 @@ class SubscriptionEntityTest {
         // given
         final SubscriptionEntity entity = new SubscriptionEntity(
                 1L,
-                TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(2L)),
+                TechContentProviderEntity.from(new TechContentProvider.Id(2L)),
                 SubscriptionType.FEED,
                 SubscriptionInitType.LIST_CRAWLING,
                 new SubscriptionData(
@@ -90,7 +90,7 @@ class SubscriptionEntityTest {
         // then
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(new Subscription.SubscriptionId(1L));
-        assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.TechContentProviderId(2L));
+        assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.Id(2L));
         assertThat(result.getType()).isEqualTo(SubscriptionType.FEED);
         assertThat(result.getInitType()).isEqualTo(SubscriptionInitType.LIST_CRAWLING);
         assertThat(result.getFeedUrl()).isEqualTo("feedUrl");

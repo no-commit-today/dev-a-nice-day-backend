@@ -15,7 +15,7 @@ public class SubscriptionReader {
 
     private final SubscriptionJpaRepository subscriptionRepository;
 
-    public Subscription getByProviderId(final TechContentProvider.TechContentProviderId providerId) {
+    public Subscription getByProviderId(final TechContentProvider.Id providerId) {
         final SubscriptionEntity subscriptionEntity = subscriptionRepository.findByProvider(
                         TechContentProviderEntity.from(providerId)
                 )

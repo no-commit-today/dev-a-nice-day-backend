@@ -9,10 +9,10 @@ public class ProviderIdJobParameters {
 
     public static final String NAME = "ProviderIdJobParameters";
 
-    private TechContentProvider.TechContentProviderId providerId;
+    private TechContentProvider.Id providerId;
 
     @Value("#{jobParameters['provider.id']}")
     public void setProviderId(final Long providerId) {
-        this.providerId = new TechContentProvider.TechContentProviderId(providerId);
+        this.providerId = new TechContentProvider.Id(providerId);
     }
 }

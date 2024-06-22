@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public record ContentCollect(
         @NonNull CollectionType type,
-        @NonNull TechContentProvider.TechContentProviderId providerId,
+        @NonNull TechContentProvider.Id providerId,
         @NonNull String url,
         @NonNull String title,
         @NonNull LocalDate publishedDate,

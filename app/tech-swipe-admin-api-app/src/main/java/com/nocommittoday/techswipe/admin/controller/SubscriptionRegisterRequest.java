@@ -39,7 +39,7 @@ public record SubscriptionRegisterRequest(
     ) {
     }
 
-    public SubscriptionRegister toDomain(final TechContentProvider.TechContentProviderId providerId) {
+    public SubscriptionRegister toDomain(final TechContentProvider.Id providerId) {
         return new SubscriptionRegister(
                 providerId,
                 type,

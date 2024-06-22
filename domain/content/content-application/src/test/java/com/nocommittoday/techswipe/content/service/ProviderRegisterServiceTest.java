@@ -50,10 +50,10 @@ class ProviderRegisterServiceTest {
         given(providerUrlExistsReader.exists("url"))
                 .willReturn(false);
         given(providerAppender.save(captor.capture()))
-                .willReturn(new TechContentProvider.TechContentProviderId(1L));
+                .willReturn(new TechContentProvider.Id(1L));
 
         // when
-        final TechContentProvider.TechContentProviderId providerId = providerRegisterService.register(command);
+        final TechContentProvider.Id providerId = providerRegisterService.register(command);
 
         // then
         assertThat(providerId.value()).isEqualTo(1L);
@@ -77,13 +77,13 @@ class ProviderRegisterServiceTest {
         given(imageStoreService.store("icon-url", "provider-icon"))
                 .willReturn(new Image.ImageId(1L));
         given(providerAppender.save(captor.capture()))
-                .willReturn(new TechContentProvider.TechContentProviderId(1L));
+                .willReturn(new TechContentProvider.Id(1L));
 
         // when
-        final TechContentProvider.TechContentProviderId providerId = providerRegisterService.register(command);
+        final TechContentProvider.Id providerId = providerRegisterService.register(command);
 
         // then
-        assertThat(providerId).isEqualTo(new TechContentProvider.TechContentProviderId(1L));
+        assertThat(providerId).isEqualTo(new TechContentProvider.Id(1L));
         assertThat(captor.getValue().type()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(captor.getValue().title()).isEqualTo("title");
         assertThat(captor.getValue().url()).isEqualTo("url");

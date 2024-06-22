@@ -19,7 +19,7 @@ class SubscriptionRegisterTest {
         // when
         // then
         assertThatThrownBy(() -> new SubscriptionRegister(
-                new TechContentProvider.TechContentProviderId(1),
+                new TechContentProvider.Id(1),
                 SubscriptionType.FEED,
                 SubscriptionInitType.NONE,
                 null,
@@ -38,7 +38,7 @@ class SubscriptionRegisterTest {
         // when
         // then
         assertThatThrownBy(() -> new SubscriptionRegister(
-                new TechContentProvider.TechContentProviderId(1),
+                new TechContentProvider.Id(1),
                 SubscriptionType.LIST_CRAWLING,
                 SubscriptionInitType.LIST_CRAWLING,
                 null,
@@ -57,7 +57,7 @@ class SubscriptionRegisterTest {
         // when
         // then
         assertThatThrownBy(() -> new SubscriptionRegister(
-                new TechContentProvider.TechContentProviderId(1),
+                new TechContentProvider.Id(1),
                 SubscriptionType.LIST_CRAWLING,
                 SubscriptionInitType.LIST_CRAWLING,
                 null,

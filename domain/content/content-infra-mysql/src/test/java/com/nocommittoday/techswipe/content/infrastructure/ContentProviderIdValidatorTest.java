@@ -23,7 +23,7 @@ class ContentProviderIdValidatorTest {
     @Test
     void 컨텐츠_제공자가_존재하지_않을_경우_예외를_발생시킨다() {
         // given
-        final TechContentProvider.TechContentProviderId id = new TechContentProvider.TechContentProviderId(1L);
+        final TechContentProvider.Id id = new TechContentProvider.Id(1L);
         given(providerExistsReader.exists(id)).willReturn(false);
 
         // when

@@ -11,7 +11,7 @@ public class ProviderExistsReader {
 
     private final TechContentProviderJpaRepository repository;
 
-    public boolean exists(final TechContentProvider.TechContentProviderId id) {
+    public boolean exists(final TechContentProvider.Id id) {
         return repository.existsByIdAndDeletedIsFalse(id.value());
     }
 }

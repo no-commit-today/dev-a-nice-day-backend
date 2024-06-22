@@ -68,7 +68,7 @@ public class ProviderInitialContentCollectJobConfig {
     public Step step() {
         final TaskletStepBuilder taskletStepBuilder = new TaskletStepBuilder(new StepBuilder(STEP_NAME, jobRepository));
         return taskletStepBuilder.tasklet((contribution, chunkContext) -> {
-            final TechContentProvider.TechContentProviderId providerId = providerIdJobParameters().getProviderId();
+            final TechContentProvider.Id providerId = providerIdJobParameters().getProviderId();
             final List<SubscribedContentResult> subscribedContentList = subscribedContentListQueryService
                     .getAllList(providerId);
             final List<CollectedContentEntity> collectedContentEntityList = subscribedContentList.stream()

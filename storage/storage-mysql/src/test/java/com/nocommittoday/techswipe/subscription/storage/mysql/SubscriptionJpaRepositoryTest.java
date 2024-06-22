@@ -25,21 +25,21 @@ class SubscriptionJpaRepositoryTest extends AbstractDataJpaTest {
         final List<SubscriptionEntity> entities = List.of(
                 new SubscriptionEntity(
                         1L,
-                        TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(1)),
+                        TechContentProviderEntity.from(new TechContentProvider.Id(1)),
                         SubscriptionType.FEED,
                         SubscriptionInitType.NONE,
                         new SubscriptionData()
                 ),
                 new SubscriptionEntity(
                         2L,
-                        TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(2)),
+                        TechContentProviderEntity.from(new TechContentProvider.Id(2)),
                         SubscriptionType.FEED,
                         SubscriptionInitType.NONE,
                         new SubscriptionData()
                 ),
                 new SubscriptionEntity(
                         3L,
-                        TechContentProviderEntity.from(new TechContentProvider.TechContentProviderId(3)),
+                        TechContentProviderEntity.from(new TechContentProvider.Id(3)),
                         SubscriptionType.FEED,
                         SubscriptionInitType.NONE,
                         new SubscriptionData()
