@@ -3,8 +3,7 @@ package com.nocommittoday.techswipe.core.controller.servlet;
 
 import com.nocommittoday.techswipe.core.domain.exception.AbstractDomainException;
 import com.nocommittoday.techswipe.core.domain.exception.ErrorCodeType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,11 +16,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalServletExceptionHandler extends ResponseEntityExceptionHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(GlobalServletExceptionHandler.class);
-
 
     @ExceptionHandler(AbstractDomainException.class)
     private ResponseEntity<Object> handleDomainException(
