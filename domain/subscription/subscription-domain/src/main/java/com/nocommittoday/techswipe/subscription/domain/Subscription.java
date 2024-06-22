@@ -18,7 +18,7 @@ public class Subscription {
 
     private final SubscriptionType type;
 
-    private final SubscriptionInitType initType;
+    private final SubscriptionType initType;
 
     @Nullable
     private final String feedUrl;

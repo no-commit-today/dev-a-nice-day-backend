@@ -5,7 +5,6 @@ import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionInitType;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegisterFailureException;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
@@ -25,7 +24,7 @@ class SubscriptionRegisterTest {
         assertThatThrownBy(() -> new SubscriptionRegister(
                 new TechContentProvider.Id(1),
                 SubscriptionType.FEED,
-                SubscriptionInitType.NONE,
+                SubscriptionType.NONE,
                 null,
                 new ContentCrawling(
                         new Crawling(CrawlingType.NONE, null, null),
@@ -44,7 +43,7 @@ class SubscriptionRegisterTest {
         assertThatThrownBy(() -> new SubscriptionRegister(
                 new TechContentProvider.Id(1),
                 SubscriptionType.LIST_CRAWLING,
-                SubscriptionInitType.LIST_CRAWLING,
+                SubscriptionType.LIST_CRAWLING,
                 null,
                 new ContentCrawling(
                         new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
@@ -63,7 +62,7 @@ class SubscriptionRegisterTest {
         assertThatThrownBy(() -> new SubscriptionRegister(
                 new TechContentProvider.Id(1),
                 SubscriptionType.LIST_CRAWLING,
-                SubscriptionInitType.LIST_CRAWLING,
+                SubscriptionType.LIST_CRAWLING,
                 null,
                 new ContentCrawling(
                         new Crawling(CrawlingType.NONE, null, null),

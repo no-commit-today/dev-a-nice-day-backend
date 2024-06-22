@@ -7,7 +7,6 @@ import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionInitType;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,7 @@ class SubscriptionEntityTest {
         SubscriptionRegister subscriptionRegister = new SubscriptionRegister(
                 new TechContentProvider.Id(1L),
                 SubscriptionType.FEED,
-                SubscriptionInitType.LIST_CRAWLING,
+                SubscriptionType.LIST_CRAWLING,
                 "feedUrl",
                 new ContentCrawling(
                         new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
@@ -47,7 +46,7 @@ class SubscriptionEntityTest {
         assertThat(result.getId()).isNull();
         assertThat(result.getProvider().getId()).isEqualTo(1L);
         assertThat(result.getType()).isEqualTo(SubscriptionType.FEED);
-        assertThat(result.getInitType()).isEqualTo(SubscriptionInitType.LIST_CRAWLING);
+        assertThat(result.getInitType()).isEqualTo(SubscriptionType.LIST_CRAWLING);
         assertThat(result.getData().getFeedData().getUrl()).isEqualTo("feedUrl");
         assertThat(result.getData().getContentCrawling()).isEqualTo(new ContentCrawling(
                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
@@ -66,7 +65,7 @@ class SubscriptionEntityTest {
                 1L,
                 TechContentProviderEntity.from(new TechContentProvider.Id(2L)),
                 SubscriptionType.FEED,
-                SubscriptionInitType.LIST_CRAWLING,
+                SubscriptionType.LIST_CRAWLING,
                 new SubscriptionData(
                         new FeedData("feedUrl"),
                         new ContentCrawling(
@@ -92,7 +91,7 @@ class SubscriptionEntityTest {
         assertThat(result.getId()).isEqualTo(new Subscription.Id(1L));
         assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.Id(2L));
         assertThat(result.getType()).isEqualTo(SubscriptionType.FEED);
-        assertThat(result.getInitType()).isEqualTo(SubscriptionInitType.LIST_CRAWLING);
+        assertThat(result.getInitType()).isEqualTo(SubscriptionType.LIST_CRAWLING);
         assertThat(result.getFeedUrl()).isEqualTo("feedUrl");
         assertThat(result.getContentCrawling()).isEqualTo(new ContentCrawling(
                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),

@@ -3,7 +3,6 @@ package com.nocommittoday.techswipe.subscription.storage.mysql;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionInitType;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import jakarta.persistence.Column;
@@ -54,7 +53,7 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "init_type", columnDefinition = "varchar(45)", nullable = false)
-    private SubscriptionInitType initType;
+    private SubscriptionType initType;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "data", columnDefinition = "json", nullable = false)

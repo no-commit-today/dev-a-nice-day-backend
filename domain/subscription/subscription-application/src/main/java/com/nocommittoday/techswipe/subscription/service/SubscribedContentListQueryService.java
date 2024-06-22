@@ -25,25 +25,35 @@ public class SubscribedContentListQueryService {
             final Subscription subscription, final LocalDate date
     ) {
         if (SubscriptionType.LIST_CRAWLING == subscription.getType()) {
-            return subscription.toListCrawling().stream()
-                    .map(listCrawling -> listCrawlingContentReader.getList(listCrawling, date))
-                    .flatMap(List::stream)
-                    .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
-                    .toList();
+            return getListCrawlingContents(subscription, date);
         } else if (SubscriptionType.FEED == subscription.getType()) {
-            return rssContentReader.getList(subscription.toFeed(), date).stream()
-                    .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
-                    .toList();
+            return getFeedContents(subscription, date);
         }
         throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getType());
     }
 
-    public List<SubscribedContentResult> getAllList(final TechContentProvider.Id providerId) {
+    public List<SubscribedContentResult> getInitList(final TechContentProvider.Id providerId) {
         final Subscription subscription = subscriptionReader.getByProviderId(providerId);
+        final LocalDate date = LocalDate.MIN;
+        if (SubscriptionType.LIST_CRAWLING == subscription.getInitType()) {
+            return getListCrawlingContents(subscription, date);
+        } else if (SubscriptionType.FEED == subscription.getInitType()) {
+            return getFeedContents(subscription, date);
+        }
+        throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getInitType());
+    }
+
+    private List<SubscribedContentResult> getFeedContents(final Subscription subscription, final LocalDate date) {
+        return rssContentReader.getList(subscription.toFeed(), date).stream()
+                .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
+                .toList();
+    }
+
+    private List<SubscribedContentResult> getListCrawlingContents(final Subscription subscription, final LocalDate date) {
         return subscription.toListCrawling().stream()
-                .map(listCrawling -> listCrawlingContentReader.getList(listCrawling, LocalDate.MIN))
+                .map(listCrawling -> listCrawlingContentReader.getList(listCrawling, date))
                 .flatMap(List::stream)
-                .map(subscribedContent -> convertToResult(subscribedContent, SubscriptionType.LIST_CRAWLING))
+                .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
                 .toList();
     }
 

@@ -2,7 +2,6 @@ package com.nocommittoday.techswipe.subscription.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionInitType;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import com.nocommittoday.techswipe.test.AbstractDataJpaTest;
 import org.junit.jupiter.api.Test;
@@ -27,21 +26,21 @@ class SubscriptionJpaRepositoryTest extends AbstractDataJpaTest {
                         1L,
                         TechContentProviderEntity.from(new TechContentProvider.Id(1)),
                         SubscriptionType.FEED,
-                        SubscriptionInitType.NONE,
+                        SubscriptionType.NONE,
                         new SubscriptionData()
                 ),
                 new SubscriptionEntity(
                         2L,
                         TechContentProviderEntity.from(new TechContentProvider.Id(2)),
                         SubscriptionType.FEED,
-                        SubscriptionInitType.NONE,
+                        SubscriptionType.NONE,
                         new SubscriptionData()
                 ),
                 new SubscriptionEntity(
                         3L,
                         TechContentProviderEntity.from(new TechContentProvider.Id(3)),
                         SubscriptionType.FEED,
-                        SubscriptionInitType.NONE,
+                        SubscriptionType.NONE,
                         new SubscriptionData()
                 )
         );

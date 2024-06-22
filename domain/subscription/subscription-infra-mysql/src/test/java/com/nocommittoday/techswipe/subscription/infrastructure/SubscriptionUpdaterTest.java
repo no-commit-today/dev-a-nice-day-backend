@@ -5,7 +5,6 @@ import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEnti
 import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionInitType;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
@@ -57,7 +56,7 @@ class SubscriptionUpdaterTest {
         subscriptionUpdater.update(new SubscriptionRegister(
                 new TechContentProvider.Id(1),
                 SubscriptionType.FEED,
-                SubscriptionInitType.NONE,
+                SubscriptionType.NONE,
                 "feed-url",
                 new ContentCrawling(
                         new Crawling(CrawlingType.INDEX, null, List.of(1)),
@@ -90,7 +89,7 @@ class SubscriptionUpdaterTest {
         final SubscriptionRegister subscriptionRegister = new SubscriptionRegister(
                 new TechContentProvider.Id(1),
                 SubscriptionType.FEED,
-                SubscriptionInitType.NONE,
+                SubscriptionType.NONE,
                 "feed-url",
                 new ContentCrawling(
                         new Crawling(CrawlingType.INDEX, null, List.of(1)),
