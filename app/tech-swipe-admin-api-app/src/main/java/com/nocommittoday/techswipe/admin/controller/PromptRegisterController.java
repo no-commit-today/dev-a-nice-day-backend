@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.collection.controller.admin;
+package com.nocommittoday.techswipe.admin.controller;
 
 import com.nocommittoday.techswipe.collection.domain.Prompt;
 import com.nocommittoday.techswipe.collection.service.PromptRegisterService;

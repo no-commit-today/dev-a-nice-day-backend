@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.subscription.controller.admin;
+package com.nocommittoday.techswipe.admin.controller;
 
 import com.nocommittoday.techswipe.subscription.service.SubscriptionRegisterService;
 import lombok.RequiredArgsConstructor;

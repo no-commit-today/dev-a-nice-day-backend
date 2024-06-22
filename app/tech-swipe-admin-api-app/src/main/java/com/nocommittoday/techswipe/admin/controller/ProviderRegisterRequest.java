@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.content.controller.admin;
+package com.nocommittoday.techswipe.admin.controller;
 
 import com.nocommittoday.techswipe.content.service.ProviderRegisterCommand;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
