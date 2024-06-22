@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-class SubscriptionRegisterController {
+public class SubscriptionRegisterController {
 
     private final SubscriptionRegisterService subscriptionRegisterService;
 
     @PutMapping("/api/subscription/admin/provider/{providerId}/subscription")
-    ResponseEntity<Void> register(
+    public ResponseEntity<Void> register(
             @PathVariable final Long providerId,
             @Validated @RequestBody final SubscriptionRegisterRequest request
     ) {
