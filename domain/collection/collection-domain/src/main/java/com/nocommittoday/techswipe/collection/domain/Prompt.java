@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Prompt {
 
-    private final PromptId id;
+    private final Id id;
 
     private final PromptType type;
 
@@ -20,5 +20,5 @@ public class Prompt {
 
     private final String content;
 
-    public record PromptId(long value) { }
+    public record Id(long value) { }
 }

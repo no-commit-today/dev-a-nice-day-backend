@@ -47,7 +47,7 @@ public class PromptEntity extends BaseSoftDeleteEntity {
 
     public Prompt toDomain() {
         return new Prompt(
-                new Prompt.PromptId(id),
+                new Prompt.Id(id),
                 type,
                 providerType,
                 promptVersion,

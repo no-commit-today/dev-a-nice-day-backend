@@ -25,7 +25,7 @@ class PromptEntityTest {
         final Prompt result = promptEntity.toDomain();
 
         // then
-        assertThat(result.getId()).isEqualTo(new Prompt.PromptId(1L));
+        assertThat(result.getId()).isEqualTo(new Prompt.Id(1L));
         assertThat(result.getType()).isEqualTo(PromptType.CATEGORIZE);
         assertThat(result.getProviderType()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(result.getVersion()).isEqualTo("v1");

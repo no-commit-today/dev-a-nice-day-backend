@@ -15,7 +15,7 @@ public class PromptRegisterController {
     private final PromptRegisterService promptRegisterService;
 
     @PostMapping("/api/collection/admin/prompts")
-    public Prompt.PromptId register(
+    public Prompt.Id register(
             @RequestBody @Validated final PromptRegisterRequest request
     ) {
         return promptRegisterService.register(request.toCommand());
