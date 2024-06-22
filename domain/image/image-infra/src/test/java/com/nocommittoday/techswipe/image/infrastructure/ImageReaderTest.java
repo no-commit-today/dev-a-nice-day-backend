@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.image.infrastructure;
 
 import com.nocommittoday.techswipe.image.domain.Image;
-import com.nocommittoday.techswipe.image.domain.exception.ImageNotFoundException;
+import com.nocommittoday.techswipe.image.domain.ImageNotFoundException;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageJpaRepository;
 import org.junit.jupiter.api.Test;
