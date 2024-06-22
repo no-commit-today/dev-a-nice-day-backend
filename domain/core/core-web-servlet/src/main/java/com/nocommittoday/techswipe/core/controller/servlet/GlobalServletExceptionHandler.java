@@ -3,8 +3,7 @@ package com.nocommittoday.techswipe.core.controller.servlet;
 
 import com.nocommittoday.techswipe.core.domain.exception.AbstractDomainException;
 import com.nocommittoday.techswipe.core.domain.exception.ErrorCodeType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,11 +16,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalServletExceptionHandler extends ResponseEntityExceptionHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(GlobalServletExceptionHandler.class);
-
 
     @ExceptionHandler(AbstractDomainException.class)
     private ResponseEntity<Object> handleDomainException(
@@ -32,6 +29,7 @@ public class GlobalServletExceptionHandler extends ResponseEntityExceptionHandle
         final ProblemDetail body = createProblemDetail(
                 ex, status, errorCode.getMessage(), null, null, request);
         body.setProperty("errorCode", errorCode.getCode());
+        log.info("{}: {}", ex.getClass(), ex.getMessage(), ex);
         return handleExceptionInternal(ex, body, headers, status, request);
     }
 
@@ -42,6 +40,7 @@ public class GlobalServletExceptionHandler extends ResponseEntityExceptionHandle
         final HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         final ProblemDetail body = createProblemDetail(
                 ex, status, "서버에 문제가 발생했습니다.", null, null, request);
+        log.error("{}: {}", ex.getClass(), ex.getMessage(), ex);
         return handleExceptionInternal(ex, body, headers, status, request);
     }
 
@@ -71,7 +70,7 @@ public class GlobalServletExceptionHandler extends ResponseEntityExceptionHandle
             final HttpStatusCode statusCode,
             final WebRequest request
     ) {
-        log.error("handleExceptionInternal", ex);
+        log.debug("handleExceptionInternal[{}]: {}", ex.getClass(), ex.getMessage(), ex);
         return super.handleExceptionInternal(ex, body, headers, statusCode, request);
     }
 }
