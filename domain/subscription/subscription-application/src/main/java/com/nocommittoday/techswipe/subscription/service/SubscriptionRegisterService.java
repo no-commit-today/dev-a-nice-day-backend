@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.subscription.service;
 
 import com.nocommittoday.techswipe.content.infrastructure.ContentProviderIdValidator;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
-import com.nocommittoday.techswipe.subscription.domain.vo.SubscriptionRegister;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
 import com.nocommittoday.techswipe.subscription.infrastructure.SubscriptionUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

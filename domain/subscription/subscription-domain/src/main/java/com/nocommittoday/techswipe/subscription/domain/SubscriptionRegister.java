@@ -1,10 +1,6 @@
-package com.nocommittoday.techswipe.subscription.domain.vo;
+package com.nocommittoday.techswipe.subscription.domain;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionInitType;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
-import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionRegisterFailureException;
 import lombok.NonNull;
 
 import javax.annotation.Nullable;

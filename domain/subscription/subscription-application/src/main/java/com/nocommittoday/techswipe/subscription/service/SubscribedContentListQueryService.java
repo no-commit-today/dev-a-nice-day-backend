@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.subscription.service;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.infrastructure.FeedContentReader;
 import com.nocommittoday.techswipe.subscription.infrastructure.ListCrawlingContentReader;
 import com.nocommittoday.techswipe.subscription.infrastructure.SubscribedContent;

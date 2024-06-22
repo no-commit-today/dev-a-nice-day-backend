@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
-import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawling;
-import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawlingSubscription;
+import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
+import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
+import com.nocommittoday.techswipe.subscription.domain.ListCrawlingSubscription;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

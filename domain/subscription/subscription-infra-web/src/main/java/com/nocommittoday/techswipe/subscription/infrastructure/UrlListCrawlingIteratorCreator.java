@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawling;
+import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
 import org.springframework.stereotype.Component;
 
 @Component

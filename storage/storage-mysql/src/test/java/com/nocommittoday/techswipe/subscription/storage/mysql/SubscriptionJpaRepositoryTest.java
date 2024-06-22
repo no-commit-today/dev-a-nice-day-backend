@@ -2,8 +2,8 @@ package com.nocommittoday.techswipe.subscription.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionInitType;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionInitType;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import com.nocommittoday.techswipe.test.AbstractDataJpaTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

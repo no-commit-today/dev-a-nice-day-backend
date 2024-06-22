@@ -1,10 +1,10 @@
 package com.nocommittoday.techswipe.admin.controller;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionInitType;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
-import com.nocommittoday.techswipe.subscription.domain.vo.SubscriptionRegister;
+import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionInitType;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.URL;
 
@@ -45,26 +45,26 @@ public record SubscriptionRegisterRequest(
                 type,
                 initType,
                 feedUrl,
-                new com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling(
-                        new com.nocommittoday.techswipe.subscription.domain.vo.Crawling(
+                new com.nocommittoday.techswipe.subscription.domain.ContentCrawling(
+                        new com.nocommittoday.techswipe.subscription.domain.Crawling(
                                 contentCrawling.title().type(),
                                 contentCrawling.title().selector(),
                                 contentCrawling.title().indexes()
                         ),
-                        new com.nocommittoday.techswipe.subscription.domain.vo.Crawling(
+                        new com.nocommittoday.techswipe.subscription.domain.Crawling(
                                 contentCrawling.date().type(),
                                 contentCrawling.date().selector(),
                                 contentCrawling.date().indexes()
                         ),
-                        new com.nocommittoday.techswipe.subscription.domain.vo.Crawling(
+                        new com.nocommittoday.techswipe.subscription.domain.Crawling(
                                 contentCrawling.content().type(),
                                 contentCrawling.content().selector(),
                                 contentCrawling.content().indexes()
                         )
                 ),
-                listCrawlings.stream().map(item -> new com.nocommittoday.techswipe.subscription.domain.vo.ListCrawling(
+                listCrawlings.stream().map(item -> new com.nocommittoday.techswipe.subscription.domain.ListCrawling(
                         item.url(),
-                        new com.nocommittoday.techswipe.subscription.domain.vo.Crawling(
+                        new com.nocommittoday.techswipe.subscription.domain.Crawling(
                                 item.crawling().type(),
                                 item.crawling().selector(),
                                 item.crawling().indexes()

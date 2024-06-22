@@ -2,12 +2,12 @@ package com.nocommittoday.techswipe.subscription.infrastructure;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
-import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionInitType;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
-import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
-import com.nocommittoday.techswipe.subscription.domain.vo.Crawling;
-import com.nocommittoday.techswipe.subscription.domain.vo.SubscriptionRegister;
+import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionInitType;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
+import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
+import com.nocommittoday.techswipe.subscription.domain.Crawling;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionJpaRepository;
 import org.junit.jupiter.api.Test;

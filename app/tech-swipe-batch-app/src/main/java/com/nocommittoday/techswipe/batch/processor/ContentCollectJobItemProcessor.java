@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.collection.domain.CollectionType;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;

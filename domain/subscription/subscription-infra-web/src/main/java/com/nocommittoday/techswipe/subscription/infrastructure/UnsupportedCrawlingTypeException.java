@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
+import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 
 public class UnsupportedCrawlingTypeException extends RuntimeException {
 

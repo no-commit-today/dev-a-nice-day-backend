@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.techswipe.subscription.domain.vo.Crawling;
+import com.nocommittoday.techswipe.subscription.domain.Crawling;
 
 public class CrawlingException extends RuntimeException {
 

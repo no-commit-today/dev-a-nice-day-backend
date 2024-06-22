@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.storage.mysql;
 
-import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
+import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

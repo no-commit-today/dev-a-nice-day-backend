@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.subscription.domain.enums;
+package com.nocommittoday.techswipe.subscription.domain;
 
 public enum SubscriptionInitType {
 

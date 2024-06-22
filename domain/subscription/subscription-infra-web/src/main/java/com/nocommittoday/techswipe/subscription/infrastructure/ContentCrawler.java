@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
-import com.nocommittoday.techswipe.subscription.domain.vo.Crawling;
+import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
+import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
