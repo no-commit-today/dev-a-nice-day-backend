@@ -25,9 +25,15 @@ public class SubscribedContentListQueryService {
             final Subscription subscription, final LocalDate date
     ) {
         if (SubscriptionType.LIST_CRAWLING == subscription.getType()) {
-            return getListCrawlingContents(subscription, date);
+            return subscription.toListCrawling().stream()
+                .map(listCrawling -> listCrawlingContentReader.getList(listCrawling, date))
+                .flatMap(List::stream)
+                .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
+                .toList();
         } else if (SubscriptionType.FEED == subscription.getType()) {
-            return getFeedContents(subscription, date);
+            return rssContentReader.getList(subscription.toFeed(), date).stream()
+                    .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
+                    .toList();
         }
         throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getType());
     }
@@ -36,25 +42,17 @@ public class SubscribedContentListQueryService {
         final Subscription subscription = subscriptionReader.getByProviderId(providerId);
         final LocalDate date = LocalDate.MIN;
         if (SubscriptionType.LIST_CRAWLING == subscription.getInitType()) {
-            return getListCrawlingContents(subscription, date);
-        } else if (SubscriptionType.FEED == subscription.getInitType()) {
-            return getFeedContents(subscription, date);
-        }
-        throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getInitType());
-    }
-
-    private List<SubscribedContentResult> getFeedContents(final Subscription subscription, final LocalDate date) {
-        return rssContentReader.getList(subscription.toFeed(), date).stream()
-                .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
-                .toList();
-    }
-
-    private List<SubscribedContentResult> getListCrawlingContents(final Subscription subscription, final LocalDate date) {
-        return subscription.toListCrawling().stream()
+            return subscription.toListCrawling().stream()
                 .map(listCrawling -> listCrawlingContentReader.getList(listCrawling, date))
                 .flatMap(List::stream)
-                .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
+                .map(subscribedContent -> convertToResult(subscribedContent, subscription.getInitType()))
                 .toList();
+        } else if (SubscriptionType.FEED == subscription.getInitType()) {
+            return rssContentReader.getList(subscription.toFeed(), date).stream()
+                    .map(subscribedContent -> convertToResult(subscribedContent, subscription.getInitType()))
+                    .toList();
+        }
+        throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getInitType());
     }
 
     private SubscribedContentResult convertToResult(final SubscribedContent content, SubscriptionType type) {

@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.batch.job;
 import com.nocommittoday.techswipe.batch.param.ProviderIdJobParameters;
 import com.nocommittoday.techswipe.collection.domain.CollectionType;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
+import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrlListReader;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentJpaRepository;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
@@ -24,7 +25,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Configuration
 @RequiredArgsConstructor
@@ -34,7 +37,11 @@ public class ProviderInitialContentCollectJobConfig {
     private static final String STEP_NAME = "providerInitialContentCollectStep";
 
     private final JobRepository jobRepository;
+
     private final PlatformTransactionManager txManager;
+
+    private final CollectedContentUrlListReader collectedContentUrlListReader;
+
     private final CollectedContentJpaRepository collectedContentJpaRepository;
 
     private final SubscribedContentListQueryService subscribedContentListQueryService;
@@ -69,9 +76,13 @@ public class ProviderInitialContentCollectJobConfig {
         final TaskletStepBuilder taskletStepBuilder = new TaskletStepBuilder(new StepBuilder(STEP_NAME, jobRepository));
         return taskletStepBuilder.tasklet((contribution, chunkContext) -> {
             final TechContentProvider.Id providerId = providerIdJobParameters().getProviderId();
+            final Set<String> urlSet = new HashSet<>(collectedContentUrlListReader.getAllUrlsByProvider(providerId));
+
             final List<SubscribedContentResult> subscribedContentList = subscribedContentListQueryService
-                    .getAllList(providerId);
+                    .getInitList(providerId);
+
             final List<CollectedContentEntity> collectedContentEntityList = subscribedContentList.stream()
+                    .filter(item -> !urlSet.contains(item.url()))
                     .map(item -> new ContentCollect(
                             CollectionType.LIST_CRAWLING,
                             providerId,
