@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.core.domain.exception.AbstractDomainException
 public class CollectionCategorizeUnableException extends AbstractDomainException {
 
     public CollectionCategorizeUnableException(
-            final CollectedContent.CollectedContentId id,
+            final CollectedContent.Id id,
             final CollectionStatus status
     ) {
         super(CollectionErrorCode.CATEGORIZE_UNABLE, "id=" + id + ", status=" + status);

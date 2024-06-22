@@ -3,9 +3,8 @@ package com.nocommittoday.techswipe.subscription.storage.mysql;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionInitType;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
-import com.nocommittoday.techswipe.subscription.domain.vo.SubscriptionRegister;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
@@ -54,7 +53,7 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "init_type", columnDefinition = "varchar(45)", nullable = false)
-    private SubscriptionInitType initType;
+    private SubscriptionType initType;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "data", columnDefinition = "json", nullable = false)
@@ -86,11 +85,11 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
 
     public Subscription toDomain() {
         return new Subscription(
-                new Subscription.SubscriptionId(id),
+                new Subscription.Id(id),
                 provider.toDomainId(),
                 type,
                 initType,
-                data.getFeedData().getUrl(),
+                data.getFeed().getUrl(),
                 data.getContentCrawling(),
                 data.getListCrawling().getContent()
         );

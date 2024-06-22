@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
+import com.nocommittoday.techswipe.collection.domain.CollectionPromptNotFoundException;
 import com.nocommittoday.techswipe.collection.domain.Prompt;
 import com.nocommittoday.techswipe.collection.domain.PromptType;
-import com.nocommittoday.techswipe.collection.domain.CollectionPromptNotFoundException;
 import com.nocommittoday.techswipe.collection.storage.mysql.PromptEntity;
 import com.nocommittoday.techswipe.collection.storage.mysql.PromptJpaRepository;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;

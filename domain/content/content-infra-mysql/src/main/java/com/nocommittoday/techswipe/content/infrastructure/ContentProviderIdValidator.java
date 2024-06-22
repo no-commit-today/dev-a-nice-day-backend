@@ -11,7 +11,7 @@ public class ContentProviderIdValidator {
 
     private final ProviderExistsReader providerExistsReader;
 
-    public void validate(final TechContentProvider.TechContentProviderId id) {
+    public void validate(final TechContentProvider.Id id) {
         if (!providerExistsReader.exists(id)) {
             throw new TechContentProviderNotFoundException(id);
         }

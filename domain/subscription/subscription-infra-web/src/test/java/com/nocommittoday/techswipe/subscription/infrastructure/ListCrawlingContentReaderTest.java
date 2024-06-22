@@ -1,10 +1,10 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
-import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
-import com.nocommittoday.techswipe.subscription.domain.vo.Crawling;
-import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawling;
-import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawlingSubscription;
+import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
+import com.nocommittoday.techswipe.subscription.domain.Crawling;
+import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
+import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
+import com.nocommittoday.techswipe.subscription.domain.ListCrawlingSubscription;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

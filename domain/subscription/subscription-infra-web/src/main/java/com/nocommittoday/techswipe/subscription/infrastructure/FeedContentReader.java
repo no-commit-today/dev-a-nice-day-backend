@@ -2,8 +2,8 @@ package com.nocommittoday.techswipe.subscription.infrastructure;
 
 import com.nocommittoday.client.feed.FeedClient;
 import com.nocommittoday.client.feed.FeedResponse;
-import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
-import com.nocommittoday.techswipe.subscription.domain.vo.FeedSubscription;
+import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
+import com.nocommittoday.techswipe.subscription.domain.FeedSubscription;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

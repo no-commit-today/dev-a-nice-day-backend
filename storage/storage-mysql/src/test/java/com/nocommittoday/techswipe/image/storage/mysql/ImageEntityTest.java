@@ -10,7 +10,7 @@ class ImageEntityTest {
     @Test
     void 도메인_엔티티_ID로부터_생성할_수_있다() {
         // given
-        final Image.ImageId id = new Image.ImageId(1);
+        final Image.Id id = new Image.Id(1);
 
         // when
         final ImageEntity result = ImageEntity.from(id);
@@ -30,10 +30,10 @@ class ImageEntityTest {
         );
 
         // when
-        Image.ImageId imageId = imageEntity.toDomainId();
+        Image.Id imageId = imageEntity.toDomainId();
 
         // then
-        assertThat(imageId).isEqualTo(new Image.ImageId(1));
+        assertThat(imageId).isEqualTo(new Image.Id(1));
     }
 
     @Test
@@ -50,7 +50,7 @@ class ImageEntityTest {
         Image image = imageEntity.toDomain();
 
         // then
-        assertThat(image.getId()).isEqualTo(new Image.ImageId(1));
+        assertThat(image.getId()).isEqualTo(new Image.Id(1));
         assertThat(image.getUrl()).isEqualTo("http://example.com/image.jpg");
         assertThat(image.getOriginalUrl()).isEqualTo("http://original.com/image.jpg");
         assertThat(image.getStoredName()).isEqualTo("image.jpg");

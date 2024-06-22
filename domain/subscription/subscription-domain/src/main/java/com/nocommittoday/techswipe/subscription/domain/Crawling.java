@@ -1,6 +1,4 @@
-package com.nocommittoday.techswipe.subscription.domain.vo;
-
-import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
+package com.nocommittoday.techswipe.subscription.domain;
 
 import javax.annotation.Nullable;
 import java.util.List;

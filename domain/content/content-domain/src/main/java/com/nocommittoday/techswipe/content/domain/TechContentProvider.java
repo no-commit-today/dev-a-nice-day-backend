@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TechContentProvider {
 
-    private final TechContentProviderId id;
+    private final Id id;
 
     private final TechContentProviderType type;
 
@@ -16,7 +16,7 @@ public class TechContentProvider {
 
     private final String url;
 
-    private final Image.ImageId iconId;
+    private final Image.Id iconId;
 
-    public record TechContentProviderId(long value) { }
+    public record Id(long value) { }
 }

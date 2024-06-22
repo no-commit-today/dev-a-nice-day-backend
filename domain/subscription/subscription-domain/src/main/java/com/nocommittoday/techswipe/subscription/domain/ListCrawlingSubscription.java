@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.subscription.domain.vo;
+package com.nocommittoday.techswipe.subscription.domain;
 
 import lombok.Builder;
 

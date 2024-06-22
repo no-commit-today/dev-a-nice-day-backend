@@ -56,7 +56,7 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity {
     @JoinColumn(name = "icon_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ImageEntity icon;
 
-    public static TechContentProviderEntity from(final TechContentProvider.TechContentProviderId id) {
+    public static TechContentProviderEntity from(final TechContentProvider.Id id) {
         return new TechContentProviderEntity(
                 id.value(),
                 null,
@@ -66,8 +66,8 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity {
         );
     }
 
-    public TechContentProvider.TechContentProviderId toDomainId() {
-        return new TechContentProvider.TechContentProviderId(id);
+    public TechContentProvider.Id toDomainId() {
+        return new TechContentProvider.Id(id);
     }
 
     public TechContentProvider toDomain() {

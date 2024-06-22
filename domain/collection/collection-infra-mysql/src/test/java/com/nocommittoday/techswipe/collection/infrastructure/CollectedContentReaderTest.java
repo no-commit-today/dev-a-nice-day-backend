@@ -35,7 +35,7 @@ class CollectedContentReaderTest {
         given(collectedContentJpaRepository.findById(1L)).willReturn(Optional.of(entity));
 
         // when
-        final CollectedContent result = reader.get(new CollectedContent.CollectedContentId(1L));
+        final CollectedContent result = reader.get(new CollectedContent.Id(1L));
 
         // then
         assertThat(result).isNotNull();
@@ -49,7 +49,7 @@ class CollectedContentReaderTest {
         given(collectedContentJpaRepository.findById(1L)).willReturn(Optional.of(entity));
 
         // when, then
-        assertThatThrownBy(() -> reader.get(new CollectedContent.CollectedContentId(1L)))
+        assertThatThrownBy(() -> reader.get(new CollectedContent.Id(1L)))
                 .isInstanceOf(CollectionNotFoundException.class);
     }
 

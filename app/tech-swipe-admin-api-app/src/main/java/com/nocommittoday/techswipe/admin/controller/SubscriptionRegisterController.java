@@ -22,7 +22,7 @@ public class SubscriptionRegisterController {
             @Validated @RequestBody final SubscriptionRegisterRequest request
     ) {
         subscriptionRegisterService.register(request.toDomain(
-                new TechContentProvider.TechContentProviderId(providerId)));
+                new TechContentProvider.Id(providerId)));
         return ResponseEntity.ok().build();
     }
 }

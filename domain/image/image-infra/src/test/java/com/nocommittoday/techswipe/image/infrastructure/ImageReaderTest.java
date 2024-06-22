@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.image.infrastructure;
 
 import com.nocommittoday.techswipe.image.domain.Image;
-import com.nocommittoday.techswipe.image.domain.exception.ImageNotFoundException;
+import com.nocommittoday.techswipe.image.domain.ImageNotFoundException;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageJpaRepository;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ class ImageReaderTest {
                 .willReturn(Optional.of(imageEntity));
 
         // when
-        final Image image = imageReader.get(new Image.ImageId(1L));
+        final Image image = imageReader.get(new Image.Id(1L));
 
         // then
         assertThat(image).isNotNull();
@@ -60,7 +60,7 @@ class ImageReaderTest {
 
         // when
         // then
-        assertThatThrownBy(() -> imageReader.get(new Image.ImageId(1L)))
+        assertThatThrownBy(() -> imageReader.get(new Image.Id(1L)))
                 .isInstanceOf(ImageNotFoundException.class);
     }
 
@@ -84,7 +84,7 @@ class ImageReaderTest {
 
         // when
         final List<Image> images = imageReader.getAll(List.of(
-                new Image.ImageId(1L), new Image.ImageId(2L)
+                new Image.Id(1L), new Image.Id(2L)
         ));
 
         // then
@@ -112,7 +112,7 @@ class ImageReaderTest {
 
         // when
         final List<Image> images = imageReader.getAll(List.of(
-                new Image.ImageId(1L), new Image.ImageId(2L)
+                new Image.Id(1L), new Image.Id(2L)
         ));
 
         // then

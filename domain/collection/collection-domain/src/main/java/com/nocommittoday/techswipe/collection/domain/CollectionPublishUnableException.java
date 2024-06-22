@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.core.domain.exception.AbstractDomainException
 public class CollectionPublishUnableException extends AbstractDomainException {
 
     public CollectionPublishUnableException(
-            final CollectedContent.CollectedContentId id,
+            final CollectedContent.Id id,
             final CollectionStatus status
     ) {
         super(CollectionErrorCode.PUBLISH_UNABLE, "id=" + id + ", status=" + status);

@@ -8,11 +8,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record TechContentCreate(
-        @NonNull TechContentProvider.TechContentProviderId providerId,
+        @NonNull TechContentProvider.Id providerId,
         @NonNull String url,
         @NonNull String title,
         @NonNull LocalDate publishedDate,
-        @Nullable Image.ImageId imageId,
+        @Nullable Image.Id imageId,
         @NonNull String summary,
         @NonNull List<TechCategory> categories
 ) {

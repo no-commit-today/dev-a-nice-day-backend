@@ -2,9 +2,9 @@ package com.nocommittoday.techswipe.content.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
+import com.nocommittoday.techswipe.content.domain.TechContentCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
-import com.nocommittoday.techswipe.content.domain.TechContentCreate;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import org.junit.jupiter.api.Test;
@@ -20,11 +20,11 @@ class TechContentEntityTest {
     void TechContentCreate_도메인_모델로부터_생성할_수_있다() {
         // given
         final TechContentCreate domain = new TechContentCreate(
-                new TechContentProvider.TechContentProviderId(3),
+                new TechContentProvider.Id(3),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
-                new Image.ImageId(2),
+                new Image.Id(2),
                 "summary",
                 List.of(TechCategory.DEVOPS)
         );
@@ -58,10 +58,10 @@ class TechContentEntityTest {
         );
 
         // when
-        final TechContent.TechContentId result = content.toDomainId();
+        final TechContent.Id result = content.toDomainId();
 
         // then
-        assertThat(result).isEqualTo(new TechContent.TechContentId(1));
+        assertThat(result).isEqualTo(new TechContent.Id(1));
     }
 
     @Test
@@ -74,9 +74,9 @@ class TechContentEntityTest {
                         TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                         "providerTitle",
                         "providerUrl",
-                        ImageEntity.from(new Image.ImageId(4L))
+                        ImageEntity.from(new Image.Id(4L))
                 ),
-                ImageEntity.from(new Image.ImageId(2L)),
+                ImageEntity.from(new Image.Id(2L)),
                 "url",
                 "title",
                 "summary",
@@ -88,13 +88,13 @@ class TechContentEntityTest {
         final TechContent result = content.toDomain();
 
         // then
-        assertThat(result.getId()).isEqualTo(new TechContent.TechContentId(1));
-        assertThat(result.getProvider().getId()).isEqualTo(new TechContentProvider.TechContentProviderId(3));
+        assertThat(result.getId()).isEqualTo(new TechContent.Id(1));
+        assertThat(result.getProvider().getId()).isEqualTo(new TechContentProvider.Id(3));
         assertThat(result.getProvider().getType()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(result.getProvider().getTitle()).isEqualTo("providerTitle");
         assertThat(result.getProvider().getUrl()).isEqualTo("providerUrl");
-        assertThat(result.getProvider().getIconId()).isEqualTo(new Image.ImageId(4));
-        assertThat(result.getImageId()).isEqualTo(new Image.ImageId(2));
+        assertThat(result.getProvider().getIconId()).isEqualTo(new Image.Id(4));
+        assertThat(result.getImageId()).isEqualTo(new Image.Id(2));
         assertThat(result.getUrl()).isEqualTo("url");
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getSummary()).isEqualTo("summary");

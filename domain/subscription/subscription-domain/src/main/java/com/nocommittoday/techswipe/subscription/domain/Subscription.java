@@ -1,12 +1,6 @@
 package com.nocommittoday.techswipe.subscription.domain;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionInitType;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
-import com.nocommittoday.techswipe.subscription.domain.vo.ContentCrawling;
-import com.nocommittoday.techswipe.subscription.domain.vo.FeedSubscription;
-import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawling;
-import com.nocommittoday.techswipe.subscription.domain.vo.ListCrawlingSubscription;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -18,13 +12,13 @@ import java.util.List;
 @Getter
 public class Subscription {
 
-    private final SubscriptionId id;
+    private final Id id;
 
-    private final TechContentProvider.TechContentProviderId providerId;
+    private final TechContentProvider.Id providerId;
 
     private final SubscriptionType type;
 
-    private final SubscriptionInitType initType;
+    private final SubscriptionType initType;
 
     @Nullable
     private final String feedUrl;
@@ -32,6 +26,8 @@ public class Subscription {
     private final ContentCrawling contentCrawling;
 
     private final List<ListCrawling> listCrawlings;
+
+    public record Id(long value) {}
 
     public FeedSubscription toFeed() {
         return new FeedSubscription(
@@ -46,6 +42,4 @@ public class Subscription {
                         new ListCrawlingSubscription(listCrawling, contentCrawling)
                 ).toList();
     }
-
-    public record SubscriptionId(long value) {}
 }

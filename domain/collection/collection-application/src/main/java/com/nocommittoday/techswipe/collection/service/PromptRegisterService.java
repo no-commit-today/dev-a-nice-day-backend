@@ -12,7 +12,7 @@ public class PromptRegisterService {
 
     private final PromptAppender promptAppender;
 
-    public Prompt.PromptId register(final PromptRegister promptRegister) {
+    public Prompt.Id register(final PromptRegister promptRegister) {
         return promptAppender.save(promptRegister);
     }
 }

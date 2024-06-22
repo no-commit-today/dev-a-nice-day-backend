@@ -1,29 +1,29 @@
-package com.nocommittoday.techswipe.subscription.domain.vo;
+package com.nocommittoday.techswipe.subscription.domain;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.subscription.domain.enums.CrawlingType;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionInitType;
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
-import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionRegisterFailureException;
 import lombok.NonNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 public record SubscriptionRegister(
-        @NonNull TechContentProvider.TechContentProviderId providerId,
+        @NonNull TechContentProvider.Id providerId,
         @NonNull SubscriptionType type,
-        @NonNull SubscriptionInitType initType,
+        @NonNull SubscriptionType initType,
         @Nullable String feedUrl,
         @NonNull ContentCrawling contentCrawling,
         @NonNull List<ListCrawling> listCrawlings
 ) {
 
     public void validate() {
+        if (type == SubscriptionType.NONE) {
+            throw new SubscriptionRegisterFailureException("type이 필요합니다.");
+        }
+
         if (type == SubscriptionType.FEED) {
             validateFeed();
         }
-        if (type == SubscriptionType.LIST_CRAWLING || initType == SubscriptionInitType.LIST_CRAWLING) {
+        if (type == SubscriptionType.LIST_CRAWLING || initType == SubscriptionType.LIST_CRAWLING) {
             validateListCrawling();
         }
     }

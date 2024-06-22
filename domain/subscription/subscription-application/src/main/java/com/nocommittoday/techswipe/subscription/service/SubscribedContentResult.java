@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.service;
 
-import com.nocommittoday.techswipe.subscription.domain.enums.SubscriptionType;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;

@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import javax.annotation.Nullable;
 
 public record ProviderQueryResult(
-        TechContentProvider.TechContentProviderId id,
+        TechContentProvider.Id id,
         String title,
         String url,
         @Nullable String iconUrl

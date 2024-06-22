@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.image.service;
 
 import com.nocommittoday.techswipe.core.infrastructure.UuidHolder;
 import com.nocommittoday.techswipe.image.domain.Image;
-import com.nocommittoday.techswipe.image.domain.exception.NotSupportedImageException;
+import com.nocommittoday.techswipe.image.domain.NotSupportedImageException;
 import com.nocommittoday.techswipe.image.infrastructure.ContentTypeReader;
 import com.nocommittoday.techswipe.image.infrastructure.FileStore;
 import com.nocommittoday.techswipe.image.infrastructure.ImageAppender;
@@ -34,7 +34,7 @@ public class ImageStoreService {
     private final ContentTypeReader contentTypeReader;
     private final UuidHolder uuidHolder;
 
-    public Image.ImageId store(final String originUrl, final String dirToStore) {
+    public Image.Id store(final String originUrl, final String dirToStore) {
         final UrlResource resource = UrlResource.from(originUrl);
         final String contentType = contentTypeReader.getContentType(originUrl);
         if (!mimeToExt.containsKey(contentType)) {
@@ -44,7 +44,7 @@ public class ImageStoreService {
         final String storedName = createStoredName(mimeToExt.get(contentType));
         final String storedUrl = fileStore.store(resource, Paths.get(dirToStore, storedName).toString());
 
-        return new Image.ImageId(imageSavePort.save(new ImageSave(storedUrl, originUrl, storedName)));
+        return new Image.Id(imageSavePort.save(new ImageSave(storedUrl, originUrl, storedName)));
     }
 
     private String createStoredName(final String ext) {

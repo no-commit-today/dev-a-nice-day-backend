@@ -20,11 +20,11 @@ public class ProviderRegisterService {
     private final ProviderAppender providerSave;
     private final ProviderUrlExistsReader providerUrlExistsReader;
 
-    public TechContentProvider.TechContentProviderId register(final ProviderRegisterCommand command) {
+    public TechContentProvider.Id register(final ProviderRegisterCommand command) {
         if (providerUrlExistsReader.exists(command.url())) {
             throw new TechContentProviderUrlExistsException(command.url());
         }
-        final Image.ImageId iconId = Optional.ofNullable(command.iconUrl())
+        final Image.Id iconId = Optional.ofNullable(command.iconUrl())
                 .map(url -> imageStoreService.store(url, "provider-icon"))
                 .orElse(null);
 

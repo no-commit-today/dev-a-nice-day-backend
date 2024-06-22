@@ -38,16 +38,16 @@ class ContentListQueryServiceTest {
         // given
         final PageParam pageParam = new PageParam(1, 10);
         final TechContentProvider contentProvider = new TechContentProvider(
-                new TechContentProvider.TechContentProviderId(11L),
+                new TechContentProvider.Id(11L),
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
                 "provider-url",
-                new Image.ImageId(21L)
+                new Image.Id(21L)
         );
         given(contentCategorizedListReader.getList(pageParam, List.of(TechCategory.SERVER)))
                 .willReturn(List.of(
                         new TechContent(
-                                new TechContent.TechContentId(1L),
+                                new TechContent.Id(1L),
                                 contentProvider,
                                 null,
                                 "url-1",
@@ -57,9 +57,9 @@ class ContentListQueryServiceTest {
                                 List.of(TechCategory.SERVER)
                         ),
                         new TechContent(
-                                new TechContent.TechContentId(2L),
+                                new TechContent.Id(2L),
                                 contentProvider,
-                                new Image.ImageId(22L),
+                                new Image.Id(22L),
                                 "url-2",
                                 "title-2",
                                 LocalDate.of(2021, 1, 1),
@@ -67,9 +67,9 @@ class ContentListQueryServiceTest {
                                 List.of(TechCategory.SERVER)
                         )
                 ));
-        given(imageReader.getAll(Set.of(new Image.ImageId(21L), new Image.ImageId(22L))))
+        given(imageReader.getAll(Set.of(new Image.Id(21L), new Image.Id(22L))))
                 .willReturn(List.of(
-                        new Image(new Image.ImageId(21L), "url-21", "original-url-21", "stored-name-21")
+                        new Image(new Image.Id(21L), "url-21", "original-url-21", "stored-name-21")
                 ));
 
         // when
@@ -77,8 +77,8 @@ class ContentListQueryServiceTest {
 
         // then
         assertThat(contentQueryResults).hasSize(2);
-        assertThat(contentQueryResults.get(0).id()).isEqualTo(new TechContent.TechContentId(1L));
-        assertThat(contentQueryResults.get(0).provider().id()).isEqualTo(new TechContentProvider.TechContentProviderId(11L));
+        assertThat(contentQueryResults.get(0).id()).isEqualTo(new TechContent.Id(1L));
+        assertThat(contentQueryResults.get(0).provider().id()).isEqualTo(new TechContentProvider.Id(11L));
         assertThat(contentQueryResults.get(0).provider().title()).isEqualTo("provider-title");
         assertThat(contentQueryResults.get(0).provider().url()).isEqualTo("provider-url");
         assertThat(contentQueryResults.get(0).provider().iconUrl())
@@ -91,8 +91,8 @@ class ContentListQueryServiceTest {
                 .isNull();
         assertThat(contentQueryResults.get(0).summary()).isEqualTo("summary-1");
         assertThat(contentQueryResults.get(0).categories()).containsExactly(TechCategory.SERVER);
-        assertThat(contentQueryResults.get(1).id()).isEqualTo(new TechContent.TechContentId(2L));
-        assertThat(contentQueryResults.get(1).provider().id()).isEqualTo(new TechContentProvider.TechContentProviderId(11L));
+        assertThat(contentQueryResults.get(1).id()).isEqualTo(new TechContent.Id(2L));
+        assertThat(contentQueryResults.get(1).provider().id()).isEqualTo(new TechContentProvider.Id(11L));
         assertThat(contentQueryResults.get(1).provider().title()).isEqualTo("provider-title");
         assertThat(contentQueryResults.get(1).provider().url()).isEqualTo("provider-url");
         assertThat(contentQueryResults.get(1).provider().iconUrl())

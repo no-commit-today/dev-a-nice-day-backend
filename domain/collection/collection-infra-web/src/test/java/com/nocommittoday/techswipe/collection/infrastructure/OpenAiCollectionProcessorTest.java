@@ -34,7 +34,7 @@ class OpenAiCollectionProcessorTest {
     void openai의_카테고리_분류_결과를_리스트로_반환한다() {
         // given
         final Prompt prompt = new Prompt(
-                new Prompt.PromptId(1),
+                new Prompt.Id(1),
                 PromptType.CATEGORIZE,
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "version",
@@ -68,7 +68,7 @@ class OpenAiCollectionProcessorTest {
     void openai의_카테고리_분류_결과가_형식에_맞지않으면_실패를_반환한다() {
         // given
         final Prompt prompt = new Prompt(
-                new Prompt.PromptId(1),
+                new Prompt.Id(1),
                 PromptType.CATEGORIZE,
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "version",
@@ -97,7 +97,7 @@ class OpenAiCollectionProcessorTest {
     void openai의_요약_결과를_반환한다() {
         // given
         final Prompt prompt = new Prompt(
-                new Prompt.PromptId(1),
+                new Prompt.Id(1),
                 PromptType.SUMMARIZE,
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "version",
@@ -135,7 +135,7 @@ class OpenAiCollectionProcessorTest {
     void openai의_요약_결과가_형식에_맞지_않으면_실패_결과를_반환한다() {
         // given
         final Prompt prompt = new Prompt(
-                new Prompt.PromptId(1),
+                new Prompt.Id(1),
                 PromptType.SUMMARIZE,
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "version",
@@ -166,7 +166,7 @@ class OpenAiCollectionProcessorTest {
     void openai의_요약_결과가_5줄보다_많으면_실패_결과를_반환한다() {
         // given
         final Prompt prompt = new Prompt(
-                new Prompt.PromptId(1),
+                new Prompt.Id(1),
                 PromptType.SUMMARIZE,
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "version",

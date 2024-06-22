@@ -1,18 +1,18 @@
 package com.nocommittoday.techswipe.content.controller.v1;
 
+import com.nocommittoday.techswipe.content.domain.TechCategory;
+import com.nocommittoday.techswipe.content.domain.TechContent;
+import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.service.ContentListQueryParam;
 import com.nocommittoday.techswipe.content.service.ContentListQueryService;
 import com.nocommittoday.techswipe.content.service.ContentQueryResult;
 import com.nocommittoday.techswipe.content.service.ProviderQueryResult;
-import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.content.domain.TechContent;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import com.nocommittoday.techswipe.docs.restdocs.RestDocsAttribute;
-import com.nocommittoday.techswipe.image.service.ImageUrlResult;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.service.ImageUrlQueryService;
+import com.nocommittoday.techswipe.image.service.ImageUrlResult;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -51,9 +51,9 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                 new PageParam(1, 10), new ContentListQueryParam(List.of(TechCategory.SERVER))
         )).willReturn(List.of(
                 new ContentQueryResult(
-                        new TechContent.TechContentId(1L),
+                        new TechContent.Id(1L),
                         new ProviderQueryResult(
-                                new TechContentProvider.TechContentProviderId(2L),
+                                new TechContentProvider.Id(2L),
                                 "title",
                                 "https://provider-url",
                                 "https://provider-icon-url"
@@ -65,9 +65,9 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                         List.of(TechCategory.SERVER)
                 )
         ));
-        given(imageUrlQueryService.getAll(List.of(new Image.ImageId(4L), new Image.ImageId(3L)))).willReturn(List.of(
-                new ImageUrlResult(new Image.ImageId(4L), "https://content-image-url"),
-                new ImageUrlResult(new Image.ImageId(3L), "https://provider-icon-url")
+        given(imageUrlQueryService.getAll(List.of(new Image.Id(4L), new Image.Id(3L)))).willReturn(List.of(
+                new ImageUrlResult(new Image.Id(4L), "https://content-image-url"),
+                new ImageUrlResult(new Image.Id(3L), "https://provider-icon-url")
         ));
 
         // when

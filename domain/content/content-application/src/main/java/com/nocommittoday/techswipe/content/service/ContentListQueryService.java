@@ -25,7 +25,7 @@ public class ContentListQueryService {
 
     public List<ContentQueryResult> getList(final PageParam pageParam, final ContentListQueryParam queryParam) {
         final List<TechContent> contents = contentCategorizedListReader.getList(pageParam, queryParam.categories());
-        final Map<Image.ImageId, String> imageIdToUrl = getImageIdStringMap(contents);
+        final Map<Image.Id, String> imageIdToUrl = getImageIdStringMap(contents);
         return contents.stream()
                 .map(content -> new ContentQueryResult(
                                 content.getId(),
@@ -44,8 +44,8 @@ public class ContentListQueryService {
                 ).toList();
     }
 
-    private Map<Image.ImageId, String> getImageIdStringMap(final List<TechContent> contentList) {
-        final Set<Image.ImageId> imageIds = new HashSet<>();
+    private Map<Image.Id, String> getImageIdStringMap(final List<TechContent> contentList) {
+        final Set<Image.Id> imageIds = new HashSet<>();
         contentList.stream()
                 .map(TechContent::getImageId)
                 .filter(Objects::nonNull)

@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.image.infrastructure;
 
-import com.nocommittoday.techswipe.image.domain.exception.ImageIllegalUrlException;
+import com.nocommittoday.techswipe.image.domain.ImageIllegalUrlException;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

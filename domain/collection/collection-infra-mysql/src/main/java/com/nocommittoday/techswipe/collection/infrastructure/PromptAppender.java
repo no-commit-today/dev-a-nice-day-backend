@@ -15,12 +15,12 @@ public class PromptAppender {
     private final PromptJpaRepository promptJpaRepository;
 
     @Transactional
-    public Prompt.PromptId save(final PromptRegister promptRegister) {
+    public Prompt.Id save(final PromptRegister promptRegister) {
         promptJpaRepository.findAllByTypeAndProviderTypeAndDeletedIsFalse(
                 promptRegister.type(), promptRegister.providerType()
         ).forEach(PromptEntity::delete);
 
-        return new Prompt.PromptId(promptJpaRepository.save(
+        return new Prompt.Id(promptJpaRepository.save(
                 new PromptEntity(
                         null,
                         promptRegister.type(),

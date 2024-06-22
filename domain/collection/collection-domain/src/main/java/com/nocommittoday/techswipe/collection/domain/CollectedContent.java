@@ -10,9 +10,7 @@ import java.util.List;
 @Getter
 public class CollectedContent {
 
-    private final CollectedContentId id;
-
-    private final CollectionType type;
+    private final Id id;
 
     private final CollectionStatus status;
 
@@ -22,7 +20,7 @@ public class CollectedContent {
     @Nullable
     private final String summary;
 
-    private final TechContentProvider.TechContentProviderId providerId;
+    private final TechContentProvider.Id providerId;
 
     private final String url;
 
@@ -34,12 +32,11 @@ public class CollectedContent {
 
     private final String imageUrl;
 
-    public record CollectedContentId(long id) { }
+    public record Id(long id) { }
 
     public CollectedContent(
-            final CollectedContentId id,
-            final CollectionType type,
-            final TechContentProvider.TechContentProviderId providerId,
+            final Id id,
+            final TechContentProvider.Id providerId,
             final String url,
             final String title,
             final LocalDate publishedDate,
@@ -47,7 +44,6 @@ public class CollectedContent {
             @Nullable final String imageUrl
     ) {
         this.id = id;
-        this.type = type;
         this.status = CollectionStatus.INIT;
         this.categories = null;
         this.summary = null;
@@ -61,12 +57,11 @@ public class CollectedContent {
 
     // FIXME 해당 생성자를 사용하지 않는 방법 고민해야 겠음. status 가 도메인 로직에 의해서 변경되어야 함
     public CollectedContent(
-            final CollectedContentId id,
-            final CollectionType type,
+            final Id id,
             final CollectionStatus status,
             @Nullable final List<CollectionCategory> categories,
             @Nullable final String summary,
-            final TechContentProvider.TechContentProviderId providerId,
+            final TechContentProvider.Id providerId,
             final String url,
             final String title,
             final LocalDate publishedDate,
@@ -74,7 +69,6 @@ public class CollectedContent {
             @Nullable final String imageUrl
     ) {
         this.id = id;
-        this.type = type;
         this.status = status;
         this.categories = categories;
         this.summary = summary;
@@ -96,7 +90,6 @@ public class CollectedContent {
 
         return new CollectedContent(
                 id,
-                type,
                 nextStatus,
                 categories,
                 summary,
@@ -115,7 +108,6 @@ public class CollectedContent {
         }
         return new CollectedContent(
                 id,
-                type,
                 CollectionStatus.SUMMARIZED,
                 categories,
                 summary,
@@ -134,7 +126,6 @@ public class CollectedContent {
         }
         return new CollectedContent(
                 id,
-                type,
                 CollectionStatus.PUBLISHED,
                 categories,
                 summary,

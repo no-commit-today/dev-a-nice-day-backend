@@ -1,14 +1,15 @@
 package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.param.ProviderIdJobParameters;
-import com.nocommittoday.techswipe.collection.domain.CollectionType;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
+import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrlListReader;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentJpaRepository;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentResult;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersValidator;
 import org.springframework.batch.core.Step;
@@ -24,17 +25,24 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class ProviderInitialContentCollectJobConfig {
+public class ContentCollectProviderInitialJobConfig {
 
-    private static final String JOB_NAME = "providerInitialContentCollectJob";
-    private static final String STEP_NAME = "providerInitialContentCollectStep";
+    private static final String JOB_NAME = "contentCollectProviderInitialJob";
+    private static final String STEP_NAME = "contentCollectProviderInitialStep";
 
     private final JobRepository jobRepository;
+
     private final PlatformTransactionManager txManager;
+
+    private final CollectedContentUrlListReader collectedContentUrlListReader;
+
     private final CollectedContentJpaRepository collectedContentJpaRepository;
 
     private final SubscribedContentListQueryService subscribedContentListQueryService;
@@ -68,12 +76,21 @@ public class ProviderInitialContentCollectJobConfig {
     public Step step() {
         final TaskletStepBuilder taskletStepBuilder = new TaskletStepBuilder(new StepBuilder(STEP_NAME, jobRepository));
         return taskletStepBuilder.tasklet((contribution, chunkContext) -> {
-            final TechContentProvider.TechContentProviderId providerId = providerIdJobParameters().getProviderId();
+            final TechContentProvider.Id providerId = providerIdJobParameters().getProviderId();
+            final Set<String> urlSet = new HashSet<>(collectedContentUrlListReader.getAllUrlsByProvider(providerId));
+
             final List<SubscribedContentResult> subscribedContentList = subscribedContentListQueryService
-                    .getAllList(providerId);
+                    .getInitList(providerId);
+
             final List<CollectedContentEntity> collectedContentEntityList = subscribedContentList.stream()
+                    .filter(item -> {
+                        final boolean urlCollected = urlSet.contains(item.url());
+                        if (urlCollected) {
+                            log.info("provider[{}] url이 이미 수집되어 있습니다. url: {}", providerId.value(), item.url());
+                        }
+                        return !urlCollected;
+                    })
                     .map(item -> new ContentCollect(
-                            CollectionType.LIST_CRAWLING,
                             providerId,
                             item.url(),
                             item.title(),
