@@ -60,15 +60,4 @@ public class GlobalServletExceptionHandler extends ResponseEntityExceptionHandle
         return handleExceptionInternal(ex, body, headers, status, request);
     }
 
-    @Override
-    protected ResponseEntity<Object> handleExceptionInternal(
-            final Exception ex,
-            final Object body,
-            final HttpHeaders headers,
-            final HttpStatusCode statusCode,
-            final WebRequest request
-    ) {
-        log.error("handleExceptionInternal", ex);
-        return super.handleExceptionInternal(ex, body, headers, statusCode, request);
-    }
 }
