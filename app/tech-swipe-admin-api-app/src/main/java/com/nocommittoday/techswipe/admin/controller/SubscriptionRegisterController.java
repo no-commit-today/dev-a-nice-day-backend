@@ -1,11 +1,12 @@
 package com.nocommittoday.techswipe.admin.controller;
 
+import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.service.SubscriptionRegisterService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,9 +16,13 @@ class SubscriptionRegisterController {
 
     private final SubscriptionRegisterService subscriptionRegisterService;
 
-    @PostMapping("/api/subscription/admin/subscriptions")
-    ResponseEntity<Void> register(@Validated @RequestBody final SubscriptionRegisterRequest request) {
-        subscriptionRegisterService.register(request.toDomain());
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @PutMapping("/api/subscription/admin/provider/{providerId}/subscription")
+    ResponseEntity<Void> register(
+            @PathVariable final Long providerId,
+            @Validated @RequestBody final SubscriptionRegisterRequest request
+    ) {
+        subscriptionRegisterService.register(request.toDomain(
+                new TechContentProvider.TechContentProviderId(providerId)));
+        return ResponseEntity.ok().build();
     }
 }

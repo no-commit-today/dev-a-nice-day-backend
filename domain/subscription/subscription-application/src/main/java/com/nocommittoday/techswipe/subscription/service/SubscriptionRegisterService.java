@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SubscriptionRegisterService {
 
-    private final SubscriptionAppender subscriptionSavePort;
+    private final SubscriptionAppender subscriptionUpdater;
     private final ContentProviderIdValidator contentProviderIdValidator;
 
     public long register(final SubscriptionRegister register) {
         register.validate();
         contentProviderIdValidator.validate(register.providerId());
-        return subscriptionSavePort.save(register);
+        return subscriptionUpdater.save(register);
     }
 }
