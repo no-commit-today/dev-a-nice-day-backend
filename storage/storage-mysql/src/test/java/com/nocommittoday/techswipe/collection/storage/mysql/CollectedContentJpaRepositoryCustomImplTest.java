@@ -1,10 +1,8 @@
 package com.nocommittoday.techswipe.collection.storage.mysql;
 
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
-import com.nocommittoday.techswipe.collection.domain.CollectionType;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
-import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderJpaRepository;
 import com.nocommittoday.techswipe.test.AbstractDataJpaTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
 
     @Autowired
-    private TechContentProviderJpaRepository techContentProviderJpaRepository;
-
-    @Autowired
     private CollectedContentJpaRepository collectedContentJpaRepository;
 
     @Test
@@ -28,7 +23,6 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         final List<CollectedContentEntity> entities = List.of(
                 new CollectedContentEntity(
                         null,
-                        CollectionType.FEED,
                         CollectionStatus.INIT,
                         TechContentProviderEntity.from(new TechContentProvider.Id(10)),
                         "url1",
@@ -41,7 +35,6 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                 ),
                 new CollectedContentEntity(
                         null,
-                        CollectionType.FEED,
                         CollectionStatus.INIT,
                         TechContentProviderEntity.from(new TechContentProvider.Id(10)),
                         "url2",
@@ -54,7 +47,6 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                 ),
                 new CollectedContentEntity(
                         null,
-                        CollectionType.FEED,
                         CollectionStatus.INIT,
                         TechContentProviderEntity.from(new TechContentProvider.Id(11)),
                         "url3",

@@ -3,7 +3,6 @@ package com.nocommittoday.techswipe.collection.storage.mysql;
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
-import com.nocommittoday.techswipe.collection.domain.CollectionType;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
@@ -49,10 +48,6 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", columnDefinition = "varchar(45)", nullable = false)
-    private CollectionType type;
-
-    @Enumerated(EnumType.STRING)
     @Column(name = "status", columnDefinition = "varchar(45)", nullable = false)
     private CollectionStatus status;
 
@@ -89,7 +84,6 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
     public static CollectedContentEntity from(final CollectedContent collectedContent) {
         return new CollectedContentEntity(
                 collectedContent.getId().id(),
-                collectedContent.getType(),
                 collectedContent.getStatus(),
                 TechContentProviderEntity.from(collectedContent.getProviderId()),
                 collectedContent.getUrl(),
@@ -105,7 +99,6 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
     public static CollectedContentEntity from(final ContentCollect contentCollect) {
         return new CollectedContentEntity(
                 null,
-                contentCollect.type(),
                 CollectionStatus.INIT,
                 TechContentProviderEntity.from(contentCollect.providerId()),
                 contentCollect.url(),
@@ -121,7 +114,6 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
     public CollectedContent toDomain() {
         return new CollectedContent(
                 new CollectedContent.Id(id),
-                type,
                 status,
                 categories,
                 summary,
@@ -135,7 +127,6 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
     }
 
     public void update(final CollectedContent collectedContent) {
-        this.type = collectedContent.getType();
         this.status = collectedContent.getStatus();
         this.provider = TechContentProviderEntity.from(collectedContent.getProviderId());
         this.url = collectedContent.getUrl();

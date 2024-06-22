@@ -1,7 +1,6 @@
 package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.param.ProviderIdJobParameters;
-import com.nocommittoday.techswipe.collection.domain.CollectionType;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrlListReader;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
@@ -84,7 +83,6 @@ public class ProviderInitialContentCollectJobConfig {
             final List<CollectedContentEntity> collectedContentEntityList = subscribedContentList.stream()
                     .filter(item -> !urlSet.contains(item.url()))
                     .map(item -> new ContentCollect(
-                            CollectionType.LIST_CRAWLING,
                             providerId,
                             item.url(),
                             item.title(),

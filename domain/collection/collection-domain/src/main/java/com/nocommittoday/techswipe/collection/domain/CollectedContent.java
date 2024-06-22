@@ -12,8 +12,6 @@ public class CollectedContent {
 
     private final Id id;
 
-    private final CollectionType type;
-
     private final CollectionStatus status;
 
     @Nullable
@@ -38,7 +36,6 @@ public class CollectedContent {
 
     public CollectedContent(
             final Id id,
-            final CollectionType type,
             final TechContentProvider.Id providerId,
             final String url,
             final String title,
@@ -47,7 +44,6 @@ public class CollectedContent {
             @Nullable final String imageUrl
     ) {
         this.id = id;
-        this.type = type;
         this.status = CollectionStatus.INIT;
         this.categories = null;
         this.summary = null;
@@ -62,7 +58,6 @@ public class CollectedContent {
     // FIXME 해당 생성자를 사용하지 않는 방법 고민해야 겠음. status 가 도메인 로직에 의해서 변경되어야 함
     public CollectedContent(
             final Id id,
-            final CollectionType type,
             final CollectionStatus status,
             @Nullable final List<CollectionCategory> categories,
             @Nullable final String summary,
@@ -74,7 +69,6 @@ public class CollectedContent {
             @Nullable final String imageUrl
     ) {
         this.id = id;
-        this.type = type;
         this.status = status;
         this.categories = categories;
         this.summary = summary;
@@ -96,7 +90,6 @@ public class CollectedContent {
 
         return new CollectedContent(
                 id,
-                type,
                 nextStatus,
                 categories,
                 summary,
@@ -115,7 +108,6 @@ public class CollectedContent {
         }
         return new CollectedContent(
                 id,
-                type,
                 CollectionStatus.SUMMARIZED,
                 categories,
                 summary,
@@ -134,7 +126,6 @@ public class CollectedContent {
         }
         return new CollectedContent(
                 id,
-                type,
                 CollectionStatus.PUBLISHED,
                 categories,
                 summary,

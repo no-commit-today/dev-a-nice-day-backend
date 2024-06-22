@@ -3,7 +3,6 @@ package com.nocommittoday.techswipe.collection.storage.mysql;
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
-import com.nocommittoday.techswipe.collection.domain.CollectionType;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
@@ -21,7 +20,6 @@ class CollectedContentEntityTest {
         // given
         final CollectedContent content = new CollectedContent(
                 new CollectedContent.Id(1L),
-                CollectionType.FEED,
                 CollectionStatus.INIT,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
                 "summary",
@@ -38,7 +36,6 @@ class CollectedContentEntityTest {
 
         // then
         assertThat(entity.getId()).isEqualTo(1L);
-        assertThat(entity.getType()).isEqualTo(CollectionType.FEED);
         assertThat(entity.getStatus()).isEqualTo(CollectionStatus.INIT);
         assertThat(entity.getCategories()).isEqualTo(List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER));
         assertThat(entity.getSummary()).isEqualTo("summary");
@@ -54,7 +51,6 @@ class CollectedContentEntityTest {
     void ContentCollect_도메인_객체로부터_생성할_수_있다() {
         // given
         final ContentCollect contentCollect = new ContentCollect(
-                CollectionType.FEED,
                 new TechContentProvider.Id(2L),
                 "url",
                 "title",
@@ -68,7 +64,6 @@ class CollectedContentEntityTest {
 
         // then
         assertThat(entity.getId()).isNull();
-        assertThat(entity.getType()).isEqualTo(CollectionType.FEED);
         assertThat(entity.getStatus()).isEqualTo(CollectionStatus.INIT);
         assertThat(entity.getCategories()).isNull();
         assertThat(entity.getSummary()).isNull();
@@ -85,7 +80,6 @@ class CollectedContentEntityTest {
         // given
         final CollectedContentEntity entity = new CollectedContentEntity(
                 1L,
-                CollectionType.FEED,
                 CollectionStatus.CATEGORIZED,
                 TechContentProviderEntity.from(new TechContentProvider.Id(2L)),
                 "url",
@@ -102,7 +96,6 @@ class CollectedContentEntityTest {
 
         // then
         assertThat(result.getId()).isEqualTo(new CollectedContent.Id(1L));
-        assertThat(result.getType()).isEqualTo(CollectionType.FEED);
         assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.Id(2L));
         assertThat(result.getUrl()).isEqualTo("url");
         assertThat(result.getTitle()).isEqualTo("title");
@@ -115,7 +108,6 @@ class CollectedContentEntityTest {
     void 도메인_엔티티로부터_업데이트할_수_있다() {
         CollectedContentEntity entity = new CollectedContentEntity(
                 1L,
-                CollectionType.FEED,
                 CollectionStatus.INIT,
                 TechContentProviderEntity.from(new TechContentProvider.Id(2L)),
                 "url",
@@ -129,7 +121,6 @@ class CollectedContentEntityTest {
 
         final CollectedContent domain = new CollectedContent(
                 new CollectedContent.Id(1L),
-                CollectionType.LIST_CRAWLING,
                 CollectionStatus.CATEGORIZED,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
                 "summary",
@@ -145,7 +136,6 @@ class CollectedContentEntityTest {
         entity.update(domain);
 
         // then
-        assertThat(entity.getType()).isEqualTo(CollectionType.LIST_CRAWLING);
         assertThat(entity.getStatus()).isEqualTo(CollectionStatus.CATEGORIZED);
         assertThat(entity.getCategories()).containsExactly(CollectionCategory.DEVOPS, CollectionCategory.SERVER);
         assertThat(entity.getSummary()).isEqualTo("summary");
