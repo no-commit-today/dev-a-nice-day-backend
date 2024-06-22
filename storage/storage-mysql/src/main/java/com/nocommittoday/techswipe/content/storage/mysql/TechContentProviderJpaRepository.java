@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface TechContentProviderJpaRepository extends JpaRepository<TechContentProviderEntity, Long> {
 
     boolean existsByIdAndDeletedIsFalse(Long id);
+
+    boolean existsByUrl(String url);
 }
