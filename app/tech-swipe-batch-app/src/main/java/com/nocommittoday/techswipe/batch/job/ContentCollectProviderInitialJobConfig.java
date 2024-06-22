@@ -30,10 +30,10 @@ import java.util.Set;
 
 @Configuration
 @RequiredArgsConstructor
-public class ProviderInitialContentCollectJobConfig {
+public class ContentCollectProviderInitialJobConfig {
 
-    private static final String JOB_NAME = "providerInitialContentCollectJob";
-    private static final String STEP_NAME = "providerInitialContentCollectStep";
+    private static final String JOB_NAME = "contentCollectProviderInitialJob";
+    private static final String STEP_NAME = "contentCollectProviderInitialStep";
 
     private final JobRepository jobRepository;
 
