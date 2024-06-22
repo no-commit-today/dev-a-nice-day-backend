@@ -27,6 +27,9 @@ spring:
     activate:
       on-profile: local
 
+app:
+  host: http://localhost:8080
+
 logging:
   level:
     org.apache.coyote.http11: debug

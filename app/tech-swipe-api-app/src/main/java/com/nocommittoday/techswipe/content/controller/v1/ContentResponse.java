@@ -19,10 +19,10 @@ public record ContentResponse(
         @Nullable String providerIconUrl
 ) {
 
-    public static ContentResponse from(final ContentQueryResult content) {
+    public static ContentResponse from(final ContentQueryResult content, final String link) {
         return new ContentResponse(
                 content.id().value(),
-                content.url(),
+                link,
                 content.title(),
                 content.summary(),
                 content.imageUrl(),
