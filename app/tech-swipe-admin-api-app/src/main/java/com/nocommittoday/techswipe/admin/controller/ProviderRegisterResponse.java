@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.content.controller.admin;
+package com.nocommittoday.techswipe.admin.controller;
 
 public record ProviderRegisterResponse(
         long id

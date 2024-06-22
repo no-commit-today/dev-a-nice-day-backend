@@ -74,6 +74,16 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
         );
     }
 
+    public void update(final SubscriptionRegister register) {
+        type = register.type();
+        initType = register.initType();
+        data = new SubscriptionData(
+                new FeedData(register.feedUrl()),
+                register.contentCrawling(),
+                new ListCrawlingData(register.listCrawlings())
+        );
+    }
+
     public Subscription toDomain() {
         return new Subscription(
                 new Subscription.SubscriptionId(id),
