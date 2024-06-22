@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.image.service;
 import com.nocommittoday.techswipe.image.domain.Image;
 
 public record ImageUrlResult(
-        Image.ImageId id,
+        Image.Id id,
         String url
 ) {
 

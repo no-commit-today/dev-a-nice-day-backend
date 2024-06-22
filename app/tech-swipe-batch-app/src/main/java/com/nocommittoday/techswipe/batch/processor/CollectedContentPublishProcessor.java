@@ -26,7 +26,7 @@ public class CollectedContentPublishProcessor
         if (collectedContent.getStatus() != CollectionStatus.SUMMARIZED) {
             throw new CollectionPublishUnableException(collectedContent.getId(), collectedContent.getStatus());
         }
-        final Image.ImageId imageId = imageStoreService.store(collectedContent.getImageUrl(), "content");
+        final Image.Id imageId = imageStoreService.store(collectedContent.getImageUrl(), "content");
         final TechContentCreate content = new TechContentCreate(
                 collectedContent.getProviderId(),
                 collectedContent.getUrl(),

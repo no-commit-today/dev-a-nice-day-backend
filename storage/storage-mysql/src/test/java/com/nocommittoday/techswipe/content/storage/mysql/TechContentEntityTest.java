@@ -24,7 +24,7 @@ class TechContentEntityTest {
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
-                new Image.ImageId(2),
+                new Image.Id(2),
                 "summary",
                 List.of(TechCategory.DEVOPS)
         );
@@ -74,9 +74,9 @@ class TechContentEntityTest {
                         TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                         "providerTitle",
                         "providerUrl",
-                        ImageEntity.from(new Image.ImageId(4L))
+                        ImageEntity.from(new Image.Id(4L))
                 ),
-                ImageEntity.from(new Image.ImageId(2L)),
+                ImageEntity.from(new Image.Id(2L)),
                 "url",
                 "title",
                 "summary",
@@ -93,8 +93,8 @@ class TechContentEntityTest {
         assertThat(result.getProvider().getType()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(result.getProvider().getTitle()).isEqualTo("providerTitle");
         assertThat(result.getProvider().getUrl()).isEqualTo("providerUrl");
-        assertThat(result.getProvider().getIconId()).isEqualTo(new Image.ImageId(4));
-        assertThat(result.getImageId()).isEqualTo(new Image.ImageId(2));
+        assertThat(result.getProvider().getIconId()).isEqualTo(new Image.Id(4));
+        assertThat(result.getImageId()).isEqualTo(new Image.Id(2));
         assertThat(result.getUrl()).isEqualTo("url");
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getSummary()).isEqualTo("summary");

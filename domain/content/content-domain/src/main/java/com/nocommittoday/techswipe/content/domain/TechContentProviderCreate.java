@@ -9,6 +9,6 @@ public record TechContentProviderCreate(
         @NonNull TechContentProviderType type,
         @NonNull String title,
         @NonNull String url,
-        @Nullable Image.ImageId iconId
+        @Nullable Image.Id iconId
 ) {
 }

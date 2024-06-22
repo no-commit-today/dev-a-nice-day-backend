@@ -42,7 +42,7 @@ class ContentListQueryServiceTest {
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
                 "provider-url",
-                new Image.ImageId(21L)
+                new Image.Id(21L)
         );
         given(contentCategorizedListReader.getList(pageParam, List.of(TechCategory.SERVER)))
                 .willReturn(List.of(
@@ -59,7 +59,7 @@ class ContentListQueryServiceTest {
                         new TechContent(
                                 new TechContent.Id(2L),
                                 contentProvider,
-                                new Image.ImageId(22L),
+                                new Image.Id(22L),
                                 "url-2",
                                 "title-2",
                                 LocalDate.of(2021, 1, 1),
@@ -67,9 +67,9 @@ class ContentListQueryServiceTest {
                                 List.of(TechCategory.SERVER)
                         )
                 ));
-        given(imageReader.getAll(Set.of(new Image.ImageId(21L), new Image.ImageId(22L))))
+        given(imageReader.getAll(Set.of(new Image.Id(21L), new Image.Id(22L))))
                 .willReturn(List.of(
-                        new Image(new Image.ImageId(21L), "url-21", "original-url-21", "stored-name-21")
+                        new Image(new Image.Id(21L), "url-21", "original-url-21", "stored-name-21")
                 ));
 
         // when

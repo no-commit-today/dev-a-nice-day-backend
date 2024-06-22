@@ -16,7 +16,7 @@ public class TechContentProvider {
 
     private final String url;
 
-    private final Image.ImageId iconId;
+    private final Image.Id iconId;
 
     public record Id(long value) { }
 }

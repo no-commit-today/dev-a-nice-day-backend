@@ -12,7 +12,7 @@ public record TechContentCreate(
         @NonNull String url,
         @NonNull String title,
         @NonNull LocalDate publishedDate,
-        @Nullable Image.ImageId imageId,
+        @Nullable Image.Id imageId,
         @NonNull String summary,
         @NonNull List<TechCategory> categories
 ) {

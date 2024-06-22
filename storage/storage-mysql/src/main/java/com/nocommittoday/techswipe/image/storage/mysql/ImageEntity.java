@@ -34,7 +34,7 @@ public class ImageEntity extends BaseSoftDeleteEntity {
     @Column(name = "stored_name", length = 1000, nullable = false)
     private String storedName;
 
-    public static ImageEntity from(final Image.ImageId id) {
+    public static ImageEntity from(final Image.Id id) {
         return new ImageEntity(
                 id.value(),
                 null,
@@ -43,13 +43,13 @@ public class ImageEntity extends BaseSoftDeleteEntity {
         );
     }
 
-    public Image.ImageId toDomainId() {
-        return new Image.ImageId(id);
+    public Image.Id toDomainId() {
+        return new Image.Id(id);
     }
 
     public Image toDomain() {
         return new Image(
-                new Image.ImageId(id),
+                new Image.Id(id),
                 url,
                 originalUrl,
                 storedName

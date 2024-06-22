@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 public class Image {
 
     @NonNull
-    private final ImageId id;
+    private final Image.Id id;
 
     @NonNull
     private final String url;
@@ -20,5 +20,5 @@ public class Image {
     @NonNull
     private final String storedName;
 
-    public record ImageId(long value) {}
+    public record Id(long value) {}
 }

@@ -22,7 +22,7 @@ public class TechContent {
     private final LocalDate publishedDate;
 
     @Nullable
-    private final Image.ImageId imageId;
+    private final Image.Id imageId;
 
     private final String summary;
 
@@ -33,7 +33,7 @@ public class TechContent {
     public TechContent(
             final Id id,
             final TechContentProvider provider,
-            @Nullable final Image.ImageId imageId,
+            @Nullable final Image.Id imageId,
             final String url,
             final String title,
             final LocalDate publishedDate,

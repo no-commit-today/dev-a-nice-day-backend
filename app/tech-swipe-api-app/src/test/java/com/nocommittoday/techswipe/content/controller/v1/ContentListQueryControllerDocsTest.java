@@ -65,9 +65,9 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                         List.of(TechCategory.SERVER)
                 )
         ));
-        given(imageUrlQueryService.getAll(List.of(new Image.ImageId(4L), new Image.ImageId(3L)))).willReturn(List.of(
-                new ImageUrlResult(new Image.ImageId(4L), "https://content-image-url"),
-                new ImageUrlResult(new Image.ImageId(3L), "https://provider-icon-url")
+        given(imageUrlQueryService.getAll(List.of(new Image.Id(4L), new Image.Id(3L)))).willReturn(List.of(
+                new ImageUrlResult(new Image.Id(4L), "https://content-image-url"),
+                new ImageUrlResult(new Image.Id(3L), "https://provider-icon-url")
         ));
 
         // when
