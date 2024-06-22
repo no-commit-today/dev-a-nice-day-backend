@@ -47,7 +47,7 @@ class SubscriptionEntityTest {
         assertThat(result.getProvider().getId()).isEqualTo(1L);
         assertThat(result.getType()).isEqualTo(SubscriptionType.FEED);
         assertThat(result.getInitType()).isEqualTo(SubscriptionType.LIST_CRAWLING);
-        assertThat(result.getData().getFeedData().getUrl()).isEqualTo("feedUrl");
+        assertThat(result.getData().getFeed().getUrl()).isEqualTo("feedUrl");
         assertThat(result.getData().getContentCrawling()).isEqualTo(new ContentCrawling(
                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),

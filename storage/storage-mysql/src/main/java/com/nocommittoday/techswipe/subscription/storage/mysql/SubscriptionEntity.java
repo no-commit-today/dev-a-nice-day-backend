@@ -89,7 +89,7 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
                 provider.toDomainId(),
                 type,
                 initType,
-                data.getFeedData().getUrl(),
+                data.getFeed().getUrl(),
                 data.getContentCrawling(),
                 data.getListCrawling().getContent()
         );
