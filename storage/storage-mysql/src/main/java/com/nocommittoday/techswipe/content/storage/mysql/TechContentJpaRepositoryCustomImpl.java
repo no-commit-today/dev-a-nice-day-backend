@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.nocommittoday.techswipe.content.storage.mysql.QTechCategoryEntity.techCategoryEntity;
 import static com.nocommittoday.techswipe.content.storage.mysql.QTechContentEntity.techContentEntity;
@@ -28,6 +29,7 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
         return queryFactory
                 .selectFrom(techContentEntity)
                 .join(techContentEntity.provider).fetchJoin()
+                .leftJoin(techContentEntity.image).fetchJoin()
                 .join(techCategoryEntity).on(
                         techContentEntity.id.eq(techCategoryEntity.content.id))
                 .where(
@@ -51,5 +53,19 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
                 .offset(pageParam.offset())
                 .limit(pageParam.size())
                 .fetch();
+    }
+
+    @Override
+    public Optional<String> findUrlByIdAndDeletedIsFalse(final Long id) {
+        return Optional.ofNullable(
+                queryFactory
+                        .select(techContentEntity.url)
+                        .from(techContentEntity)
+                        .where(
+                                techContentEntity.id.eq(id),
+                                techContentEntity.deleted.isFalse()
+                        )
+                        .fetchOne()
+        );
     }
 }

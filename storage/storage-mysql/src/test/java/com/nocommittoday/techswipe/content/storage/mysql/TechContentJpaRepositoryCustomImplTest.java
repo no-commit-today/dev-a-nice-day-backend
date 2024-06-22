@@ -203,4 +203,61 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                 );
     }
 
+    @Test
+    void 컨텐츠_ID로_URL을_조회한다() {
+        // given
+        final TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
+                null,
+                TechContentProviderType.DOMESTIC_COMPANY_BLOG,
+                "provider-title",
+                "provider-url",
+                null
+        ));
+
+        final TechContentEntity techContentEntity = techContentJpaRepository.save(new TechContentEntity(
+                null,
+                providerEntity,
+                null,
+                "url-1",
+                "title-1",
+                "summary-1",
+                LocalDate.of(2021, 1, 1)
+        ));
+
+        // when
+        final String result = techContentJpaRepository.findUrlByIdAndDeletedIsFalse(techContentEntity.getId()).orElse(null);
+
+        // then
+        assertThat(result).isEqualTo("url-1");
+    }
+
+    @Test
+    void 컨텐츠_ID로_URL을_조회한다_삭제된_컨텐츠는_조회되지_않는다() {
+        // given
+        final TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
+                null,
+                TechContentProviderType.DOMESTIC_COMPANY_BLOG,
+                "provider-title",
+                "provider-url",
+                null
+        ));
+
+        final TechContentEntity techContentEntity = techContentJpaRepository.save(new TechContentEntity(
+                null,
+                providerEntity,
+                null,
+                "url-1",
+                "title-1",
+                "summary-1",
+                LocalDate.of(2021, 1, 1)
+        ));
+        techContentEntity.delete();
+
+        // when
+        final String result = techContentJpaRepository.findUrlByIdAndDeletedIsFalse(techContentEntity.getId()).orElse(null);
+
+        // then
+        assertThat(result).isNull();
+    }
+
 }

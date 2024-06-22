@@ -13,6 +13,7 @@ public enum TechContentErrorCode implements ErrorCodeType {
             HttpURLConnection.HTTP_BAD_REQUEST),
     PROVIDER_URL_EXISTS("CONTENT-002", "Provider URL 이 이미 존재합니다.",
             HttpURLConnection.HTTP_CONFLICT),
+    CONTENT_NOT_FOUND("CONTENT-003", "Content 가 존재하지 않습니다.", HttpURLConnection.HTTP_NOT_FOUND),
     ;
 
     private final String code;

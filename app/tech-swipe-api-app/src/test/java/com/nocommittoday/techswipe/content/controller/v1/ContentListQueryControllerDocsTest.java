@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.content.controller.v1;
 
+import com.nocommittoday.techswipe.content.controller.ContentLinkCreator;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
@@ -44,9 +45,13 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
     @MockBean
     private ImageUrlQueryService imageUrlQueryService;
 
+    @MockBean
+    private ContentLinkCreator contentLinkCreator;
+
     @Test
     void 컨텐츠_리스트_조회_Docs() throws Exception {
         // given
+        given(contentLinkCreator.create(new TechContent.Id(1L))).willReturn("content-link-url");
         given(contentListQueryService.getList(
                 new PageParam(1, 10), new ContentListQueryParam(List.of(TechCategory.SERVER))
         )).willReturn(List.of(
