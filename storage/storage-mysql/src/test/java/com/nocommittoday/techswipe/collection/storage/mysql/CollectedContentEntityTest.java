@@ -20,7 +20,7 @@ class CollectedContentEntityTest {
     void 도메인_엔티티로부터_생성할_수_있다() {
         // given
         final CollectedContent content = new CollectedContent(
-                new CollectedContent.CollectedContentId(1L),
+                new CollectedContent.Id(1L),
                 CollectionType.FEED,
                 CollectionStatus.INIT,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
@@ -101,7 +101,7 @@ class CollectedContentEntityTest {
         final CollectedContent result = entity.toDomain();
 
         // then
-        assertThat(result.getId()).isEqualTo(new CollectedContent.CollectedContentId(1L));
+        assertThat(result.getId()).isEqualTo(new CollectedContent.Id(1L));
         assertThat(result.getType()).isEqualTo(CollectionType.FEED);
         assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.Id(2L));
         assertThat(result.getUrl()).isEqualTo("url");
@@ -128,7 +128,7 @@ class CollectedContentEntityTest {
         );
 
         final CollectedContent domain = new CollectedContent(
-                new CollectedContent.CollectedContentId(1L),
+                new CollectedContent.Id(1L),
                 CollectionType.LIST_CRAWLING,
                 CollectionStatus.CATEGORIZED,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),

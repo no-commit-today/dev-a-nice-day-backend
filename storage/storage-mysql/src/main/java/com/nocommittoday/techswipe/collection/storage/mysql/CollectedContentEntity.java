@@ -120,7 +120,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
 
     public CollectedContent toDomain() {
         return new CollectedContent(
-                new CollectedContent.CollectedContentId(id),
+                new CollectedContent.Id(id),
                 type,
                 status,
                 categories,

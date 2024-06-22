@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.core.domain.exception.AbstractDomainException
 
 public class CollectionNotFoundException extends AbstractDomainException {
 
-    public CollectionNotFoundException(final CollectedContent.CollectedContentId id) {
+    public CollectionNotFoundException(final CollectedContent.Id id) {
         super(CollectionErrorCode.NOT_FOUND, "id=" + id);
     }
 }
