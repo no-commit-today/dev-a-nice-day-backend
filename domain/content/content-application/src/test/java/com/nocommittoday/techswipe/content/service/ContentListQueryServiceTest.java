@@ -86,6 +86,7 @@ class ContentListQueryServiceTest {
                 .isEqualTo("url-21");
         assertThat(contentQueryResults.get(0).url()).isEqualTo("url-1");
         assertThat(contentQueryResults.get(0).title()).isEqualTo("title-1");
+        assertThat(contentQueryResults.get(0).publishedDate()).isEqualTo(LocalDate.of(2021, 1, 1));
         assertThat(contentQueryResults.get(0).imageUrl())
                 .describedAs("이미지 ID 가 없을 경우 null 을 반환한다.")
                 .isNull();
@@ -94,6 +95,7 @@ class ContentListQueryServiceTest {
         assertThat(contentQueryResults.get(1).id()).isEqualTo(new TechContent.Id(2L));
         assertThat(contentQueryResults.get(1).provider().id()).isEqualTo(new TechContentProvider.Id(11L));
         assertThat(contentQueryResults.get(1).provider().title()).isEqualTo("provider-title");
+        assertThat(contentQueryResults.get(1).publishedDate()).isEqualTo(LocalDate.of(2021, 1, 1));
         assertThat(contentQueryResults.get(1).provider().url()).isEqualTo("provider-url");
         assertThat(contentQueryResults.get(1).provider().iconUrl())
                 .describedAs("이미지가 있을 경우 이미지 url 을 반환한다.")
