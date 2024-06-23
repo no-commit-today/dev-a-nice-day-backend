@@ -21,6 +21,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -65,6 +66,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                         ),
                         "https://content-url",
                         "title",
+                        LocalDate.of(2021, 1, 1),
                         "https://content-image-url",
                         "summary",
                         List.of(TechCategory.SERVER)
@@ -95,6 +97,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                                 fieldWithPath("content[].id").description("컨텐츠 ID"),
                                 fieldWithPath("content[].url").description("컨텐츠 URL"),
                                 fieldWithPath("content[].title").description("컨텐츠 제목"),
+                                fieldWithPath("content[].publishedDate").description("컨텐츠 발행일"),
                                 fieldWithPath("content[].summary").description("컨텐츠 요약"),
                                 fieldWithPath("content[].imageUrl").description("컨텐츠 이미지 URL"),
                                 fieldWithPath("content[].categories").description("카테고리 목록")

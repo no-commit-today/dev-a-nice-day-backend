@@ -37,6 +37,7 @@ public class ContentListQueryService {
                                 ),
                                 content.getUrl(),
                                 content.getTitle(),
+                                content.getPublishedDate(),
                                 imageIdToUrl.getOrDefault(content.getImageId(), null),
                                 content.getSummary(),
                                 content.getCategories()
