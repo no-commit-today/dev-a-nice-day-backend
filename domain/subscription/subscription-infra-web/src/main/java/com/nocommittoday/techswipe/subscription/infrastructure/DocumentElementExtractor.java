@@ -19,10 +19,10 @@ public class DocumentElementExtractor {
         log.trace("document={}", document.html());
         for (int i = 0; i < indexes.size(); i++) {
             final int index = indexes.get(i);
-            element = element.child(index);
             if (log.isTraceEnabled()) {
-                log.trace("indexes[{}]={}, indexes={}, \n{}", i, index, indexes, element.html());
+                log.trace("indexes[{}]={} 추출. indexes={}. \n{}", i, index, indexes, element.html());
             }
+            element = element.child(index);
         }
         return element;
     }
