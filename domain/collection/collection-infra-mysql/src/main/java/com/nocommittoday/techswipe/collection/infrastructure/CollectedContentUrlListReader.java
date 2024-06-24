@@ -17,4 +17,12 @@ public class CollectedContentUrlListReader {
     public List<String> getAllUrlsByProvider(final TechContentProvider.Id providerId) {
         return collectedContentJpaRepository.findAllUrlByProvider(TechContentProviderEntity.from(providerId));
     }
+
+    public List<String> getAllUrlsByProviders(final List<TechContentProvider.Id> providerIds) {
+        return collectedContentJpaRepository.findAllUrlByProviderIn(
+                providerIds.stream()
+                        .map(TechContentProviderEntity::from)
+                        .toList()
+        );
+    }
 }
