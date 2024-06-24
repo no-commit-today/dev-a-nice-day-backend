@@ -47,6 +47,15 @@ subprojects {
 	}
 
 	test {
-		useJUnitPlatform()
+		useJUnitPlatform {
+			excludeTags('develop')
+		}
+	}
+
+	tasks.register('developTest', Test) {
+		group = 'verification'
+		useJUnitPlatform {
+			includeTags('develop')
+		}
 	}
 }

@@ -1,7 +1,7 @@
 package com.nocommittoday.client.feed;
 
 import com.nocommittoday.client.core.ClientResponse;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Import(FeedClientConfig.class)
-@Disabled
+@Tag("develop")
 class FeedClientRealTest {
 
     @Autowired

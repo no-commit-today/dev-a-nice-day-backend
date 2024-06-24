@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.subscription.infrastructure;
 
 import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
-@Disabled
+@Tag("develop")
 class UrlListCrawlingIteratorRealTest {
 
     @Autowired
