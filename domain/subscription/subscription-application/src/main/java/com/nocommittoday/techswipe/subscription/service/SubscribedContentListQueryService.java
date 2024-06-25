@@ -1,12 +1,8 @@
 package com.nocommittoday.techswipe.subscription.service;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
-import com.nocommittoday.techswipe.subscription.infrastructure.FeedContentReader;
-import com.nocommittoday.techswipe.subscription.infrastructure.ListCrawlingContentReader;
-import com.nocommittoday.techswipe.subscription.infrastructure.SubscribedContent;
-import com.nocommittoday.techswipe.subscription.infrastructure.SubscriptionReader;
+import com.nocommittoday.techswipe.subscription.infrastructure.SubscribedContentReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,52 +13,29 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SubscribedContentListQueryService {
 
-    private final SubscriptionReader subscriptionReader;
-    private final FeedContentReader rssContentReader;
-    private final ListCrawlingContentReader listCrawlingContentReader;
+    private final List<SubscribedContentReader> subscribedContentReaders;
 
     public List<SubscribedContentResult> getList(
             final Subscription subscription, final LocalDate date
     ) {
-        if (SubscriptionType.LIST_CRAWLING == subscription.getType()) {
-            return subscription.toListCrawling().stream()
-                .map(listCrawling -> listCrawlingContentReader.getList(listCrawling, date))
-                .flatMap(List::stream)
-                .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
-                .toList();
-        } else if (SubscriptionType.FEED == subscription.getType()) {
-            return rssContentReader.getList(subscription.toFeed(), date).stream()
-                    .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
-                    .toList();
+        for (SubscribedContentReader reader : subscribedContentReaders) {
+            if (!reader.supports(subscription)) {
+                continue;
+            }
+            return reader.getList(subscription, date);
         }
         throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getType());
     }
 
-    public List<SubscribedContentResult> getInitList(final TechContentProvider.Id providerId) {
-        final Subscription subscription = subscriptionReader.getByProviderId(providerId);
+    public List<SubscribedContentResult> getInitList(final Subscription subscription) {
         final LocalDate date = LocalDate.MIN;
-        if (SubscriptionType.LIST_CRAWLING == subscription.getInitType()) {
-            return subscription.toListCrawling().stream()
-                .map(listCrawling -> listCrawlingContentReader.getList(listCrawling, date))
-                .flatMap(List::stream)
-                .map(subscribedContent -> convertToResult(subscribedContent, subscription.getInitType()))
-                .toList();
-        } else if (SubscriptionType.FEED == subscription.getInitType()) {
-            return rssContentReader.getList(subscription.toFeed(), date).stream()
-                    .map(subscribedContent -> convertToResult(subscribedContent, subscription.getInitType()))
-                    .toList();
+        for (SubscribedContentReader reader : subscribedContentReaders) {
+            if (!reader.supportsInit(subscription)) {
+                continue;
+            }
+            return reader.getList(subscription, date);
         }
         throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getInitType());
     }
 
-    private SubscribedContentResult convertToResult(final SubscribedContent content, SubscriptionType type) {
-        return new SubscribedContentResult(
-                type,
-                content.url(),
-                content.title(),
-                content.imageUrl(),
-                content.publishedDate(),
-                content.content()
-        );
-    }
 }

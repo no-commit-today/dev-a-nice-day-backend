@@ -5,6 +5,7 @@ import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawlingSubscription;
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -94,7 +95,7 @@ class ListCrawlingContentReaderTest {
         given(localDateParser.parse("date-crawl-1")).willReturn(LocalDate.of(2024, 6, 17));
 
         // when
-        final List<SubscribedContent> result = listCrawlingContentReader.getList(
+        final List<SubscribedContentResult> result = listCrawlingContentReader.getList(
                 new ListCrawlingSubscription(
                         listCrawling,
                         contentCrawling
@@ -104,13 +105,13 @@ class ListCrawlingContentReaderTest {
 
         // then
         assertThat(result).containsExactly(
-                new SubscribedContent(
+                SubscribedContentResult.ok(new SubscribedContentResult.Content(
                         "content-url-1",
                         "title-crawl-1",
                         "image-url-1",
                         LocalDate.of(2024, 6, 17),
                         "content-crawl-1"
-                )
+                ))
         );
     }
 
@@ -179,7 +180,7 @@ class ListCrawlingContentReaderTest {
         given(localDateParser.parse("date-crawl-2")).willReturn(LocalDate.of(2024, 6, 16));
 
         // when
-        final List<SubscribedContent> result = listCrawlingContentReader.getList(
+        final List<SubscribedContentResult> result = listCrawlingContentReader.getList(
                 new ListCrawlingSubscription(
                         listCrawling,
                         contentCrawling
@@ -189,13 +190,13 @@ class ListCrawlingContentReaderTest {
 
         // then
         assertThat(result).containsExactly(
-                new SubscribedContent(
+                SubscribedContentResult.ok(new SubscribedContentResult.Content(
                         "content-url-1",
                         "title-crawl-1",
                         "image-url-1",
                         LocalDate.of(2024, 6, 17),
                         "content-crawl-1"
-                )
+                ))
         );
     }
 }

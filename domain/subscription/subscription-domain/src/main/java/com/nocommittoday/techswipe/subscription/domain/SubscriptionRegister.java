@@ -19,8 +19,7 @@ public record SubscriptionRegister(
         if (type == SubscriptionType.NONE) {
             throw new SubscriptionRegisterFailureException("type이 필요합니다.");
         }
-
-        if (type == SubscriptionType.FEED) {
+        if (type == SubscriptionType.FEED || initType == SubscriptionType.FEED) {
             validateFeed();
         }
         if (type == SubscriptionType.LIST_CRAWLING || initType == SubscriptionType.LIST_CRAWLING) {
@@ -76,7 +75,7 @@ public record SubscriptionRegister(
     private void validateCrawling(final Crawling crawling) {
         if (CrawlingType.INDEX == crawling.type()
                 && (crawling.indexes() == null || crawling.indexes().isEmpty())) {
-            throw new SubscriptionRegisterFailureException(CrawlingType.INDEX + "타입은 crawling.indexes가() 필수입니다.");
+            throw new SubscriptionRegisterFailureException(CrawlingType.INDEX + "타입은 crawling.indexes가 필수입니다.");
         }
         if (CrawlingType.SELECTOR == crawling.type()
                 && (crawling.selector() == null || crawling.selector().isEmpty())) {

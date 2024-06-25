@@ -5,6 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import static com.nocommittoday.techswipe.collection.storage.mysql.QCollectedContentEntity.collectedContentEntity;
@@ -24,6 +25,15 @@ class CollectedContentJpaRepositoryCustomImpl implements CollectedContentJpaRepo
                 .select(collectedContentEntity.url)
                 .from(collectedContentEntity)
                 .where(collectedContentEntity.provider.eq(provider))
+                .fetch();
+    }
+
+    @Override
+    public List<String> findAllUrlByProviderIn(final Collection<TechContentProviderEntity> providers) {
+        return queryFactory
+                .select(collectedContentEntity.url)
+                .from(collectedContentEntity)
+                .where(collectedContentEntity.provider.in(providers))
                 .fetch();
     }
 }

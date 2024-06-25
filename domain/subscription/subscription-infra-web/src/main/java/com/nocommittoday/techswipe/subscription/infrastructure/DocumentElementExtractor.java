@@ -16,22 +16,24 @@ public class DocumentElementExtractor {
 
     public Element extractByIndex(final Document document, final List<Integer> indexes) {
         Element element = document.body();
-        log.trace("document={}", document.html());
+        log.debug("인덱스로 추출 시작. url={}", document.baseUri());
         for (int i = 0; i < indexes.size(); i++) {
             final int index = indexes.get(i);
-            element = element.child(index);
             if (log.isTraceEnabled()) {
-                log.trace("indexes[{}]={}, indexes={}, \n{}", i, index, indexes, element.html());
+                log.trace("url={}, indexes[{}]={} 추출. indexes={}. \n{}",
+                        document.baseUri(), i, index, indexes, element.html());
             }
+            element = element.child(index);
         }
         return element;
     }
 
     public Element extractBySelector(final Document document, final String selector) {
+        log.debug("셀렉터로 추출 시작. url={}", document.baseUri());
         final Elements elements = document.body().select(selector);
-        log.trace("document={}", document.html());
         if (log.isTraceEnabled()) {
-            log.trace("selector={}, \n{}", selector, elements.html());
+            log.trace("url={}, selector={}, \n{}",
+                    document.baseUri(), selector, elements.html());
         }
         return elements.first();
     }

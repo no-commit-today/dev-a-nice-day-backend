@@ -45,7 +45,7 @@ public class ContentCrawler {
 
     public String getText(final Crawling crawling) {
         final Element element = crawl(crawling);
-        if (element.children().isEmpty()) {
+        if (!element.children().isEmpty()) {
             throw new CrawlingException(document.baseUri(), crawling, element.html());
         }
         return element.text();

@@ -7,6 +7,7 @@ import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.FeedSubscription;
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -69,7 +70,7 @@ class FeedContentReaderTest {
         )).willReturn(contentCrawler);
 
         // when
-        final List<SubscribedContent> result = feedContentReader.getList(
+        final List<SubscribedContentResult> result = feedContentReader.getList(
                 new FeedSubscription(
                         "feed-url",
                         new ContentCrawling(
@@ -83,10 +84,10 @@ class FeedContentReaderTest {
 
         // then
         assertThat(result).hasSize(1);
-        assertThat(result.get(0).url()).isEqualTo("entry-url");
-        assertThat(result.get(0).title()).isEqualTo("entry-title");
-        assertThat(result.get(0).imageUrl()).isEqualTo("entry-image-url");
-        assertThat(result.get(0).publishedDate()).isEqualTo(LocalDate.of(2024, 6, 17));
+        assertThat(result.get(0).content().url()).isEqualTo("entry-url");
+        assertThat(result.get(0).content().title()).isEqualTo("entry-title");
+        assertThat(result.get(0).content().imageUrl()).isEqualTo("entry-image-url");
+        assertThat(result.get(0).content().publishedDate()).isEqualTo(LocalDate.of(2024, 6, 17));
     }
 
     @Test
@@ -127,7 +128,7 @@ class FeedContentReaderTest {
         )).willReturn(mock(ContentCrawler.class));
 
         // when
-        final List<SubscribedContent> result = feedContentReader.getList(
+        final List<SubscribedContentResult> result = feedContentReader.getList(
                 new FeedSubscription(
                         "feed-url",
                         new ContentCrawling(
@@ -141,7 +142,7 @@ class FeedContentReaderTest {
 
         // then
         assertThat(result).hasSize(1);
-        assertThat(result.get(0).publishedDate()).isEqualTo(LocalDate.of(2024, 6, 17));
+        assertThat(result.get(0).content().publishedDate()).isEqualTo(LocalDate.of(2024, 6, 17));
     }
 
     @Test
@@ -192,7 +193,7 @@ class FeedContentReaderTest {
         given(contentCrawler.get(contentCrawling)).willReturn("entry-content-crawl");
 
         // when
-        final List<SubscribedContent> result = feedContentReader.getList(
+        final List<SubscribedContentResult> result = feedContentReader.getList(
                 new FeedSubscription(
                         "feed-url",
                         new ContentCrawling(
@@ -206,10 +207,10 @@ class FeedContentReaderTest {
 
         // then
         assertThat(result).hasSize(1);
-        assertThat(result.get(0).url()).isEqualTo("entry-url");
-        assertThat(result.get(0).title()).isEqualTo("entry-title-crawl");
-        assertThat(result.get(0).publishedDate()).isEqualTo(LocalDate.of(2024, 6, 17));
-        assertThat(result.get(0).content()).isEqualTo("entry-content-crawl");
-        assertThat(result.get(0).imageUrl()).isEqualTo("entry-image-url");
+        assertThat(result.get(0).content().url()).isEqualTo("entry-url");
+        assertThat(result.get(0).content().title()).isEqualTo("entry-title-crawl");
+        assertThat(result.get(0).content().publishedDate()).isEqualTo(LocalDate.of(2024, 6, 17));
+        assertThat(result.get(0).content().content()).isEqualTo("entry-content-crawl");
+        assertThat(result.get(0).content().imageUrl()).isEqualTo("entry-image-url");
     }
 }
