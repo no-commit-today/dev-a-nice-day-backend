@@ -1,8 +1,7 @@
 package com.nocommittoday.techswipe.subscription.service;
 
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
-import com.nocommittoday.techswipe.subscription.infrastructure.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.infrastructure.SubscribedContentReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,9 +22,7 @@ public class SubscribedContentListQueryService {
             if (!reader.supports(subscription)) {
                 continue;
             }
-            return reader.getList(subscription, date).stream()
-                    .map(subscribedContent -> mapToResult(subscribedContent, subscription.getType()))
-                    .toList();
+            return reader.getList(subscription, date);
         }
         throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getType());
     }
@@ -36,20 +33,9 @@ public class SubscribedContentListQueryService {
             if (!reader.supportsInit(subscription)) {
                 continue;
             }
-            return reader.getList(subscription, date).stream()
-                    .map(subscribedContent -> mapToResult(subscribedContent, subscription.getInitType()))
-                    .toList();
+            return reader.getList(subscription, date);
         }
         throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getInitType());
     }
 
-    private SubscribedContentResult mapToResult(final SubscribedContent content, SubscriptionType type) {
-        return new SubscribedContentResult(
-                content.url(),
-                content.title(),
-                content.imageUrl(),
-                content.publishedDate(),
-                content.content()
-        );
-    }
 }

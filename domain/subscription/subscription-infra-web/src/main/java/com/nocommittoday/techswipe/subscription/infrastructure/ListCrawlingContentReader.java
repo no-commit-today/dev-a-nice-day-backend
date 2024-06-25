@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.subscription.infrastructure;
 import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawlingSubscription;
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class ListCrawlingContentReader implements SubscribedContentReader {
     private final LocalDateParser localDateParser;
 
     @Override
-    public List<SubscribedContent> getList(final Subscription subscription, final LocalDate date) {
+    public List<SubscribedContentResult> getList(final Subscription subscription, final LocalDate date) {
         return subscription.toListCrawling().stream()
                 .map(listCrawling -> getList(listCrawling, date))
                 .flatMap(List::stream)
@@ -41,35 +42,40 @@ public class ListCrawlingContentReader implements SubscribedContentReader {
         return SubscriptionType.LIST_CRAWLING == subscription.getInitType();
     }
 
-    public List<SubscribedContent> getList(final ListCrawlingSubscription subscription, final LocalDate date) {
+    public List<SubscribedContentResult> getList(final ListCrawlingSubscription subscription, final LocalDate date) {
         final ListCrawling listCrawling = subscription.listCrawling();
         final ContentCrawling contentCrawling = subscription.contentCrawling();
         final UrlListCrawlingIterator iterator = urlListCrawlingIteratorCreator.create(
                 documentConnector,
                 documentElementExtractor,
                 listCrawling);
-        final List<SubscribedContent> result = new ArrayList<>();
+        final List<SubscribedContentResult> result = new ArrayList<>();
+
         while (iterator.hasNext()) {
             final String url = iterator.next();
-            final ContentCrawler crawler = contentCrawlerCreator.create(
-                    documentElementExtractor,
-                    documentConnector, url);
-            final LocalDate publishedDate = localDateParser.parse(
-                    crawler.getText(contentCrawling.date()));
-            if (date.isAfter(publishedDate)) {
-                break;
-            }
+            try {
+                final ContentCrawler crawler = contentCrawlerCreator.create(
+                        documentElementExtractor,
+                        documentConnector, url);
+                final LocalDate publishedDate = localDateParser.parse(
+                        crawler.getText(contentCrawling.date()));
+                if (date.isAfter(publishedDate)) {
+                    break;
+                }
 
-            final String title = crawler.getText(contentCrawling.title());
-            final String imageUrl = crawler.getImageUrl();
-            final String content = crawler.get(contentCrawling.content());
-            result.add(new SubscribedContent(
-                    url,
-                    title,
-                    imageUrl,
-                    publishedDate,
-                    content
-            ));
+                final String title = crawler.getText(contentCrawling.title());
+                final String imageUrl = crawler.getImageUrl();
+                final String content = crawler.get(contentCrawling.content());
+                result.add(SubscribedContentResult.ok(new SubscribedContentResult.Content(
+                        url,
+                        title,
+                        imageUrl,
+                        publishedDate,
+                        content
+                )));
+            } catch (final Exception ex) {
+                result.add(SubscribedContentResult.fail(url, ex));
+            }
         }
         return Collections.unmodifiableList(result);
     }

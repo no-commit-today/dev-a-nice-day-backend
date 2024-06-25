@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 
 import java.time.LocalDate;
@@ -11,5 +12,5 @@ public interface SubscribedContentReader {
 
     boolean supportsInit(Subscription subscription);
 
-    List<SubscribedContent> getList(Subscription subscription, LocalDate date);
+    List<SubscribedContentResult> getList(Subscription subscription, LocalDate date);
 }

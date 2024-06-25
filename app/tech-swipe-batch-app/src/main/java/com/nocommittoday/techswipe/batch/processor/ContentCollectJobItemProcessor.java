@@ -2,9 +2,9 @@ package com.nocommittoday.techswipe.batch.processor;
 
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
-import com.nocommittoday.techswipe.subscription.service.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,11 +28,11 @@ public class ContentCollectJobItemProcessor implements ItemProcessor<Subscriptio
         return subscribedContentList.stream()
                 .map(subscribedContent -> new ContentCollect(
                         subscription.getProviderId(),
-                        subscribedContent.url(),
-                        subscribedContent.title(),
-                        subscribedContent.publishedDate(),
-                        subscribedContent.content(),
-                        subscribedContent.imageUrl()
+                        subscribedContent.content().url(),
+                        subscribedContent.content().title(),
+                        subscribedContent.content().publishedDate(),
+                        subscribedContent.content().content(),
+                        subscribedContent.content().imageUrl()
                 ))
                 .map(CollectedContentEntity::from)
                 .toList();
