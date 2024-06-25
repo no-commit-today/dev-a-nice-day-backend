@@ -110,4 +110,31 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                 ));
     }
 
+    @Test
+    void 컨텐츠_개수_조회_Docs() throws Exception {
+        // given
+        given(
+                contentListQueryService.count(
+                        new ContentListQueryParam(
+                                List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING)))
+        ).willReturn(100L);
+
+        // when
+        // then
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/content/v1/contents-count")
+                        .param("categories", TechCategory.SERVER.name())
+                        .param("categories", TechCategory.SW_ENGINEERING.name())
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andDo(document("content/get-content-count",
+                        queryParameters(
+                                parameterWithName("categories").description("카테고리 목록. 여러 개 전달 가능.")
+                        ),
+                        responseFields(
+                                fieldWithPath("count").description("컨텐츠 개수")
+                        )
+                ));
+    }
+
 }
