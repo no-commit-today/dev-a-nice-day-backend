@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.subscription.infrastructure.real;
+package com.nocommittoday.techswipe.subscription.infrastructure.dev;
 
 
 import com.nocommittoday.techswipe.core.infrastructure.LocalDateHolder;
@@ -8,12 +8,14 @@ import com.nocommittoday.techswipe.subscription.infrastructure.ContentCrawler;
 import com.nocommittoday.techswipe.subscription.infrastructure.DocumentConnector;
 import com.nocommittoday.techswipe.subscription.infrastructure.DocumentElementExtractor;
 import com.nocommittoday.techswipe.subscription.infrastructure.LocalDateParser;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
 
-class ContentCrawlerRealTest {
+@Tag("develop")
+class ContentCrawlerDevTest {
 
     private DocumentElementExtractor documentElementExtractor = new DocumentElementExtractor();
 

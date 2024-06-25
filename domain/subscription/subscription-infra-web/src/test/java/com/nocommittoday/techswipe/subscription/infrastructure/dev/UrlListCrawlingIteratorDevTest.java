@@ -1,24 +1,22 @@
-package com.nocommittoday.techswipe.subscription.infrastructure;
+package com.nocommittoday.techswipe.subscription.infrastructure.dev;
 
 import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
+import com.nocommittoday.techswipe.subscription.infrastructure.DocumentConnector;
+import com.nocommittoday.techswipe.subscription.infrastructure.DocumentElementExtractor;
+import com.nocommittoday.techswipe.subscription.infrastructure.UrlListCrawlingIterator;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootTest
 @Tag("develop")
-class UrlListCrawlingIteratorRealTest {
+class UrlListCrawlingIteratorDevTest {
 
-    @Autowired
-    private DocumentConnector documentConnector;
+    private DocumentElementExtractor documentElementExtractor = new DocumentElementExtractor();
 
-    @Autowired
-    private DocumentElementExtractor documentElementExtractor;
+    private DocumentConnector documentConnector = new DocumentConnector();
 
     @Test
     void 토스() {
