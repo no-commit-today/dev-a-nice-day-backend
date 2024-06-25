@@ -94,6 +94,8 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                                 parameterWithName("size").description("페이지 크기"),
                                 parameterWithName("categories").description("카테고리 목록. 여러 개 전달 가능.")
                                         .attributes(RestDocsAttribute.type(TechCategory.class))
+                                        .attributes(RestDocsAttribute.defaultValue("모든 카테고리"))
+                                        .optional()
                         ),
                         responseFields(
                                 fieldWithPath("content").description("리스트 데이터"),
@@ -134,6 +136,8 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                         queryParameters(
                                 parameterWithName("categories").description("카테고리 목록. 여러 개 전달 가능.")
                                         .attributes(RestDocsAttribute.type(TechCategory.class))
+                                        .attributes(RestDocsAttribute.defaultValue("모든 카테고리"))
+                                        .optional()
                         ),
                         responseFields(
                                 fieldWithPath("count").description("컨텐츠 개수")
