@@ -83,6 +83,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                         .param("page", "1")
                         .param("size", "10")
                         .param("categories", TechCategory.SERVER.name())
+                        .param("categories", TechCategory.SW_ENGINEERING.name())
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -90,7 +91,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                         queryParameters(
                                 parameterWithName("page").description("페이지 번호"),
                                 parameterWithName("size").description("페이지 크기"),
-                                parameterWithName("categories").description("카테고리 목록")
+                                parameterWithName("categories").description("카테고리 목록. 여러 개 전달 가능.")
                         ),
                         responseFields(
                                 fieldWithPath("content").description("리스트 데이터"),
