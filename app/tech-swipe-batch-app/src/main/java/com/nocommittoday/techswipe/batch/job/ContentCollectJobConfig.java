@@ -89,9 +89,8 @@ public class ContentCollectJobConfig {
         reader.setTransacted(false);
         reader.setQueryFunction(queryFactory -> queryFactory
                 .selectFrom(subscriptionEntity)
-                .where(
-                        subscriptionEntity.deleted.isFalse()
-                )
+                .where(subscriptionEntity.deleted.isFalse())
+                .orderBy(subscriptionEntity.id.asc())
         );
         return reader;
     }
