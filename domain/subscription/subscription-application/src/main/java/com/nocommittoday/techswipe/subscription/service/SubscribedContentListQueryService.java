@@ -2,10 +2,8 @@ package com.nocommittoday.techswipe.subscription.service;
 
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
-import com.nocommittoday.techswipe.subscription.infrastructure.FeedContentReader;
-import com.nocommittoday.techswipe.subscription.infrastructure.ListCrawlingContentReader;
 import com.nocommittoday.techswipe.subscription.infrastructure.SubscribedContent;
-import com.nocommittoday.techswipe.subscription.infrastructure.SubscriptionReader;
+import com.nocommittoday.techswipe.subscription.infrastructure.SubscribedContentReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,22 +14,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SubscribedContentListQueryService {
 
-    private final SubscriptionReader subscriptionReader;
-    private final FeedContentReader rssContentReader;
-    private final ListCrawlingContentReader listCrawlingContentReader;
+    private final List<SubscribedContentReader> subscribedContentReaders;
 
     public List<SubscribedContentResult> getList(
             final Subscription subscription, final LocalDate date
     ) {
-        if (SubscriptionType.LIST_CRAWLING == subscription.getType()) {
-            return subscription.toListCrawling().stream()
-                .map(listCrawling -> listCrawlingContentReader.getList(listCrawling, date))
-                .flatMap(List::stream)
-                .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
-                .toList();
-        } else if (SubscriptionType.FEED == subscription.getType()) {
-            return rssContentReader.getList(subscription.toFeed(), date).stream()
-                    .map(subscribedContent -> convertToResult(subscribedContent, subscription.getType()))
+        for (SubscribedContentReader reader : subscribedContentReaders) {
+            if (!reader.supports(subscription)) {
+                continue;
+            }
+            return reader.getList(subscription, date).stream()
+                    .map(subscribedContent -> mapToResult(subscribedContent, subscription.getType()))
                     .toList();
         }
         throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getType());
@@ -39,21 +32,18 @@ public class SubscribedContentListQueryService {
 
     public List<SubscribedContentResult> getInitList(final Subscription subscription) {
         final LocalDate date = LocalDate.MIN;
-        if (SubscriptionType.LIST_CRAWLING == subscription.getInitType()) {
-            return subscription.toListCrawling().stream()
-                .map(listCrawling -> listCrawlingContentReader.getList(listCrawling, date))
-                .flatMap(List::stream)
-                .map(subscribedContent -> convertToResult(subscribedContent, subscription.getInitType()))
-                .toList();
-        } else if (SubscriptionType.FEED == subscription.getInitType()) {
-            return rssContentReader.getList(subscription.toFeed(), date).stream()
-                    .map(subscribedContent -> convertToResult(subscribedContent, subscription.getInitType()))
+        for (SubscribedContentReader reader : subscribedContentReaders) {
+            if (!reader.supportsInit(subscription)) {
+                continue;
+            }
+            return reader.getList(subscription, date).stream()
+                    .map(subscribedContent -> mapToResult(subscribedContent, subscription.getInitType()))
                     .toList();
         }
         throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getInitType());
     }
 
-    private SubscribedContentResult convertToResult(final SubscribedContent content, SubscriptionType type) {
+    private SubscribedContentResult mapToResult(final SubscribedContent content, SubscriptionType type) {
         return new SubscribedContentResult(
                 type,
                 content.url(),

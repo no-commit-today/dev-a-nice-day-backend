@@ -4,6 +4,8 @@ import com.nocommittoday.client.feed.FeedClient;
 import com.nocommittoday.client.feed.FeedResponse;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.FeedSubscription;
+import com.nocommittoday.techswipe.subscription.domain.Subscription;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,13 +17,28 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class FeedContentReader {
+public class FeedContentReader implements SubscribedContentReader {
 
     private final FeedClient feedClient;
     private final DocumentConnector documentConnector;
     private final DocumentElementExtractor documentElementExtractor;
     private final ContentCrawlerCreator contentCrawlerCreator;
     private final LocalDateParser localDateParser;
+
+    @Override
+    public List<SubscribedContent> getList(final Subscription subscription, final LocalDate date) {
+        return getList(subscription.toFeed(), date);
+    }
+
+    @Override
+    public boolean supports(final Subscription subscription) {
+        return SubscriptionType.FEED == subscription.getType();
+    }
+
+    @Override
+    public boolean supportsInit(final Subscription subscription) {
+        return SubscriptionType.FEED == subscription.getInitType();
+    }
 
     public List<SubscribedContent> getList(
             final FeedSubscription subscription,

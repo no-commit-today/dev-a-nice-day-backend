@@ -3,6 +3,8 @@ package com.nocommittoday.techswipe.subscription.infrastructure;
 import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawlingSubscription;
+import com.nocommittoday.techswipe.subscription.domain.Subscription;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,13 +15,31 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class ListCrawlingContentReader {
+public class ListCrawlingContentReader implements SubscribedContentReader {
 
     private final DocumentConnector documentConnector;
     private final DocumentElementExtractor documentElementExtractor;
     private final UrlListCrawlingIteratorCreator urlListCrawlingIteratorCreator;
     private final ContentCrawlerCreator contentCrawlerCreator;
     private final LocalDateParser localDateParser;
+
+    @Override
+    public List<SubscribedContent> getList(final Subscription subscription, final LocalDate date) {
+        return subscription.toListCrawling().stream()
+                .map(listCrawling -> getList(listCrawling, date))
+                .flatMap(List::stream)
+                .toList();
+    }
+
+    @Override
+    public boolean supports(final Subscription subscription) {
+        return SubscriptionType.LIST_CRAWLING == subscription.getType();
+    }
+
+    @Override
+    public boolean supportsInit(final Subscription subscription) {
+        return SubscriptionType.LIST_CRAWLING == subscription.getInitType();
+    }
 
     public List<SubscribedContent> getList(final ListCrawlingSubscription subscription, final LocalDate date) {
         final ListCrawling listCrawling = subscription.listCrawling();
