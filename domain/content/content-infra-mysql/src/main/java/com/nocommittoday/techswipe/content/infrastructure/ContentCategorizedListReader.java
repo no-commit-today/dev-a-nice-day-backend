@@ -29,4 +29,8 @@ public class ContentCategorizedListReader {
                 .map(TechContentEntity::toDomain)
                 .toList();
     }
+
+    public long count(final List<TechCategory> categories) {
+        return 0;
+    }
 }

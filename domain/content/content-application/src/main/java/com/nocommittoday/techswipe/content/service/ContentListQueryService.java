@@ -61,4 +61,8 @@ public class ContentListQueryService {
                         Image::getId, Image::getUrl
                 ));
     }
+
+    public long count(final ContentListQueryParam queryParam) {
+        return contentCategorizedListReader.count(queryParam.categories());
+    }
 }
