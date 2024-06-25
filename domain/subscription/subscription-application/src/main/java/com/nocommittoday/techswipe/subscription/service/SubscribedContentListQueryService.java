@@ -45,7 +45,6 @@ public class SubscribedContentListQueryService {
 
     private SubscribedContentResult mapToResult(final SubscribedContent content, SubscriptionType type) {
         return new SubscribedContentResult(
-                type,
                 content.url(),
                 content.title(),
                 content.imageUrl(),
