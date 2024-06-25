@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.nocommittoday.techswipe.content.storage.mysql.QTechCategoryEntity.techCategoryEntity;
@@ -41,6 +42,22 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
                 .offset(pageParam.offset())
                 .limit(pageParam.size())
                 .fetch();
+    }
+
+    @Override
+    public long countByDeletedIsFalseCategoryIn(final List<TechCategory> categories) {
+        return Objects.requireNonNull(
+                queryFactory
+                        .select(techContentEntity.count())
+                        .from(techContentEntity)
+                        .join(techCategoryEntity).on(
+                                techContentEntity.id.eq(techCategoryEntity.content.id))
+                        .where(
+                                techCategoryEntity.category.in(categories),
+                                techContentEntity.deleted.isFalse()
+                        )
+                        .fetchOne()
+        );
     }
 
     @Override

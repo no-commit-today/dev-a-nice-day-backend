@@ -11,3 +11,9 @@
 == 컨텐츠 리스트 조회
 
 operation::content/get-content-list[snippets='http-request,query-parameters,http-response,response-fields']
+
+[[get-content-count]]
+== 컨텐츠 개수 조회
+
+operation::content/get-content-count[snippets='http-request,http-response']
+

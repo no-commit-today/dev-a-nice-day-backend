@@ -8,6 +8,7 @@ import com.nocommittoday.techswipe.content.service.ContentListQueryParam;
 import com.nocommittoday.techswipe.content.service.ContentListQueryService;
 import com.nocommittoday.techswipe.content.service.ContentQueryResult;
 import com.nocommittoday.techswipe.content.service.ProviderQueryResult;
+import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import com.nocommittoday.techswipe.docs.restdocs.RestDocsAttribute;
@@ -54,7 +55,8 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
         // given
         given(contentLinkCreator.create(new TechContent.Id(1L))).willReturn("content-link-url");
         given(contentListQueryService.getList(
-                new PageParam(1, 10), new ContentListQueryParam(List.of(TechCategory.SERVER))
+                new PageParam(1, 10),
+                new ContentListQueryParam(List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING))
         )).willReturn(List.of(
                 new ContentQueryResult(
                         new TechContent.Id(1L),
@@ -83,14 +85,22 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                         .param("page", "1")
                         .param("size", "10")
                         .param("categories", TechCategory.SERVER.name())
+                        .param("categories", TechCategory.SW_ENGINEERING.name())
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andDo(document("content/get-content-list",
                         queryParameters(
-                                parameterWithName("page").description("페이지 번호"),
-                                parameterWithName("size").description("페이지 크기"),
-                                parameterWithName("categories").description("카테고리 목록")
+                                parameterWithName("page").description("페이지 번호")
+                                        .attributes(RestDocsAttribute.defaultValue(PageRequest.DEFAULT_PAGE))
+                                        .optional(),
+                                parameterWithName("size").description("페이지 크기")
+                                        .attributes(RestDocsAttribute.defaultValue(PageRequest.DEFAULT_SIZE))
+                                        .optional(),
+                                parameterWithName("categories").description("카테고리 목록. 여러 개 전달 가능.")
+                                        .attributes(RestDocsAttribute.type(TechCategory.class))
+                                        .attributes(RestDocsAttribute.defaultValue("모든 카테고리"))
+                                        .optional()
                         ),
                         responseFields(
                                 fieldWithPath("content").description("리스트 데이터"),
@@ -106,6 +116,36 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                                 fieldWithPath("content[].providerTitle").description("제공자 제목"),
                                 fieldWithPath("content[].providerUrl").description("제공자 URL"),
                                 fieldWithPath("content[].providerIconUrl").description("제공자 아이콘 URL")
+                        )
+                ));
+    }
+
+    @Test
+    void 컨텐츠_개수_조회_Docs() throws Exception {
+        // given
+        given(
+                contentListQueryService.count(
+                        new ContentListQueryParam(
+                                List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING)))
+        ).willReturn(100L);
+
+        // when
+        // then
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/content/v1/contents-count")
+                        .param("categories", TechCategory.SERVER.name())
+                        .param("categories", TechCategory.SW_ENGINEERING.name())
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andDo(document("content/get-content-count",
+                        queryParameters(
+                                parameterWithName("categories").description("카테고리 목록. 여러 개 전달 가능.")
+                                        .attributes(RestDocsAttribute.type(TechCategory.class))
+                                        .attributes(RestDocsAttribute.defaultValue("모든 카테고리"))
+                                        .optional()
+                        ),
+                        responseFields(
+                                fieldWithPath("count").description("컨텐츠 개수")
                         )
                 ));
     }
