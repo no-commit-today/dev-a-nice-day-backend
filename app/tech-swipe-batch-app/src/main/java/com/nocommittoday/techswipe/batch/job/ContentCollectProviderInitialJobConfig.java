@@ -1,33 +1,38 @@
 package com.nocommittoday.techswipe.batch.job;
 
+import com.nocommittoday.techswipe.batch.application.CollectedContentUrlInMemoryExistsReader;
 import com.nocommittoday.techswipe.batch.param.ProviderIdJobParameters;
-import com.nocommittoday.techswipe.collection.domain.ContentCollect;
+import com.nocommittoday.techswipe.batch.param.ProviderIdListJobParameters;
+import com.nocommittoday.techswipe.batch.processor.ContentCollectProviderInitialJobItemProcessor;
+import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
+import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrlListReader;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
-import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentJpaRepository;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
-import com.nocommittoday.techswipe.subscription.service.SubscribedContentResult;
+import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
+import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersValidator;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.DefaultJobParametersValidator;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.core.step.builder.TaskletStepBuilder;
-import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.batch.item.database.JpaItemWriter;
+import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import static com.nocommittoday.techswipe.subscription.storage.mysql.QSubscriptionEntity.subscriptionEntity;
 
 @Slf4j
 @Configuration
@@ -36,27 +41,22 @@ public class ContentCollectProviderInitialJobConfig {
 
     private static final String JOB_NAME = "contentCollectProviderInitialJob";
     private static final String STEP_NAME = "contentCollectProviderInitialStep";
+    private static final int CHUNK_SIZE = 1;
 
     private final JobRepository jobRepository;
 
     private final PlatformTransactionManager txManager;
 
+    private final EntityManagerFactory emf;
+
     private final CollectedContentUrlListReader collectedContentUrlListReader;
 
-    private final CollectedContentJpaRepository collectedContentJpaRepository;
-
     private final SubscribedContentListQueryService subscribedContentListQueryService;
-
-    @Bean(JOB_NAME + ProviderIdJobParameters.NAME)
-    @JobScope
-    public ProviderIdJobParameters providerIdJobParameters() {
-        return new ProviderIdJobParameters();
-    }
 
     @Bean(JOB_NAME + "JobParametersValidator")
     public JobParametersValidator jobParametersValidator() {
         return new DefaultJobParametersValidator(
-                new String[]{"provider.id"},
+                new String[]{"provider.ids"},
                 new String[]{}
         );
     }
@@ -74,36 +74,69 @@ public class ContentCollectProviderInitialJobConfig {
     @Bean(STEP_NAME)
     @JobScope
     public Step step() {
-        final TaskletStepBuilder taskletStepBuilder = new TaskletStepBuilder(new StepBuilder(STEP_NAME, jobRepository));
-        return taskletStepBuilder.tasklet((contribution, chunkContext) -> {
-            final TechContentProvider.Id providerId = providerIdJobParameters().getProviderId();
-            final Set<String> urlSet = new HashSet<>(collectedContentUrlListReader.getAllUrlsByProvider(providerId));
-
-            final List<SubscribedContentResult> subscribedContentList = subscribedContentListQueryService
-                    .getInitList(providerId);
-
-            final List<CollectedContentEntity> collectedContentEntityList = subscribedContentList.stream()
-                    .filter(item -> {
-                        final boolean urlCollected = urlSet.contains(item.url());
-                        if (urlCollected) {
-                            log.info("provider[{}] url이 이미 수집되어 있습니다. url: {}", providerId.value(), item.url());
-                        }
-                        return !urlCollected;
-                    })
-                    .map(item -> new ContentCollect(
-                            providerId,
-                            item.url(),
-                            item.title(),
-                            item.publishedDate(),
-                            item.content(),
-                            item.imageUrl()
-                    ))
-                    .map(CollectedContentEntity::from)
-                    .toList();
-            collectedContentJpaRepository.saveAll(collectedContentEntityList);
-            return RepeatStatus.FINISHED;
-        }, txManager).build();
+        final StepBuilder stepBuilder = new StepBuilder(STEP_NAME, jobRepository);
+        return stepBuilder
+                .<SubscriptionEntity, List<CollectedContentEntity>>chunk(CHUNK_SIZE, txManager)
+                .reader(reader())
+                .processor(processor())
+                .writer(writer())
+                .build();
     }
 
+    @Bean(STEP_NAME + "ItemReader")
+    @StepScope
+    public QuerydslPagingItemReader<SubscriptionEntity> reader() {
+        final QuerydslPagingItemReader<SubscriptionEntity> reader = new QuerydslPagingItemReader<>();
+        reader.setEntityManagerFactory(emf);
+        reader.setPageSize(CHUNK_SIZE);
+        reader.setTransacted(false);
+        reader.setQueryFunction(queryFactory -> queryFactory
+                .selectFrom(subscriptionEntity)
+                .where(
+                        subscriptionEntity.provider.id.in(
+                                providerIdListJobParameters().getProviderIdList().stream()
+                                        .mapToLong(TechContentProvider.Id::value)
+                                        .boxed()
+                                        .toList()
+                        ),
+                        subscriptionEntity.deleted.isFalse()
+                ).orderBy(subscriptionEntity.id.asc())
+        );
+        return reader;
+    }
+
+    @Bean(STEP_NAME + "ItemProcessor")
+    @StepScope
+    public ContentCollectProviderInitialJobItemProcessor processor() {
+        return new ContentCollectProviderInitialJobItemProcessor(
+                subscribedContentListQueryService,
+                collectedContentUrlInMemoryExistsReader()
+        );
+    }
+
+    @Bean(STEP_NAME + "ItemWriter")
+    @StepScope
+    public JpaItemListWriter<CollectedContentEntity> writer() {
+        final JpaItemWriter<CollectedContentEntity> jpaItemWriter = new JpaItemWriterBuilder<CollectedContentEntity>()
+                .entityManagerFactory(emf)
+                .usePersist(true)
+                .build();
+        return new JpaItemListWriter<>(jpaItemWriter);
+    }
+
+    @Bean(JOB_NAME + ProviderIdJobParameters.NAME)
+    @JobScope
+    public ProviderIdListJobParameters providerIdListJobParameters() {
+        return new ProviderIdListJobParameters();
+    }
+
+    @Bean
+    @StepScope
+    public CollectedContentUrlInMemoryExistsReader collectedContentUrlInMemoryExistsReader() {
+        return new CollectedContentUrlInMemoryExistsReader(
+                collectedContentUrlListReader,
+                providerIdListJobParameters().getProviderIdList()
+        );
+    }
 
 }

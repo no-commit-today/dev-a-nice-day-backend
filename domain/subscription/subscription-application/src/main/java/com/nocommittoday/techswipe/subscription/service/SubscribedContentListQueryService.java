@@ -1,6 +1,5 @@
 package com.nocommittoday.techswipe.subscription.service;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.infrastructure.FeedContentReader;
@@ -38,8 +37,7 @@ public class SubscribedContentListQueryService {
         throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getType());
     }
 
-    public List<SubscribedContentResult> getInitList(final TechContentProvider.Id providerId) {
-        final Subscription subscription = subscriptionReader.getByProviderId(providerId);
+    public List<SubscribedContentResult> getInitList(final Subscription subscription) {
         final LocalDate date = LocalDate.MIN;
         if (SubscriptionType.LIST_CRAWLING == subscription.getInitType()) {
             return subscription.toListCrawling().stream()
