@@ -29,8 +29,8 @@ public class DocumentElementExtractor {
     }
 
     public Element extractBySelector(final Document document, final String selector) {
-        final Elements elements = document.body().select(selector);
         log.debug("셀렉터로 추출 시작. url={}", document.baseUri());
+        final Elements elements = document.body().select(selector);
         if (log.isTraceEnabled()) {
             log.trace("url={}, selector={}, \n{}",
                     document.baseUri(), selector, elements.html());
