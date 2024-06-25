@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.content.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
+import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import com.nocommittoday.techswipe.test.AbstractDataJpaTest;
@@ -201,6 +202,54 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         techContentEntities.get(1).getId(),
                         techContentEntities.get(0).getId()
                 );
+    }
+
+    @Test
+    void 카테고리에_해당하는_컨텐츠_개수를_조회한다() {
+        // given
+        final List<TechContentEntity> techContentEntities = List.of(
+                new TechContentEntity(
+                        null,
+                        TechContentProviderEntity.from(new TechContentProvider.Id(10)),
+                        null,
+                        "url-1",
+                        "title-1",
+                        "summary-1",
+                        LocalDate.of(2021, 1, 1)
+                ),
+                new TechContentEntity(
+                        null,
+                        TechContentProviderEntity.from(new TechContentProvider.Id(10)),
+                        null,
+                        "url-2",
+                        "title-2",
+                        "summary-2",
+                        LocalDate.of(2021, 1, 2)
+                ), new TechContentEntity(
+                        null,
+                        TechContentProviderEntity.from(new TechContentProvider.Id(11)),
+                        null,
+                        "url-3",
+                        "title-3",
+                        "summary-3",
+                        LocalDate.of(2021, 1, 3)
+                )
+        );
+        techContentEntities.get(0).addCategory(TechCategory.SERVER);
+        techContentEntities.get(0).addCategory(TechCategory.SW_ENGINEERING);
+        techContentEntities.get(1).addCategory(TechCategory.WEB);
+        techContentEntities.get(1).addCategory(TechCategory.SW_ENGINEERING);
+        techContentEntities.get(1).delete();
+        techContentEntities.get(2).addCategory(TechCategory.APP);
+        techContentJpaRepository.saveAll(techContentEntities);
+
+        // when
+        final long result = techContentJpaRepository.countByDeletedIsFalseCategoryIn(
+                List.of(TechCategory.SW_ENGINEERING, TechCategory.APP)
+        );
+
+        // then
+        assertThat(result).isEqualTo(2);
     }
 
     @Test
