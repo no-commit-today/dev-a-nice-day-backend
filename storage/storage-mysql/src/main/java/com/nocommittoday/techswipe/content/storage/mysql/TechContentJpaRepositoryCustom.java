@@ -9,10 +9,12 @@ import java.util.Optional;
 interface TechContentJpaRepositoryCustom {
 
     List<TechContentEntity> findAllWithProviderByCategoryInOrderByPublishedDateDesc(
-            final PageParam pageParam, final List<TechCategory> categories
+            PageParam pageParam, List<TechCategory> categories
     );
 
-    List<TechContentEntity> findAllWithProviderOrderByPublishedDateDesc(final PageParam pageParam);
+    long countByDeletedIsFalseCategoryIn(List<TechCategory> categories);
+
+    List<TechContentEntity> findAllWithProviderOrderByPublishedDateDesc(PageParam pageParam);
 
     Optional<String> findUrlByIdAndDeletedIsFalse(Long id);
 }
