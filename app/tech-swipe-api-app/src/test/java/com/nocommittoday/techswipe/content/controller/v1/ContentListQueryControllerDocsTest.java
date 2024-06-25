@@ -8,6 +8,7 @@ import com.nocommittoday.techswipe.content.service.ContentListQueryParam;
 import com.nocommittoday.techswipe.content.service.ContentListQueryService;
 import com.nocommittoday.techswipe.content.service.ContentQueryResult;
 import com.nocommittoday.techswipe.content.service.ProviderQueryResult;
+import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import com.nocommittoday.techswipe.docs.restdocs.RestDocsAttribute;
@@ -90,8 +91,12 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                 .andExpect(status().isOk())
                 .andDo(document("content/get-content-list",
                         queryParameters(
-                                parameterWithName("page").description("페이지 번호"),
-                                parameterWithName("size").description("페이지 크기"),
+                                parameterWithName("page").description("페이지 번호")
+                                        .attributes(RestDocsAttribute.defaultValue(PageRequest.DEFAULT_PAGE))
+                                        .optional(),
+                                parameterWithName("size").description("페이지 크기")
+                                        .attributes(RestDocsAttribute.defaultValue(PageRequest.DEFAULT_SIZE))
+                                        .optional(),
                                 parameterWithName("categories").description("카테고리 목록. 여러 개 전달 가능.")
                                         .attributes(RestDocsAttribute.type(TechCategory.class))
                                         .attributes(RestDocsAttribute.defaultValue("모든 카테고리"))
