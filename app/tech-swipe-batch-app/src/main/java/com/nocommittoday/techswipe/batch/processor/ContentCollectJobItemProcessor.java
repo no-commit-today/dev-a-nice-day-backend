@@ -26,6 +26,14 @@ public class ContentCollectJobItemProcessor implements ItemProcessor<Subscriptio
         final List<SubscribedContentResult> subscribedContentList = subscribedContentListQueryService.getList(
                 subscription, date);
         return subscribedContentList.stream()
+                .filter(subscribedContent -> {
+                    if (!subscribedContent.success()) {
+                        log.warn("구독 컨텐츠 수집 실패 subscription.id={}, url={}",
+                                subscription.getId(), subscribedContent.content().url(), subscribedContent.exception()
+                        );
+                    }
+                    return subscribedContent.success();
+                })
                 .map(subscribedContent -> new ContentCollect(
                         subscription.getProviderId(),
                         subscribedContent.content().url(),

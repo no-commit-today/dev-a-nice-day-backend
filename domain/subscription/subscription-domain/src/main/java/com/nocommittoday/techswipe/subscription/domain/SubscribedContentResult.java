@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public record SubscribedContentResult(
         boolean success,
         Content content,
-        @Nullable Exception ex
+        @Nullable Exception exception
 ) {
 
     public static SubscribedContentResult ok(
