@@ -54,7 +54,8 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
         // given
         given(contentLinkCreator.create(new TechContent.Id(1L))).willReturn("content-link-url");
         given(contentListQueryService.getList(
-                new PageParam(1, 10), new ContentListQueryParam(List.of(TechCategory.SERVER))
+                new PageParam(1, 10),
+                new ContentListQueryParam(List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING))
         )).willReturn(List.of(
                 new ContentQueryResult(
                         new TechContent.Id(1L),
@@ -92,6 +93,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                                 parameterWithName("page").description("페이지 번호"),
                                 parameterWithName("size").description("페이지 크기"),
                                 parameterWithName("categories").description("카테고리 목록. 여러 개 전달 가능.")
+                                        .attributes(RestDocsAttribute.type(TechCategory.class))
                         ),
                         responseFields(
                                 fieldWithPath("content").description("리스트 데이터"),
@@ -131,6 +133,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                 .andDo(document("content/get-content-count",
                         queryParameters(
                                 parameterWithName("categories").description("카테고리 목록. 여러 개 전달 가능.")
+                                        .attributes(RestDocsAttribute.type(TechCategory.class))
                         ),
                         responseFields(
                                 fieldWithPath("count").description("컨텐츠 개수")
