@@ -27,7 +27,8 @@ public class ImageStoreService {
             "image/webp", "webp",
             "image/svg+xml", "svg",
             "image/tiff", "tif",
-            "image/x-icon", "ico"
+            "image/x-icon", "ico",
+            "image/vnd.microsoft.icon", "ico"
     );
 
     private final FileStore fileStore;
