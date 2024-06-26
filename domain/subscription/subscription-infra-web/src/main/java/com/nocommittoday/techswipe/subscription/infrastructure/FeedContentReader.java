@@ -25,6 +25,7 @@ public class FeedContentReader implements SubscribedContentReader {
     private final DocumentElementExtractor documentElementExtractor;
     private final ContentCrawlerCreator contentCrawlerCreator;
     private final LocalDateParser localDateParser;
+    private final HtmlTagCleaner htmlTagCleaner;
 
     @Override
     public List<SubscribedContentResult> getList(final Subscription subscription, final LocalDate date) {
@@ -51,7 +52,9 @@ public class FeedContentReader implements SubscribedContentReader {
         for (FeedResponse.Entry entry : feed.entries()) {
             final ContentCrawler crawler = contentCrawlerCreator.create(
                     documentElementExtractor,
-                    documentConnector, entry.link()
+                    documentConnector,
+                    entry.link(),
+                    htmlTagCleaner
             );
 
             try {
@@ -70,8 +73,8 @@ public class FeedContentReader implements SubscribedContentReader {
                         .orElse(entry.title());
                 final String content = Optional.of(subscription.contentCrawling().content())
                         .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
-                        .map(crawler::get)
-                        .orElse(entry.content());
+                        .map(crawler::getCleaned)
+                        .orElseGet(() -> htmlTagCleaner.clean(entry.content()));
 
                 result.add(SubscribedContentResult.ok(new SubscribedContentResult.Content(
                         entry.link(),

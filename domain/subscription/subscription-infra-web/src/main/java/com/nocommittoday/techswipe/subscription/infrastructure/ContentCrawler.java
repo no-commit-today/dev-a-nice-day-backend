@@ -16,14 +16,17 @@ public class ContentCrawler {
 
     private final Document document;
     private final DocumentElementExtractor documentElementExtractor;
+    private final HtmlTagCleaner htmlTagCleaner;
 
     public ContentCrawler(
             final DocumentElementExtractor documentElementExtractor,
             final DocumentConnector connector,
-            final String url
+            final String url,
+            final HtmlTagCleaner htmlTagCleaner
     ) {
         this.documentElementExtractor = documentElementExtractor;
         this.document = connector.connect(url).get();
+        this.htmlTagCleaner = htmlTagCleaner;
     }
 
     @Nullable
@@ -48,6 +51,10 @@ public class ContentCrawler {
             throw new CrawlingException(document.baseUri(), crawling, element.html());
         }
         return element.text();
+    }
+
+    public String getCleaned(final Crawling crawling) {
+        return htmlTagCleaner.clean(crawl(crawling));
     }
 
     private Element crawl(final Crawling crawling) {

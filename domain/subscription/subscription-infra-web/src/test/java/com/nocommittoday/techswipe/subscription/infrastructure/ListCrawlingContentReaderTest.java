@@ -40,6 +40,9 @@ class ListCrawlingContentReaderTest {
     @Mock
     private LocalDateParser localDateParser;
 
+    @Mock
+    private HtmlTagCleaner htmlTagCleaner;
+
     @Test
     void 컨텐츠_목록_리스트의_url을_크롤링한_후_url을_통해_컨텐츠를_크롤링한다() {
         // given
@@ -67,7 +70,8 @@ class ListCrawlingContentReaderTest {
         given(contentCrawlerCreator.create(
                 documentElementExtractor,
                 documentConnector,
-                "content-url-1"
+                "content-url-1",
+                htmlTagCleaner
         )).willReturn(contentCrawler);
 
         final ContentCrawling contentCrawling = new ContentCrawling(
@@ -91,7 +95,7 @@ class ListCrawlingContentReaderTest {
         given(contentCrawler.getText(contentCrawling.date())).willReturn("date-crawl-1");
         given(contentCrawler.getText(contentCrawling.title())).willReturn("title-crawl-1");
         given(contentCrawler.getImageUrl()).willReturn("image-url-1");
-        given(contentCrawler.get(contentCrawling.content())).willReturn("content-crawl-1");
+        given(contentCrawler.getCleaned(contentCrawling.content())).willReturn("content-crawl-1");
         given(localDateParser.parse("date-crawl-1")).willReturn(LocalDate.of(2024, 6, 17));
 
         // when
@@ -142,14 +146,16 @@ class ListCrawlingContentReaderTest {
         given(contentCrawlerCreator.create(
                 documentElementExtractor,
                 documentConnector,
-                "content-url-1"
+                "content-url-1",
+                htmlTagCleaner
         )).willReturn(contentCrawler1);
 
         final ContentCrawler contentCrawler2 = mock(ContentCrawler.class);
         given(contentCrawlerCreator.create(
                 documentElementExtractor,
                 documentConnector,
-                "content-url-2"
+                "content-url-2",
+                htmlTagCleaner
         )).willReturn(contentCrawler2);
 
         final ContentCrawling contentCrawling = new ContentCrawling(
@@ -173,7 +179,7 @@ class ListCrawlingContentReaderTest {
         given(contentCrawler1.getText(contentCrawling.date())).willReturn("date-crawl-1");
         given(contentCrawler1.getText(contentCrawling.title())).willReturn("title-crawl-1");
         given(contentCrawler1.getImageUrl()).willReturn("image-url-1");
-        given(contentCrawler1.get(contentCrawling.content())).willReturn("content-crawl-1");
+        given(contentCrawler1.getCleaned(contentCrawling.content())).willReturn("content-crawl-1");
         given(localDateParser.parse("date-crawl-1")).willReturn(LocalDate.of(2024, 6, 17));
 
         given(contentCrawler2.getText(contentCrawling.date())).willReturn("date-crawl-2");

@@ -43,6 +43,9 @@ class FeedContentReaderTest {
     @Mock
     private LocalDateParser localDateParser;
 
+    @Mock
+    private HtmlTagCleaner htmlTagCleaner;
+
     @Test
     void feed_의_컨텐츠를_가져온다() {
         // given
@@ -66,7 +69,8 @@ class FeedContentReaderTest {
         given(contentCrawlerCreator.create(
                 documentElementExtractor,
                 documentConnector,
-                "entry-url"
+                "entry-url",
+                htmlTagCleaner
         )).willReturn(contentCrawler);
 
         // when
@@ -119,12 +123,14 @@ class FeedContentReaderTest {
         given(contentCrawlerCreator.create(
                 documentElementExtractor,
                 documentConnector,
-                "entry-url-1"
+                "entry-url-1",
+                htmlTagCleaner
         )).willReturn(contentCrawler);
         given(contentCrawlerCreator.create(
                 documentElementExtractor,
                 documentConnector,
-                "entry-url-2"
+                "entry-url-2",
+                htmlTagCleaner
         )).willReturn(mock(ContentCrawler.class));
 
         // when
@@ -168,7 +174,8 @@ class FeedContentReaderTest {
         given(contentCrawlerCreator.create(
                 documentElementExtractor,
                 documentConnector,
-                "entry-url"
+                "entry-url",
+                htmlTagCleaner
         )).willReturn(contentCrawler);
 
         final Crawling titleCrawling = new Crawling(
@@ -190,7 +197,7 @@ class FeedContentReaderTest {
         given(contentCrawler.getText(dateCrawling)).willReturn("entry-date-crawl");
         given(localDateParser.parse("entry-date-crawl")).willReturn(LocalDate.of(2024, 6, 17));
         given(contentCrawler.getText(titleCrawling)).willReturn("entry-title-crawl");
-        given(contentCrawler.get(contentCrawling)).willReturn("entry-content-crawl");
+        given(contentCrawler.getCleaned(contentCrawling)).willReturn("entry-content-crawl");
 
         // when
         final List<SubscribedContentResult> result = feedContentReader.getList(

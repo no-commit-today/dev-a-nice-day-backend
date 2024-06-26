@@ -7,6 +7,7 @@ import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.infrastructure.ContentCrawler;
 import com.nocommittoday.techswipe.subscription.infrastructure.DocumentConnector;
 import com.nocommittoday.techswipe.subscription.infrastructure.DocumentElementExtractor;
+import com.nocommittoday.techswipe.subscription.infrastructure.HtmlTagCleaner;
 import com.nocommittoday.techswipe.subscription.infrastructure.LocalDateParser;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -22,12 +23,15 @@ class ContentCrawlerDevTest {
 
     private LocalDateParser localDateParser = new LocalDateParser(new LocalDateHolder());
 
+    private HtmlTagCleaner htmlTagCleaner = new HtmlTagCleaner();
+
     @Test
     void 토스() {
         final ContentCrawler contentCrawler = new ContentCrawler(
                 documentElementExtractor,
                 documentConnector,
-                "https://toss.tech/article/secure-efficient-ai"
+                "https://toss.tech/article/secure-efficient-ai",
+                htmlTagCleaner
         );
 
         final String imageUrl = contentCrawler.getImageUrl();

@@ -7,8 +7,10 @@ public class ContentCrawlerCreator {
 
     public ContentCrawler create(
             final DocumentElementExtractor documentElementExtractor,
-            final DocumentConnector documentConnector, final String url
+            final DocumentConnector documentConnector,
+            final String url,
+            final HtmlTagCleaner htmlTagCleaner
     ) {
-        return new ContentCrawler(documentElementExtractor, documentConnector, url);
+        return new ContentCrawler(documentElementExtractor, documentConnector, url, htmlTagCleaner);
     }
 }
