@@ -1,38 +1,34 @@
 package com.nocommittoday.techswipe.subscription.infrastructure.dev;
 
 
-import com.nocommittoday.techswipe.core.infrastructure.LocalDateHolder;
 import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.infrastructure.ContentCrawler;
-import com.nocommittoday.techswipe.subscription.infrastructure.DocumentConnector;
-import com.nocommittoday.techswipe.subscription.infrastructure.DocumentElementExtractor;
-import com.nocommittoday.techswipe.subscription.infrastructure.HtmlTagCleaner;
+import com.nocommittoday.techswipe.subscription.infrastructure.ContentCrawlerCreator;
 import com.nocommittoday.techswipe.subscription.infrastructure.LocalDateParser;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("develop")
+@SpringBootTest
 class ContentCrawlerDevTest {
 
-    private DocumentElementExtractor documentElementExtractor = new DocumentElementExtractor();
+    @Autowired
+    private ContentCrawlerCreator contentCrawlerCreator;
 
-    private DocumentConnector documentConnector = new DocumentConnector();
-
-    private LocalDateParser localDateParser = new LocalDateParser(new LocalDateHolder());
-
-    private HtmlTagCleaner htmlTagCleaner = new HtmlTagCleaner();
+    @Autowired
+    private LocalDateParser localDateParser;
 
     @Test
     void 토스() {
-        final ContentCrawler contentCrawler = new ContentCrawler(
-                documentElementExtractor,
-                documentConnector,
-                "https://toss.tech/article/secure-efficient-ai",
-                htmlTagCleaner
-        );
+        final ContentCrawler contentCrawler = contentCrawlerCreator.create("https://toss.tech/article/secure-efficient-ai");
 
         final String imageUrl = contentCrawler.getImageUrl();
         System.out.println("imageUrl = " + imageUrl);
@@ -57,5 +53,22 @@ class ContentCrawlerDevTest {
                 null
         ));
         System.out.println("content = \n" + content);
+    }
+
+    @Test
+    void 마켓컬리() {
+        final ContentCrawler contentCrawler = contentCrawlerCreator.create("https://helloworld.kurly.com/blog/commit-mvcc-set-autocommit/");
+
+        final String imageUrl = contentCrawler.getImageUrl();
+        System.out.println("imageUrl = " + imageUrl);
+        assertThat(imageUrl).isNotEmpty();
+
+        final String content = contentCrawler.getCleaned(new Crawling(
+                CrawlingType.INDEX,
+                null,
+                List.of(1, 0, 0)
+        ));
+        System.out.println("content = " + content);
+        assertThat(content).isNotEmpty();
     }
 }
