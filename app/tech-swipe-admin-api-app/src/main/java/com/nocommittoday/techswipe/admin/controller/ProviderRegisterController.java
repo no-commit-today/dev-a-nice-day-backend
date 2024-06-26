@@ -16,7 +16,7 @@ public class ProviderRegisterController {
 
     private final ProviderRegisterService providerRegisterService;
 
-    @PostMapping("/api/content/admin/contents")
+    @PostMapping("/api/content/admin/providers")
     ResponseEntity<ProviderRegisterResponse> register(@RequestBody @Valid final ProviderRegisterRequest request) {
         final TechContentProvider.Id providerId = providerRegisterService.register(
                 request.toCommand());
