@@ -24,7 +24,6 @@ public class ContentCrawler {
     ) {
         this.documentElementExtractor = documentElementExtractor;
         this.document = connector.connect(url).get();
-        this.document.select("style").remove();
     }
 
     @Nullable

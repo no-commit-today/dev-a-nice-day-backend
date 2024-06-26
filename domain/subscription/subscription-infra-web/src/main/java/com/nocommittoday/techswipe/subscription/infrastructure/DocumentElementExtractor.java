@@ -16,6 +16,7 @@ public class DocumentElementExtractor {
 
     public Element extractByIndex(final Document document, final List<Integer> indexes) {
         Element element = document.body();
+        element.select("style").remove();
         log.debug("인덱스로 추출 시작. url={}", document.baseUri());
         for (int i = 0; i < indexes.size(); i++) {
             final int index = indexes.get(i);
