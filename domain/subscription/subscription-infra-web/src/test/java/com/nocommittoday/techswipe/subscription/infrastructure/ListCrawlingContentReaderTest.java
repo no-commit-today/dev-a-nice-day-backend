@@ -40,9 +40,6 @@ class ListCrawlingContentReaderTest {
     @Mock
     private LocalDateParser localDateParser;
 
-    @Mock
-    private HtmlTagCleaner htmlTagCleaner;
-
     @Test
     void 컨텐츠_목록_리스트의_url을_크롤링한_후_url을_통해_컨텐츠를_크롤링한다() {
         // given
@@ -67,12 +64,7 @@ class ListCrawlingContentReaderTest {
         )).willReturn(iterator);
 
         final ContentCrawler contentCrawler = mock(ContentCrawler.class);
-        given(contentCrawlerCreator.create(
-                documentElementExtractor,
-                documentConnector,
-                "content-url-1",
-                htmlTagCleaner
-        )).willReturn(contentCrawler);
+        given(contentCrawlerCreator.create("content-url-1")).willReturn(contentCrawler);
 
         final ContentCrawling contentCrawling = new ContentCrawling(
                 new Crawling(
@@ -143,20 +135,10 @@ class ListCrawlingContentReaderTest {
         )).willReturn(iterator);
 
         final ContentCrawler contentCrawler1 = mock(ContentCrawler.class);
-        given(contentCrawlerCreator.create(
-                documentElementExtractor,
-                documentConnector,
-                "content-url-1",
-                htmlTagCleaner
-        )).willReturn(contentCrawler1);
+        given(contentCrawlerCreator.create("content-url-1")).willReturn(contentCrawler1);
 
         final ContentCrawler contentCrawler2 = mock(ContentCrawler.class);
-        given(contentCrawlerCreator.create(
-                documentElementExtractor,
-                documentConnector,
-                "content-url-2",
-                htmlTagCleaner
-        )).willReturn(contentCrawler2);
+        given(contentCrawlerCreator.create("content-url-2")).willReturn(contentCrawler2);
 
         final ContentCrawling contentCrawling = new ContentCrawling(
                 new Crawling(

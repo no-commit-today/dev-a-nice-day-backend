@@ -23,7 +23,6 @@ public class ListCrawlingContentReader implements SubscribedContentReader {
     private final UrlListCrawlingIteratorCreator urlListCrawlingIteratorCreator;
     private final ContentCrawlerCreator contentCrawlerCreator;
     private final LocalDateParser localDateParser;
-    private final HtmlTagCleaner htmlTagCleaner;
 
     @Override
     public List<SubscribedContentResult> getList(final Subscription subscription, final LocalDate date) {
@@ -55,12 +54,7 @@ public class ListCrawlingContentReader implements SubscribedContentReader {
         while (iterator.hasNext()) {
             final String url = iterator.next();
             try {
-                final ContentCrawler crawler = contentCrawlerCreator.create(
-                        documentElementExtractor,
-                        documentConnector,
-                        url,
-                        htmlTagCleaner
-                );
+                final ContentCrawler crawler = contentCrawlerCreator.create(url);
                 final LocalDate publishedDate = localDateParser.parse(
                         crawler.getText(contentCrawling.date()));
                 if (date.isAfter(publishedDate)) {
