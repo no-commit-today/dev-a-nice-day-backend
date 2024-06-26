@@ -26,12 +26,6 @@ class ListCrawlingContentReaderTest {
     private ListCrawlingContentReader listCrawlingContentReader;
 
     @Mock
-    private DocumentConnector documentConnector;
-
-    @Mock
-    private DocumentElementExtractor documentElementExtractor;
-
-    @Mock
     private UrlListCrawlingIteratorCreator urlListCrawlingIteratorCreator;
 
     @Mock
@@ -57,11 +51,7 @@ class ListCrawlingContentReaderTest {
         given(iterator.hasNext()).willReturn(true, false);
         given(iterator.next()).willReturn("content-url-1");
 
-        given(urlListCrawlingIteratorCreator.create(
-                documentConnector,
-                documentElementExtractor,
-                listCrawling
-        )).willReturn(iterator);
+        given(urlListCrawlingIteratorCreator.create(listCrawling)).willReturn(iterator);
 
         final ContentCrawler contentCrawler = mock(ContentCrawler.class);
         given(contentCrawlerCreator.create("content-url-1")).willReturn(contentCrawler);
@@ -128,11 +118,7 @@ class ListCrawlingContentReaderTest {
         given(iterator.hasNext()).willReturn(true, true, false);
         given(iterator.next()).willReturn("content-url-1", "content-url-2");
 
-        given(urlListCrawlingIteratorCreator.create(
-                documentConnector,
-                documentElementExtractor,
-                listCrawling
-        )).willReturn(iterator);
+        given(urlListCrawlingIteratorCreator.create(listCrawling)).willReturn(iterator);
 
         final ContentCrawler contentCrawler1 = mock(ContentCrawler.class);
         given(contentCrawlerCreator.create("content-url-1")).willReturn(contentCrawler1);

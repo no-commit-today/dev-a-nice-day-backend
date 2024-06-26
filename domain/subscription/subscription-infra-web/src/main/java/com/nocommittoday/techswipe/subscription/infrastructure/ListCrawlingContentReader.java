@@ -18,8 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ListCrawlingContentReader implements SubscribedContentReader {
 
-    private final DocumentConnector documentConnector;
-    private final DocumentElementExtractor documentElementExtractor;
     private final UrlListCrawlingIteratorCreator urlListCrawlingIteratorCreator;
     private final ContentCrawlerCreator contentCrawlerCreator;
     private final LocalDateParser localDateParser;
@@ -45,10 +43,7 @@ public class ListCrawlingContentReader implements SubscribedContentReader {
     public List<SubscribedContentResult> getList(final ListCrawlingSubscription subscription, final LocalDate date) {
         final ListCrawling listCrawling = subscription.listCrawling();
         final ContentCrawling contentCrawling = subscription.contentCrawling();
-        final UrlListCrawlingIterator iterator = urlListCrawlingIteratorCreator.create(
-                documentConnector,
-                documentElementExtractor,
-                listCrawling);
+        final UrlListCrawlingIterator iterator = urlListCrawlingIteratorCreator.create(listCrawling);
         final List<SubscribedContentResult> result = new ArrayList<>();
 
         while (iterator.hasNext()) {
