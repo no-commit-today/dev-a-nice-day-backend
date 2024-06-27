@@ -11,6 +11,7 @@ import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEnti
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.nocommittoday.techswipe.subscription.storage.mysql.QSubscriptionEntity.subscriptionEntity;
 
@@ -52,14 +54,6 @@ public class ContentCollectProviderInitialJobConfig {
     private final CollectedContentUrlListReader collectedContentUrlListReader;
 
     private final SubscribedContentListQueryService subscribedContentListQueryService;
-
-    @Bean(JOB_NAME + "JobParametersValidator")
-    public JobParametersValidator jobParametersValidator() {
-        return new DefaultJobParametersValidator(
-                new String[]{"provider.ids"},
-                new String[]{}
-        );
-    }
 
     @Bean(JOB_NAME)
     public Job job() {
@@ -93,16 +87,21 @@ public class ContentCollectProviderInitialJobConfig {
         reader.setQueryFunction(queryFactory -> queryFactory
                 .selectFrom(subscriptionEntity)
                 .where(
-                        subscriptionEntity.provider.id.in(
-                                providerIdListJobParameters().getProviderIdList().stream()
-                                        .mapToLong(TechContentProvider.Id::value)
-                                        .boxed()
-                                        .toList()
-                        ),
+                        providerIdIn(),
                         subscriptionEntity.deleted.isFalse()
                 ).orderBy(subscriptionEntity.id.asc())
         );
         return reader;
+    }
+
+    private BooleanExpression providerIdIn() {
+        return Optional.ofNullable(providerIdListJobParameters().getProviderIdList())
+                .map(idList -> idList.stream()
+                        .mapToLong(TechContentProvider.Id::value)
+                        .boxed()
+                        .toList()
+                ).map(subscriptionEntity.provider.id::in)
+                .orElse(null);
     }
 
     @Bean(STEP_NAME + "ItemProcessor")
@@ -122,6 +121,14 @@ public class ContentCollectProviderInitialJobConfig {
                 .usePersist(true)
                 .build();
         return new JpaItemListWriter<>(jpaItemWriter);
+    }
+
+    @Bean(JOB_NAME + "JobParametersValidator")
+    public JobParametersValidator jobParametersValidator() {
+        return new DefaultJobParametersValidator(
+                new String[]{},
+                new String[]{}
+        );
     }
 
     @Bean(JOB_NAME + ProviderIdJobParameters.NAME)
