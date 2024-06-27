@@ -52,4 +52,16 @@ class ProviderIdListJobParametersTest {
                 new TechContentProvider.Id(3L)
         );
     }
+
+    @Test
+    void provider_ids_파라미터가_null이면_null을_반환한다() {
+        // given
+        final ProviderIdListJobParameters providerIdListJobParameters = new ProviderIdListJobParameters();
+
+        // when
+        providerIdListJobParameters.setProviderId(null);
+
+        // then
+        assertThat(providerIdListJobParameters.getProviderIdList()).isNull();
+    }
 }
