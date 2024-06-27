@@ -386,4 +386,392 @@ class FeedClientDevTest {
         assertThat(entry.content()).isNotEmpty();
     }
 
+    @Test
+    void _29CM() {
+        final String url = "https://medium.com/feed/29cm";
+        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        final FeedResponse feed = response.getData();
+        System.out.println(feed);
+
+        assertThat(feed).isNotNull();
+        assertThat(feed.title()).isNotEmpty();
+        assertThat(feed.link()).isNotEmpty();
+        assertThat(feed.iconUrl()).isNotEmpty();
+        assertThat(feed.entries()).isNotEmpty();
+
+        final FeedResponse.Entry entry = feed.entries().get(0);
+        System.out.println("link: " + entry.link());
+        System.out.println("title: " + entry.title());
+        System.out.println("date: " + entry.date());
+        System.out.println("content: " + entry.content());
+        assertThat(entry.link()).isNotEmpty();
+        assertThat(entry.title()).isNotEmpty();
+        assertThat(entry.date()).isNotNull();
+        assertThat(entry.content()).isNotEmpty();
+    }
+
+    @Test
+    void 네이버_플레이스() {
+        final String url = "https://medium.com/feed/naver-place-dev";
+        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        final FeedResponse feed = response.getData();
+        System.out.println("link: " + feed.link());
+        System.out.println("title: " + feed.title());
+        System.out.println("iconUrl: " + feed.iconUrl());
+
+        assertThat(feed).isNotNull();
+        assertThat(feed.title()).isNotEmpty();
+        assertThat(feed.link()).isNotEmpty();
+        assertThat(feed.iconUrl()).isNotEmpty();
+        assertThat(feed.entries()).isNotEmpty();
+
+        final FeedResponse.Entry entry = feed.entries().get(0);
+        System.out.println("entry.link: " + entry.link());
+        System.out.println("entry.title: " + entry.title());
+        System.out.println("entry.date: " + entry.date());
+        System.out.println("entry.content: " + entry.content());
+        assertThat(entry.link()).isNotEmpty();
+        assertThat(entry.title()).isNotEmpty();
+        assertThat(entry.date()).isNotNull();
+        assertThat(entry.content()).isNotEmpty();
+    }
+
+    @Test
+    void 넷마블() {
+        final String url = "https://netmarble.engineering/feed/";
+        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        final FeedResponse feed = response.getData();
+        System.out.println("link: " + feed.link());
+        System.out.println("title: " + feed.title());
+        System.out.println("iconUrl: " + feed.iconUrl());
+
+        assertThat(feed).isNotNull();
+        assertThat(feed.title()).isNotEmpty();
+        assertThat(feed.link()).isNotEmpty();
+        assertThat(feed.iconUrl()).isNotEmpty();
+        assertThat(feed.entries()).isNotEmpty();
+
+        final FeedResponse.Entry entry = feed.entries().get(0);
+        System.out.println("entry.link: " + entry.link());
+        System.out.println("entry.title: " + entry.title());
+        System.out.println("entry.date: " + entry.date());
+        System.out.println("entry.content: " + entry.content());
+        assertThat(entry.link()).isNotEmpty();
+        assertThat(entry.title()).isNotEmpty();
+        assertThat(entry.date()).isNotNull();
+        assertThat(entry.content())
+                .describedAs("요약이어서 사용 불가능")
+                .isNotEmpty();
+    }
+
+    @Test
+    void 다나와() {
+        final String url = "https://danawalab.github.io/feed";
+        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        final FeedResponse feed = response.getData();
+        System.out.println("link: " + feed.link());
+        System.out.println("title: " + feed.title());
+        System.out.println("iconUrl: " + feed.iconUrl());
+
+        assertThat(feed).isNotNull();
+        assertThat(feed.title()).isNotEmpty();
+        assertThat(feed.link()).isNotEmpty();
+        assertThat(feed.iconUrl()).isNull();
+        assertThat(feed.entries()).isNotEmpty();
+
+        final FeedResponse.Entry entry = feed.entries().get(0);
+        System.out.println("entry.link: " + entry.link());
+        System.out.println("entry.title: " + entry.title());
+        System.out.println("entry.date: " + entry.date());
+        System.out.println("entry.content: " + entry.content());
+        assertThat(entry.link()).isNotEmpty();
+        assertThat(entry.title()).isNotEmpty();
+        assertThat(entry.date()).isNotNull();
+        assertThat(entry.content())
+                .isNotEmpty();
+    }
+
+    @Test
+    void 번개장터() {
+        final String url = "https://medium.com/feed/bunjang-tech-blog";
+        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        final FeedResponse feed = response.getData();
+        System.out.println("link: " + feed.link());
+        System.out.println("title: " + feed.title());
+        System.out.println("iconUrl: " + feed.iconUrl());
+
+        assertThat(feed).isNotNull();
+        assertThat(feed.title()).isNotEmpty();
+        assertThat(feed.link()).isNotEmpty();
+        assertThat(feed.iconUrl())
+                .describedAs("미디엄 아이콘 사용 불가능")
+                .isNotEmpty();
+        assertThat(feed.entries()).isNotEmpty();
+
+        final FeedResponse.Entry entry = feed.entries().get(0);
+        System.out.println("entry.link: " + entry.link());
+        System.out.println("entry.title: " + entry.title());
+        System.out.println("entry.date: " + entry.date());
+        System.out.println("entry.content: " + entry.content());
+        assertThat(entry.link()).isNotEmpty();
+        assertThat(entry.title()).isNotEmpty();
+        assertThat(entry.date()).isNotNull();
+        assertThat(entry.content())
+                .isNotEmpty();
+    }
+
+    @Test
+    void 야놀자클라우드() {
+        final String url = "https://medium.com/feed/yanoljacloud-tech";
+        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        final FeedResponse feed = response.getData();
+        System.out.println("link: " + feed.link());
+        System.out.println("title: " + feed.title());
+        System.out.println("iconUrl: " + feed.iconUrl());
+
+        assertThat(feed).isNotNull();
+        assertThat(feed.title()).isNotEmpty();
+        assertThat(feed.link()).isNotEmpty();
+        assertThat(feed.iconUrl())
+                .describedAs("미디엄 아이콘 사용 불가능")
+                .isNotEmpty();
+        assertThat(feed.entries()).isNotEmpty();
+
+        final FeedResponse.Entry entry = feed.entries().get(0);
+        System.out.println("entry.link: " + entry.link());
+        System.out.println("entry.title: " + entry.title());
+        System.out.println("entry.date: " + entry.date());
+        System.out.println("entry.content: " + entry.content());
+        assertThat(entry.link()).isNotEmpty();
+        assertThat(entry.title()).isNotEmpty();
+        assertThat(entry.date()).isNotNull();
+        assertThat(entry.content())
+                .isNotEmpty();
+    }
+
+    @Test
+    void 원티드() {
+        final String url = "https://medium.com/feed/wantedjobs";
+        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        final FeedResponse feed = response.getData();
+        System.out.println("link: " + feed.link());
+        System.out.println("title: " + feed.title());
+        System.out.println("iconUrl: " + feed.iconUrl());
+
+        assertThat(feed).isNotNull();
+        assertThat(feed.title()).isNotEmpty();
+        assertThat(feed.link()).isNotEmpty();
+        assertThat(feed.iconUrl())
+                .describedAs("미디엄 아이콘 사용 불가능")
+                .isNotEmpty();
+        assertThat(feed.entries()).isNotEmpty();
+
+        final FeedResponse.Entry entry = feed.entries().get(0);
+        System.out.println("entry.link: " + entry.link());
+        System.out.println("entry.title: " + entry.title());
+        System.out.println("entry.date: " + entry.date());
+        System.out.println("entry.content: " + entry.content());
+        assertThat(entry.link()).isNotEmpty();
+        assertThat(entry.title()).isNotEmpty();
+        assertThat(entry.date()).isNotNull();
+        assertThat(entry.content())
+                .isNotEmpty();
+    }
+
+    @Test
+    void 카카오엔터테인먼트_FE() {
+        final String url = "https://fe-developers.kakaoent.com/rss.xml";
+        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        final FeedResponse feed = response.getData();
+        System.out.println("link: " + feed.link());
+        System.out.println("title: " + feed.title());
+        System.out.println("iconUrl: " + feed.iconUrl());
+
+        assertThat(feed).isNotNull();
+        assertThat(feed.title()).isNotEmpty();
+        assertThat(feed.link()).isNotEmpty();
+        assertThat(feed.iconUrl()).isNull();
+        assertThat(feed.entries()).isNotEmpty();
+
+        final FeedResponse.Entry entry = feed.entries().get(0);
+        System.out.println("entry.link: " + entry.link());
+        System.out.println("entry.title: " + entry.title());
+        System.out.println("entry.date: " + entry.date());
+        System.out.println("entry.content: " + entry.content());
+        assertThat(entry.link()).isNotEmpty();
+        assertThat(entry.title()).isNotEmpty();
+        assertThat(entry.date()).isNotNull();
+        assertThat(entry.content())
+                .isNotEmpty();
+    }
+
+    @Test
+    void 토스랩() {
+        final String url = "https://fe-developers.kakaoent.com/rss.xml";
+        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        final FeedResponse feed = response.getData();
+        System.out.println("link: " + feed.link());
+        System.out.println("title: " + feed.title());
+        System.out.println("iconUrl: " + feed.iconUrl());
+
+        assertThat(feed).isNotNull();
+        assertThat(feed.title()).isNotEmpty();
+        assertThat(feed.link()).isNotEmpty();
+        assertThat(feed.iconUrl()).isNull();
+        assertThat(feed.entries()).isNotEmpty();
+
+        final FeedResponse.Entry entry = feed.entries().get(0);
+        System.out.println("entry.link: " + entry.link());
+        System.out.println("entry.title: " + entry.title());
+        System.out.println("entry.date: " + entry.date());
+        System.out.println("entry.content: " + entry.content());
+        assertThat(entry.link()).isNotEmpty();
+        assertThat(entry.title()).isNotEmpty();
+        assertThat(entry.date()).isNotNull();
+        assertThat(entry.content())
+                .isNotEmpty();
+    }
+
+    @Test
+    void 테이블링() {
+        final String url = "https://medium.com/feed/tabling-tech";
+        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        final FeedResponse feed = response.getData();
+        System.out.println("link: " + feed.link());
+        System.out.println("title: " + feed.title());
+        System.out.println("iconUrl: " + feed.iconUrl());
+
+        assertThat(feed).isNotNull();
+        assertThat(feed.title()).isNotEmpty();
+        assertThat(feed.link()).isNotEmpty();
+        assertThat(feed.iconUrl())
+                .describedAs("미디엄 아이콘 사용 불가능")
+                .isNotEmpty();
+        assertThat(feed.entries()).isNotEmpty();
+
+        final FeedResponse.Entry entry = feed.entries().get(0);
+        System.out.println("entry.link: " + entry.link());
+        System.out.println("entry.title: " + entry.title());
+        System.out.println("entry.date: " + entry.date());
+        System.out.println("entry.content: " + entry.content());
+        assertThat(entry.link()).isNotEmpty();
+        assertThat(entry.title()).isNotEmpty();
+        assertThat(entry.date()).isNotNull();
+        assertThat(entry.content())
+                .isNotEmpty();
+    }
+
+    @Test
+    void ZUM() {
+        final String url = "https://zuminternet.github.io/feed.xml";
+        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        final FeedResponse feed = response.getData();
+        System.out.println("link: " + feed.link());
+        System.out.println("title: " + feed.title());
+        System.out.println("iconUrl: " + feed.iconUrl());
+
+        assertThat(feed).isNotNull();
+        assertThat(feed.title()).isNotEmpty();
+        assertThat(feed.link()).isNotEmpty();
+        assertThat(feed.iconUrl())
+                .isNull();
+        assertThat(feed.entries()).isNotEmpty();
+
+        final FeedResponse.Entry entry = feed.entries().get(0);
+        System.out.println("entry.link: " + entry.link());
+        System.out.println("entry.title: " + entry.title());
+        System.out.println("entry.date: " + entry.date());
+        System.out.println("entry.content: " + entry.content());
+        assertThat(entry.link()).isNotEmpty();
+        assertThat(entry.title()).isNotEmpty();
+        assertThat(entry.date()).isNotNull();
+        assertThat(entry.content())
+                .describedAs("요약이어서 사용 불가능")
+                .isNotEmpty();
+    }
+
+    @Test
+    void 지마켓() {
+        final String url = "https://dev.gmarket.com/rss";
+        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        final FeedResponse feed = response.getData();
+        System.out.println("link: " + feed.link());
+        System.out.println("title: " + feed.title());
+        System.out.println("iconUrl: " + feed.iconUrl());
+
+        assertThat(feed).isNotNull();
+        assertThat(feed.title()).isNotEmpty();
+        assertThat(feed.link()).isNotEmpty();
+        assertThat(feed.iconUrl()).isNotEmpty();
+        assertThat(feed.entries()).isNotEmpty();
+
+        final FeedResponse.Entry entry = feed.entries().get(0);
+        System.out.println("entry.link: " + entry.link());
+        System.out.println("entry.title: " + entry.title());
+        System.out.println("entry.date: " + entry.date());
+        System.out.println("entry.content: " + entry.content());
+        assertThat(entry.link()).isNotEmpty();
+        assertThat(entry.title()).isNotEmpty();
+        assertThat(entry.date()).isNotNull();
+        assertThat(entry.content())
+                .isNotEmpty();
+    }
+
+    @Test
+    void 네이버파이낸셜() {
+        final String url = "https://medium.com/feed/naverfinancial";
+        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        final FeedResponse feed = response.getData();
+        System.out.println("link: " + feed.link());
+        System.out.println("title: " + feed.title());
+        System.out.println("iconUrl: " + feed.iconUrl());
+
+        assertThat(feed).isNotNull();
+        assertThat(feed.title()).isNotEmpty();
+        assertThat(feed.link()).isNotEmpty();
+        assertThat(feed.iconUrl())
+                .describedAs("미디엄 아이콘 사용 불가능")
+                .isNotEmpty();
+        assertThat(feed.entries()).isNotEmpty();
+
+        final FeedResponse.Entry entry = feed.entries().get(0);
+        System.out.println("entry.link: " + entry.link());
+        System.out.println("entry.title: " + entry.title());
+        System.out.println("entry.date: " + entry.date());
+        System.out.println("entry.content: " + entry.content());
+        assertThat(entry.link()).isNotEmpty();
+        assertThat(entry.title()).isNotEmpty();
+        assertThat(entry.date()).isNotNull();
+        assertThat(entry.content())
+                .isNotEmpty();
+    }
+
+    @Test
+    void 여기어때() {
+        final String url = "https://medium.com/feed/naverfinancial";
+        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        final FeedResponse feed = response.getData();
+        System.out.println("link: " + feed.link());
+        System.out.println("title: " + feed.title());
+        System.out.println("iconUrl: " + feed.iconUrl());
+
+        assertThat(feed).isNotNull();
+        assertThat(feed.title()).isNotEmpty();
+        assertThat(feed.link()).isNotEmpty();
+        assertThat(feed.iconUrl())
+                .describedAs("미디엄 아이콘 사용 불가능")
+                .isNotEmpty();
+        assertThat(feed.entries()).isNotEmpty();
+
+        final FeedResponse.Entry entry = feed.entries().get(0);
+        System.out.println("entry.link: " + entry.link());
+        System.out.println("entry.title: " + entry.title());
+        System.out.println("entry.date: " + entry.date());
+        System.out.println("entry.content: " + entry.content());
+        assertThat(entry.link()).isNotEmpty();
+        assertThat(entry.title()).isNotEmpty();
+        assertThat(entry.date()).isNotNull();
+        assertThat(entry.content())
+                .isNotEmpty();
+    }
 }
