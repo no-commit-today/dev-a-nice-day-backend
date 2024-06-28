@@ -16,7 +16,7 @@ public class ProviderIdListJobParameters {
     public static final String NAME = "ProviderIdListJobParameters";
 
     private static final Pattern JOB_PARAMETERS_PATTERN = Pattern.compile(
-            "\\[(?<idParams>(\\d+(,\\d+)*|\\*))\\]"
+            "\\[(?<idParams>(\\d+(;\\d+)*|\\*))\\]"
     );
 
     @Nullable
@@ -37,7 +37,7 @@ public class ProviderIdListJobParameters {
             return;
         }
 
-        this.providerIdList = Arrays.stream(idParams.split(","))
+        this.providerIdList = Arrays.stream(idParams.split(";"))
                 .distinct()
                 .map(Long::valueOf)
                 .map(TechContentProvider.Id::new)
