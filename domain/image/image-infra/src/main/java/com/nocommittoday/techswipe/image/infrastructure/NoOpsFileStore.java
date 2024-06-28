@@ -9,7 +9,7 @@ import java.io.UncheckedIOException;
 
 @Component
 @ConditionalOnMissingBean(FileStore.class)
-class NoOpsFileStoreAdapter implements FileStore {
+class NoOpsFileStore implements FileStore {
 
     @Override
     public String store(

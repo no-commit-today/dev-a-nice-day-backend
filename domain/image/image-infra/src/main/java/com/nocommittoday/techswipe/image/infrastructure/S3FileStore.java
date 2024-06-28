@@ -17,12 +17,12 @@ import java.util.Optional;
 
 @Component
 @ConditionalOnProperty(name = "app.image.s3.enabled", havingValue = "true")
-public class S3FileStoreAdapter implements FileStore {
+public class S3FileStore implements FileStore {
 
     private final S3Template s3Template;
     private final String bucketName;
 
-    public S3FileStoreAdapter(
+    public S3FileStore(
             final S3Template s3Template,
             @Value("${app.s3.bucket-name}") final String bucketName
     ) {
