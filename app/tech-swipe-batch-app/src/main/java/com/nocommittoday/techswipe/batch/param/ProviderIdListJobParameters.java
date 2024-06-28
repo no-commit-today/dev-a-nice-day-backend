@@ -15,25 +15,29 @@ public class ProviderIdListJobParameters {
 
     public static final String NAME = "ProviderIdListJobParameters";
 
-    private static final Pattern JOB_PARAMETERS_PATTERN = Pattern.compile("" +
-            "\\[(?<idParams>\\d+(,\\d+)*)\\]"
+    private static final Pattern JOB_PARAMETERS_PATTERN = Pattern.compile(
+            "\\[(?<idParams>(\\d+(,\\d+)*|\\*))\\]"
     );
 
     @Nullable
     private List<TechContentProvider.Id> providerIdList;
 
     @Value("#{jobParameters['provider.ids']}")
-    public void setProviderId(@Nullable final String parameter) {
-        if (parameter == null) {
-            this.providerIdList = null;
-            return;
-        }
+    public void setProviderId(final String parameter) {
+
         final Matcher matcher = JOB_PARAMETERS_PATTERN.matcher(parameter);
         if (!matcher.matches()) {
             throw new IllegalArgumentException("provider.ids parameter is invalid: " + parameter);
         }
 
-        this.providerIdList = Arrays.stream(matcher.group("idParams").split(","))
+        final String idParams = matcher.group("idParams");
+
+        if ("*".equals(idParams)) {
+            this.providerIdList = null;
+            return;
+        }
+
+        this.providerIdList = Arrays.stream(idParams.split(","))
                 .distinct()
                 .map(Long::valueOf)
                 .map(TechContentProvider.Id::new)

@@ -54,12 +54,12 @@ class ProviderIdListJobParametersTest {
     }
 
     @Test
-    void provider_ids_파라미터가_null이면_null을_반환한다() {
+    void provider_ids_파라미터가_와일드카드이면_null을_반환한다() {
         // given
         final ProviderIdListJobParameters providerIdListJobParameters = new ProviderIdListJobParameters();
 
         // when
-        providerIdListJobParameters.setProviderId(null);
+        providerIdListJobParameters.setProviderId("[*]");
 
         // then
         assertThat(providerIdListJobParameters.getProviderIdList()).isNull();
