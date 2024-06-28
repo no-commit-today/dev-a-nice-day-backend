@@ -24,7 +24,7 @@ public class S3FileStore implements FileStore {
 
     public S3FileStore(
             final S3Template s3Template,
-            @Value("${app.s3.bucket-name}") final String bucketName
+            @Value("${app.image.s3.bucket-name}") final String bucketName
     ) {
         this.s3Template = s3Template;
         this.bucketName = bucketName;
