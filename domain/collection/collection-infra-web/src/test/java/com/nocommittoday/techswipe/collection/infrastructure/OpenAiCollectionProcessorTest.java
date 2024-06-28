@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
+import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.Prompt;
 import com.nocommittoday.techswipe.collection.domain.PromptType;
@@ -15,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,7 +56,16 @@ class OpenAiCollectionProcessorTest {
                 .willReturn(chatCompletionResult);
 
         // when
-        final CategorizationResult result = openAiCollectionProcessor.categorize(prompt, "content");
+        final CollectedContent collectedContent = new CollectedContent(
+                null,
+                null,
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                "collected content",
+                "image-url"
+        );
+        final CategorizationResult result = openAiCollectionProcessor.categorize(prompt, collectedContent);
 
         // then
         assertThat(result.success()).isTrue();
@@ -87,7 +98,16 @@ class OpenAiCollectionProcessorTest {
                 .willReturn(chatCompletionResult);
 
         // when
-        final CategorizationResult result = openAiCollectionProcessor.categorize(prompt, "content");
+        final CollectedContent collectedContent = new CollectedContent(
+                null,
+                null,
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                "collected content",
+                "image-url"
+        );
+        final CategorizationResult result = openAiCollectionProcessor.categorize(prompt, collectedContent);
 
         // then
         assertThat(result.success()).isFalse();
@@ -120,7 +140,16 @@ class OpenAiCollectionProcessorTest {
                 .willReturn(chatCompletionResult);
 
         // when
-        final SummarizationResult result = openAiCollectionProcessor.summarize(prompt, "content");
+        final CollectedContent collectedContent = new CollectedContent(
+                null,
+                null,
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                "collected content",
+                "image-url"
+        );
+        final SummarizationResult result = openAiCollectionProcessor.summarize(prompt, collectedContent);
 
         // then
         assertThat(result.success()).isTrue();
@@ -156,7 +185,16 @@ class OpenAiCollectionProcessorTest {
                 .willReturn(chatCompletionResult);
 
         // when
-        final SummarizationResult result = openAiCollectionProcessor.summarize(prompt, "content");
+        final CollectedContent collectedContent = new CollectedContent(
+                null,
+                null,
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                "collected content",
+                "image-url"
+        );
+        final SummarizationResult result = openAiCollectionProcessor.summarize(prompt, collectedContent);
 
         // then
         assertThat(result.success()).isFalse();
@@ -192,7 +230,16 @@ class OpenAiCollectionProcessorTest {
                 .willReturn(chatCompletionResult);
 
         // when
-        final SummarizationResult result = openAiCollectionProcessor.summarize(prompt, "content");
+        final CollectedContent collectedContent = new CollectedContent(
+                null,
+                null,
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                "collected content",
+                "image-url"
+        );
+        final SummarizationResult result = openAiCollectionProcessor.summarize(prompt, collectedContent);
 
         // then
         assertThat(result.success()).isFalse();

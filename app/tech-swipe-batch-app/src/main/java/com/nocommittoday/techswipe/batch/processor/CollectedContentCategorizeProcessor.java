@@ -25,7 +25,7 @@ public class CollectedContentCategorizeProcessor implements ItemProcessor<Collec
         final CollectedContent collectedContent = item.toDomain();
         final Prompt prompt = promptReader.get(PromptType.CATEGORIZE, item.getProvider().getType());
         final CategorizationResult categorizationResult = collectionProcessor.categorize(
-                prompt, collectedContent.getContent());
+                prompt, collectedContent);
         if (!categorizationResult.success()) {
             throw new CategorizeFailureException(collectedContent.getId(), prompt.getId());
         }
