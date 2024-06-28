@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 
 @Component
-@ConditionalOnMissingBean(FileStore.class)
+@ConditionalOnMissingBean(S3FileStore.class)
 class NoOpsFileStore implements FileStore {
 
     @Override
