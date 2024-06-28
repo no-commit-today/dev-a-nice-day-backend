@@ -17,17 +17,6 @@ spring:
       initialize-schema: never
       isolation-level-for-create: default
 
-  cloud:
-    aws:
-      region:
-        static: ap-northeast-2
-      credentials:
-        access-key: ${AWS_ACCESS_KEY}
-        secret-key: ${AWS_SECRET_KEY}
-
-app:
-  s3:
-    bucket-name: ${AWS_S3_BUCKET}
 ---
 spring:
   config:
@@ -51,3 +40,17 @@ spring:
   config:
     activate:
       on-profile: prod
+
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+
+app:
+  image:
+    s3:
+      enabled: true
+      bucket-name: ${AWS_S3_BUCKET}
