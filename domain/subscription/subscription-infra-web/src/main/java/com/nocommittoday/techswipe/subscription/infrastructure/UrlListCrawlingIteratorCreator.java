@@ -1,16 +1,18 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class UrlListCrawlingIteratorCreator {
 
-    public UrlListCrawlingIterator create(
-            final DocumentConnector documentConnector,
-            final DocumentElementExtractor documentElementExtractor,
-            final ListCrawling listCrawling
-    ) {
+    private final DocumentConnector documentConnector;
+
+    private final DocumentElementExtractor documentElementExtractor;
+
+    public UrlListCrawlingIterator create(final ListCrawling listCrawling) {
         return new UrlListCrawlingIterator(
                 documentConnector,
                 documentElementExtractor,

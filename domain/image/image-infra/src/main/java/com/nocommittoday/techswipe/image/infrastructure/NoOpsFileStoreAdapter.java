@@ -4,6 +4,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+
 @Profile("local")
 @Component
 class NoOpsFileStoreAdapter implements FileStore {
@@ -13,6 +16,10 @@ class NoOpsFileStoreAdapter implements FileStore {
             final Resource resource,
             final String storedName
     ) {
-        return "saved-" + storedName + "-" + resource.getFilename();
+        try {
+            return resource.getURL().toString();
+        } catch (final IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 }

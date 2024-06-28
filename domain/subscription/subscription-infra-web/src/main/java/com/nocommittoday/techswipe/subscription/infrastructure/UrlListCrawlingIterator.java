@@ -75,7 +75,6 @@ public class UrlListCrawlingIterator implements Iterator<String> {
             throw documentResponse.getException();
         }
         final Document document = documentResponse.getData();
-        document.select("style").remove();
 
         if (CrawlingType.INDEX == crawling.type()) {
             return crawlByIndex(document, Objects.requireNonNull(crawling.indexes()));

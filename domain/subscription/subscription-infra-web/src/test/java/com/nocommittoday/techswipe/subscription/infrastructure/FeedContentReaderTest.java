@@ -32,16 +32,13 @@ class FeedContentReaderTest {
     private FeedClient feedClient;
 
     @Mock
-    private DocumentConnector documentConnector;
-
-    @Mock
-    private DocumentElementExtractor documentElementExtractor;
-
-    @Mock
     private ContentCrawlerCreator contentCrawlerCreator;
 
     @Mock
     private LocalDateParser localDateParser;
+
+    @Mock
+    private HtmlTagCleaner htmlTagCleaner;
 
     @Test
     void feed_의_컨텐츠를_가져온다() {
@@ -55,7 +52,7 @@ class FeedContentReaderTest {
                                 "entry-url",
                                 "entry-title",
                                 LocalDate.of(2024, 6, 17),
-                                "entry-image-content"
+                                "entry-content"
                         )
                 )
         );
@@ -63,11 +60,9 @@ class FeedContentReaderTest {
 
         final ContentCrawler contentCrawler = mock(ContentCrawler.class);
         given(contentCrawler.getImageUrl()).willReturn("entry-image-url");
-        given(contentCrawlerCreator.create(
-                documentElementExtractor,
-                documentConnector,
-                "entry-url"
-        )).willReturn(contentCrawler);
+        given(contentCrawlerCreator.create("entry-url")).willReturn(contentCrawler);
+        given(htmlTagCleaner.clean("entry-content")).willReturn("entry-content-cleaned");
+
 
         // when
         final List<SubscribedContentResult> result = feedContentReader.getList(
@@ -87,6 +82,7 @@ class FeedContentReaderTest {
         assertThat(result.get(0).content().url()).isEqualTo("entry-url");
         assertThat(result.get(0).content().title()).isEqualTo("entry-title");
         assertThat(result.get(0).content().imageUrl()).isEqualTo("entry-image-url");
+        assertThat(result.get(0).content().content()).isEqualTo("entry-content-cleaned");
         assertThat(result.get(0).content().publishedDate()).isEqualTo(LocalDate.of(2024, 6, 17));
     }
 
@@ -102,13 +98,13 @@ class FeedContentReaderTest {
                                 "entry-url-1",
                                 "entry-title-1",
                                 LocalDate.of(2024, 6, 17),
-                                "entry-image-content-1"
+                                "entry-content-1"
                         ),
                         new FeedResponse.Entry(
                                 "entry-url-2",
                                 "entry-title-2",
                                 LocalDate.of(2024, 6, 16),
-                                "entry-image-content-2"
+                                "entry-content-2"
                         )
                 )
         );
@@ -116,16 +112,10 @@ class FeedContentReaderTest {
 
         final ContentCrawler contentCrawler = mock(ContentCrawler.class);
         given(contentCrawler.getImageUrl()).willReturn("entry-image-url-1");
-        given(contentCrawlerCreator.create(
-                documentElementExtractor,
-                documentConnector,
-                "entry-url-1"
-        )).willReturn(contentCrawler);
-        given(contentCrawlerCreator.create(
-                documentElementExtractor,
-                documentConnector,
-                "entry-url-2"
-        )).willReturn(mock(ContentCrawler.class));
+        given(contentCrawlerCreator.create("entry-url-1")).willReturn(contentCrawler);
+        given(contentCrawlerCreator.create("entry-url-2"))
+                .willReturn(mock(ContentCrawler.class));
+        given(htmlTagCleaner.clean("entry-content-1")).willReturn("entry-content-1-cleaned");
 
         // when
         final List<SubscribedContentResult> result = feedContentReader.getList(
@@ -165,11 +155,7 @@ class FeedContentReaderTest {
 
         final ContentCrawler contentCrawler = mock(ContentCrawler.class);
         given(contentCrawler.getImageUrl()).willReturn("entry-image-url");
-        given(contentCrawlerCreator.create(
-                documentElementExtractor,
-                documentConnector,
-                "entry-url"
-        )).willReturn(contentCrawler);
+        given(contentCrawlerCreator.create("entry-url")).willReturn(contentCrawler);
 
         final Crawling titleCrawling = new Crawling(
                 CrawlingType.INDEX,
@@ -190,7 +176,7 @@ class FeedContentReaderTest {
         given(contentCrawler.getText(dateCrawling)).willReturn("entry-date-crawl");
         given(localDateParser.parse("entry-date-crawl")).willReturn(LocalDate.of(2024, 6, 17));
         given(contentCrawler.getText(titleCrawling)).willReturn("entry-title-crawl");
-        given(contentCrawler.get(contentCrawling)).willReturn("entry-content-crawl");
+        given(contentCrawler.getCleaned(contentCrawling)).willReturn("entry-content-crawl");
 
         // when
         final List<SubscribedContentResult> result = feedContentReader.getList(

@@ -12,6 +12,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Map;
 
 @Service
@@ -26,7 +27,8 @@ public class ImageStoreService {
             "image/webp", "webp",
             "image/svg+xml", "svg",
             "image/tiff", "tif",
-            "image/x-icon", "ico"
+            "image/x-icon", "ico",
+            "image/vnd.microsoft.icon", "ico"
     );
 
     private final FileStore fileStore;
@@ -36,10 +38,12 @@ public class ImageStoreService {
 
     public Image.Id store(final String originUrl, final String dirToStore) {
         final UrlResource resource = UrlResource.from(originUrl);
-        final String contentType = contentTypeReader.getContentType(originUrl);
-        if (!mimeToExt.containsKey(contentType)) {
-            throw new NotSupportedImageException(contentType);
-        }
+        final String contentType = Arrays.stream(
+                contentTypeReader.getContentType(originUrl).split(";")
+        ).filter(s -> s.startsWith("image/"))
+                .filter(mimeToExt::containsKey)
+                .findFirst()
+                .orElseThrow(() -> new NotSupportedImageException(originUrl));
 
         final String storedName = createStoredName(mimeToExt.get(contentType));
         final String storedUrl = fileStore.store(resource, Paths.get(dirToStore, storedName).toString());

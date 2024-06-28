@@ -26,12 +26,6 @@ class ListCrawlingContentReaderTest {
     private ListCrawlingContentReader listCrawlingContentReader;
 
     @Mock
-    private DocumentConnector documentConnector;
-
-    @Mock
-    private DocumentElementExtractor documentElementExtractor;
-
-    @Mock
     private UrlListCrawlingIteratorCreator urlListCrawlingIteratorCreator;
 
     @Mock
@@ -57,18 +51,10 @@ class ListCrawlingContentReaderTest {
         given(iterator.hasNext()).willReturn(true, false);
         given(iterator.next()).willReturn("content-url-1");
 
-        given(urlListCrawlingIteratorCreator.create(
-                documentConnector,
-                documentElementExtractor,
-                listCrawling
-        )).willReturn(iterator);
+        given(urlListCrawlingIteratorCreator.create(listCrawling)).willReturn(iterator);
 
         final ContentCrawler contentCrawler = mock(ContentCrawler.class);
-        given(contentCrawlerCreator.create(
-                documentElementExtractor,
-                documentConnector,
-                "content-url-1"
-        )).willReturn(contentCrawler);
+        given(contentCrawlerCreator.create("content-url-1")).willReturn(contentCrawler);
 
         final ContentCrawling contentCrawling = new ContentCrawling(
                 new Crawling(
@@ -91,7 +77,7 @@ class ListCrawlingContentReaderTest {
         given(contentCrawler.getText(contentCrawling.date())).willReturn("date-crawl-1");
         given(contentCrawler.getText(contentCrawling.title())).willReturn("title-crawl-1");
         given(contentCrawler.getImageUrl()).willReturn("image-url-1");
-        given(contentCrawler.get(contentCrawling.content())).willReturn("content-crawl-1");
+        given(contentCrawler.getCleaned(contentCrawling.content())).willReturn("content-crawl-1");
         given(localDateParser.parse("date-crawl-1")).willReturn(LocalDate.of(2024, 6, 17));
 
         // when
@@ -132,25 +118,13 @@ class ListCrawlingContentReaderTest {
         given(iterator.hasNext()).willReturn(true, true, false);
         given(iterator.next()).willReturn("content-url-1", "content-url-2");
 
-        given(urlListCrawlingIteratorCreator.create(
-                documentConnector,
-                documentElementExtractor,
-                listCrawling
-        )).willReturn(iterator);
+        given(urlListCrawlingIteratorCreator.create(listCrawling)).willReturn(iterator);
 
         final ContentCrawler contentCrawler1 = mock(ContentCrawler.class);
-        given(contentCrawlerCreator.create(
-                documentElementExtractor,
-                documentConnector,
-                "content-url-1"
-        )).willReturn(contentCrawler1);
+        given(contentCrawlerCreator.create("content-url-1")).willReturn(contentCrawler1);
 
         final ContentCrawler contentCrawler2 = mock(ContentCrawler.class);
-        given(contentCrawlerCreator.create(
-                documentElementExtractor,
-                documentConnector,
-                "content-url-2"
-        )).willReturn(contentCrawler2);
+        given(contentCrawlerCreator.create("content-url-2")).willReturn(contentCrawler2);
 
         final ContentCrawling contentCrawling = new ContentCrawling(
                 new Crawling(
@@ -173,7 +147,7 @@ class ListCrawlingContentReaderTest {
         given(contentCrawler1.getText(contentCrawling.date())).willReturn("date-crawl-1");
         given(contentCrawler1.getText(contentCrawling.title())).willReturn("title-crawl-1");
         given(contentCrawler1.getImageUrl()).willReturn("image-url-1");
-        given(contentCrawler1.get(contentCrawling.content())).willReturn("content-crawl-1");
+        given(contentCrawler1.getCleaned(contentCrawling.content())).willReturn("content-crawl-1");
         given(localDateParser.parse("date-crawl-1")).willReturn(LocalDate.of(2024, 6, 17));
 
         given(contentCrawler2.getText(contentCrawling.date())).willReturn("date-crawl-2");

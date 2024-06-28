@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
+import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.Prompt;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
@@ -31,7 +32,7 @@ public class OpenAiCollectionProcessor implements CollectionProcessor {
     private final OpenAiService openAiService;
 
     @Override
-    public CategorizationResult categorize(final Prompt prompt, final String content) {
+    public CategorizationResult categorize(final Prompt prompt, final CollectedContent content) {
         final ChatCompletionRequest request = createRequest(prompt, content);
         final ChatCompletionResult chatCompletionResponse = openAiService.createChatCompletion(request);
         log.debug("ChatCompletionResponse: {}", chatCompletionResponse);
@@ -58,7 +59,7 @@ public class OpenAiCollectionProcessor implements CollectionProcessor {
     }
 
     @Override
-    public SummarizationResult summarize(final Prompt prompt, final String content) {
+    public SummarizationResult summarize(final Prompt prompt, final CollectedContent content) {
         final ChatCompletionRequest request = createRequest(prompt, content);
         final ChatCompletionResult chatCompletionResponse = openAiService.createChatCompletion(request);
         log.debug("ChatCompletionResponse: {}", chatCompletionResponse);
@@ -73,12 +74,13 @@ public class OpenAiCollectionProcessor implements CollectionProcessor {
         return SummarizationResult.success(summary);
     }
 
-    private static ChatCompletionRequest createRequest(final Prompt prompt, final String content) {
+    private static ChatCompletionRequest createRequest(final Prompt prompt, final CollectedContent content) {
         return ChatCompletionRequest.builder()
                 .model(prompt.getModel())
                 .messages(List.of(
                         new ChatMessage(ChatMessageRole.SYSTEM.value(), prompt.getContent()),
-                        new ChatMessage(ChatMessageRole.USER.value(), content)
+                        new ChatMessage(ChatMessageRole.USER.value(),
+                                content.getTitle() + "\n\n" + content.getContent())
                 )).build();
     }
 

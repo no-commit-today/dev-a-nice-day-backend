@@ -18,8 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ListCrawlingContentReader implements SubscribedContentReader {
 
-    private final DocumentConnector documentConnector;
-    private final DocumentElementExtractor documentElementExtractor;
     private final UrlListCrawlingIteratorCreator urlListCrawlingIteratorCreator;
     private final ContentCrawlerCreator contentCrawlerCreator;
     private final LocalDateParser localDateParser;
@@ -45,18 +43,13 @@ public class ListCrawlingContentReader implements SubscribedContentReader {
     public List<SubscribedContentResult> getList(final ListCrawlingSubscription subscription, final LocalDate date) {
         final ListCrawling listCrawling = subscription.listCrawling();
         final ContentCrawling contentCrawling = subscription.contentCrawling();
-        final UrlListCrawlingIterator iterator = urlListCrawlingIteratorCreator.create(
-                documentConnector,
-                documentElementExtractor,
-                listCrawling);
+        final UrlListCrawlingIterator iterator = urlListCrawlingIteratorCreator.create(listCrawling);
         final List<SubscribedContentResult> result = new ArrayList<>();
 
         while (iterator.hasNext()) {
             final String url = iterator.next();
             try {
-                final ContentCrawler crawler = contentCrawlerCreator.create(
-                        documentElementExtractor,
-                        documentConnector, url);
+                final ContentCrawler crawler = contentCrawlerCreator.create(url);
                 final LocalDate publishedDate = localDateParser.parse(
                         crawler.getText(contentCrawling.date()));
                 if (date.isAfter(publishedDate)) {
@@ -65,7 +58,7 @@ public class ListCrawlingContentReader implements SubscribedContentReader {
 
                 final String title = crawler.getText(contentCrawling.title());
                 final String imageUrl = crawler.getImageUrl();
-                final String content = crawler.get(contentCrawling.content());
+                final String content = crawler.getCleaned(contentCrawling.content());
                 result.add(SubscribedContentResult.ok(new SubscribedContentResult.Content(
                         url,
                         title,
