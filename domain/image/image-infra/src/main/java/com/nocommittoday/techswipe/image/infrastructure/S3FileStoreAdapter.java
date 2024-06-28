@@ -4,7 +4,7 @@ import io.awspring.cloud.s3.ObjectMetadata;
 import io.awspring.cloud.s3.S3Resource;
 import io.awspring.cloud.s3.S3Template;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 @Component
-@Profile("!local")
+@ConditionalOnProperty(name = "app.image.s3.enabled", havingValue = "true")
 public class S3FileStoreAdapter implements FileStore {
 
     private final S3Template s3Template;

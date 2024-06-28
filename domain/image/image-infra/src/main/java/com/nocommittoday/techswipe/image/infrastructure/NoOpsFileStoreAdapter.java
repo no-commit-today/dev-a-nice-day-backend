@@ -1,14 +1,14 @@
 package com.nocommittoday.techswipe.image.infrastructure;
 
-import org.springframework.context.annotation.Profile;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
-@Profile("local")
 @Component
+@ConditionalOnMissingBean(FileStore.class)
 class NoOpsFileStoreAdapter implements FileStore {
 
     @Override
