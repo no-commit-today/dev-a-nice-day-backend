@@ -126,7 +126,7 @@ public class ContentCollectProviderInitialJobConfig {
     @Bean(JOB_NAME + "JobParametersValidator")
     public JobParametersValidator jobParametersValidator() {
         return new DefaultJobParametersValidator(
-                new String[]{},
+                new String[]{"provider.ids"},
                 new String[]{}
         );
     }

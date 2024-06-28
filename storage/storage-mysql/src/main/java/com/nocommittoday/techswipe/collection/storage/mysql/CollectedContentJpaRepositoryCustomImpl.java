@@ -20,6 +20,14 @@ class CollectedContentJpaRepositoryCustomImpl implements CollectedContentJpaRepo
     }
 
     @Override
+    public List<String> findAllUrl() {
+        return queryFactory
+                .select(collectedContentEntity.url)
+                .from(collectedContentEntity)
+                .fetch();
+    }
+
+    @Override
     public List<String> findAllUrlByProvider(final TechContentProviderEntity provider) {
         return queryFactory
                 .select(collectedContentEntity.url)

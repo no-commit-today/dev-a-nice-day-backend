@@ -7,6 +7,8 @@ import java.util.List;
 
 interface CollectedContentJpaRepositoryCustom {
 
+    List<String> findAllUrl();
+
     List<String> findAllUrlByProvider(TechContentProviderEntity provider);
 
     List<String> findAllUrlByProviderIn(Collection<TechContentProviderEntity> providers);

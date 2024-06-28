@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrl
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
@@ -14,8 +15,12 @@ public class CollectedContentUrlInMemoryExistsReader {
 
     public CollectedContentUrlInMemoryExistsReader(
             final CollectedContentUrlListReader urlListReader,
-            final List<TechContentProvider.Id> providerIds
+            @Nullable final List<TechContentProvider.Id> providerIds
     ) {
+        if (providerIds == null) {
+            this.urlSet = Set.copyOf(urlListReader.getAllUrls());
+            return;
+        }
         this.urlSet = Set.copyOf(urlListReader.getAllUrlsByProviders(providerIds));
     }
 
