@@ -1,0 +1,5 @@
+### GET actuator
+GET http://localhost:9292/actuator
+
+### GET actuator prometheus
+GET http://localhost:9292/actuator/prometheus
