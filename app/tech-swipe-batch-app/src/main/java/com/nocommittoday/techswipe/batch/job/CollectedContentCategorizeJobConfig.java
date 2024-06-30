@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.batch.application.PromptWithInMemoryCacheRead
 import com.nocommittoday.techswipe.batch.exception.CategorizeFailureException;
 import com.nocommittoday.techswipe.batch.listener.CollectedContentCategorizeSkipListener;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentCategorizeProcessor;
-import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
+import com.nocommittoday.techswipe.batch.reader.QuerydslZeroPagingItemReader;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectionProcessor;
 import com.nocommittoday.techswipe.collection.infrastructure.PromptReader;
@@ -70,8 +70,8 @@ public class CollectedContentCategorizeJobConfig {
 
     @Bean(STEP_NAME + "ItemReader")
     @StepScope
-    public QuerydslPagingItemReader<CollectedContentEntity> reader() {
-        final QuerydslPagingItemReader<CollectedContentEntity> reader = new QuerydslPagingItemReader<>();
+    public QuerydslZeroPagingItemReader<CollectedContentEntity> reader() {
+        final QuerydslZeroPagingItemReader<CollectedContentEntity> reader = new QuerydslZeroPagingItemReader<>();
         reader.setEntityManagerFactory(emf);
         reader.setPageSize(CHUNK_SIZE);
         reader.setTransacted(false);
