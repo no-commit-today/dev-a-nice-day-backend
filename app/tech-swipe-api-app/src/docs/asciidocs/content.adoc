@@ -17,3 +17,13 @@ operation::content/get-content-list[snippets='http-request,query-parameters,http
 
 operation::content/get-content-count[snippets='http-request,http-response']
 
+[[content-link]]
+== 컨텐츠 링크
+
+컨텐츠의 실제 위치로 이동합니다.
+
+컨텐츠 조회시 컨텐츠의 url 을 아래와 같이 만들어야 합니다.
+
+호스트는 컨텐츠를 조회한 서버와 같습니다.
+
+operation::content/content-link[snippets='http-request,path-parameters,http-response']

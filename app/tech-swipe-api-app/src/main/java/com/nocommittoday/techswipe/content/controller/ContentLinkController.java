@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ContentLinkController {
 
-    public static final String CONTENT_LINK_PATH = "/contents/{contentId}/link";
     private final ContentLinkService contentLinkService;
 
-    @GetMapping(CONTENT_LINK_PATH)
+    @GetMapping("/contents/{contentId}/link")
     public ResponseEntity<Void> link(@PathVariable final Long contentId) {
         final String url = contentLinkService.link(new TechContent.Id(contentId));
 
