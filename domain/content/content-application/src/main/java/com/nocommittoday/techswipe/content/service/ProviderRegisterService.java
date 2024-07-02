@@ -5,18 +5,15 @@ import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderUrlExistsException;
 import com.nocommittoday.techswipe.content.infrastructure.ProviderAppender;
 import com.nocommittoday.techswipe.content.infrastructure.ProviderUrlExistsReader;
-import com.nocommittoday.techswipe.image.domain.Image;
-import com.nocommittoday.techswipe.image.service.ImageStoreService;
+import com.nocommittoday.techswipe.image.infrastructure.ImageIdValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ProviderRegisterService {
 
-    private final ImageStoreService imageStoreService;
+    private final ImageIdValidator imageIdValidator;
     private final ProviderAppender providerSave;
     private final ProviderUrlExistsReader providerUrlExistsReader;
 
@@ -24,15 +21,15 @@ public class ProviderRegisterService {
         if (providerUrlExistsReader.exists(command.url())) {
             throw new TechContentProviderUrlExistsException(command.url());
         }
-        final Image.Id iconId = Optional.ofNullable(command.iconUrl())
-                .map(url -> imageStoreService.store(url, "provider-icon"))
-                .orElse(null);
+        if (command.iconId() != null) {
+            imageIdValidator.validate(command.iconId());
+        }
 
         return providerSave.save(new TechContentProviderCreate(
                 command.type(),
                 command.title(),
                 command.url(),
-                iconId
+                command.iconId()
         ));
     }
 }

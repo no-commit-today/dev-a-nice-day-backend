@@ -7,7 +7,7 @@ import com.nocommittoday.techswipe.content.domain.TechContentProviderUrlExistsEx
 import com.nocommittoday.techswipe.content.infrastructure.ProviderAppender;
 import com.nocommittoday.techswipe.content.infrastructure.ProviderUrlExistsReader;
 import com.nocommittoday.techswipe.image.domain.Image;
-import com.nocommittoday.techswipe.image.service.ImageStoreService;
+import com.nocommittoday.techswipe.image.infrastructure.ImageIdValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -27,7 +27,7 @@ class ProviderRegisterServiceTest {
     private ProviderRegisterService providerRegisterService;
 
     @Mock
-    private ImageStoreService imageStoreService;
+    private ImageIdValidator imageIdValidator;
 
     @Mock
     private ProviderAppender providerAppender;
@@ -70,12 +70,10 @@ class ProviderRegisterServiceTest {
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "title",
                 "url",
-                "icon-url"
+                new Image.Id(1L)
         );
         given(providerUrlExistsReader.exists("url"))
                 .willReturn(false);
-        given(imageStoreService.store("icon-url", "provider-icon"))
-                .willReturn(new Image.Id(1L));
         given(providerAppender.save(captor.capture()))
                 .willReturn(new TechContentProvider.Id(1L));
 
