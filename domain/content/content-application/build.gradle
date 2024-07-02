@@ -2,8 +2,6 @@ dependencies {
     implementation(project(":domain:core:core-domain"))
 
     implementation(project(":domain:image:image-domain"))
-    implementation(project(":domain:image:image-application"))
-    implementation(project(":domain:image:image-infra-aws"))
     implementation(project(":domain:image:image-infra-mysql"))
 
     implementation(project(":domain:content:content-domain"))
