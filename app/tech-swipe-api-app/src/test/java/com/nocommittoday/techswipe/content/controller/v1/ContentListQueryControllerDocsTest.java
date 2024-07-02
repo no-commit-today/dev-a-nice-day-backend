@@ -12,9 +12,6 @@ import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import com.nocommittoday.techswipe.docs.restdocs.RestDocsAttribute;
-import com.nocommittoday.techswipe.image.domain.Image;
-import com.nocommittoday.techswipe.image.service.ImageUrlQueryService;
-import com.nocommittoday.techswipe.image.service.ImageUrlResult;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -45,9 +42,6 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
     private ContentListQueryService contentListQueryService;
 
     @MockBean
-    private ImageUrlQueryService imageUrlQueryService;
-
-    @MockBean
     private ContentLinkCreator contentLinkCreator;
 
     @Test
@@ -73,10 +67,6 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                         "summary",
                         List.of(TechCategory.SERVER)
                 )
-        ));
-        given(imageUrlQueryService.getAll(List.of(new Image.Id(4L), new Image.Id(3L)))).willReturn(List.of(
-                new ImageUrlResult(new Image.Id(4L), "https://content-image-url"),
-                new ImageUrlResult(new Image.Id(3L), "https://provider-icon-url")
         ));
 
         // when
