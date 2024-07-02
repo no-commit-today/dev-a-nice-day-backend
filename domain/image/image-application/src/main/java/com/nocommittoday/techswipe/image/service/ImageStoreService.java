@@ -6,7 +6,7 @@ import com.nocommittoday.techswipe.image.domain.NotSupportedImageException;
 import com.nocommittoday.techswipe.image.infrastructure.ContentTypeReader;
 import com.nocommittoday.techswipe.image.infrastructure.FileStore;
 import com.nocommittoday.techswipe.image.infrastructure.ImageAppender;
-import com.nocommittoday.techswipe.image.infrastructure.ImageSave;
+import com.nocommittoday.techswipe.image.domain.ImageSave;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;

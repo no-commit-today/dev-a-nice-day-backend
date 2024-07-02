@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.image.infrastructure;
+package com.nocommittoday.techswipe.image.domain;
 
 import lombok.NonNull;
 

@@ -21,6 +21,7 @@ include 'domain:core:core-infra'
 include 'domain:image:image-domain'
 include 'domain:image:image-application'
 include 'domain:image:image-infra-aws'
+include 'domain:image:image-infra-mysql'
 
 include 'domain:content:content-domain'
 include 'domain:content:content-application'
