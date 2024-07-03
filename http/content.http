@@ -1,5 +1,9 @@
+### GET 컨텐츠 개수 조회
+GET {{baseUrl}}/api/content/v1/contents-count
+
+
 ### GET 컨텐츠 리스트 조회
-GET {{baseUrl}}/api/content/v1/contents?categories=SERVER&categories=WEB&page=4
+GET {{baseUrl}}/api/content/v1/contents
 
 
 ### GET 컨텐츠 링크 조회

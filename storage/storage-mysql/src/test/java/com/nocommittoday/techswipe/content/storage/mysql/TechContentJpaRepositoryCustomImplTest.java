@@ -233,23 +233,38 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         "title-3",
                         "summary-3",
                         LocalDate.of(2021, 1, 3)
+                ),
+                new TechContentEntity(
+                        null,
+                        TechContentProviderEntity.from(new TechContentProvider.Id(11)),
+                        null,
+                        "url-4",
+                        "title-4",
+                        "summary-4",
+                        LocalDate.of(2021, 1, 3)
                 )
         );
+        // 둘 중 한개 카테고리 선택됨 -> + 1
         techContentEntities.get(0).addCategory(TechCategory.SERVER);
         techContentEntities.get(0).addCategory(TechCategory.SW_ENGINEERING);
+        // 카테고리 선택되었으나 삭제됨 -> + 0
         techContentEntities.get(1).addCategory(TechCategory.WEB);
         techContentEntities.get(1).addCategory(TechCategory.SW_ENGINEERING);
         techContentEntities.get(1).delete();
+        // 한개 중 한개 카테고리 선택 -> + 1
         techContentEntities.get(2).addCategory(TechCategory.APP);
+        // 둘 중 두개 카테고리 선택 -> + 1
+        techContentEntities.get(3).addCategory(TechCategory.APP);
+        techContentEntities.get(3).addCategory(TechCategory.SW_ENGINEERING);
         techContentJpaRepository.saveAll(techContentEntities);
 
         // when
-        final long result = techContentJpaRepository.countByDeletedIsFalseCategoryIn(
+        final long result = techContentJpaRepository.countByCategoryInAndDeletedIsFalse(
                 List.of(TechCategory.SW_ENGINEERING, TechCategory.APP)
         );
 
         // then
-        assertThat(result).isEqualTo(2);
+        assertThat(result).isEqualTo(3);
     }
 
     @Test
