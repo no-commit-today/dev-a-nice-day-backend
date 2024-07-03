@@ -244,7 +244,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         techContentJpaRepository.saveAll(techContentEntities);
 
         // when
-        final long result = techContentJpaRepository.countByDeletedIsFalseCategoryIn(
+        final long result = techContentJpaRepository.countByCategoryInAndDeletedIsFalse(
                 List.of(TechCategory.SW_ENGINEERING, TechCategory.APP)
         );
 

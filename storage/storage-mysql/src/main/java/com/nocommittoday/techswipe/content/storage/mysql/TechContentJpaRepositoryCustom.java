@@ -12,7 +12,7 @@ interface TechContentJpaRepositoryCustom {
             PageParam pageParam, List<TechCategory> categories
     );
 
-    long countByDeletedIsFalseCategoryIn(List<TechCategory> categories);
+    long countByCategoryInAndDeletedIsFalse(List<TechCategory> categories);
 
     List<TechContentEntity> findAllWithProviderOrderByPublishedDateDesc(PageParam pageParam);
 

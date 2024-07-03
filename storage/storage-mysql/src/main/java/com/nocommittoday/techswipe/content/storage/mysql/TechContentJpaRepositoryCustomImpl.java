@@ -45,7 +45,7 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
     }
 
     @Override
-    public long countByDeletedIsFalseCategoryIn(final List<TechCategory> categories) {
+    public long countByCategoryInAndDeletedIsFalse(final List<TechCategory> categories) {
         return Objects.requireNonNull(
                 queryFactory
                         .select(techContentEntity.count())
