@@ -31,6 +31,6 @@ public class ContentCategorizedListReader {
     }
 
     public long count(final List<TechCategory> categories) {
-        return 0;
+        return techContentJpaRepository.countByCategoryInAndDeletedIsFalse(categories);
     }
 }
