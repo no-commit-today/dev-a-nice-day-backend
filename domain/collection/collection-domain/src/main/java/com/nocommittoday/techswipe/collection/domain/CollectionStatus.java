@@ -1,5 +1,7 @@
 package com.nocommittoday.techswipe.collection.domain;
 
+import java.util.Set;
+
 /**
  * INIT
  * ├── CATEGORIZED
@@ -13,4 +15,11 @@ public enum CollectionStatus {
     FILTERED, // 카테고리 분류되었으나, 다루지 않는 주제인 상태
     SUMMARIZED, // 내용 요약이 완료된 상태
     PUBLISHED // 발행된 상태
+    ;
+
+    private static final Set<CollectionStatus> EDITABLE_STATUSES = Set.of(FILTERED, PUBLISHED);
+
+    public boolean isEditable() {
+        return EDITABLE_STATUSES.contains(this);
+    }
 }
