@@ -48,13 +48,11 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
     public long countByCategoryInAndDeletedIsFalse(final List<TechCategory> categories) {
         return Objects.requireNonNull(
                 queryFactory
-                        .select(techContentEntity.count())
-                        .from(techContentEntity)
-                        .join(techCategoryEntity).on(
-                                techContentEntity.id.eq(techCategoryEntity.content.id))
+                        .select(techCategoryEntity.content.countDistinct())
+                        .from(techCategoryEntity)
                         .where(
                                 techCategoryEntity.category.in(categories),
-                                techContentEntity.deleted.isFalse()
+                                techCategoryEntity.content.deleted.isFalse()
                         )
                         .fetchOne()
         );
