@@ -9,7 +9,7 @@ import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentDeleter;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentReader;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentUpdater;
-import com.nocommittoday.techswipe.content.infrastructure.ContentUrlExistsReader;
+import com.nocommittoday.techswipe.content.infrastructure.TechContentUrlExistsReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class ContentCategoryEditService {
 
     private final CollectedContentReader collectedContentReader;
     private final CollectedContentUpdater collectedContentUpdater;
-    private final ContentUrlExistsReader contentUrlExistsReader;
+    private final TechContentUrlExistsReader techContentUrlExistsReader;
     private final TechContentReader techContentReader;
     private final TechContentUpdater techContentUpdater;
     private final TechContentDeleter techContentDeleter;
@@ -29,7 +29,7 @@ public class ContentCategoryEditService {
         final CollectedContent newCollectedContent = oldCollectedContent.editCategory(categoryEdit);
 
         collectedContentUpdater.update(newCollectedContent);
-        if (!contentUrlExistsReader.exists(newCollectedContent.getUrl())) {
+        if (!techContentUrlExistsReader.exists(newCollectedContent.getUrl())) {
             return ;
         }
 
