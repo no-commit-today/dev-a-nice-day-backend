@@ -15,15 +15,15 @@ spring:
     activate:
       on-profile: local
 
-logging:
-  level:
-    org.apache.coyote.http11: debug
-
 ---
 spring:
   config:
     activate:
       on-profile: local-dev
+
+logging:
+  level:
+    org.apache.coyote.http11: debug
 
 ---
 spring:
