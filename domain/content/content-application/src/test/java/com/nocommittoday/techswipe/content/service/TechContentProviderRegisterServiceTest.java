@@ -21,10 +21,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class ProviderRegisterServiceTest {
+class TechContentProviderRegisterServiceTest {
 
     @InjectMocks
-    private ProviderRegisterService providerRegisterService;
+    private TechContentProviderRegisterService techContentProviderRegisterService;
 
     @Mock
     private ImageIdValidator imageIdValidator;
@@ -53,7 +53,7 @@ class ProviderRegisterServiceTest {
                 .willReturn(new TechContentProvider.Id(1L));
 
         // when
-        final TechContentProvider.Id providerId = providerRegisterService.register(command);
+        final TechContentProvider.Id providerId = techContentProviderRegisterService.register(command);
 
         // then
         assertThat(providerId.value()).isEqualTo(1L);
@@ -78,7 +78,7 @@ class ProviderRegisterServiceTest {
                 .willReturn(new TechContentProvider.Id(1L));
 
         // when
-        final TechContentProvider.Id providerId = providerRegisterService.register(command);
+        final TechContentProvider.Id providerId = techContentProviderRegisterService.register(command);
 
         // then
         assertThat(providerId).isEqualTo(new TechContentProvider.Id(1L));
@@ -101,7 +101,7 @@ class ProviderRegisterServiceTest {
                 .willReturn(true);
 
         // when & then
-        assertThatThrownBy(() -> providerRegisterService.register(command))
+        assertThatThrownBy(() -> techContentProviderRegisterService.register(command))
                 .isInstanceOf(TechContentProviderUrlExistsException.class);
     }
 }

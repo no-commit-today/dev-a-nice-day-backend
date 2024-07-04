@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.admin.controller;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.service.ProviderRegisterCommand;
-import com.nocommittoday.techswipe.content.service.ProviderRegisterService;
+import com.nocommittoday.techswipe.content.service.TechContentProviderRegisterService;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import jakarta.validation.Valid;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ProviderRegisterController {
 
-    private final ProviderRegisterService providerRegisterService;
+    private final TechContentProviderRegisterService techContentProviderRegisterService;
 
     private final ImageStoreService imageStoreService;
 
@@ -26,7 +26,7 @@ public class ProviderRegisterController {
             @RequestBody @Valid final ProviderRegisterRequest request
     ) {
         final Image.Id imageId = imageStoreService.store(request.iconUrl(), "provider");
-        final TechContentProvider.Id providerId = providerRegisterService.register(
+        final TechContentProvider.Id providerId = techContentProviderRegisterService.register(
                 new ProviderRegisterCommand(
                         request.type(),
                         request.title(),

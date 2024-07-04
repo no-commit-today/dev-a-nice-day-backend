@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ProviderRegisterService {
+public class TechContentProviderRegisterService {
 
     private final ImageIdValidator imageIdValidator;
     private final ProviderAppender providerSave;
