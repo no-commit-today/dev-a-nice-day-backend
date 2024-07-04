@@ -22,10 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class ContentListQueryServiceTest {
+class TechContentListQueryServiceTest {
 
     @InjectMocks
-    private ContentListQueryService contentListQueryService;
+    private TechContentListQueryService techContentListQueryService;
 
     @Mock
     private ContentCategorizedListReader contentCategorizedListReader;
@@ -73,7 +73,7 @@ class ContentListQueryServiceTest {
                 ));
 
         // when
-        final List<TechContentQueryResult> techContentQueryResults = contentListQueryService.getList(pageParam, new ContentListQueryParam(List.of(TechCategory.SERVER)));
+        final List<TechContentQueryResult> techContentQueryResults = techContentListQueryService.getList(pageParam, new ContentListQueryParam(List.of(TechCategory.SERVER)));
 
         // then
         assertThat(techContentQueryResults).hasSize(2);

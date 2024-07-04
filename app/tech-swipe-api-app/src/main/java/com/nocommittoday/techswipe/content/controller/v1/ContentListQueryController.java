@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.controller.v1;
 
 import com.nocommittoday.techswipe.content.service.ContentListQueryParam;
-import com.nocommittoday.techswipe.content.service.ContentListQueryService;
+import com.nocommittoday.techswipe.content.service.TechContentListQueryService;
 import com.nocommittoday.techswipe.content.service.TechContentQueryResult;
 import com.nocommittoday.techswipe.core.controller.servlet.ListResponse;
 import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ContentListQueryController {
 
-    private final ContentListQueryService contentListQueryService;
+    private final TechContentListQueryService techContentListQueryService;
 
     @GetMapping("/api/content/v1/contents")
     public ResponseEntity<ListResponse<ContentResponse>> getList(
@@ -26,7 +26,7 @@ public class ContentListQueryController {
             final @ModelAttribute ContentListQueryRequest request
     ) {
 
-        final List<TechContentQueryResult> contentList = contentListQueryService.getList(
+        final List<TechContentQueryResult> contentList = techContentListQueryService.getList(
                 pageRequest.toPageParam(), new ContentListQueryParam(request.categories())
         );
 
@@ -42,7 +42,7 @@ public class ContentListQueryController {
             final @ModelAttribute ContentListQueryRequest request
     ) {
         return ResponseEntity.ok(new ContentCountResponse(
-                contentListQueryService.count(new ContentListQueryParam(request.categories()))
+                techContentListQueryService.count(new ContentListQueryParam(request.categories()))
         ));
     }
 

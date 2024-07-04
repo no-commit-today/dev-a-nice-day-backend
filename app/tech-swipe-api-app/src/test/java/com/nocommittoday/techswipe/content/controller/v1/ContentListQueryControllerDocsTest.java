@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.service.ContentListQueryParam;
-import com.nocommittoday.techswipe.content.service.ContentListQueryService;
+import com.nocommittoday.techswipe.content.service.TechContentListQueryService;
 import com.nocommittoday.techswipe.content.service.TechContentQueryResult;
 import com.nocommittoday.techswipe.content.service.TechContentProviderQueryResult;
 import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
@@ -38,13 +38,13 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private ContentListQueryService contentListQueryService;
+    private TechContentListQueryService techContentListQueryService;
 
 
     @Test
     void 컨텐츠_리스트_조회_Docs() throws Exception {
         // given
-        given(contentListQueryService.getList(
+        given(techContentListQueryService.getList(
                 new PageParam(1, 10),
                 new ContentListQueryParam(List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING))
         )).willReturn(List.of(
@@ -109,7 +109,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
     void 컨텐츠_개수_조회_Docs() throws Exception {
         // given
         given(
-                contentListQueryService.count(
+                techContentListQueryService.count(
                         new ContentListQueryParam(
                                 List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING)))
         ).willReturn(100L);

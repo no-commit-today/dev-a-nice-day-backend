@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ContentListQueryService {
+public class TechContentListQueryService {
 
     private final ContentCategorizedListReader contentCategorizedListReader;
     private final ImageReader imageReader;
