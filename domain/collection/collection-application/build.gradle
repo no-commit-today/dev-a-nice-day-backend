@@ -2,7 +2,7 @@ dependencies {
     implementation(project(":domain:core:core-domain"))
 
     implementation(project(":domain:content:content-domain"))
-    implementation(project(":domain:content:content-application"))
+    implementation(project(":domain:content:content-infra-mysql"))
 
     implementation(project(":domain:collection:collection-domain"))
     implementation(project(":domain:collection:collection-infra-mysql"))
