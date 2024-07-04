@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderUrlExistsException;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderAppender;
-import com.nocommittoday.techswipe.content.infrastructure.ProviderUrlExistsReader;
+import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderUrlExistsReader;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.infrastructure.ImageIdValidator;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ class TechContentProviderRegisterServiceTest {
     private TechContentProviderAppender techContentProviderAppender;
 
     @Mock
-    private ProviderUrlExistsReader providerUrlExistsReader;
+    private TechContentProviderUrlExistsReader techContentProviderUrlExistsReader;
 
     @Captor
     private ArgumentCaptor<TechContentProviderCreate> captor;
@@ -47,7 +47,7 @@ class TechContentProviderRegisterServiceTest {
                 "url",
                 null
         );
-        given(providerUrlExistsReader.exists("url"))
+        given(techContentProviderUrlExistsReader.exists("url"))
                 .willReturn(false);
         given(techContentProviderAppender.save(captor.capture()))
                 .willReturn(new TechContentProvider.Id(1L));
@@ -72,7 +72,7 @@ class TechContentProviderRegisterServiceTest {
                 "url",
                 new Image.Id(1L)
         );
-        given(providerUrlExistsReader.exists("url"))
+        given(techContentProviderUrlExistsReader.exists("url"))
                 .willReturn(false);
         given(techContentProviderAppender.save(captor.capture()))
                 .willReturn(new TechContentProvider.Id(1L));
@@ -97,7 +97,7 @@ class TechContentProviderRegisterServiceTest {
                 "url",
                 null
         );
-        given(providerUrlExistsReader.exists("url"))
+        given(techContentProviderUrlExistsReader.exists("url"))
                 .willReturn(true);
 
         // when & then
