@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class ProviderExistsReader {
+public class TechContentProviderExistsReader {
 
     private final TechContentProviderJpaRepository repository;
 

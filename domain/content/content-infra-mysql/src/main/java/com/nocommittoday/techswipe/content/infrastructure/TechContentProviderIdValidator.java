@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class TechContentProviderIdValidator {
 
-    private final ProviderExistsReader providerExistsReader;
+    private final TechContentProviderExistsReader techContentProviderExistsReader;
 
     public void validate(final TechContentProvider.Id id) {
-        if (!providerExistsReader.exists(id)) {
+        if (!techContentProviderExistsReader.exists(id)) {
             throw new TechContentProviderNotFoundException(id);
         }
     }
