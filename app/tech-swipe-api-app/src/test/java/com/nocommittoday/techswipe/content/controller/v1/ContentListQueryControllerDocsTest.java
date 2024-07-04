@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.service.ContentListQueryParam;
 import com.nocommittoday.techswipe.content.service.ContentListQueryService;
-import com.nocommittoday.techswipe.content.service.ContentQueryResult;
+import com.nocommittoday.techswipe.content.service.TechContentQueryResult;
 import com.nocommittoday.techswipe.content.service.TechContentProviderQueryResult;
 import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
@@ -48,7 +48,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
                 new PageParam(1, 10),
                 new ContentListQueryParam(List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING))
         )).willReturn(List.of(
-                new ContentQueryResult(
+                new TechContentQueryResult(
                         new TechContent.Id(1L),
                         new TechContentProviderQueryResult(
                                 new TechContentProvider.Id(2L),

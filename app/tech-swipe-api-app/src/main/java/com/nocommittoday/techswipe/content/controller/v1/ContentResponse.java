@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.controller.v1;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.content.service.ContentQueryResult;
+import com.nocommittoday.techswipe.content.service.TechContentQueryResult;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
@@ -20,7 +20,7 @@ public record ContentResponse(
         @Nullable String providerIconUrl
 ) {
 
-    public static ContentResponse from(final ContentQueryResult content) {
+    public static ContentResponse from(final TechContentQueryResult content) {
         return new ContentResponse(
                 content.id().value(),
                 content.title(),

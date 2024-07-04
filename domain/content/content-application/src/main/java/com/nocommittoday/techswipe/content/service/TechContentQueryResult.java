@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.List;
 
-public record ContentQueryResult(
+public record TechContentQueryResult(
         TechContent.Id id,
         TechContentProviderQueryResult provider,
         String url,

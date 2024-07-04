@@ -23,11 +23,11 @@ public class ContentListQueryService {
     private final ContentCategorizedListReader contentCategorizedListReader;
     private final ImageReader imageReader;
 
-    public List<ContentQueryResult> getList(final PageParam pageParam, final ContentListQueryParam queryParam) {
+    public List<TechContentQueryResult> getList(final PageParam pageParam, final ContentListQueryParam queryParam) {
         final List<TechContent> contents = contentCategorizedListReader.getList(pageParam, queryParam.categories());
         final Map<Image.Id, String> imageIdToUrl = getImageIdStringMap(contents);
         return contents.stream()
-                .map(content -> new ContentQueryResult(
+                .map(content -> new TechContentQueryResult(
                                 content.getId(),
                                 new TechContentProviderQueryResult(
                                         content.getProvider().getId(),
