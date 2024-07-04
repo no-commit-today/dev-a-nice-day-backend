@@ -41,7 +41,7 @@ class TechContentProviderRegisterServiceTest {
     @Test
     void 이미지가_없으면_이미지를_포함하지않고_저장한다() {
         // given
-        final ProviderRegisterCommand command = new ProviderRegisterCommand(
+        final TechContentProviderRegisterCommand command = new TechContentProviderRegisterCommand(
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "title",
                 "url",
@@ -66,7 +66,7 @@ class TechContentProviderRegisterServiceTest {
     @Test
     void 이미지가_있으면_이미지를_포함하여_저장한다() {
         // given
-        final ProviderRegisterCommand command = new ProviderRegisterCommand(
+        final TechContentProviderRegisterCommand command = new TechContentProviderRegisterCommand(
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "title",
                 "url",
@@ -91,7 +91,7 @@ class TechContentProviderRegisterServiceTest {
     @Test
     void 컨텐츠_제공자_url_이_이미_등록되어_있을_경우_예외를_발생시킨다() {
         // given
-        final ProviderRegisterCommand command = new ProviderRegisterCommand(
+        final TechContentProviderRegisterCommand command = new TechContentProviderRegisterCommand(
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "title",
                 "url",

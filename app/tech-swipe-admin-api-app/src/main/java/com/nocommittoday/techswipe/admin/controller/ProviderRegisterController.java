@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.admin.controller;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.service.ProviderRegisterCommand;
+import com.nocommittoday.techswipe.content.service.TechContentProviderRegisterCommand;
 import com.nocommittoday.techswipe.content.service.TechContentProviderRegisterService;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
@@ -27,7 +27,7 @@ public class ProviderRegisterController {
     ) {
         final Image.Id imageId = imageStoreService.store(request.iconUrl(), "provider");
         final TechContentProvider.Id providerId = techContentProviderRegisterService.register(
-                new ProviderRegisterCommand(
+                new TechContentProviderRegisterCommand(
                         request.type(),
                         request.title(),
                         request.url(),

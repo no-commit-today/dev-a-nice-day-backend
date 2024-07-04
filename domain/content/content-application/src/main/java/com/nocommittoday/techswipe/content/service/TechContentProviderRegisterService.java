@@ -17,7 +17,7 @@ public class TechContentProviderRegisterService {
     private final ProviderAppender providerSave;
     private final ProviderUrlExistsReader providerUrlExistsReader;
 
-    public TechContentProvider.Id register(final ProviderRegisterCommand command) {
+    public TechContentProvider.Id register(final TechContentProviderRegisterCommand command) {
         if (providerUrlExistsReader.exists(command.url())) {
             throw new TechContentProviderUrlExistsException(command.url());
         }

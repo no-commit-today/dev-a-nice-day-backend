@@ -6,7 +6,7 @@ import lombok.NonNull;
 
 import javax.annotation.Nullable;
 
-public record ProviderRegisterCommand(
+public record TechContentProviderRegisterCommand(
         @NonNull TechContentProviderType type,
         @NonNull String title,
         @NonNull String url,
