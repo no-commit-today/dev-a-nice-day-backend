@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.URL;
 
-public record ProviderRegisterRequest(
+public record TechContentProviderRegisterRequest(
         @NotNull TechContentProviderType type,
         @NotNull String title,
         @NotNull String url,

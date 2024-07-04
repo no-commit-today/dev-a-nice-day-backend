@@ -23,7 +23,7 @@ public class TechContentProviderRegisterController {
 
     @PostMapping("/api/content/admin/providers")
     ResponseEntity<ProviderRegisterResponse> register(
-            @RequestBody @Valid final ProviderRegisterRequest request
+            @RequestBody @Valid final TechContentProviderRegisterRequest request
     ) {
         final Image.Id imageId = imageStoreService.store(request.iconUrl(), "provider");
         final TechContentProvider.Id providerId = techContentProviderRegisterService.register(
