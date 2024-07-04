@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class ContentListQueryController {
+public class TechContentListQueryController {
 
     private final TechContentListQueryService techContentListQueryService;
 

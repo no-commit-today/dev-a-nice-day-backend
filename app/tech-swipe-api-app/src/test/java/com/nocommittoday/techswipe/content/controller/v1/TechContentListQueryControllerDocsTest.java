@@ -31,8 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@WebMvcTest(ContentListQueryController.class)
-class ContentListQueryControllerDocsTest extends AbstractDocsTest {
+@WebMvcTest(TechContentListQueryController.class)
+class TechContentListQueryControllerDocsTest extends AbstractDocsTest {
 
     @Autowired
     private MockMvc mockMvc;
