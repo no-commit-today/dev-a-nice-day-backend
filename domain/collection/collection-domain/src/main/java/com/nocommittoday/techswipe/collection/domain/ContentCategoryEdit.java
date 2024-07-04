@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.collection.domain;
 
+import com.nocommittoday.techswipe.content.domain.TechContentCategoryEdit;
 import lombok.NonNull;
 
 import java.util.List;
@@ -27,10 +28,8 @@ public record ContentCategoryEdit(
         if (!isEditable(prevStatus)) {
             throw new CollectionCategoryNotEditableException(collectedContent.getId());
         }
-        final boolean containsUnused = categories.stream()
-                .anyMatch(category -> !category.isUsed());
 
-        if (containsUnused) {
+        if (containsUnusedCategory()) {
             return CollectionStatus.FILTERED;
         }
 
@@ -40,6 +39,19 @@ public record ContentCategoryEdit(
             return CollectionStatus.CATEGORIZED;
         }
 
-        throw new IllegalArgumentException("카테고리를 수정할 수 없는 상태입니다. status=" + prevStatus);
+        throw new CollectionCategoryNotEditableException(collectedContent.getId());
+    }
+
+    public boolean containsUnusedCategory() {
+        return categories.stream()
+                .anyMatch(category -> !category.isUsed());
+    }
+
+    public TechContentCategoryEdit toTechContentCategoryEdit() {
+        return new TechContentCategoryEdit(categories
+                .stream()
+                .map(CollectionCategory::getTechCategory)
+                .toList()
+        );
     }
 }
