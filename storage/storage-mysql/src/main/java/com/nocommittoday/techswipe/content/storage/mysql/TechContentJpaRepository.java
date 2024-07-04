@@ -6,4 +6,7 @@ public interface TechContentJpaRepository
         extends JpaRepository<TechContentEntity, Long>, TechContentJpaRepositoryCustom {
 
     boolean existsByIdAndDeletedIsFalse(Long id);
+
+    boolean existsByUrlAndDeletedIsFalse(String url);
+
 }
