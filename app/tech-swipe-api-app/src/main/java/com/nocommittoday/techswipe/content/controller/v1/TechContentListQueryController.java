@@ -23,7 +23,7 @@ public class TechContentListQueryController {
     @GetMapping("/api/content/v1/contents")
     public ResponseEntity<ListResponse<ContentResponse>> getList(
             final @ModelAttribute @Valid PageRequest pageRequest,
-            final @ModelAttribute ContentListQueryRequest request
+            final @ModelAttribute TechContentListQueryRequest request
     ) {
 
         final List<TechContentQueryResult> contentList = techContentListQueryService.getList(
@@ -39,7 +39,7 @@ public class TechContentListQueryController {
 
     @GetMapping("/api/content/v1/contents-count")
     public ResponseEntity<TechContentCountResponse> count(
-            final @ModelAttribute ContentListQueryRequest request
+            final @ModelAttribute TechContentListQueryRequest request
     ) {
         return ResponseEntity.ok(new TechContentCountResponse(
                 techContentListQueryService.count(new TechContentListQueryParam(request.categories()))
