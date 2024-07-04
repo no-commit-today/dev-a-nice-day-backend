@@ -21,7 +21,7 @@ public class TechContentListQueryController {
     private final TechContentListQueryService techContentListQueryService;
 
     @GetMapping("/api/content/v1/contents")
-    public ResponseEntity<ListResponse<ContentResponse>> getList(
+    public ResponseEntity<ListResponse<TechContentResponse>> getList(
             final @ModelAttribute @Valid PageRequest pageRequest,
             final @ModelAttribute TechContentListQueryRequest request
     ) {
@@ -32,7 +32,7 @@ public class TechContentListQueryController {
 
         return ResponseEntity.ok(new ListResponse<>(
                 contentList.stream()
-                        .map(ContentResponse::from)
+                        .map(TechContentResponse::from)
                         .toList())
         );
     }

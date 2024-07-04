@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.List;
 
-public record ContentResponse(
+public record TechContentResponse(
         long id,
         String title,
         LocalDate publishedDate,
@@ -20,8 +20,8 @@ public record ContentResponse(
         @Nullable String providerIconUrl
 ) {
 
-    public static ContentResponse from(final TechContentQueryResult content) {
-        return new ContentResponse(
+    public static TechContentResponse from(final TechContentQueryResult content) {
+        return new TechContentResponse(
                 content.id().value(),
                 content.title(),
                 content.publishedDate(),
