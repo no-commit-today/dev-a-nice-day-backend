@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.controller;
 
 import com.nocommittoday.techswipe.content.domain.TechContent;
-import com.nocommittoday.techswipe.content.service.ContentLinkService;
+import com.nocommittoday.techswipe.content.service.TechContentLinkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ContentLinkController {
 
-    private final ContentLinkService contentLinkService;
+    private final TechContentLinkService techContentLinkService;
 
     @GetMapping("/contents/{contentId}/link")
     public ResponseEntity<Void> link(@PathVariable final Long contentId) {
-        final String url = contentLinkService.link(new TechContent.Id(contentId));
+        final String url = techContentLinkService.link(new TechContent.Id(contentId));
 
         return ResponseEntity.status(HttpStatus.FOUND)
                 .header(HttpHeaders.LOCATION, url)

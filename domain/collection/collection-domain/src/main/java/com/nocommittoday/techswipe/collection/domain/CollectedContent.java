@@ -137,4 +137,25 @@ public class CollectedContent {
                 imageUrl
         );
     }
+
+    public CollectedContent editCategory(final ContentCategoryEdit categoryEdit) {
+        if (!categoryEdit.isEditable(status)) {
+            throw new CollectionCategoryNotEditableException(id);
+        }
+
+        final CollectionStatus nextStatus = categoryEdit.nextContentStatus(this);
+
+        return new CollectedContent(
+                id,
+                nextStatus,
+                categoryEdit.categories(),
+                summary,
+                providerId,
+                url,
+                title,
+                publishedDate,
+                content,
+                imageUrl
+        );
+    }
 }

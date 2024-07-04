@@ -13,4 +13,6 @@ public enum CollectionStatus {
     FILTERED, // 카테고리 분류되었으나, 다루지 않는 주제인 상태
     SUMMARIZED, // 내용 요약이 완료된 상태
     PUBLISHED // 발행된 상태
+    ;
+
 }

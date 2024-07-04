@@ -49,4 +49,17 @@ public class TechContent {
         this.summary = summary;
         this.categories = Collections.unmodifiableList(categories);
     }
+
+    public TechContent edit(final TechContentCategoryEdit categoryEdit) {
+        return new TechContent(
+                id,
+                provider,
+                imageId,
+                url,
+                title,
+                publishedDate,
+                summary,
+                categoryEdit.categories()
+        );
+    }
 }

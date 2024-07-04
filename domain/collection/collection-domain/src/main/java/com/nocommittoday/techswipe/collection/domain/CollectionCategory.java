@@ -19,6 +19,7 @@ public enum CollectionCategory implements EnumMapperType {
     DEV_TOOL("개발 툴", TechCategory.DEV_TOOL),
 
     NON_DEV("개발 외 주제", null),
+    ILLEGAL_CONTENT("잘못된 컨텐츠", null),
     ;
 
     private final String title;
