@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.controller;
 
 import com.nocommittoday.techswipe.content.domain.TechContent;
-import com.nocommittoday.techswipe.content.service.ContentLinkService;
+import com.nocommittoday.techswipe.content.service.TechContentLinkService;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +27,12 @@ class ContentLinkControllerDocsTest extends AbstractDocsTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private ContentLinkService contentLinkService;
+    private TechContentLinkService techContentLinkService;
 
     @Test
     void 컨텐츠_링크_Docs() throws Exception {
         // given
-        given(contentLinkService.link(new TechContent.Id(1L)))
+        given(techContentLinkService.link(new TechContent.Id(1L)))
                 .willReturn("https://content-url");
 
         // when
