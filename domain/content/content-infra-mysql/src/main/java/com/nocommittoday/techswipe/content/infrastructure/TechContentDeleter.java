@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class ContentDeleter {
+public class TechContentDeleter {
 
     private final TechContentJpaRepository techContentJpaRepository;
 
