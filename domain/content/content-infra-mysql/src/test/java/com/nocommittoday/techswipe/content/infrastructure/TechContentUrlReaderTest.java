@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class ContentUrlReaderTest {
+class TechContentUrlReaderTest {
 
     @InjectMocks
-    private ContentUrlReader contentUrlReader;
+    private TechContentUrlReader techContentUrlReader;
 
     @Mock
     private TechContentJpaRepository techContentJpaRepository;
@@ -30,7 +30,7 @@ class ContentUrlReaderTest {
                 .willReturn(Optional.empty());
 
         // when
-        assertThatThrownBy(() -> contentUrlReader.get(new TechContent.Id(1L)))
+        assertThatThrownBy(() -> techContentUrlReader.get(new TechContent.Id(1L)))
                 .isInstanceOf(TechContentNotFoundException.class);
     }
 

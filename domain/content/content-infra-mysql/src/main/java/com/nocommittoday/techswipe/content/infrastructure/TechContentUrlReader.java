@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class ContentUrlReader {
+public class TechContentUrlReader {
 
     private final TechContentJpaRepository techContentJpaRepository;
 
