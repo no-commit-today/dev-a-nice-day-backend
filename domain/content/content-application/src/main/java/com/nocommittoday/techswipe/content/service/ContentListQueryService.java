@@ -29,7 +29,7 @@ public class ContentListQueryService {
         return contents.stream()
                 .map(content -> new ContentQueryResult(
                                 content.getId(),
-                                new ProviderQueryResult(
+                                new TechContentProviderQueryResult(
                                         content.getProvider().getId(),
                                         content.getProvider().getTitle(),
                                         content.getProvider().getUrl(),

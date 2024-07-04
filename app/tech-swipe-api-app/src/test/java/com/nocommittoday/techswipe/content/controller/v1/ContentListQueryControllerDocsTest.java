@@ -6,7 +6,7 @@ import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.service.ContentListQueryParam;
 import com.nocommittoday.techswipe.content.service.ContentListQueryService;
 import com.nocommittoday.techswipe.content.service.ContentQueryResult;
-import com.nocommittoday.techswipe.content.service.ProviderQueryResult;
+import com.nocommittoday.techswipe.content.service.TechContentProviderQueryResult;
 import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
@@ -50,7 +50,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
         )).willReturn(List.of(
                 new ContentQueryResult(
                         new TechContent.Id(1L),
-                        new ProviderQueryResult(
+                        new TechContentProviderQueryResult(
                                 new TechContentProvider.Id(2L),
                                 "title",
                                 "https://provider-url",

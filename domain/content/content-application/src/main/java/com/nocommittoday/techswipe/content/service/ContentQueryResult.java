@@ -9,7 +9,7 @@ import java.util.List;
 
 public record ContentQueryResult(
         TechContent.Id id,
-        ProviderQueryResult provider,
+        TechContentProviderQueryResult provider,
         String url,
         String title,
         LocalDate publishedDate,
