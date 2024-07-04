@@ -8,7 +8,7 @@ import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUpd
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentDeleter;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentReader;
-import com.nocommittoday.techswipe.content.infrastructure.ContentUpdater;
+import com.nocommittoday.techswipe.content.infrastructure.TechContentUpdater;
 import com.nocommittoday.techswipe.content.infrastructure.ContentUrlExistsReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class ContentCategoryEditService {
     private final CollectedContentUpdater collectedContentUpdater;
     private final ContentUrlExistsReader contentUrlExistsReader;
     private final TechContentReader techContentReader;
-    private final ContentUpdater contentUpdater;
+    private final TechContentUpdater techContentUpdater;
     private final TechContentDeleter techContentDeleter;
 
     public void editCategory(final CollectedContent.Id id, final ContentCategoryEdit categoryEdit) {
@@ -37,7 +37,7 @@ public class ContentCategoryEditService {
         if (CollectionStatus.FILTERED == newCollectedContent.getStatus()) {
             techContentDeleter.delete(techContent.getId());
         } else {
-            contentUpdater.update(techContent.edit(categoryEdit.toTechContentCategoryEdit()));
+            techContentUpdater.update(techContent.edit(categoryEdit.toTechContentCategoryEdit()));
         }
     }
 }

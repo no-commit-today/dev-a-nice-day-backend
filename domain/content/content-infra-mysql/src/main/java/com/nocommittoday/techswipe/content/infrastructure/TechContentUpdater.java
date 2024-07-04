@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
-public class ContentUpdater {
+public class TechContentUpdater {
 
     private final TechContentJpaRepository techContentJpaRepository;
 
