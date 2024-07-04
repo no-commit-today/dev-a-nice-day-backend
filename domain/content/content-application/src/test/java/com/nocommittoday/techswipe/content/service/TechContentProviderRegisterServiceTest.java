@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderUrlExistsException;
-import com.nocommittoday.techswipe.content.infrastructure.ProviderAppender;
+import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderAppender;
 import com.nocommittoday.techswipe.content.infrastructure.ProviderUrlExistsReader;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.infrastructure.ImageIdValidator;
@@ -30,7 +30,7 @@ class TechContentProviderRegisterServiceTest {
     private ImageIdValidator imageIdValidator;
 
     @Mock
-    private ProviderAppender providerAppender;
+    private TechContentProviderAppender techContentProviderAppender;
 
     @Mock
     private ProviderUrlExistsReader providerUrlExistsReader;
@@ -49,7 +49,7 @@ class TechContentProviderRegisterServiceTest {
         );
         given(providerUrlExistsReader.exists("url"))
                 .willReturn(false);
-        given(providerAppender.save(captor.capture()))
+        given(techContentProviderAppender.save(captor.capture()))
                 .willReturn(new TechContentProvider.Id(1L));
 
         // when
@@ -74,7 +74,7 @@ class TechContentProviderRegisterServiceTest {
         );
         given(providerUrlExistsReader.exists("url"))
                 .willReturn(false);
-        given(providerAppender.save(captor.capture()))
+        given(techContentProviderAppender.save(captor.capture()))
                 .willReturn(new TechContentProvider.Id(1L));
 
         // when

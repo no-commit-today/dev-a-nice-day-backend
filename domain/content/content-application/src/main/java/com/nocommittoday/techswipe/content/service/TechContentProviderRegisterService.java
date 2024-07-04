@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.content.service;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderUrlExistsException;
-import com.nocommittoday.techswipe.content.infrastructure.ProviderAppender;
+import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderAppender;
 import com.nocommittoday.techswipe.content.infrastructure.ProviderUrlExistsReader;
 import com.nocommittoday.techswipe.image.infrastructure.ImageIdValidator;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class TechContentProviderRegisterService {
 
     private final ImageIdValidator imageIdValidator;
-    private final ProviderAppender providerSave;
+    private final TechContentProviderAppender providerSave;
     private final ProviderUrlExistsReader providerUrlExistsReader;
 
     public TechContentProvider.Id register(final TechContentProviderRegisterCommand command) {

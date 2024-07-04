@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class ProviderAppender {
+public class TechContentProviderAppender {
 
     private final TechContentProviderJpaRepository repository;
 
