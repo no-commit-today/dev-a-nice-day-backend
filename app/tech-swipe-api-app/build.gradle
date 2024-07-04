@@ -10,8 +10,8 @@ configurations {
 }
 
 dependencies {
+    implementation(project(":app:servlet-api-app-core"))
     implementation(project(":domain:core:core-domain"))
-    implementation(project(":domain:core:core-web-servlet"))
 
     implementation(project(":domain:content:content-application"))
     implementation(project(":domain:content:content-domain"))
