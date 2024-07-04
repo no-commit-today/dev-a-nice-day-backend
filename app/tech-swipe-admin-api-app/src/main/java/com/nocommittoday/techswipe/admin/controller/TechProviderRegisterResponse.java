@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-public record ProviderRegisterResponse(
+public record TechProviderRegisterResponse(
         long id
 ) {
 }
