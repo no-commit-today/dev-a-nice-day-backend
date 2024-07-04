@@ -17,7 +17,6 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.responseH
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ContentLinkController.class)
@@ -37,7 +36,6 @@ class ContentLinkControllerDocsTest extends AbstractDocsTest {
 
         // when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/contents/{contentId}/link", 1L))
-                .andDo(print())
                 .andExpect(status().isFound())
                 .andDo(document("content/content-link",
                         pathParameters(

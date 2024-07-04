@@ -5,8 +5,8 @@ import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.service.TechContentListQueryParam;
 import com.nocommittoday.techswipe.content.service.TechContentListQueryService;
-import com.nocommittoday.techswipe.content.service.TechContentQueryResult;
 import com.nocommittoday.techswipe.content.service.TechContentProviderQueryResult;
+import com.nocommittoday.techswipe.content.service.TechContentQueryResult;
 import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
@@ -27,7 +27,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -73,7 +72,6 @@ class TechContentListQueryControllerDocsTest extends AbstractDocsTest {
                         .param("categories", TechCategory.SERVER.name())
                         .param("categories", TechCategory.SW_ENGINEERING.name())
                 )
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andDo(document("content/get-content-list",
                         queryParameters(
@@ -120,7 +118,6 @@ class TechContentListQueryControllerDocsTest extends AbstractDocsTest {
                         .param("categories", TechCategory.SERVER.name())
                         .param("categories", TechCategory.SW_ENGINEERING.name())
                 )
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andDo(document("content/get-content-count",
                         queryParameters(
