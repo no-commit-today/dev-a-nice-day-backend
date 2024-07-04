@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class ContentProviderIdValidatorTest {
+class TechContentProviderIdValidatorTest {
 
     @InjectMocks
-    private ContentProviderIdValidator contentProviderIdValidator;
+    private TechContentProviderIdValidator techContentProviderIdValidator;
 
     @Mock
     private ProviderExistsReader providerExistsReader;
@@ -28,7 +28,7 @@ class ContentProviderIdValidatorTest {
 
         // when
         // then
-        assertThatThrownBy(() -> contentProviderIdValidator.validate(id))
+        assertThatThrownBy(() -> techContentProviderIdValidator.validate(id))
                 .isInstanceOf(TechContentProviderNotFoundException.class);
     }
 }
