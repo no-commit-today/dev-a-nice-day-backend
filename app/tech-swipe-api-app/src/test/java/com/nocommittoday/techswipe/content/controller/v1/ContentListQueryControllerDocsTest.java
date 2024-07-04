@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.content.controller.v1;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.service.ContentListQueryParam;
+import com.nocommittoday.techswipe.content.service.TechContentListQueryParam;
 import com.nocommittoday.techswipe.content.service.TechContentListQueryService;
 import com.nocommittoday.techswipe.content.service.TechContentQueryResult;
 import com.nocommittoday.techswipe.content.service.TechContentProviderQueryResult;
@@ -46,7 +46,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
         // given
         given(techContentListQueryService.getList(
                 new PageParam(1, 10),
-                new ContentListQueryParam(List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING))
+                new TechContentListQueryParam(List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING))
         )).willReturn(List.of(
                 new TechContentQueryResult(
                         new TechContent.Id(1L),
@@ -110,7 +110,7 @@ class ContentListQueryControllerDocsTest extends AbstractDocsTest {
         // given
         given(
                 techContentListQueryService.count(
-                        new ContentListQueryParam(
+                        new TechContentListQueryParam(
                                 List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING)))
         ).willReturn(100L);
 

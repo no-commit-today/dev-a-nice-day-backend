@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ContentListQueryParamTest {
+class TechContentListQueryParamTest {
 
     @Test
     void categories가_null이면_TechCategory_모든_값으로_초기화된다() {
         // given
-        final ContentListQueryParam request = new ContentListQueryParam(null);
+        final TechContentListQueryParam request = new TechContentListQueryParam(null);
 
         // then
         assertThat(request.categories())

@@ -4,10 +4,10 @@ import com.nocommittoday.techswipe.content.domain.TechCategory;
 
 import java.util.List;
 
-public record ContentListQueryParam(
+public record TechContentListQueryParam(
         List<TechCategory> categories
 ) {
-    public ContentListQueryParam {
+    public TechContentListQueryParam {
         if (categories == null) {
             categories = TechCategory.valueList();
         }

@@ -23,7 +23,7 @@ public class TechContentListQueryService {
     private final ContentCategorizedListReader contentCategorizedListReader;
     private final ImageReader imageReader;
 
-    public List<TechContentQueryResult> getList(final PageParam pageParam, final ContentListQueryParam queryParam) {
+    public List<TechContentQueryResult> getList(final PageParam pageParam, final TechContentListQueryParam queryParam) {
         final List<TechContent> contents = contentCategorizedListReader.getList(pageParam, queryParam.categories());
         final Map<Image.Id, String> imageIdToUrl = getImageIdStringMap(contents);
         return contents.stream()
@@ -62,7 +62,7 @@ public class TechContentListQueryService {
                 ));
     }
 
-    public long count(final ContentListQueryParam queryParam) {
+    public long count(final TechContentListQueryParam queryParam) {
         return contentCategorizedListReader.count(queryParam.categories());
     }
 }

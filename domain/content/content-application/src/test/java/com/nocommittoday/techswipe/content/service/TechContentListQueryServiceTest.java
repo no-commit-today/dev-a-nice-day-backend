@@ -73,7 +73,7 @@ class TechContentListQueryServiceTest {
                 ));
 
         // when
-        final List<TechContentQueryResult> techContentQueryResults = techContentListQueryService.getList(pageParam, new ContentListQueryParam(List.of(TechCategory.SERVER)));
+        final List<TechContentQueryResult> techContentQueryResults = techContentListQueryService.getList(pageParam, new TechContentListQueryParam(List.of(TechCategory.SERVER)));
 
         // then
         assertThat(techContentQueryResults).hasSize(2);
