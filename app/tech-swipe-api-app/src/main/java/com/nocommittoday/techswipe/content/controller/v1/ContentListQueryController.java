@@ -38,10 +38,10 @@ public class ContentListQueryController {
     }
 
     @GetMapping("/api/content/v1/contents-count")
-    public ResponseEntity<ContentCountResponse> count(
+    public ResponseEntity<TechContentCountResponse> count(
             final @ModelAttribute ContentListQueryRequest request
     ) {
-        return ResponseEntity.ok(new ContentCountResponse(
+        return ResponseEntity.ok(new TechContentCountResponse(
                 techContentListQueryService.count(new TechContentListQueryParam(request.categories()))
         ));
     }
