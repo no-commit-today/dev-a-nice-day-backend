@@ -134,4 +134,16 @@ public class TechContentEntity extends BaseSoftDeleteEntity {
                 categories.stream().map(TechCategoryEntity::getCategory).toList()
         );
     }
+
+    public void update(final TechContent techContent) {
+        this.provider = TechContentProviderEntity.from(techContent.getProvider().getId());
+        this.image = techContent.getImageId() == null ? null : ImageEntity.from(techContent.getImageId());
+        this.url = techContent.getUrl();
+        this.title = techContent.getTitle();
+        this.summary = techContent.getSummary();
+        this.publishedDate = techContent.getPublishedDate();
+        this.categories = techContent.getCategories().stream()
+                .map(category -> new TechCategoryEntity(this, category))
+                .toList();
+    }
 }
