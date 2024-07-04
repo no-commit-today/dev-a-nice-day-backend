@@ -18,10 +18,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class ProviderReaderTest {
+class TechContentProviderReaderTest {
 
     @InjectMocks
-    private ProviderReader providerReader;
+    private TechContentProviderReader techContentProviderReader;
 
     @Mock
     private TechContentProviderJpaRepository providerJpaRepository;
@@ -40,7 +40,7 @@ class ProviderReaderTest {
                 .willReturn(Optional.of(providerEntity));
 
         // when
-        final TechContentProvider provider = providerReader.get(new TechContentProvider.Id(1L));
+        final TechContentProvider provider = techContentProviderReader.get(new TechContentProvider.Id(1L));
 
         // then
         assertThat(provider).isNotNull();
@@ -63,7 +63,7 @@ class ProviderReaderTest {
 
         // when
         // then
-        assertThatThrownBy(() -> providerReader.get(new TechContentProvider.Id(1L)))
+        assertThatThrownBy(() -> techContentProviderReader.get(new TechContentProvider.Id(1L)))
                 .isInstanceOf(TechContentProviderNotFoundException.class);
     }
 
