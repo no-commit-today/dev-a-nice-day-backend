@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Getter
-public class ProviderIdListJobParameters {
+public class TechContentProviderIdListJobParameters {
 
     public static final String NAME = "ProviderIdListJobParameters";
 

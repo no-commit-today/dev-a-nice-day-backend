@@ -6,19 +6,19 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class ProviderIdListJobParametersTest {
+class TechContentProviderIdListJobParametersTest {
 
     @Test
     void 문자열로_받은_provider_ids_파라미터를_파싱한다() {
         // given
         final String parameter = "[1;2;3]";
-        final ProviderIdListJobParameters providerIdListJobParameters = new ProviderIdListJobParameters();
+        final TechContentProviderIdListJobParameters techContentProviderIdListJobParameters = new TechContentProviderIdListJobParameters();
 
         // when
-        providerIdListJobParameters.setProviderId(parameter);
+        techContentProviderIdListJobParameters.setProviderId(parameter);
 
         // then
-        assertThat(providerIdListJobParameters.getProviderIdList()).containsExactly(
+        assertThat(techContentProviderIdListJobParameters.getProviderIdList()).containsExactly(
                 new TechContentProvider.Id(1L),
                 new TechContentProvider.Id(2L),
                 new TechContentProvider.Id(3L)
@@ -29,10 +29,10 @@ class ProviderIdListJobParametersTest {
     void provider_ids_파라미터가_숫자가_아닌_문자열이면_예외를_던진다() {
         // given
         final String parameter = "[1;2;3a]";
-        final ProviderIdListJobParameters providerIdListJobParameters = new ProviderIdListJobParameters();
+        final TechContentProviderIdListJobParameters techContentProviderIdListJobParameters = new TechContentProviderIdListJobParameters();
 
         // when & then
-        assertThatThrownBy(() -> providerIdListJobParameters.setProviderId(parameter))
+        assertThatThrownBy(() -> techContentProviderIdListJobParameters.setProviderId(parameter))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -40,13 +40,13 @@ class ProviderIdListJobParametersTest {
     void provider_ids_파라미터가_중복이_있으면_중복을_제거한다() {
         // given
         final String parameter = "[1;2;2;3]";
-        final ProviderIdListJobParameters providerIdListJobParameters = new ProviderIdListJobParameters();
+        final TechContentProviderIdListJobParameters techContentProviderIdListJobParameters = new TechContentProviderIdListJobParameters();
 
         // when
-        providerIdListJobParameters.setProviderId(parameter);
+        techContentProviderIdListJobParameters.setProviderId(parameter);
 
         // then
-        assertThat(providerIdListJobParameters.getProviderIdList()).containsExactly(
+        assertThat(techContentProviderIdListJobParameters.getProviderIdList()).containsExactly(
                 new TechContentProvider.Id(1L),
                 new TechContentProvider.Id(2L),
                 new TechContentProvider.Id(3L)
@@ -56,12 +56,12 @@ class ProviderIdListJobParametersTest {
     @Test
     void provider_ids_파라미터가_와일드카드이면_null을_반환한다() {
         // given
-        final ProviderIdListJobParameters providerIdListJobParameters = new ProviderIdListJobParameters();
+        final TechContentProviderIdListJobParameters techContentProviderIdListJobParameters = new TechContentProviderIdListJobParameters();
 
         // when
-        providerIdListJobParameters.setProviderId("[*]");
+        techContentProviderIdListJobParameters.setProviderId("[*]");
 
         // then
-        assertThat(providerIdListJobParameters.getProviderIdList()).isNull();
+        assertThat(techContentProviderIdListJobParameters.getProviderIdList()).isNull();
     }
 }
