@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class ContentReader {
+public class TechContentReader {
 
     private final TechContentJpaRepository techContentJpaRepository;
 

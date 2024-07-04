@@ -7,7 +7,7 @@ import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentRea
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUpdater;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentDeleter;
-import com.nocommittoday.techswipe.content.infrastructure.ContentReader;
+import com.nocommittoday.techswipe.content.infrastructure.TechContentReader;
 import com.nocommittoday.techswipe.content.infrastructure.ContentUpdater;
 import com.nocommittoday.techswipe.content.infrastructure.ContentUrlExistsReader;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class ContentCategoryEditService {
     private final CollectedContentReader collectedContentReader;
     private final CollectedContentUpdater collectedContentUpdater;
     private final ContentUrlExistsReader contentUrlExistsReader;
-    private final ContentReader contentReader;
+    private final TechContentReader techContentReader;
     private final ContentUpdater contentUpdater;
     private final TechContentDeleter techContentDeleter;
 
@@ -33,7 +33,7 @@ public class ContentCategoryEditService {
             return ;
         }
 
-        final TechContent techContent = contentReader.getByUrl(newCollectedContent.getUrl());
+        final TechContent techContent = techContentReader.getByUrl(newCollectedContent.getUrl());
         if (CollectionStatus.FILTERED == newCollectedContent.getStatus()) {
             techContentDeleter.delete(techContent.getId());
         } else {
