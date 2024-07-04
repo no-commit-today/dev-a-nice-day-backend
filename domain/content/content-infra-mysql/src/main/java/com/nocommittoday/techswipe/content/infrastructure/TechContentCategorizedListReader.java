@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class ContentCategorizedListReader {
+public class TechContentCategorizedListReader {
 
     private final TechContentJpaRepository techContentJpaRepository;
 

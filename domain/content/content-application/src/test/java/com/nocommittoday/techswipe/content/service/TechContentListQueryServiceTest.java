@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
-import com.nocommittoday.techswipe.content.infrastructure.ContentCategorizedListReader;
+import com.nocommittoday.techswipe.content.infrastructure.TechContentCategorizedListReader;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.infrastructure.ImageReader;
@@ -28,7 +28,7 @@ class TechContentListQueryServiceTest {
     private TechContentListQueryService techContentListQueryService;
 
     @Mock
-    private ContentCategorizedListReader contentCategorizedListReader;
+    private TechContentCategorizedListReader techContentCategorizedListReader;
 
     @Mock
     private ImageReader imageReader;
@@ -44,7 +44,7 @@ class TechContentListQueryServiceTest {
                 "provider-url",
                 new Image.Id(21L)
         );
-        given(contentCategorizedListReader.getList(pageParam, List.of(TechCategory.SERVER)))
+        given(techContentCategorizedListReader.getList(pageParam, List.of(TechCategory.SERVER)))
                 .willReturn(List.of(
                         new TechContent(
                                 new TechContent.Id(1L),

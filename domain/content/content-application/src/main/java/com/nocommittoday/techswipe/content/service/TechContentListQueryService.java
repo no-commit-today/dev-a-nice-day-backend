@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.content.service;
 
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.infrastructure.ContentCategorizedListReader;
+import com.nocommittoday.techswipe.content.infrastructure.TechContentCategorizedListReader;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.infrastructure.ImageReader;
@@ -20,11 +20,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TechContentListQueryService {
 
-    private final ContentCategorizedListReader contentCategorizedListReader;
+    private final TechContentCategorizedListReader techContentCategorizedListReader;
     private final ImageReader imageReader;
 
     public List<TechContentQueryResult> getList(final PageParam pageParam, final TechContentListQueryParam queryParam) {
-        final List<TechContent> contents = contentCategorizedListReader.getList(pageParam, queryParam.categories());
+        final List<TechContent> contents = techContentCategorizedListReader.getList(pageParam, queryParam.categories());
         final Map<Image.Id, String> imageIdToUrl = getImageIdStringMap(contents);
         return contents.stream()
                 .map(content -> new TechContentQueryResult(
@@ -63,6 +63,6 @@ public class TechContentListQueryService {
     }
 
     public long count(final TechContentListQueryParam queryParam) {
-        return contentCategorizedListReader.count(queryParam.categories());
+        return techContentCategorizedListReader.count(queryParam.categories());
     }
 }
