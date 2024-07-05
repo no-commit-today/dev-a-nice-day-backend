@@ -54,3 +54,7 @@ app:
     s3:
       enabled: true
       bucket-name: ${AWS_S3_BUCKET}
+  collection:
+    openai:
+      enabled: true
+      api-key: ${OPENAI_API_KEY}
