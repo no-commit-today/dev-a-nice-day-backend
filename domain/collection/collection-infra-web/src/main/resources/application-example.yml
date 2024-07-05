@@ -3,3 +3,4 @@ app:
     openai:
       enabled: true
       api-key: ${OPENAI_API_KEY}
+      categorization-model: ${OPENAI_CATEGORIZATION_MODEL}
