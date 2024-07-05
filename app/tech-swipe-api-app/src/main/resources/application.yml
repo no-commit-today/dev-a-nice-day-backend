@@ -16,12 +16,10 @@ spring:
     activate:
       on-profile: local
 
-app:
-  host: http://localhost:8080
-
 logging:
   level:
     org.apache.coyote.http11: debug
+
 ---
 spring:
   config:
@@ -31,15 +29,12 @@ spring:
 logging:
   level:
     org.apache.coyote.http11: debug
+
 ---
 spring:
   config:
     activate:
       on-profile: dev
-
-logging:
-  level:
-    org.apache.coyote.http11: debug
 
 ---
 spring:

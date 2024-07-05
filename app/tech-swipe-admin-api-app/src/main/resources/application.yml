@@ -15,9 +15,6 @@ spring:
     activate:
       on-profile: local
 
-logging:
-  level:
-    org.apache.coyote.http11: debug
 ---
 spring:
   config:
@@ -33,10 +30,6 @@ spring:
   config:
     activate:
       on-profile: dev
-
-logging:
-  level:
-    org.apache.coyote.http11: debug
 
 ---
 spring:

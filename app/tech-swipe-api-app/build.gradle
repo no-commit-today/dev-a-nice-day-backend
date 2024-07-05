@@ -2,7 +2,7 @@ bootJar.enabled = true
 jar.enabled = false
 
 ext {
-    set('snippetsDir', file("build/generated-snippets"))
+    snippetsDir = file('build/generated-snippets')
 }
 
 configurations {

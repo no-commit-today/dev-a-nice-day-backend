@@ -22,7 +22,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -47,7 +46,6 @@ class CodeControllerTest extends AbstractDocsTest {
         mockMvc.perform(get("/api/code/v1/codes")
                         .accept(MediaType.APPLICATION_JSON)
                         .param(CODE_TYPES_PARAM, CodeEnum.class.getSimpleName()))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andDo(document("code/get-list",
                         preprocessRequest(prettyPrint()),
@@ -70,7 +68,6 @@ class CodeControllerTest extends AbstractDocsTest {
         // then
         mockMvc.perform(get("/api/code/v1/codes")
                         .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk())
                 //.andExpect(jsonPath("$.EnumCodeExample").isNotEmpty())  // 등록된 EnumMapperType
                 .andExpect(jsonPath("$." + TechCategory.class.getSimpleName()).isNotEmpty())
