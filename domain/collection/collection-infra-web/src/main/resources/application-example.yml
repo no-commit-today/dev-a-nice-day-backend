@@ -1,0 +1,5 @@
+app:
+  collection:
+    openai:
+      enabled: true
+      api-key: ${OPENAI_API_KEY}
