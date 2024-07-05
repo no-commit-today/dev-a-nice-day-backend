@@ -2,7 +2,6 @@ package com.nocommittoday.techswipe.collection.infrastructure;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
-import com.nocommittoday.techswipe.collection.domain.Prompt;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatCompletionResult;
 import com.theokanning.openai.completion.chat.ChatMessage;
@@ -27,13 +26,43 @@ public class OpenAiCollectionProcessor implements CollectionProcessor {
             .collect(Collectors.joining("|"))
             + ")$");
 
+    private static final String CATEGORIZATION_PROMPT = String.format("""
+            - 당신은 분류를 정말 잘 하는 봇입니다.
+            - 카테고리는 [%s] 중 선택합니다.
+            - 카테고리는 최소 1개에서 최대 3개입니다.
+            - 아래 [답변 형식]에 맞게 답변해야 합니다.
+            - 지시한 내용들을 지키지 못하면 당신은 불이익을 받을 것입니다.
+            
+            [답변 형식]
+            - ...
+            - ...
+            """,
+            Arrays.stream(CollectionCategory.values())
+                    .map(CollectionCategory::name)
+                    .collect(Collectors.joining(","))
+    );
+
     private static final Pattern SUMMARIZATION_RESULT_PATTERN = Pattern.compile("^-\\s.+$");
 
+    private static final String SUMMARIZATION_PROMPT = """
+            - 당신은 요약을 정말 잘 하는 봇입니다.
+            - 요약은 최대 5줄입니다.
+            - 아래 [답변 형식]에 맞게 답변해야 합니다.
+            - 지시한 내용들을 지키지 못하면 당신은 불이익을 받을 것입니다.
+            
+            [답변 형식]
+            - ...
+            - ...
+            - ...
+            ...
+            """;
+
     private final OpenAiService openAiService;
+    private final String categorizationModel;
 
     @Override
-    public CategorizationResult categorize(final Prompt prompt, final CollectedContent content) {
-        final ChatCompletionRequest request = createRequest(prompt, content);
+    public CategorizationResult categorize(final CollectedContent content) {
+        final ChatCompletionRequest request = createRequest(categorizationModel, CATEGORIZATION_PROMPT, content);
         final ChatCompletionResult chatCompletionResponse = openAiService.createChatCompletion(request);
         log.debug("ChatCompletionResponse: {}", chatCompletionResponse);
 
@@ -59,8 +88,9 @@ public class OpenAiCollectionProcessor implements CollectionProcessor {
     }
 
     @Override
-    public SummarizationResult summarize(final Prompt prompt, final CollectedContent content) {
-        final ChatCompletionRequest request = createRequest(prompt, content);
+    public SummarizationResult summarize(final CollectedContent content) {
+
+        final ChatCompletionRequest request = createRequest("gpt-3.5-turbo-0125", SUMMARIZATION_PROMPT, content);
         final ChatCompletionResult chatCompletionResponse = openAiService.createChatCompletion(request);
         log.debug("ChatCompletionResponse: {}", chatCompletionResponse);
 
@@ -74,11 +104,12 @@ public class OpenAiCollectionProcessor implements CollectionProcessor {
         return SummarizationResult.success(summary);
     }
 
-    private static ChatCompletionRequest createRequest(final Prompt prompt, final CollectedContent content) {
+    private static ChatCompletionRequest createRequest(
+            final String model, final String prompt, final CollectedContent content) {
         return ChatCompletionRequest.builder()
-                .model(prompt.getModel())
+                .model(model)
                 .messages(List.of(
-                        new ChatMessage(ChatMessageRole.SYSTEM.value(), prompt.getContent()),
+                        new ChatMessage(ChatMessageRole.SYSTEM.value(), prompt),
                         new ChatMessage(ChatMessageRole.USER.value(),
                                 content.getTitle() + "\n\n" + content.getContent())
                 )).build();

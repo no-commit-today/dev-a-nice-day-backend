@@ -2,9 +2,6 @@ package com.nocommittoday.techswipe.collection.infrastructure;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
-import com.nocommittoday.techswipe.collection.domain.Prompt;
-import com.nocommittoday.techswipe.collection.domain.PromptType;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.theokanning.openai.completion.chat.ChatCompletionChoice;
 import com.theokanning.openai.completion.chat.ChatCompletionResult;
 import com.theokanning.openai.completion.chat.ChatMessage;
@@ -35,15 +32,6 @@ class OpenAiCollectionProcessorTest {
     @Test
     void openai의_카테고리_분류_결과를_리스트로_반환한다() {
         // given
-        final Prompt prompt = new Prompt(
-                new Prompt.Id(1),
-                PromptType.CATEGORIZE,
-                TechContentProviderType.DOMESTIC_COMPANY_BLOG,
-                "version",
-                "model",
-                "content"
-        );
-
         final ChatCompletionResult chatCompletionResult = new ChatCompletionResult();
         final ChatCompletionChoice chatCompletionChoice = new ChatCompletionChoice();
         final ChatMessage chatMessage = new ChatMessage(ChatMessageRole.ASSISTANT.value(),
@@ -65,7 +53,7 @@ class OpenAiCollectionProcessorTest {
                 "collected content",
                 "image-url"
         );
-        final CategorizationResult result = openAiCollectionProcessor.categorize(prompt, collectedContent);
+        final CategorizationResult result = openAiCollectionProcessor.categorize(collectedContent);
 
         // then
         assertThat(result.success()).isTrue();
@@ -78,15 +66,6 @@ class OpenAiCollectionProcessorTest {
     @Test
     void openai의_카테고리_분류_결과가_형식에_맞지않으면_실패를_반환한다() {
         // given
-        final Prompt prompt = new Prompt(
-                new Prompt.Id(1),
-                PromptType.CATEGORIZE,
-                TechContentProviderType.DOMESTIC_COMPANY_BLOG,
-                "version",
-                "model",
-                "content"
-        );
-
         final ChatCompletionResult chatCompletionResult = new ChatCompletionResult();
         final ChatCompletionChoice chatCompletionChoice = new ChatCompletionChoice();
         final ChatMessage chatMessage = new ChatMessage(ChatMessageRole.ASSISTANT.value(),
@@ -107,7 +86,7 @@ class OpenAiCollectionProcessorTest {
                 "collected content",
                 "image-url"
         );
-        final CategorizationResult result = openAiCollectionProcessor.categorize(prompt, collectedContent);
+        final CategorizationResult result = openAiCollectionProcessor.categorize(collectedContent);
 
         // then
         assertThat(result.success()).isFalse();
@@ -116,15 +95,6 @@ class OpenAiCollectionProcessorTest {
     @Test
     void openai의_요약_결과를_반환한다() {
         // given
-        final Prompt prompt = new Prompt(
-                new Prompt.Id(1),
-                PromptType.SUMMARIZE,
-                TechContentProviderType.DOMESTIC_COMPANY_BLOG,
-                "version",
-                "model",
-                "content"
-        );
-
         final ChatCompletionResult chatCompletionResult = new ChatCompletionResult();
         final ChatCompletionChoice chatCompletionChoice = new ChatCompletionChoice();
         final ChatMessage chatMessage = new ChatMessage(ChatMessageRole.ASSISTANT.value(),
@@ -149,7 +119,7 @@ class OpenAiCollectionProcessorTest {
                 "collected content",
                 "image-url"
         );
-        final SummarizationResult result = openAiCollectionProcessor.summarize(prompt, collectedContent);
+        final SummarizationResult result = openAiCollectionProcessor.summarize(collectedContent);
 
         // then
         assertThat(result.success()).isTrue();
@@ -163,15 +133,6 @@ class OpenAiCollectionProcessorTest {
     @Test
     void openai의_요약_결과가_형식에_맞지_않으면_실패_결과를_반환한다() {
         // given
-        final Prompt prompt = new Prompt(
-                new Prompt.Id(1),
-                PromptType.SUMMARIZE,
-                TechContentProviderType.DOMESTIC_COMPANY_BLOG,
-                "version",
-                "model",
-                "content"
-        );
-
         final ChatCompletionResult chatCompletionResult = new ChatCompletionResult();
         final ChatCompletionChoice chatCompletionChoice = new ChatCompletionChoice();
         final ChatMessage chatMessage = new ChatMessage(ChatMessageRole.ASSISTANT.value(),
@@ -194,7 +155,7 @@ class OpenAiCollectionProcessorTest {
                 "collected content",
                 "image-url"
         );
-        final SummarizationResult result = openAiCollectionProcessor.summarize(prompt, collectedContent);
+        final SummarizationResult result = openAiCollectionProcessor.summarize(collectedContent);
 
         // then
         assertThat(result.success()).isFalse();
@@ -203,14 +164,6 @@ class OpenAiCollectionProcessorTest {
     @Test
     void openai의_요약_결과가_5줄보다_많으면_실패_결과를_반환한다() {
         // given
-        final Prompt prompt = new Prompt(
-                new Prompt.Id(1),
-                PromptType.SUMMARIZE,
-                TechContentProviderType.DOMESTIC_COMPANY_BLOG,
-                "version",
-                "model",
-                "content"
-        );
 
         final ChatCompletionResult chatCompletionResult = new ChatCompletionResult();
         final ChatCompletionChoice chatCompletionChoice = new ChatCompletionChoice();
@@ -239,7 +192,7 @@ class OpenAiCollectionProcessorTest {
                 "collected content",
                 "image-url"
         );
-        final SummarizationResult result = openAiCollectionProcessor.summarize(prompt, collectedContent);
+        final SummarizationResult result = openAiCollectionProcessor.summarize(collectedContent);
 
         // then
         assertThat(result.success()).isFalse();

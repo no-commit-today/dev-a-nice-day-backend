@@ -1,13 +1,11 @@
 package com.nocommittoday.techswipe.batch.job;
 
-import com.nocommittoday.techswipe.batch.application.PromptWithInMemoryCacheReader;
 import com.nocommittoday.techswipe.batch.exception.CategorizeFailureException;
 import com.nocommittoday.techswipe.batch.listener.CollectedContentCategorizeSkipListener;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentCategorizeProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslZeroPagingItemReader;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectionProcessor;
-import com.nocommittoday.techswipe.collection.infrastructure.PromptReader;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +37,6 @@ public class CollectedContentCategorizeJobConfig {
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
 
-    private final PromptReader promptReader;
     private final CollectionProcessor collectionProcessor;
 
     @Bean(JOB_NAME)
@@ -90,7 +87,7 @@ public class CollectedContentCategorizeJobConfig {
     @StepScope
     public CollectedContentCategorizeProcessor processor() {
         return new CollectedContentCategorizeProcessor(
-                promptWithInMemoryCacheReader(), collectionProcessor
+                collectionProcessor
         );
     }
 
@@ -101,12 +98,6 @@ public class CollectedContentCategorizeJobConfig {
                 .entityManagerFactory(emf)
                 .usePersist(false)
                 .build();
-    }
-
-    @Bean(STEP_NAME + "PromptWithInMemoryCacheReader")
-    @StepScope
-    public PromptWithInMemoryCacheReader promptWithInMemoryCacheReader() {
-        return new PromptWithInMemoryCacheReader(promptReader);
     }
 
     @Bean(STEP_NAME + "SkipListener")
