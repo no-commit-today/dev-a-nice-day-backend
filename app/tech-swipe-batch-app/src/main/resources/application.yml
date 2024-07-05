@@ -29,12 +29,38 @@ spring:
     activate:
       on-profile: local-dev
 
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+
+app:
+  image:
+    s3:
+      enabled: true
+      bucket-name: ${AWS_S3_BUCKET}
 ---
 spring:
   config:
     activate:
       on-profile: dev
 
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+
+app:
+  image:
+    s3:
+      enabled: true
+      bucket-name: ${AWS_S3_BUCKET}
 ---
 spring:
   config:
