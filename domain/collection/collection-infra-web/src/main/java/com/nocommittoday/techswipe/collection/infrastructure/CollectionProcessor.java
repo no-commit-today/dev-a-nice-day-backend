@@ -1,7 +1,6 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.domain.Prompt;
 
 
 public interface CollectionProcessor {
@@ -10,7 +9,7 @@ public interface CollectionProcessor {
 
     int MAX_CATEGORY_NUM = 3;
 
-    CategorizationResult categorize(Prompt prompt, CollectedContent content);
+    CategorizationResult categorize(CollectedContent content);
 
-    SummarizationResult summarize(Prompt prompt, CollectedContent content);
+    SummarizationResult summarize(CollectedContent content);
 }
