@@ -22,7 +22,7 @@ public class CollectedContentSummarizeProcessor
     public CollectedContentEntity process(final CollectedContentEntity item) throws Exception {
         final CollectedContent collectedContent = item.toDomain();
         final Prompt prompt = promptReader.get(PromptType.SUMMARIZE, item.getProvider().getType());
-        final SummarizationResult summarizationResult = collectionProcessor.summarize(prompt, collectedContent);
+        final SummarizationResult summarizationResult = collectionProcessor.summarize(collectedContent);
         if (!summarizationResult.success()) {
             throw new SummarizeFailureException(collectedContent.getId(), prompt.getId());
         }
