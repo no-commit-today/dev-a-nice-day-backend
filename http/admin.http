@@ -1,0 +1,4 @@
+### GET 이미지 동기화 데이터 조회
+GET {{baseUrl}}/api/image/admin/sync-images?from=2024-06-01T00:00:00&to=2024-06-30T23:59:59
+
+
