@@ -14,14 +14,17 @@ import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.item.file.FlatFileItemWriter;
-import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.json.JacksonJsonObjectMarshaller;
+import org.springframework.batch.item.json.JsonFileItemWriter;
+import org.springframework.batch.item.json.builder.JsonFileItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.nocommittoday.techswipe.collection.storage.mysql.QCollectedContentEntity.collectedContentEntity;
@@ -52,8 +55,9 @@ public class OpenAiFineTuningDataCreateJobConfig {
     public Step step() {
         final StepBuilder stepBuilder = new StepBuilder(STEP_NAME, jobRepository);
         return stepBuilder
-                .<CollectedContentEntity, CollectedContentEntity>chunk(CHUNK_SIZE, txManager)
+                .<CollectedContentEntity, OpenAiFindTuningData>chunk(CHUNK_SIZE, txManager)
                 .reader(reader())
+                .processor(processor())
                 .writer(writer())
                 .build();
     }
@@ -80,40 +84,45 @@ public class OpenAiFineTuningDataCreateJobConfig {
         return reader;
     }
 
+    @Bean(STEP_NAME + "ItemProcessor")
+    @StepScope
+    public ItemProcessor<CollectedContentEntity, OpenAiFindTuningData> processor() {
+        return item -> new OpenAiFindTuningData(
+                OpenAiCollectionProcessor.CATEGORIZATION_PROMPT,
+                item.getTitle() + "\n\n" + item.getContent(),
+                item.getCategories().stream()
+                        .map(category -> "- " + category.name())
+                        .collect(Collectors.joining("\n"))
+        );
+    }
+
     @Bean(STEP_NAME + "ItemWriter")
     @StepScope
-    public FlatFileItemWriter<CollectedContentEntity> writer() {
-        final String jsonStringFormat = """
-                {
-                    "messages": [
-                        {
-                            "role" : "system",
-                            "content" : "%s"
-                        },
-                        {
-                            "role" : "user",
-                            "content" : "%s"
-                        },
-                        {
-                            "role" : "assistant",
-                            "content" : "%s"
-                        }
-                    ]
-                }
-                """;
-
-        return new FlatFileItemWriterBuilder<CollectedContentEntity>()
+    public JsonFileItemWriter<OpenAiFindTuningData> writer() {
+        return new JsonFileItemWriterBuilder<OpenAiFindTuningData>()
                 .name(STEP_NAME + "ItemWriter")
-                .append(false)
-                .resource(new FileSystemResource(LocalDateTime.now() + ".jsonl"))
-                .lineAggregator(item -> String.format(jsonStringFormat,
-                        OpenAiCollectionProcessor.CATEGORIZATION_PROMPT,
-                        item.getTitle() + "\n\n" + item.getContent(),
-                        item.getCategories().stream()
-                                .map(category -> "- " + category.name())
-                                .collect(Collectors.joining("\n"))
-                ))
-                .build()
-                ;
+                .resource(new FileSystemResource(LocalDateTime.now() + ".json"))
+                .jsonObjectMarshaller(new JacksonJsonObjectMarshaller<>())
+                .build();
+
+    }
+
+    public record OpenAiFindTuningData(
+            List<OpenAiFindTuningMessage> messages
+    ) {
+        OpenAiFindTuningData(final String system, final String user, final String assistant) {
+            this(List.of(
+                    new OpenAiFindTuningMessage("system", system),
+                    new OpenAiFindTuningMessage("user", user),
+                    new OpenAiFindTuningMessage("assistant", assistant)
+
+            ));
+        }
+    }
+
+    public record OpenAiFindTuningMessage(
+            String role,
+            String content
+    ) {
     }
 }
