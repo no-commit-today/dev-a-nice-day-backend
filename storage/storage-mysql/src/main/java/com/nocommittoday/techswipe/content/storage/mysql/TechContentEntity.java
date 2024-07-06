@@ -105,10 +105,6 @@ public class TechContentEntity extends BaseSoftDeleteEntity {
         categories.add(new TechCategoryEntity(this, category));
     }
 
-    public TechContent.Id toDomainId() {
-        return new TechContent.Id(id);
-    }
-
     public static TechContentEntity from(final TechContentCreate techContentCreate) {
         final TechContentEntity entity = new TechContentEntity(
                 null,
@@ -125,7 +121,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity {
 
     public TechContent toDomain() {
         return new TechContent(
-                toDomainId(),
+                new TechContent.Id(id),
                 provider.toDomain(),
                 image == null ? null : new Image.Id(image.getId()),
                 url,
