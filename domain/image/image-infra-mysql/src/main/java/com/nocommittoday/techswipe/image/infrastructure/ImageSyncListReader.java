@@ -16,7 +16,8 @@ public class ImageSyncListReader {
     private final ImageJpaRepository imageJpaRepository;
 
     public List<Image> getList(final LocalDateTime from, final LocalDateTime to) {
-        return imageJpaRepository.findAllByLastModifiedAtBetweenAndDeletedIsFalse(from, to)
+        return imageJpaRepository.findAllByLastModifiedAtGreaterThanEqualAndLastModifiedAtLessThanAndDeletedIsFalse(
+                from, to)
                 .stream()
                 .map(ImageEntity::toDomain)
                 .toList();
