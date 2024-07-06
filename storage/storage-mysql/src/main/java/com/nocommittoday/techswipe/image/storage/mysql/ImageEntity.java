@@ -43,10 +43,6 @@ public class ImageEntity extends BaseSoftDeleteEntity {
         );
     }
 
-    public Image.Id toDomainId() {
-        return new Image.Id(id);
-    }
-
     public Image toDomain() {
         return new Image(
                 new Image.Id(id),
