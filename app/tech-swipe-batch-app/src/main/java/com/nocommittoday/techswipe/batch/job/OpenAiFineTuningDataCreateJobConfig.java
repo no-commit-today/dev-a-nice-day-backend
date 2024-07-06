@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
+import com.nocommittoday.techswipe.batch.writer.JsonlFileItemWriter;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.infrastructure.OpenAiCollectionProcessor;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
@@ -16,8 +17,6 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.json.JacksonJsonObjectMarshaller;
-import org.springframework.batch.item.json.JsonFileItemWriter;
-import org.springframework.batch.item.json.builder.JsonFileItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
@@ -98,13 +97,11 @@ public class OpenAiFineTuningDataCreateJobConfig {
 
     @Bean(STEP_NAME + "ItemWriter")
     @StepScope
-    public JsonFileItemWriter<OpenAiFindTuningData> writer() {
-        return new JsonFileItemWriterBuilder<OpenAiFindTuningData>()
-                .name(STEP_NAME + "ItemWriter")
-                .resource(new FileSystemResource(LocalDateTime.now() + ".json"))
-                .jsonObjectMarshaller(new JacksonJsonObjectMarshaller<>())
-                .build();
-
+    public JsonlFileItemWriter<OpenAiFindTuningData> writer() {
+        return new JsonlFileItemWriter<>(
+                new FileSystemResource(LocalDateTime.now() + ".jsonl"),
+                new JacksonJsonObjectMarshaller<>()
+        );
     }
 
     public record OpenAiFindTuningData(
@@ -115,7 +112,6 @@ public class OpenAiFineTuningDataCreateJobConfig {
                     new OpenAiFindTuningMessage("system", system),
                     new OpenAiFindTuningMessage("user", user),
                     new OpenAiFindTuningMessage("assistant", assistant)
-
             ));
         }
     }
