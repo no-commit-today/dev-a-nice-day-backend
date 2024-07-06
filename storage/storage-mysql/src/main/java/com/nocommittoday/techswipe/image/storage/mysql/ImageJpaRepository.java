@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.image.storage.mysql;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
@@ -10,5 +11,5 @@ public interface ImageJpaRepository extends JpaRepository<ImageEntity, Long> {
     boolean existsByIdAndDeletedIsFalse(Long id);
 
     List<ImageEntity> findAllByLastModifiedAtGreaterThanEqualAndLastModifiedAtLessThanAndDeletedIsFalse(
-            LocalDateTime lastModifiedAtStart, LocalDateTime lastModifiedAtEnd);
+            Pageable pageable, LocalDateTime lastModifiedAtStart, LocalDateTime lastModifiedAtEnd);
 }

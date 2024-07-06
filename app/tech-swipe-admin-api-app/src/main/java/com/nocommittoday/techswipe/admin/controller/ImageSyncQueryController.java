@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.admin.controller;
 
 import com.nocommittoday.techswipe.core.controller.servlet.ListResponse;
+import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
 import com.nocommittoday.techswipe.image.service.ImageSyncQueryParam;
 import com.nocommittoday.techswipe.image.service.ImageSyncQueryService;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +18,14 @@ public class ImageSyncQueryController {
 
     @GetMapping("/api/image/admin/sync-images")
     public ListResponse<ImageSyncQueryResponse> getList(
-            @Validated @ModelAttribute final ImageSyncQueryRequest request) {
+            @Validated @ModelAttribute final ImageSyncQueryRequest request,
+            @Validated @ModelAttribute final PageRequest pageRequest
+    ) {
         return new ListResponse<>(
-                imageSyncQueryService.getList(new ImageSyncQueryParam(request.from(), request.to()))
+                imageSyncQueryService.getList(
+                        pageRequest.toPageParam(),
+                        new ImageSyncQueryParam(request.from(), request.to())
+                        )
                         .stream()
                         .map(ImageSyncQueryResponse::from)
                         .toList()
