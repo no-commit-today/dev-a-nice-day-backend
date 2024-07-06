@@ -31,4 +31,20 @@ public class TechContentSyncQueryController {
                         .toList()
         );
     }
+
+    @GetMapping("/api/content/admin/sync-providers")
+    public ListResponse<TechContentProviderSyncQueryResponse> getProviderList(
+            @Validated @ModelAttribute final TechContentSyncQueryRequest request,
+            @Validated @ModelAttribute final PageRequest pageRequest
+    ) {
+        return new ListResponse<>(
+                techContentSyncQueryService.getProviderList(
+                        pageRequest.toPageParam(),
+                        new TechContentSyncQueryParam(request.from(), request.to())
+                        )
+                        .stream()
+                        .map(TechContentProviderSyncQueryResponse::from)
+                        .toList()
+        );
+    }
 }
