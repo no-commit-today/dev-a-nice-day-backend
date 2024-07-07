@@ -7,7 +7,11 @@ import java.time.LocalDateTime;
 
 public class SyncQueryRestClient {
 
-    private static final ParameterizedTypeReference<ListResponse<ImageSyncQueryResponse>> RESPONSE_TYPE = new ParameterizedTypeReference<>() {};
+    private static final ParameterizedTypeReference<ListResponse<ImageSyncQueryResponse>> IMAGE_RESPONSE_TYPE
+            = new ParameterizedTypeReference<>() {};
+
+    private static final ParameterizedTypeReference<ListResponse<TechContentProviderSyncQueryResponse>> PROVIDER_RESPONSE_TYPE
+            = new ParameterizedTypeReference<>() {};
 
     private final RestClient restClient;
 
@@ -20,7 +24,7 @@ public class SyncQueryRestClient {
                 .build();
     }
 
-    public ListResponse<ImageSyncQueryResponse> getList(
+    public ListResponse<ImageSyncQueryResponse> getImageList(
             final LocalDateTime from, final LocalDateTime to, int page, int size) {
         return restClient.get()
                 .uri("/api/image/admin/sync-images", uriBuilder -> uriBuilder
@@ -30,6 +34,19 @@ public class SyncQueryRestClient {
                         .queryParam("size", size)
                         .build())
                 .retrieve()
-                .body(RESPONSE_TYPE);
+                .body(IMAGE_RESPONSE_TYPE);
+    }
+
+    public ListResponse<TechContentProviderSyncQueryResponse> getProviderList(
+            final LocalDateTime from, final LocalDateTime to, int page, int size) {
+        return restClient.get()
+                .uri("/api/image/admin/sync-providers", uriBuilder -> uriBuilder
+                        .queryParam("from", from)
+                        .queryParam("to", to)
+                        .queryParam("page", page)
+                        .queryParam("size", size)
+                        .build())
+                .retrieve()
+                .body(PROVIDER_RESPONSE_TYPE);
     }
 }
