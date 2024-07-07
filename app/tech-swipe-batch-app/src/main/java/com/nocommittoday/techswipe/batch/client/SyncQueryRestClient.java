@@ -13,6 +13,9 @@ public class SyncQueryRestClient {
     private static final ParameterizedTypeReference<ListResponse<TechContentProviderSyncQueryResponse>> PROVIDER_RESPONSE_TYPE
             = new ParameterizedTypeReference<>() {};
 
+    private static final ParameterizedTypeReference<ListResponse<TechContentSyncQueryResponse>> CONTENT_RESPONSE_TYPE
+            = new ParameterizedTypeReference<>() {};
+
     private final RestClient restClient;
 
     public SyncQueryRestClient(
@@ -40,7 +43,7 @@ public class SyncQueryRestClient {
     public ListResponse<TechContentProviderSyncQueryResponse> getProviderList(
             final LocalDateTime from, final LocalDateTime to, int page, int size) {
         return restClient.get()
-                .uri("/api/image/admin/sync-providers", uriBuilder -> uriBuilder
+                .uri("/api/content/admin/sync-providers", uriBuilder -> uriBuilder
                         .queryParam("from", from)
                         .queryParam("to", to)
                         .queryParam("page", page)
@@ -48,5 +51,18 @@ public class SyncQueryRestClient {
                         .build())
                 .retrieve()
                 .body(PROVIDER_RESPONSE_TYPE);
+    }
+
+    public ListResponse<TechContentSyncQueryResponse> getContentList(
+            final LocalDateTime from, final LocalDateTime to, int page, int size) {
+        return restClient.get()
+                .uri("/api/content/admin/sync-contents", uriBuilder -> uriBuilder
+                        .queryParam("from", from)
+                        .queryParam("to", to)
+                        .queryParam("page", page)
+                        .queryParam("size", size)
+                        .build())
+                .retrieve()
+                .body(CONTENT_RESPONSE_TYPE);
     }
 }
