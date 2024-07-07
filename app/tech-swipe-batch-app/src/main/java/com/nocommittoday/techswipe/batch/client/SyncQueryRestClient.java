@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.batch.client;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestClient;
 
 import java.time.LocalDateTime;
@@ -20,10 +21,12 @@ public class SyncQueryRestClient {
 
     public SyncQueryRestClient(
             final RestClient.Builder restClientBuilder,
-            final String baseUrl
+            final String baseUrl,
+            final String authorization
     ) {
         this.restClient = restClientBuilder
                 .baseUrl(baseUrl)
+                .defaultHeader(HttpHeaders.AUTHORIZATION, authorization)
                 .build();
     }
 
