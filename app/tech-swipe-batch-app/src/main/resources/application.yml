@@ -84,3 +84,7 @@ app:
     openai:
       enabled: true
       api-key: ${OPENAI_API_KEY}
+  client:
+    sync:
+      base-url: ${TECH_SWIPE_ADMIN_URL}
+      authorization: ${TECH_SWIPE_ADMIN_AUTHORIZATION}

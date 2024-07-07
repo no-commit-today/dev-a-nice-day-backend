@@ -20,23 +20,6 @@ class ImageEntityTest {
     }
 
     @Test
-    void 도메인_엔티티_ID로_전환할_수_있다() {
-        // given
-        final ImageEntity imageEntity = new ImageEntity(
-                1L,
-                "http://example.com/image.jpg",
-                "http://original.com/image.jpg",
-                "image.jpg"
-        );
-
-        // when
-        Image.Id imageId = imageEntity.toDomainId();
-
-        // then
-        assertThat(imageId).isEqualTo(new Image.Id(1));
-    }
-
-    @Test
     void 도메인_엔티티로_전환할_수_있다() {
         // given
         final ImageEntity imageEntity = new ImageEntity(

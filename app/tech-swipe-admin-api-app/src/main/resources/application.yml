@@ -15,6 +15,15 @@ spring:
     activate:
       on-profile: local
 
+  security:
+    user:
+      name: admin
+      password: 1234
+
+logging:
+  level:
+    org.apache.coyote.http11: debug
+
 ---
 spring:
   config:
@@ -45,6 +54,11 @@ spring:
     activate:
       on-profile: dev
 
+  security:
+    user:
+      name: ${ADMIN_USERNAME}
+      password: ${ADMIN_PASSWORD}
+
   cloud:
     aws:
       region:
@@ -64,6 +78,11 @@ spring:
   config:
     activate:
       on-profile: prod
+
+  security:
+    user:
+      name: ${ADMIN_USERNAME}
+      password: ${ADMIN_PASSWORD}
 
   cloud:
     aws:

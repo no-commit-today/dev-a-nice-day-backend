@@ -8,6 +8,8 @@ public class PagingItemReaderAdapterBuilder<T> {
 
     private int pageSize = 10;
 
+    private int pageOffset = 0;
+
     private boolean saveState = true;
 
     private String name;
@@ -23,6 +25,11 @@ public class PagingItemReaderAdapterBuilder<T> {
 
     public PagingItemReaderAdapterBuilder<T> pageSize(final int pageSize) {
         this.pageSize = pageSize;
+        return this;
+    }
+
+    public PagingItemReaderAdapterBuilder<T> pageOffset(final int pageOffset) {
+        this.pageOffset = pageOffset;
         return this;
     }
 
@@ -56,6 +63,7 @@ public class PagingItemReaderAdapterBuilder<T> {
 
         final PagingItemReaderAdapter<T> reader = new PagingItemReaderAdapter<>(readStrategy);
         reader.setPageSize(pageSize);
+        reader.setPageOffset(pageOffset);
         reader.setSaveState(saveState);
         reader.setName(name);
         reader.setMaxItemCount(maxItemCount);

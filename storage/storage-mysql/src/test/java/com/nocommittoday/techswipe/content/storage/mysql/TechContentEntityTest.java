@@ -45,26 +45,6 @@ class TechContentEntityTest {
     }
 
     @Test
-    void 도메인_엔티티_ID로_전환할_수_있다() {
-        // given
-        final TechContentEntity content = new TechContentEntity(
-                1L,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
-
-        // when
-        final TechContent.Id result = content.toDomainId();
-
-        // then
-        assertThat(result).isEqualTo(new TechContent.Id(1));
-    }
-
-    @Test
     void 도메인_엔티티로_전환할_수_있다() {
         // given
         final TechContentEntity content = new TechContentEntity(
