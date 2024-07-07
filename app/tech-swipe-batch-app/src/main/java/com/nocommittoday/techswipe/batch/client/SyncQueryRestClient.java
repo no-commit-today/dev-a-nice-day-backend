@@ -5,13 +5,13 @@ import org.springframework.web.client.RestClient;
 
 import java.time.LocalDateTime;
 
-public class ImageSyncQueryRestClient {
+public class SyncQueryRestClient {
 
     private static final ParameterizedTypeReference<ListResponse<ImageSyncQueryResponse>> RESPONSE_TYPE = new ParameterizedTypeReference<>() {};
 
     private final RestClient restClient;
 
-    public ImageSyncQueryRestClient(
+    public SyncQueryRestClient(
             final RestClient.Builder restClientBuilder,
             final String baseUrl
     ) {

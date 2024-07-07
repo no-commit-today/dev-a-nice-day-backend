@@ -11,10 +11,10 @@ import org.springframework.web.client.RestClient;
 public class ClientConfig {
 
     @Bean
-    public ImageSyncQueryRestClient imageSyncQueryRestClient(
+    public SyncQueryRestClient imageSyncQueryRestClient(
             final RestClient.Builder restClientBuilder,
             @Value("${app.client.sync.base-url}") final String baseUrl
     ) {
-        return new ImageSyncQueryRestClient(restClientBuilder, baseUrl);
+        return new SyncQueryRestClient(restClientBuilder, baseUrl);
     }
 }

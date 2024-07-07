@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.client.ImageSyncQueryResponse;
-import com.nocommittoday.techswipe.batch.client.ImageSyncQueryRestClient;
+import com.nocommittoday.techswipe.batch.client.SyncQueryRestClient;
 import com.nocommittoday.techswipe.batch.param.LocalDateTimeFromJobParameter;
 import com.nocommittoday.techswipe.batch.param.LocalDateTimeToJobParameter;
 import com.nocommittoday.techswipe.batch.reader.PagingItemReaderAdapter;
@@ -40,7 +40,7 @@ public class ImageSyncJobConfig {
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
 
-    private final ImageSyncQueryRestClient imageSyncQueryRestClient;
+    private final SyncQueryRestClient syncQueryRestClient;
 
     @Bean(JOB_NAME)
     public Job job() {
@@ -93,7 +93,7 @@ public class ImageSyncJobConfig {
                 .pageOffset(1)
                 .name(STEP_NAME + "ItemReader")
                 .readStrategy((page, size) ->
-                        imageSyncQueryRestClient.getList(from, to, page, size).content()
+                        syncQueryRestClient.getList(from, to, page, size).content()
                 )
                 .build();
     }
