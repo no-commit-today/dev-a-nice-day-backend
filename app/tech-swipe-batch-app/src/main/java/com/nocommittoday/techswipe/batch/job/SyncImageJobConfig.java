@@ -30,10 +30,10 @@ import java.time.LocalDateTime;
 
 @Configuration
 @RequiredArgsConstructor
-public class ImageSyncJobConfig {
+public class SyncImageJobConfig {
 
-    private static final String JOB_NAME = "imageSyncJob";
-    private static final String STEP_NAME = "imageSyncStep";
+    private static final String JOB_NAME = "syncImageJob";
+    private static final String STEP_NAME = "syncImageStep";
     private static final int CHUNK_SIZE = 100;
 
     private final JobRepository jobRepository;
@@ -93,7 +93,7 @@ public class ImageSyncJobConfig {
                 .pageOffset(1)
                 .name(STEP_NAME + "ItemReader")
                 .readStrategy((page, size) ->
-                        syncQueryRestClient.getList(from, to, page, size).content()
+                        syncQueryRestClient.getImageList(from, to, page, size).content()
                 )
                 .build();
     }
