@@ -15,6 +15,7 @@ public enum CollectionErrorCode implements ErrorCodeType {
     CATEGORIZE_FAILURE("COLLECTION-005", "카테고리 분류를 실패했습니다.", HttpURLConnection.HTTP_INTERNAL_ERROR),
     PUBLISH_UNABLE("COLLECTION-006", "컨텐츠를 발행할 수 없습니다.", HttpURLConnection.HTTP_BAD_REQUEST),
     CATEGORY_NOT_EDITABLE("COLLECTION-007", "카테고리를 수정할 수 없습니다.", HttpURLConnection.HTTP_BAD_REQUEST),
+    CATEGORY_NOT_APPLICABLE("COLLECTION-008", "카테고리를 컨텐츠에 반영할 수 없습니다.", HttpURLConnection.HTTP_BAD_REQUEST),
     ;
 
     private final String code;
