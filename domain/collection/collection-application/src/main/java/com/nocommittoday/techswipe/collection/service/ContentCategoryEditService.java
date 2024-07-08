@@ -1,11 +1,9 @@
 package com.nocommittoday.techswipe.collection.service;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.ContentCategoryEdit;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentReader;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUpdater;
-import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentDeleter;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentReader;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentUpdater;
@@ -29,15 +27,5 @@ public class ContentCategoryEditService {
         final CollectedContent newCollectedContent = oldCollectedContent.editCategory(categoryEdit);
 
         collectedContentUpdater.update(newCollectedContent);
-        if (!techContentUrlExistsReader.exists(newCollectedContent.getUrl())) {
-            return ;
-        }
-
-        final TechContent techContent = techContentReader.getByUrl(newCollectedContent.getUrl());
-        if (CollectionStatus.FILTERED == newCollectedContent.getStatus()) {
-            techContentDeleter.delete(techContent.getId());
-        } else {
-            techContentUpdater.update(techContent.edit(categoryEdit.toTechContentCategoryEdit()));
-        }
     }
 }
