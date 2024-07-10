@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequiredArgsConstructor
 public class TechContentProviderRegisterController {
@@ -25,13 +27,15 @@ public class TechContentProviderRegisterController {
     ResponseEntity<TechProviderRegisterResponse> register(
             @RequestBody @Valid final TechContentProviderRegisterRequest request
     ) {
-        final Image.Id imageId = imageStoreService.store(request.iconUrl(), "provider");
+        final Image.Id iconId = Optional.ofNullable(request.iconUrl())
+                .map(url -> imageStoreService.store(url, "provider"))
+                .orElse(null);
         final TechContentProvider.Id providerId = techContentProviderRegisterService.register(
                 new TechContentProviderRegisterCommand(
                         request.type(),
                         request.title(),
                         request.url(),
-                        imageId
+                        iconId
                 )
         );
         return ResponseEntity
