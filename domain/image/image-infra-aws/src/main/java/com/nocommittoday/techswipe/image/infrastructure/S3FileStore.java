@@ -13,7 +13,6 @@ import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Optional;
 
 @Component
 @ConditionalOnProperty(name = "app.image.s3.enabled", havingValue = "true")
@@ -33,9 +32,7 @@ public class S3FileStore implements FileStore {
     @Override
     public String store(final Resource resource, final String storedName) {
         try (final InputStream input = resource.getInputStream()) {
-            final String filename = Optional.ofNullable(resource.getFilename())
-                    .orElseThrow(() -> new IllegalArgumentException("파일 이름 필요"));
-            final String contentType = Files.probeContentType(Path.of(filename));
+            final String contentType = Files.probeContentType(Path.of(storedName));
             final ObjectMetadata metadata = ObjectMetadata.builder()
                     .contentType(contentType)
                     .contentLength(resource.contentLength())
