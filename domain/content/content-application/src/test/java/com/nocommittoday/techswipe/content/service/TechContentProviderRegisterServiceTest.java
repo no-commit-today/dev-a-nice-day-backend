@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.content.service;
 
+import com.nocommittoday.techswipe.collection.infrastructure.TechContentProviderIdGenerator;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
@@ -35,6 +36,9 @@ class TechContentProviderRegisterServiceTest {
     @Mock
     private TechContentProviderUrlExistsReader techContentProviderUrlExistsReader;
 
+    @Mock
+    private TechContentProviderIdGenerator techContentProviderIdGenerator;
+
     @Captor
     private ArgumentCaptor<TechContentProviderCreate> captor;
 
@@ -49,14 +53,17 @@ class TechContentProviderRegisterServiceTest {
         );
         given(techContentProviderUrlExistsReader.exists("url"))
                 .willReturn(false);
+        final TechContentProvider.Id id = new TechContentProvider.Id(1L);
+        given(techContentProviderIdGenerator.nextId()).willReturn(id);
         given(techContentProviderAppender.save(captor.capture()))
-                .willReturn(new TechContentProvider.Id(1L));
+                .willReturn(id);
 
         // when
         final TechContentProvider.Id providerId = techContentProviderRegisterService.register(command);
 
         // then
         assertThat(providerId.value()).isEqualTo(1L);
+        assertThat(captor.getValue().id()).isEqualTo(new TechContentProvider.Id(1));
         assertThat(captor.getValue().type()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(captor.getValue().title()).isEqualTo("title");
         assertThat(captor.getValue().url()).isEqualTo("url");
@@ -74,14 +81,17 @@ class TechContentProviderRegisterServiceTest {
         );
         given(techContentProviderUrlExistsReader.exists("url"))
                 .willReturn(false);
+        final TechContentProvider.Id id = new TechContentProvider.Id(1L);
+        given(techContentProviderIdGenerator.nextId()).willReturn(id);
         given(techContentProviderAppender.save(captor.capture()))
-                .willReturn(new TechContentProvider.Id(1L));
+                .willReturn(id);
 
         // when
         final TechContentProvider.Id providerId = techContentProviderRegisterService.register(command);
 
         // then
         assertThat(providerId).isEqualTo(new TechContentProvider.Id(1L));
+        assertThat(captor.getValue().id()).isEqualTo(new TechContentProvider.Id(1));
         assertThat(captor.getValue().type()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(captor.getValue().title()).isEqualTo("title");
         assertThat(captor.getValue().url()).isEqualTo("url");

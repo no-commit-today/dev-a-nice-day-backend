@@ -8,6 +8,7 @@ import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Repository
@@ -17,12 +18,14 @@ public class TechContentProviderAppender {
     private final TechContentProviderJpaRepository repository;
 
     public TechContentProvider.Id save(final TechContentProviderCreate command) {
-        return new TechContentProvider.Id(repository.save(new TechContentProviderEntity(
-                null,
-                command.type(),
-                command.title(),
-                command.url(),
-                Optional.ofNullable(command.iconId()).map(ImageEntity::from).orElse(null)
-        )).getId());
+        return new TechContentProvider.Id(Objects.requireNonNull(repository.save(
+                new TechContentProviderEntity(
+                        command.id().value(),
+                        command.type(),
+                        command.title(),
+                        command.url(),
+                        Optional.ofNullable(command.iconId()).map(ImageEntity::from).orElse(null)
+                )
+        ).getId()));
     }
 }

@@ -6,6 +6,7 @@ import lombok.NonNull;
 import javax.annotation.Nullable;
 
 public record TechContentProviderCreate(
+        @NonNull TechContentProvider.Id id,
         @NonNull TechContentProviderType type,
         @NonNull String title,
         @NonNull String url,

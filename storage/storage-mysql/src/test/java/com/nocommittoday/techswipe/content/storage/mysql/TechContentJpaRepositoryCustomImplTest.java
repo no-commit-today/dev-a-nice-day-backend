@@ -1,7 +1,6 @@
 package com.nocommittoday.techswipe.content.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
 import com.nocommittoday.techswipe.test.storage.mysql.AbstractDataJpaTest;
@@ -25,7 +24,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
     void 모든_컨텐츠를_발행일_내림차순으로_조회한다() {
         // given
         final TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
-                null,
+                idGenerator.nextId(),
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
                 "provider-url",
@@ -85,7 +84,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
     void 카테고리로_필터링해서_컨텐츠를_발행일_내림차순으로_조회한다() {
         // given
         final TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
-                null,
+                idGenerator.nextId(),
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
                 "provider-url",
@@ -146,7 +145,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
     void 카테고리_조건을_2개이상_이용해서_컨테츠를_필터링해서_발행일_내림차순으로_조회한다() {
         // given
         final TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
-                null,
+                idGenerator.nextId(),
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
                 "provider-url",
@@ -210,7 +209,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         final List<TechContentEntity> techContentEntities = List.of(
                 new TechContentEntity(
                         null,
-                        TechContentProviderEntity.from(new TechContentProvider.Id(10)),
+                        techContentProviderJpaRepository.getReferenceById(10L),
                         null,
                         "url-1",
                         "title-1",
@@ -219,7 +218,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                 ),
                 new TechContentEntity(
                         null,
-                        TechContentProviderEntity.from(new TechContentProvider.Id(10)),
+                        techContentProviderJpaRepository.getReferenceById(10L),
                         null,
                         "url-2",
                         "title-2",
@@ -227,7 +226,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         LocalDate.of(2021, 1, 2)
                 ), new TechContentEntity(
                         null,
-                        TechContentProviderEntity.from(new TechContentProvider.Id(11)),
+                        techContentProviderJpaRepository.getReferenceById(11L),
                         null,
                         "url-3",
                         "title-3",
@@ -236,7 +235,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                 ),
                 new TechContentEntity(
                         null,
-                        TechContentProviderEntity.from(new TechContentProvider.Id(11)),
+                        techContentProviderJpaRepository.getReferenceById(11L),
                         null,
                         "url-4",
                         "title-4",
@@ -271,7 +270,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
     void 컨텐츠_ID로_URL을_조회한다() {
         // given
         final TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
-                null,
+                idGenerator.nextId(),
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
                 "provider-url",
@@ -299,7 +298,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
     void 컨텐츠_ID로_URL을_조회한다_삭제된_컨텐츠는_조회되지_않는다() {
         // given
         final TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
-                null,
+                idGenerator.nextId(),
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
                 "provider-url",
