@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.batch.processor;
 
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
+import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
@@ -18,6 +19,9 @@ import java.util.List;
 public class ContentCollectJobItemProcessor implements ItemProcessor<SubscriptionEntity, List<CollectedContentEntity>> {
 
     private final SubscribedContentListQueryService subscribedContentListQueryService;
+
+    private final CollectedContentIdGenerator collectedContentIdGenerator;
+
     private final LocalDate date;
 
     @Override
@@ -35,6 +39,7 @@ public class ContentCollectJobItemProcessor implements ItemProcessor<Subscriptio
                     return subscribedContent.success();
                 })
                 .map(subscribedContent -> new ContentCollect(
+                        collectedContentIdGenerator.nextId(),
                         subscription.getProviderId(),
                         subscribedContent.content().url(),
                         subscribedContent.content().title(),

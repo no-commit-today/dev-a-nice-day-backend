@@ -36,6 +36,7 @@ include 'domain:collection:collection-domain'
 include 'domain:collection:collection-application'
 include 'domain:collection:collection-infra-mysql'
 include 'domain:collection:collection-infra-web'
+include 'domain:collection:collection-infra-system'
 
 include 'storage:storage-mysql'
 

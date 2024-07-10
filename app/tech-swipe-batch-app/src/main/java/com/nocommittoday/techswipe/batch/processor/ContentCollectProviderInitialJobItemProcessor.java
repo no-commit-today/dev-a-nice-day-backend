@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.batch.processor;
 
 import com.nocommittoday.techswipe.batch.application.CollectedContentUrlInMemoryExistsReader;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
+import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
@@ -18,7 +19,10 @@ import java.util.List;
 public class ContentCollectProviderInitialJobItemProcessor implements ItemProcessor<SubscriptionEntity, List<CollectedContentEntity>> {
 
     private final SubscribedContentListQueryService subscribedContentListQueryService;
+
     private final CollectedContentUrlInMemoryExistsReader urlExistsReader;
+
+    private final CollectedContentIdGenerator collectedContentIdGenerator;
 
     @Override
     public List<CollectedContentEntity> process(final SubscriptionEntity item) throws Exception {
@@ -42,6 +46,7 @@ public class ContentCollectProviderInitialJobItemProcessor implements ItemProces
                     return subscribedContent.success();
                 })
                 .map(subscribedContent -> new ContentCollect(
+                        collectedContentIdGenerator.nextId(),
                         subscription.getProviderId(),
                         subscribedContent.content().url(),
                         subscribedContent.content().title(),

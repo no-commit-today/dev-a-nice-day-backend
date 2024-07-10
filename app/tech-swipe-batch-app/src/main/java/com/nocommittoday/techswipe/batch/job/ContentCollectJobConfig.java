@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.batch.param.DateJobParameters;
 import com.nocommittoday.techswipe.batch.processor.ContentCollectJobItemProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
+import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
@@ -43,6 +44,7 @@ public class ContentCollectJobConfig {
     private final EntityManagerFactory emf;
 
     private final SubscribedContentListQueryService subscribedContentListQueryService;
+    private final CollectedContentIdGenerator collectedContentIdGenerator;
 
     @Bean(JOB_NAME + DateJobParameters.NAME)
     @JobScope
@@ -98,7 +100,11 @@ public class ContentCollectJobConfig {
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
     public ItemProcessor<SubscriptionEntity, List<CollectedContentEntity>> processor() {
-        return new ContentCollectJobItemProcessor(subscribedContentListQueryService, dateJobParameters().getDate());
+        return new ContentCollectJobItemProcessor(
+                subscribedContentListQueryService,
+                collectedContentIdGenerator,
+                dateJobParameters().getDate()
+        );
     }
 
     @Bean(STEP_NAME + "ItemWriter")
