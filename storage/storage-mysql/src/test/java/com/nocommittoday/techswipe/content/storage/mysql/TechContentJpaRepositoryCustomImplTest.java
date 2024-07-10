@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.core.domain.vo.PageParam;
-import com.nocommittoday.techswipe.test.AbstractDataJpaTest;
+import com.nocommittoday.techswipe.test.storage.mysql.AbstractDataJpaTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.test;
+package com.nocommittoday.techswipe.test.storage.mysql;
 
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
