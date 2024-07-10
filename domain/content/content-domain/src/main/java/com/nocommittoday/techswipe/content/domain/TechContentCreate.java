@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record TechContentCreate(
+        @NonNull TechContent.Id id,
         @NonNull TechContentProvider.Id providerId,
         @NonNull String url,
         @NonNull String title,

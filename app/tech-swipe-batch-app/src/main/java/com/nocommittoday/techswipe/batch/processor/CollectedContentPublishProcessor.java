@@ -28,12 +28,13 @@ public class CollectedContentPublishProcessor
         }
         final Image.Id imageId = imageStoreService.store(collectedContent.getImageUrl(), "content");
         final TechContentCreate content = new TechContentCreate(
+                collectedContent.getId().toTechContentId(),
                 collectedContent.getProviderId(),
                 collectedContent.getUrl(),
                 collectedContent.getTitle(),
                 collectedContent.getPublishedDate(),
                 imageId,
-                collectedContent.getSummary(),
+                Objects.requireNonNull(collectedContent.getSummary()),
                 Objects.requireNonNull(collectedContent.getCategories()).stream()
                         .map(CollectionCategory::getTechCategory)
                         .toList()

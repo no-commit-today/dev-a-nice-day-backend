@@ -33,7 +33,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
 
         final List<TechContentEntity> techContentEntities = List.of(
                 new TechContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         providerEntity,
                         null,
                         "url-1",
@@ -42,7 +42,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         LocalDate.of(2021, 1, 1)
                 ),
                 new TechContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         providerEntity,
                         null,
                         "url-2",
@@ -50,7 +50,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         "summary-2",
                         LocalDate.of(2021, 1, 2)
                 ), new TechContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         providerEntity,
                         null,
                         "url-3",
@@ -93,7 +93,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
 
         final List<TechContentEntity> techContentEntities = List.of(
                 new TechContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         providerEntity,
                         null,
                         "url-1",
@@ -102,7 +102,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         LocalDate.of(2021, 1, 1)
                 ),
                 new TechContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         providerEntity,
                         null,
                         "url-2",
@@ -110,7 +110,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         "summary-2",
                         LocalDate.of(2021, 1, 2)
                 ), new TechContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         providerEntity,
                         null,
                         "url-3",
@@ -154,7 +154,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
 
         final List<TechContentEntity> techContentEntities = List.of(
                 new TechContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         providerEntity,
                         null,
                         "url-1",
@@ -163,7 +163,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         LocalDate.of(2021, 1, 1)
                 ),
                 new TechContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         providerEntity,
                         null,
                         "url-2",
@@ -171,7 +171,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         "summary-2",
                         LocalDate.of(2021, 1, 2)
                 ), new TechContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         providerEntity,
                         null,
                         "url-3",
@@ -208,7 +208,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         // given
         final List<TechContentEntity> techContentEntities = List.of(
                 new TechContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         techContentProviderJpaRepository.getReferenceById(10L),
                         null,
                         "url-1",
@@ -217,7 +217,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         LocalDate.of(2021, 1, 1)
                 ),
                 new TechContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         techContentProviderJpaRepository.getReferenceById(10L),
                         null,
                         "url-2",
@@ -225,7 +225,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         "summary-2",
                         LocalDate.of(2021, 1, 2)
                 ), new TechContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         techContentProviderJpaRepository.getReferenceById(11L),
                         null,
                         "url-3",
@@ -234,7 +234,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         LocalDate.of(2021, 1, 3)
                 ),
                 new TechContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         techContentProviderJpaRepository.getReferenceById(11L),
                         null,
                         "url-4",
@@ -278,7 +278,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         ));
 
         final TechContentEntity techContentEntity = techContentJpaRepository.save(new TechContentEntity(
-                null,
+                idGenerator.nextId(),
                 providerEntity,
                 null,
                 "url-1",
@@ -306,7 +306,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         ));
 
         final TechContentEntity techContentEntity = techContentJpaRepository.save(new TechContentEntity(
-                null,
+                idGenerator.nextId(),
                 providerEntity,
                 null,
                 "url-1",

@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.collection.domain;
 
+import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import lombok.Getter;
 
@@ -32,7 +33,11 @@ public class CollectedContent {
 
     private final String imageUrl;
 
-    public record Id(long id) { }
+    public record Id(long id) {
+        public TechContent.Id toTechContentId() {
+            return new TechContent.Id(id);
+        }
+    }
 
     public CollectedContent(
             final Id id,
