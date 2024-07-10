@@ -24,7 +24,7 @@ public class TechContentProviderRegisterController {
     private final ImageStoreService imageStoreService;
 
     @PostMapping("/api/content/admin/providers")
-    ResponseEntity<TechProviderRegisterResponse> register(
+    ResponseEntity<TechContentProviderRegisterResponse> register(
             @RequestBody @Valid final TechContentProviderRegisterRequest request
     ) {
         final Image.Id iconId = Optional.ofNullable(request.iconUrl())
@@ -40,6 +40,6 @@ public class TechContentProviderRegisterController {
         );
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new TechProviderRegisterResponse(providerId.value()));
+                .body(new TechContentProviderRegisterResponse(providerId.value()));
     }
 }
