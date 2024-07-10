@@ -16,7 +16,7 @@ public class SubscriptionRegisterController {
 
     private final SubscriptionRegisterService subscriptionRegisterService;
 
-    @PutMapping("/api/subscription/admin/provider/{providerId}/subscription")
+    @PutMapping("/api/subscription/admin/providers/{providerId}/subscription")
     public ResponseEntity<Void> register(
             @PathVariable final Long providerId,
             @Validated @RequestBody final SubscriptionRegisterRequest request
