@@ -21,10 +21,11 @@ public class IdGenerator {
     private static final int NODE_ID_BITS = 10;
     private static final int SEQUENCE_BITS = 12;
 
+    private static final long MAX_EPOCH = (1L << EPOCH_BITS) - 1;
     private static final long MAX_NODE_ID = (1L << NODE_ID_BITS) - 1;
     private static final long MAX_SEQUENCE = (1L << SEQUENCE_BITS) - 1;
 
-    private static final long EPOCH = LocalDateTime.of(2024, 1, 1, 0, 0, 0)
+    private static final long EPOCH_OFFSET = LocalDateTime.of(2024, 1, 1, 0, 0, 0)
             .atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
 
     private final SystemClockHolder systemClockHolder;
@@ -44,8 +45,8 @@ public class IdGenerator {
         if (nodeId < 0 || nodeId > MAX_NODE_ID) {
             throw new IllegalArgumentException(String.format("nodeId 는 %d 이상 %d 이하의 값이어야 합니다.", 0, MAX_NODE_ID));
         }
-        if (lastTimestamp < EPOCH) {
-            throw new IllegalArgumentException(String.format("lastTimestamp 는 %d 이상의 값이어야 합니다.", EPOCH));
+        if (lastTimestamp < EPOCH_OFFSET) {
+            throw new IllegalArgumentException(String.format("lastTimestamp 는 %d 이상의 값이어야 합니다.", EPOCH_OFFSET));
         }
         if (sequence < 0 || sequence > MAX_SEQUENCE) {
             throw new IllegalArgumentException(String.format("sequence 는 %d 이상 %d 이하의 값이어야 합니다.", 0, MAX_SEQUENCE));
@@ -95,7 +96,12 @@ public class IdGenerator {
 
         lastTimestamp = currentTimestamp;
 
-        return ((currentTimestamp - EPOCH) << (NODE_ID_BITS + SEQUENCE_BITS))
+        final long epoch = currentTimestamp - EPOCH_OFFSET;
+        if (epoch > MAX_EPOCH) {
+            throw new IllegalStateException("시간 값이 범위를 벗어났습니다.");
+        }
+
+        return (epoch << (NODE_ID_BITS + SEQUENCE_BITS))
                 | (nodeId << SEQUENCE_BITS)
                 | sequence;
     }
@@ -111,7 +117,7 @@ public class IdGenerator {
         final long maskNodeId = ((1L << NODE_ID_BITS) - 1) << SEQUENCE_BITS;
         final long maskSequence = (1L << SEQUENCE_BITS) - 1;
 
-        final long timestamp = (id >> (NODE_ID_BITS + SEQUENCE_BITS)) + EPOCH;
+        final long timestamp = (id >> (NODE_ID_BITS + SEQUENCE_BITS)) + EPOCH_OFFSET;
         final long nodeId = (id & maskNodeId) >> SEQUENCE_BITS;
         final long sequence = id & maskSequence;
 

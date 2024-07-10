@@ -110,4 +110,24 @@ class IdGeneratorTest {
         assertThat(attrs[1]).isEqualTo(1000);
         assertThat(attrs[2]).isZero();
     }
+
+    @Test
+    void 시간값이_최대_시간을_초과했을_경우_예외가_발생한다() {
+        // given
+        final SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
+        final long timestamp = LocalDateTime.of(2100, 7, 10, 0, 0, 0)
+                .atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
+        given(systemClockHolder.millis()).willReturn(timestamp);
+
+        final IdGenerator idGenerator = new IdGenerator(
+                systemClockHolder,
+                1000,
+                timestamp - 1,
+                0
+        );
+
+        // when & then
+        assertThatThrownBy(idGenerator::nextId)
+                .isInstanceOf(IllegalStateException.class);
+    }
 }
