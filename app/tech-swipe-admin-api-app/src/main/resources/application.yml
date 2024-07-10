@@ -22,7 +22,7 @@ spring:
 
 logging:
   level:
-    org.apache.coyote.http11: debug
+    org.apache.coyote.http11: trace
 
 ---
 spring:
@@ -40,7 +40,7 @@ spring:
 
 logging:
   level:
-    org.apache.coyote.http11: debug
+    org.apache.coyote.http11: trace
 
 app:
   image:
@@ -66,6 +66,10 @@ spring:
       credentials:
         access-key: ${AWS_ACCESS_KEY}
         secret-key: ${AWS_SECRET_KEY}
+
+logging:
+  level:
+    org.apache.coyote.http11: trace
 
 app:
   image:
