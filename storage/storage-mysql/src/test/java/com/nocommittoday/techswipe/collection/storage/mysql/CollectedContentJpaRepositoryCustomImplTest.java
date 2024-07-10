@@ -22,7 +22,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         // given
         final List<CollectedContentEntity> entities = List.of(
                 new CollectedContentEntity(
-                        1L,
+                        idGenerator.nextId(),
                         CollectionStatus.INIT,
                         TechContentProviderEntity.from(new TechContentProvider.Id(10)),
                         "url1",
@@ -34,7 +34,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         null
                 ),
                 new CollectedContentEntity(
-                        2L,
+                        idGenerator.nextId(),
                         CollectionStatus.INIT,
                         TechContentProviderEntity.from(new TechContentProvider.Id(10)),
                         "url2",
@@ -46,7 +46,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         null
                 ),
                 new CollectedContentEntity(
-                        3L,
+                        idGenerator.nextId(),
                         CollectionStatus.INIT,
                         TechContentProviderEntity.from(new TechContentProvider.Id(11)),
                         "url3",
@@ -75,7 +75,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         // given
         final List<CollectedContentEntity> entities = List.of(
                 new CollectedContentEntity(
-                        1L,
+                        idGenerator.nextId(),
                         CollectionStatus.INIT,
                         TechContentProviderEntity.from(new TechContentProvider.Id(10)),
                         "url1",
@@ -87,7 +87,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         null
                 ),
                 new CollectedContentEntity(
-                        2L,
+                        idGenerator.nextId(),
                         CollectionStatus.INIT,
                         TechContentProviderEntity.from(new TechContentProvider.Id(10)),
                         "url2",
@@ -99,7 +99,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         null
                 ),
                 new CollectedContentEntity(
-                        3L,
+                        idGenerator.nextId(),
                         CollectionStatus.INIT,
                         TechContentProviderEntity.from(new TechContentProvider.Id(11)),
                         "url3",

@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public abstract class AbstractDataJpaTest {
 
-
     @Autowired
     protected EntityManager em;
+
+    @Autowired
+    protected LocalAutoIncrementIdGenerator idGenerator;
 }
