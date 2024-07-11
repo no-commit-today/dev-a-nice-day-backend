@@ -82,7 +82,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
 
     public static CollectedContentEntity from(final CollectedContent collectedContent) {
         return new CollectedContentEntity(
-                collectedContent.getId().id(),
+                collectedContent.getId().value(),
                 collectedContent.getStatus(),
                 TechContentProviderEntity.from(collectedContent.getProviderId()),
                 collectedContent.getUrl(),
@@ -97,7 +97,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
 
     public static CollectedContentEntity from(final ContentCollect contentCollect) {
         return new CollectedContentEntity(
-                contentCollect.id().id(),
+                contentCollect.id().value(),
                 CollectionStatus.INIT,
                 TechContentProviderEntity.from(contentCollect.providerId()),
                 contentCollect.url(),

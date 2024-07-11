@@ -33,9 +33,9 @@ public class CollectedContent {
 
     private final String imageUrl;
 
-    public record Id(long id) {
+    public record Id(long value) {
         public TechContent.Id toTechContentId() {
-            return new TechContent.Id(id);
+            return new TechContent.Id(value);
         }
     }
 
