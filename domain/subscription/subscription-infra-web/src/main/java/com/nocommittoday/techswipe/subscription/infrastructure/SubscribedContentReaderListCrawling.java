@@ -16,7 +16,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class ListCrawlingContentReader implements SubscribedContentReader {
+public class SubscribedContentReaderListCrawling implements SubscribedContentReader {
 
     private final UrlListCrawlingIteratorCreator urlListCrawlingIteratorCreator;
     private final ContentCrawlerCreator contentCrawlerCreator;

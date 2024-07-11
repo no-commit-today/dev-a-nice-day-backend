@@ -14,12 +14,12 @@ public abstract class AbstractDomainException extends RuntimeException {
         this.errorCode = errorCode;
     }
 
-    protected AbstractDomainException(final ErrorCodeType errorCode, final String message, final Throwable cause) {
+    protected AbstractDomainException(final ErrorCodeType errorCode, final String message, final Exception cause) {
         super(errorCode.getMessage() + " >> " + message, cause);
         this.errorCode = errorCode;
     }
 
-    protected AbstractDomainException(final ErrorCodeType errorCode, final Throwable cause) {
+    protected AbstractDomainException(final ErrorCodeType errorCode, final Exception cause) {
         super(cause);
         this.errorCode = errorCode;
     }

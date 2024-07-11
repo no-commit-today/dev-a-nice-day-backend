@@ -10,6 +10,6 @@ public class CollectedContentCategorizeSkipListener
 
     @Override
     public void onSkipInProcess(final CollectedContentEntity item, final Throwable t) {
-        log.error("", t);
+        log.error("카테고리를 처리하는 동안 예외가 발생했습니다. CollectedContent.id={}.", item.getId(), t);
     }
 }

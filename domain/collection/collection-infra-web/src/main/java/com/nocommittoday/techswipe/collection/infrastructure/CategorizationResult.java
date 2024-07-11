@@ -7,14 +7,15 @@ import java.util.List;
 
 public record CategorizationResult(
         boolean success,
-        @Nullable List<CollectionCategory> categories
+        @Nullable List<CollectionCategory> categories,
+        @Nullable Exception exception
 ) {
 
     public static CategorizationResult success(final List<CollectionCategory> categories) {
-        return new CategorizationResult(true, categories);
+        return new CategorizationResult(true, categories, null);
     }
 
-    public static CategorizationResult failure() {
-        return new CategorizationResult(false, null);
+    public static CategorizationResult failure(final Exception ex) {
+        return new CategorizationResult(false, null, ex);
     }
 }

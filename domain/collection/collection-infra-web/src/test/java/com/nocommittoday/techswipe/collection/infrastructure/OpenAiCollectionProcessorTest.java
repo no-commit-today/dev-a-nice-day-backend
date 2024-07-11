@@ -61,6 +61,7 @@ class OpenAiCollectionProcessorTest {
                 CollectionCategory.SERVER,
                 CollectionCategory.SW_ENGINEERING
         );
+        assertThat(result.exception()).isNull();
     }
 
     @Test
@@ -90,6 +91,75 @@ class OpenAiCollectionProcessorTest {
 
         // then
         assertThat(result.success()).isFalse();
+        assertThat(result.categories()).isNull();
+        assertThat(result.exception()).isInstanceOf(CategorizationResponseInvalidException.class);
+    }
+
+    @Test
+    void 카테고리_분류_결과가_최대_개수를_초과할_수_없다() {
+        // given
+        final ChatCompletionResult chatCompletionResult = new ChatCompletionResult();
+        final ChatCompletionChoice chatCompletionChoice = new ChatCompletionChoice();
+        final ChatMessage chatMessage = new ChatMessage(ChatMessageRole.ASSISTANT.value(),
+                "- " + CollectionCategory.SERVER.name() + "\n" +
+                        "- " + CollectionCategory.SW_ENGINEERING.name() + "\n" +
+                        "- " + CollectionCategory.AI.name() + "\n" +
+                        "- " + CollectionCategory.SERVER.name() + "\n" +
+                        "- " + CollectionCategory.DEVOPS.name() + "\n" +
+                        "- " + CollectionCategory.WEB.name()
+        );
+        chatCompletionChoice.setMessage(chatMessage);
+        chatCompletionResult.setChoices(List.of(chatCompletionChoice));
+        given(openAiService.createChatCompletion(any()))
+                .willReturn(chatCompletionResult);
+
+        // when
+        final CollectedContent collectedContent = new CollectedContent(
+                null,
+                null,
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                "collected content",
+                "image-url"
+        );
+        final CategorizationResult result = openAiCollectionProcessor.categorize(collectedContent);
+
+        // then
+        assertThat(result.success()).isFalse();
+        assertThat(result.categories()).isNull();
+        assertThat(result.exception()).isInstanceOf(CategorizationResponseInvalidException.class);
+    }
+
+    @Test
+    void 카테고리_분류_결과가_최소_개수만큼_발생되어야_한다() {
+        // given
+        final ChatCompletionResult chatCompletionResult = new ChatCompletionResult();
+        final ChatCompletionChoice chatCompletionChoice = new ChatCompletionChoice();
+        final ChatMessage chatMessage = new ChatMessage(ChatMessageRole.ASSISTANT.value(),
+                ""
+        );
+        chatCompletionChoice.setMessage(chatMessage);
+        chatCompletionResult.setChoices(List.of(chatCompletionChoice));
+        given(openAiService.createChatCompletion(any()))
+                .willReturn(chatCompletionResult);
+
+        // when
+        final CollectedContent collectedContent = new CollectedContent(
+                null,
+                null,
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                "collected content",
+                "image-url"
+        );
+        final CategorizationResult result = openAiCollectionProcessor.categorize(collectedContent);
+
+        // then
+        assertThat(result.success()).isFalse();
+        assertThat(result.categories()).isNull();
+        assertThat(result.exception()).isInstanceOf(CategorizationResponseInvalidException.class);
     }
 
     @Test
@@ -128,6 +198,7 @@ class OpenAiCollectionProcessorTest {
                 - 요약2
                 - 요약3
                 """);
+        assertThat(result.exception()).isNull();
     }
 
     @Test
@@ -162,7 +233,7 @@ class OpenAiCollectionProcessorTest {
     }
 
     @Test
-    void openai의_요약_결과가_5줄보다_많으면_실패_결과를_반환한다() {
+    void openai의_요약_결과가_최대보다_많으면_실패_결과를_반환한다() {
         // given
 
         final ChatCompletionResult chatCompletionResult = new ChatCompletionResult();
@@ -196,5 +267,39 @@ class OpenAiCollectionProcessorTest {
 
         // then
         assertThat(result.success()).isFalse();
+        assertThat(result.summary()).isNull();
+        assertThat(result.exception()).isInstanceOf(SummarizationResponseInvalidException.class);
+    }
+
+    @Test
+    void 요약결과가_최소보다_적으면_실패한다() {
+        // given
+        final ChatCompletionResult chatCompletionResult = new ChatCompletionResult();
+        final ChatCompletionChoice chatCompletionChoice = new ChatCompletionChoice();
+        final ChatMessage chatMessage = new ChatMessage(ChatMessageRole.ASSISTANT.value(),
+                """
+                        """
+        );
+        chatCompletionChoice.setMessage(chatMessage);
+        chatCompletionResult.setChoices(List.of(chatCompletionChoice));
+        given(openAiService.createChatCompletion(any()))
+                .willReturn(chatCompletionResult);
+
+        // when
+        final CollectedContent collectedContent = new CollectedContent(
+                null,
+                null,
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                "collected content",
+                "image-url"
+        );
+        final SummarizationResult result = openAiCollectionProcessor.summarize(collectedContent);
+
+        // then
+        assertThat(result.success()).isFalse();
+        assertThat(result.summary()).isNull();
+        assertThat(result.exception()).isInstanceOf(SummarizationResponseInvalidException.class);
     }
 }
