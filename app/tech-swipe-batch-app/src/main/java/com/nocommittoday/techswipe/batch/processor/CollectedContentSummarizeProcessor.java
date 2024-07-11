@@ -19,7 +19,7 @@ public class CollectedContentSummarizeProcessor
         final CollectedContent collectedContent = item.toDomain();
         final SummarizationResult summarizationResult = collectionProcessor.summarize(collectedContent);
         if (!summarizationResult.success()) {
-            throw new SummarizeFailureException(collectedContent.getId());
+            throw new SummarizeFailureException(collectedContent.getId(), summarizationResult.exception());
         }
 
         final CollectedContent summarized = collectedContent.summarize(summarizationResult.summary());
