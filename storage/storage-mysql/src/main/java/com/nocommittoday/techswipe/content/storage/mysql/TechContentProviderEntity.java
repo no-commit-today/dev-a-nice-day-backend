@@ -78,13 +78,9 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
         );
     }
 
-    public TechContentProvider.Id toDomainId() {
-        return new TechContentProvider.Id(id);
-    }
-
     public TechContentProvider toDomain() {
         return new TechContentProvider(
-                toDomainId(),
+                new TechContentProvider.Id(id),
                 type,
                 title,
                 url,

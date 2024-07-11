@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.subscription.storage.mysql;
 
+import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
@@ -86,7 +87,7 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
     public Subscription toDomain() {
         return new Subscription(
                 new Subscription.Id(id),
-                provider.toDomainId(),
+                provider.getId() != null ? new TechContentProvider.Id(provider.getId()) : null,
                 type,
                 initType,
                 data.getFeed().getUrl(),

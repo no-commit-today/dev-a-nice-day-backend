@@ -23,24 +23,6 @@ class TechContentProviderEntityTest {
     }
 
     @Test
-    void 도메인_엔티티_ID로_전환할_수_있다() {
-        // given
-        final TechContentProviderEntity provider = new TechContentProviderEntity(
-                1L,
-                TechContentProviderType.DOMESTIC_COMPANY_BLOG,
-                "title",
-                "url",
-                ImageEntity.from(new Image.Id(2L))
-        );
-
-        // when
-        final TechContentProvider.Id result = provider.toDomainId();
-
-        // then
-        assertThat(result).isEqualTo(new TechContentProvider.Id(1));
-    }
-
-    @Test
     void 도메인_엔티티로_전환할_수_있다() {
         // given
         final TechContentProviderEntity provider = new TechContentProviderEntity(
