@@ -23,10 +23,10 @@ import static org.mockito.Mockito.mock;
 
 
 @ExtendWith(MockitoExtension.class)
-class FeedContentReaderTest {
+class SubscribedContentReaderFeedTest {
 
     @InjectMocks
-    private FeedContentReader feedContentReader;
+    private SubscribedContentReaderFeed subscribedContentReaderFeed;
 
     @Mock
     private FeedClient feedClient;
@@ -65,7 +65,7 @@ class FeedContentReaderTest {
 
 
         // when
-        final List<SubscribedContentResult> result = feedContentReader.getList(
+        final List<SubscribedContentResult> result = subscribedContentReaderFeed.getList(
                 new FeedSubscription(
                         "feed-url",
                         new ContentCrawling(
@@ -118,7 +118,7 @@ class FeedContentReaderTest {
         given(htmlTagCleaner.clean("entry-content-1")).willReturn("entry-content-1-cleaned");
 
         // when
-        final List<SubscribedContentResult> result = feedContentReader.getList(
+        final List<SubscribedContentResult> result = subscribedContentReaderFeed.getList(
                 new FeedSubscription(
                         "feed-url",
                         new ContentCrawling(
@@ -179,7 +179,7 @@ class FeedContentReaderTest {
         given(contentCrawler.getCleaned(contentCrawling)).willReturn("entry-content-crawl");
 
         // when
-        final List<SubscribedContentResult> result = feedContentReader.getList(
+        final List<SubscribedContentResult> result = subscribedContentReaderFeed.getList(
                 new FeedSubscription(
                         "feed-url",
                         new ContentCrawling(

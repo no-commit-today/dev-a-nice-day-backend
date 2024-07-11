@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class FeedContentReader implements SubscribedContentReader {
+public class SubscribedContentReaderFeed implements SubscribedContentReader {
 
     private final FeedClient feedClient;
     private final ContentCrawlerCreator contentCrawlerCreator;
