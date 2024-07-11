@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.application.CollectedContentUrlInMemoryExistsReader;
-import com.nocommittoday.techswipe.batch.param.TechContentProviderIdJobParameters;
+import com.nocommittoday.techswipe.batch.param.TechContentProviderIdJobParameter;
 import com.nocommittoday.techswipe.batch.param.TechContentProviderIdListJobParameters;
 import com.nocommittoday.techswipe.batch.processor.ContentCollectProviderInitialJobItemProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
@@ -135,7 +135,7 @@ public class ContentCollectProviderInitialJobConfig {
         );
     }
 
-    @Bean(JOB_NAME + TechContentProviderIdJobParameters.NAME)
+    @Bean(JOB_NAME + TechContentProviderIdJobParameter.NAME)
     @JobScope
     public TechContentProviderIdListJobParameters providerIdListJobParameters() {
         return new TechContentProviderIdListJobParameters();
