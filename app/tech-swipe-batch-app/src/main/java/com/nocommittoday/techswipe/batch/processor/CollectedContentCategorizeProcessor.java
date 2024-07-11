@@ -21,7 +21,7 @@ public class CollectedContentCategorizeProcessor implements ItemProcessor<Collec
         final CollectedContent collectedContent = item.toDomain();
         final CategorizationResult categorizationResult = collectionProcessor.categorize(collectedContent);
         if (!categorizationResult.success()) {
-            throw new CategorizeFailureException(collectedContent.getId());
+            throw new CategorizeFailureException(collectedContent.getId(), categorizationResult.exception());
         }
         final CollectedContent categorized = collectedContent.categorize(categorizationResult.categories());
         return CollectedContentEntity.from(categorized);
