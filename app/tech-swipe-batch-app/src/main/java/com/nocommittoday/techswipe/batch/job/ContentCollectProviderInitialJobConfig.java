@@ -6,6 +6,7 @@ import com.nocommittoday.techswipe.batch.param.TechContentProviderIdListJobParam
 import com.nocommittoday.techswipe.batch.processor.ContentCollectProviderInitialJobItemProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
+import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrlListReader;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
@@ -54,6 +55,8 @@ public class ContentCollectProviderInitialJobConfig {
     private final CollectedContentUrlListReader collectedContentUrlListReader;
 
     private final SubscribedContentListQueryService subscribedContentListQueryService;
+
+    private final CollectedContentIdGenerator collectedContentIdGenerator;
 
     @Bean(JOB_NAME)
     public Job job() {
@@ -109,7 +112,8 @@ public class ContentCollectProviderInitialJobConfig {
     public ContentCollectProviderInitialJobItemProcessor processor() {
         return new ContentCollectProviderInitialJobItemProcessor(
                 subscribedContentListQueryService,
-                collectedContentUrlInMemoryExistsReader()
+                collectedContentUrlInMemoryExistsReader(),
+                collectedContentIdGenerator
         );
     }
 

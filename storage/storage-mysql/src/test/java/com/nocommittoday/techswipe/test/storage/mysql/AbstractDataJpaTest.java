@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.test;
+package com.nocommittoday.techswipe.test.storage.mysql;
 
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public abstract class AbstractDataJpaTest {
 
-
     @Autowired
     protected EntityManager em;
+
+    @Autowired
+    protected LocalAutoIncrementIdGenerator idGenerator;
 }

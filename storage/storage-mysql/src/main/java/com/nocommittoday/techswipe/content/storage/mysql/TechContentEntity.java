@@ -13,7 +13,6 @@ import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
@@ -24,13 +23,13 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Persistable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
@@ -49,10 +48,9 @@ import static lombok.AccessLevel.PROTECTED;
 )
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class TechContentEntity extends BaseSoftDeleteEntity {
+public class TechContentEntity extends BaseSoftDeleteEntity implements Persistable<Long> {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
@@ -107,7 +105,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity {
 
     public static TechContentEntity from(final TechContentCreate techContentCreate) {
         final TechContentEntity entity = new TechContentEntity(
-                null,
+                techContentCreate.id().value(),
                 TechContentProviderEntity.from(techContentCreate.providerId()),
                 techContentCreate.imageId() == null ? null : ImageEntity.from(techContentCreate.imageId()),
                 techContentCreate.url(),
@@ -142,5 +140,10 @@ public class TechContentEntity extends BaseSoftDeleteEntity {
         this.categories = techContent.getCategories().stream()
                 .map(category -> new TechCategoryEntity(this, category))
                 .toList();
+    }
+
+    @Override
+    public boolean isNew() {
+        return getCreatedAt() == null;
     }
 }

@@ -18,7 +18,7 @@ spring:
 
 logging:
   level:
-    org.apache.coyote.http11: debug
+    org.apache.coyote.http11: trace
 
 ---
 spring:
@@ -28,13 +28,17 @@ spring:
 
 logging:
   level:
-    org.apache.coyote.http11: debug
+    org.apache.coyote.http11: trace
 
 ---
 spring:
   config:
     activate:
       on-profile: dev
+
+logging:
+  level:
+    org.apache.coyote.http11: trace
 
 ---
 spring:

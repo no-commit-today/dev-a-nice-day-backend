@@ -51,6 +51,7 @@ class CollectedContentEntityTest {
     void ContentCollect_도메인_객체로부터_생성할_수_있다() {
         // given
         final ContentCollect contentCollect = new ContentCollect(
+                new CollectedContent.Id(1L),
                 new TechContentProvider.Id(2L),
                 "url",
                 "title",
@@ -63,7 +64,7 @@ class CollectedContentEntityTest {
         final CollectedContentEntity entity = CollectedContentEntity.from(contentCollect);
 
         // then
-        assertThat(entity.getId()).isNull();
+        assertThat(entity.getId()).isEqualTo(1);
         assertThat(entity.getStatus()).isEqualTo(CollectionStatus.INIT);
         assertThat(entity.getCategories()).isNull();
         assertThat(entity.getSummary()).isNull();

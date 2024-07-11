@@ -1,9 +1,8 @@
 package com.nocommittoday.techswipe.collection.storage.mysql;
 
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
-import com.nocommittoday.techswipe.test.AbstractDataJpaTest;
+import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderJpaRepository;
+import com.nocommittoday.techswipe.test.storage.mysql.AbstractDataJpaTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,14 +16,17 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
     @Autowired
     private CollectedContentJpaRepository collectedContentJpaRepository;
 
+    @Autowired
+    private TechContentProviderJpaRepository techContentProviderJpaRepository;
+
     @Test
     void 컨텐츠_제공자에_해당하는_수집된_컨텐츠_url을_전체_조회할_수_있다() {
         // given
         final List<CollectedContentEntity> entities = List.of(
                 new CollectedContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         CollectionStatus.INIT,
-                        TechContentProviderEntity.from(new TechContentProvider.Id(10)),
+                        techContentProviderJpaRepository.getReferenceById(10L),
                         "url1",
                         "title1",
                         LocalDate.of(2021, 1, 1),
@@ -34,9 +36,9 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         null
                 ),
                 new CollectedContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         CollectionStatus.INIT,
-                        TechContentProviderEntity.from(new TechContentProvider.Id(10)),
+                        techContentProviderJpaRepository.getReferenceById(10L),
                         "url2",
                         "title2",
                         LocalDate.of(2021, 1, 1),
@@ -46,9 +48,9 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         null
                 ),
                 new CollectedContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         CollectionStatus.INIT,
-                        TechContentProviderEntity.from(new TechContentProvider.Id(11)),
+                        techContentProviderJpaRepository.getReferenceById(11L),
                         "url3",
                         "title3",
                         LocalDate.of(2021, 1, 1),
@@ -63,7 +65,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
 
         // when
         final List<String> result = collectedContentJpaRepository.findAllUrlByProvider(
-                TechContentProviderEntity.from(new TechContentProvider.Id(10))
+                techContentProviderJpaRepository.getReferenceById(10L)
         );
 
         // then
@@ -75,9 +77,9 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         // given
         final List<CollectedContentEntity> entities = List.of(
                 new CollectedContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         CollectionStatus.INIT,
-                        TechContentProviderEntity.from(new TechContentProvider.Id(10)),
+                        techContentProviderJpaRepository.getReferenceById(10L),
                         "url1",
                         "title1",
                         LocalDate.of(2021, 1, 1),
@@ -87,9 +89,9 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         null
                 ),
                 new CollectedContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         CollectionStatus.INIT,
-                        TechContentProviderEntity.from(new TechContentProvider.Id(10)),
+                        techContentProviderJpaRepository.getReferenceById(10L),
                         "url2",
                         "title2",
                         LocalDate.of(2021, 1, 1),
@@ -99,9 +101,9 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                         null
                 ),
                 new CollectedContentEntity(
-                        null,
+                        idGenerator.nextId(),
                         CollectionStatus.INIT,
-                        TechContentProviderEntity.from(new TechContentProvider.Id(11)),
+                        techContentProviderJpaRepository.getReferenceById(11L),
                         "url3",
                         "title3",
                         LocalDate.of(2021, 1, 1),
@@ -116,8 +118,8 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
 
         // when
         final List<String> result = collectedContentJpaRepository.findAllUrlByProviderIn(List.of(
-                TechContentProviderEntity.from(new TechContentProvider.Id(10)),
-                TechContentProviderEntity.from(new TechContentProvider.Id(11))
+                        techContentProviderJpaRepository.getReferenceById(10L),
+                        techContentProviderJpaRepository.getReferenceById(11L)
                 )
         );
 

@@ -20,6 +20,7 @@ class TechContentEntityTest {
     void TechContentCreate_도메인_모델로부터_생성할_수_있다() {
         // given
         final TechContentCreate domain = new TechContentCreate(
+                new TechContent.Id(1),
                 new TechContentProvider.Id(3),
                 "url",
                 "title",
@@ -33,7 +34,7 @@ class TechContentEntityTest {
         final TechContentEntity result = TechContentEntity.from(domain);
 
         // then
-        assertThat(result.getId()).isNull();
+        assertThat(result.getId()).isEqualTo(1);
         assertThat(result.getProvider().getId()).isEqualTo(3);
         assertThat(result.getImage().getId()).isEqualTo(2);
         assertThat(result.getUrl()).isEqualTo("url");

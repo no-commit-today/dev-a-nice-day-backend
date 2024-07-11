@@ -13,16 +13,14 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Persistable;
 
 import static lombok.AccessLevel.PROTECTED;
 
@@ -35,11 +33,10 @@ import static lombok.AccessLevel.PROTECTED;
 )
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-@AllArgsConstructor
-public class TechContentProviderEntity extends BaseSoftDeleteEntity {
+public class TechContentProviderEntity extends BaseSoftDeleteEntity implements Persistable<Long> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -57,6 +54,20 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity {
     @JoinColumn(name = "icon_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ImageEntity icon;
 
+    public TechContentProviderEntity(
+            final Long id,
+            final TechContentProviderType type,
+            final String title,
+            final String url,
+            @Nullable final ImageEntity icon
+    ) {
+        this.id = id;
+        this.type = type;
+        this.title = title;
+        this.url = url;
+        this.icon = icon;
+    }
+
     public static TechContentProviderEntity from(final TechContentProvider.Id id) {
         return new TechContentProviderEntity(
                 id.value(),
@@ -67,17 +78,18 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity {
         );
     }
 
-    public TechContentProvider.Id toDomainId() {
-        return new TechContentProvider.Id(id);
-    }
-
     public TechContentProvider toDomain() {
         return new TechContentProvider(
-                toDomainId(),
+                new TechContentProvider.Id(id),
                 type,
                 title,
                 url,
                 icon == null ? null : new Image.Id(icon.getId())
         );
+    }
+
+    @Override
+    public boolean isNew() {
+        return getCreatedAt() == null;
     }
 }

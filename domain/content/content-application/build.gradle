@@ -6,6 +6,7 @@ dependencies {
 
     implementation(project(":domain:content:content-domain"))
     implementation(project(":domain:content:content-infra-mysql"))
+    implementation(project(":domain:content:content-infra-system"))
 
     implementation("org.springframework:spring-context")
 }

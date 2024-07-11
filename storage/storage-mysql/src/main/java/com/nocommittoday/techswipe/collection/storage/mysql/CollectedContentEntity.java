@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
+import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;
@@ -14,7 +15,6 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
@@ -24,12 +24,11 @@ import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Persistable;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.List;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(
@@ -41,10 +40,10 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Getter
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class CollectedContentEntity extends BaseSoftDeleteEntity {
+public class CollectedContentEntity extends BaseSoftDeleteEntity implements Persistable<Long> {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -83,7 +82,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
 
     public static CollectedContentEntity from(final CollectedContent collectedContent) {
         return new CollectedContentEntity(
-                collectedContent.getId().id(),
+                collectedContent.getId().value(),
                 collectedContent.getStatus(),
                 TechContentProviderEntity.from(collectedContent.getProviderId()),
                 collectedContent.getUrl(),
@@ -98,7 +97,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
 
     public static CollectedContentEntity from(final ContentCollect contentCollect) {
         return new CollectedContentEntity(
-                null,
+                contentCollect.id().value(),
                 CollectionStatus.INIT,
                 TechContentProviderEntity.from(contentCollect.providerId()),
                 contentCollect.url(),
@@ -117,7 +116,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
                 status,
                 categories,
                 summary,
-                provider.toDomainId(),
+                provider.getId() != null ? new TechContentProvider.Id(provider.getId()) : null,
                 url,
                 title,
                 publishedDate,
@@ -138,4 +137,8 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity {
         this.summary = collectedContent.getSummary();
     }
 
+    @Override
+    public boolean isNew() {
+        return getCreatedAt() == null;
+    }
 }

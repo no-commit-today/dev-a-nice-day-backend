@@ -16,6 +16,7 @@ dependencies {
 
     implementation(project(":domain:collection:collection-infra-mysql"))
     implementation(project(":domain:collection:collection-infra-web"))
+    implementation(project(":domain:collection:collection-infra-system"))
     implementation(project(":domain:collection:collection-application"))
     implementation(project(":domain:collection:collection-domain"))
 
