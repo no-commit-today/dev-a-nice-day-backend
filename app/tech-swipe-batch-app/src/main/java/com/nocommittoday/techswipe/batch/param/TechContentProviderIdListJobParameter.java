@@ -11,9 +11,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Getter
-public class TechContentProviderIdListJobParameters {
+public class TechContentProviderIdListJobParameter {
 
-    public static final String NAME = "ProviderIdListJobParameters";
+    public static final String NAME = "TechContentProviderIdListJobParameter";
 
     private static final Pattern JOB_PARAMETERS_PATTERN = Pattern.compile(
             "\\[(?<idParams>(\\d+(;\\d+)*|\\*))\\]"

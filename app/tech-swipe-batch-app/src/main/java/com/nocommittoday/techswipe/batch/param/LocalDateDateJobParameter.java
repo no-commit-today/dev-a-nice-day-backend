@@ -8,15 +8,13 @@ public class LocalDateDateJobParameter {
 
     public static final String NAME = "LocalDateDateJobParameter";
 
-    public static final String PARAMETER_NAME = "date";
-
     private LocalDate date;
 
     public LocalDate getDate() {
         return date;
     }
 
-    @Value("#{jobParameters['" + PARAMETER_NAME + "']}")
+    @Value("#{jobParameters['date']}")
     public void setType(final LocalDate date) {
         this.date = date;
     }
