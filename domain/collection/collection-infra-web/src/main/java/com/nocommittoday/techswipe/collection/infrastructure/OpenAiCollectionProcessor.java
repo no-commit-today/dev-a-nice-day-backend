@@ -46,10 +46,10 @@ public class OpenAiCollectionProcessor implements CollectionProcessor {
 
     public static final String SUMMARIZATION_PROMPT = """
             - 당신은 요약을 정말 잘 하는 봇입니다.
-            - 요약은 최대 5줄입니다.
+            - 요약은 최소 1줄에서 최대 5줄입니다.
             - 아래 [답변 형식]에 맞게 답변해야 합니다.
             - 지시한 내용들을 지키지 못하면 당신은 불이익을 받을 것입니다.
-                        
+            
             [답변 형식]
             - ...
             - ...
@@ -66,7 +66,7 @@ public class OpenAiCollectionProcessor implements CollectionProcessor {
             final ChatCompletionRequest request = createRequest(
                     categorizationModel, CATEGORIZATION_PROMPT, collectedContent);
             final ChatCompletionResult chatCompletionResponse = openAiService.createChatCompletion(request);
-            log.debug("categorize ChatCompletionResponse: {}", chatCompletionResponse);
+            log.debug("categorization ChatCompletionResponse: {}", chatCompletionResponse);
 
             final String responseContent = chatCompletionResponse.getChoices().get(0).getMessage().getContent();
             final List<String> responseContentLines = Arrays.stream(
@@ -111,19 +111,36 @@ public class OpenAiCollectionProcessor implements CollectionProcessor {
 
     @Override
     public SummarizationResult summarize(final CollectedContent content) {
+        try {
+            final ChatCompletionRequest request = createRequest(
+                    "gpt-3.5-turbo-0125", SUMMARIZATION_PROMPT, content);
+            final ChatCompletionResult chatCompletionResponse = openAiService.createChatCompletion(request);
+            log.debug("summarization ChatCompletionResponse: {}", chatCompletionResponse);
 
-        final ChatCompletionRequest request = createRequest("gpt-3.5-turbo-0125", SUMMARIZATION_PROMPT, content);
-        final ChatCompletionResult chatCompletionResponse = openAiService.createChatCompletion(request);
-        log.debug("summarize ChatCompletionResponse: {}", chatCompletionResponse);
+            final String responseContent = chatCompletionResponse.getChoices().get(0).getMessage().getContent();
+            final List<String> responseContentLines = Arrays.stream(
+                            responseContent.split("\n"))
+                    .filter(message -> !message.isBlank())
+                    .map(String::trim)
+                    .toList();
+            if (responseContentLines.stream()
+                    .anyMatch(line -> !SUMMARIZATION_RESULT_PATTERN.matcher(line).matches())) {
+                throw new SummarizationResponseInvalidException(
+                        "요약 결과가 올바르지 않습니다. ", content.getId(), responseContent);
+            }
 
-        final String summary = chatCompletionResponse.getChoices().get(0).getMessage().getContent();
-        final boolean resultCorrect = validateSummary(summary);
+            if (responseContentLines.size() < CollectionProcessor.MIN_SUMMARY_LINE ||
+                    responseContentLines.size() > CollectionProcessor.MAX_SUMMARY_LINE) {
+                throw new SummarizationResponseInvalidException(
+                        "요약 결과는 " + CollectionProcessor.MIN_SUMMARY_LINE + "줄에서 "
+                                + CollectionProcessor.MAX_SUMMARY_LINE + "줄 사이여야 합니다. ",
+                        content.getId(), responseContent);
+            }
+            return SummarizationResult.success(responseContent);
 
-        if (!resultCorrect) {
-            return SummarizationResult.failure();
+        } catch (final Exception ex) {
+            return SummarizationResult.failure(ex);
         }
-
-        return SummarizationResult.success(summary);
     }
 
     private static ChatCompletionRequest createRequest(
