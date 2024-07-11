@@ -27,16 +27,16 @@ public class OpenAiCollectionProcessor implements CollectionProcessor {
             + ")$");
 
     public static final String CATEGORIZATION_PROMPT = String.format("""
-            - 당신은 분류를 정말 잘 하는 봇입니다.
-            - 카테고리는 [%s] 중 선택합니다.
-            - 카테고리는 최소 1개에서 최대 3개입니다.
-            - 아래 [답변 형식]에 맞게 답변해야 합니다.
-            - 지시한 내용들을 지키지 못하면 당신은 불이익을 받을 것입니다.
-            
-            [답변 형식]
-            - ...
-            - ...
-            """,
+                    - 당신은 분류를 정말 잘 하는 봇입니다.
+                    - 카테고리는 [%s] 중 선택합니다.
+                    - 카테고리는 최소 1개에서 최대 3개입니다.
+                    - 아래 [답변 형식]에 맞게 답변해야 합니다.
+                    - 지시한 내용들을 지키지 못하면 당신은 불이익을 받을 것입니다.
+                                
+                    [답변 형식]
+                    - ...
+                    - ...
+                    """,
             Arrays.stream(CollectionCategory.values())
                     .map(CollectionCategory::name)
                     .collect(Collectors.joining(","))
@@ -49,7 +49,7 @@ public class OpenAiCollectionProcessor implements CollectionProcessor {
             - 요약은 최대 5줄입니다.
             - 아래 [답변 형식]에 맞게 답변해야 합니다.
             - 지시한 내용들을 지키지 못하면 당신은 불이익을 받을 것입니다.
-            
+                        
             [답변 형식]
             - ...
             - ...
@@ -61,38 +61,60 @@ public class OpenAiCollectionProcessor implements CollectionProcessor {
     private final String categorizationModel;
 
     @Override
-    public CategorizationResult categorize(final CollectedContent content) {
-        final ChatCompletionRequest request = createRequest(categorizationModel, CATEGORIZATION_PROMPT, content);
-        final ChatCompletionResult chatCompletionResponse = openAiService.createChatCompletion(request);
-        log.debug("ChatCompletionResponse: {}", chatCompletionResponse);
+    public CategorizationResult categorize(final CollectedContent collectedContent) {
+        try {
+            final ChatCompletionRequest request = createRequest(
+                    categorizationModel, CATEGORIZATION_PROMPT, collectedContent);
+            final ChatCompletionResult chatCompletionResponse = openAiService.createChatCompletion(request);
+            log.debug("categorize ChatCompletionResponse: {}", chatCompletionResponse);
 
-        final List<String> result = Arrays.stream(
-                        chatCompletionResponse.getChoices().get(0).getMessage().getContent().split("\n"))
-                .filter(message -> !message.isBlank())
-                .map(String::trim)
-                .toList();
+            final String responseContent = chatCompletionResponse.getChoices().get(0).getMessage().getContent();
+            final List<String> responseContentLines = Arrays.stream(
+                            responseContent.split("\n"))
+                    .filter(message -> !message.isBlank())
+                    .map(String::trim)
+                    .toList();
 
-        final boolean resultIncorrect = result.isEmpty() || result.stream()
-                .anyMatch(line -> !CATEGORIZATION_RESULT_PATTERN.matcher(line).matches());
 
-        if (resultIncorrect) {
-            return CategorizationResult.failure();
+            if (responseContentLines.stream()
+                    .anyMatch(line -> !CATEGORIZATION_RESULT_PATTERN.matcher(line).matches())) {
+                throw new CategorizationResponseInvalidException(
+                        "분류 결과가 올바르지 않습니다. ", collectedContent.getId(), responseContent);
+            }
+
+            final List<CollectionCategory> categories = responseContentLines.stream()
+                    .map(line -> line.replaceFirst("^-\\s", ""))
+                    .map(CollectionCategory::valueOf)
+                    .distinct()
+                    .toList();
+
+            log.warn("open ai 카테고리 분류 요청이 중복된 응답을 발생시켰습니다. contentId={}, responseContent={}, categories={}",
+                    collectedContent.getId(), responseContent, categories
+            );
+
+            if (categories.size() < CollectionProcessor.MIN_CATEGORY_NUM
+                    || categories.size() > CollectionProcessor.MAX_CATEGORY_NUM) {
+                throw new CategorizationResponseInvalidException(
+                        "분류 결과는 " + CollectionProcessor.MIN_CATEGORY_NUM + "개에서 "
+                                + CollectionProcessor.MAX_CATEGORY_NUM + "개 사이여야 합니다. ",
+                        collectedContent.getId(), responseContent);
+            }
+
+            return CategorizationResult.success(
+                    categories
+            );
+        } catch (final Exception ex) {
+            return CategorizationResult.failure(ex);
         }
-
-        return CategorizationResult.success(
-                result.stream()
-                        .map(line -> line.replaceFirst("^-\\s", ""))
-                        .map(CollectionCategory::valueOf)
-                        .toList()
-        );
     }
+
 
     @Override
     public SummarizationResult summarize(final CollectedContent content) {
 
         final ChatCompletionRequest request = createRequest("gpt-3.5-turbo-0125", SUMMARIZATION_PROMPT, content);
         final ChatCompletionResult chatCompletionResponse = openAiService.createChatCompletion(request);
-        log.debug("ChatCompletionResponse: {}", chatCompletionResponse);
+        log.debug("summarize ChatCompletionResponse: {}", chatCompletionResponse);
 
         final String summary = chatCompletionResponse.getChoices().get(0).getMessage().getContent();
         final boolean resultCorrect = validateSummary(summary);
