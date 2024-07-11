@@ -20,10 +20,10 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
-class ListCrawlingContentReaderTest {
+class SubscribedContentReaderListCrawlingTest {
 
     @InjectMocks
-    private ListCrawlingContentReader listCrawlingContentReader;
+    private SubscribedContentReaderListCrawling subscribedContentReaderListCrawling;
 
     @Mock
     private UrlListCrawlingIteratorCreator urlListCrawlingIteratorCreator;
@@ -81,7 +81,7 @@ class ListCrawlingContentReaderTest {
         given(localDateParser.parse("date-crawl-1")).willReturn(LocalDate.of(2024, 6, 17));
 
         // when
-        final List<SubscribedContentResult> result = listCrawlingContentReader.getList(
+        final List<SubscribedContentResult> result = subscribedContentReaderListCrawling.getList(
                 new ListCrawlingSubscription(
                         listCrawling,
                         contentCrawling
@@ -154,7 +154,7 @@ class ListCrawlingContentReaderTest {
         given(localDateParser.parse("date-crawl-2")).willReturn(LocalDate.of(2024, 6, 16));
 
         // when
-        final List<SubscribedContentResult> result = listCrawlingContentReader.getList(
+        final List<SubscribedContentResult> result = subscribedContentReaderListCrawling.getList(
                 new ListCrawlingSubscription(
                         listCrawling,
                         contentCrawling
