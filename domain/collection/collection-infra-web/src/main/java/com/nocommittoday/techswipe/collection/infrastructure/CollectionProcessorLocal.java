@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @RequiredArgsConstructor
-public class LocalCollectionProcessor implements CollectionProcessor {
+public class CollectionProcessorLocal implements CollectionProcessor {
 
     private final Random random = new Random();
 

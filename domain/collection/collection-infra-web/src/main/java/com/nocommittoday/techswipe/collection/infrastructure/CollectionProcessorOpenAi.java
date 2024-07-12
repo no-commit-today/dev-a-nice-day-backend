@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Slf4j
-public class OpenAiCollectionProcessor implements CollectionProcessor {
+public class CollectionProcessorOpenAi implements CollectionProcessor {
 
     private static final Pattern CATEGORIZATION_RESULT_PATTERN = Pattern.compile("^-\\s("
             + Arrays.stream(CollectionCategory.values())
