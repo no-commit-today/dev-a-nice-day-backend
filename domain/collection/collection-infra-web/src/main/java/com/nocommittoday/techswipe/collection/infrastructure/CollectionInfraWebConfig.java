@@ -18,7 +18,7 @@ public class CollectionInfraWebConfig {
                 final OpenAiService openAiService,
                 @Value("${app.collection.openai.categorization-model}") final String categorizationModel
         ) {
-            return new OpenAiCollectionProcessor(openAiService, categorizationModel);
+            return new CollectionProcessorOpenAi(openAiService, categorizationModel);
         }
 
         @Bean
@@ -35,7 +35,7 @@ public class CollectionInfraWebConfig {
 
         @Bean
         public CollectionProcessor localCollectionProcessor() {
-            return new LocalCollectionProcessor();
+            return new CollectionProcessorLocal();
         }
 
     }

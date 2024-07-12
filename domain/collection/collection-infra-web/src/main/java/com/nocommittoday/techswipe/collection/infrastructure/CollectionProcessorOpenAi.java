@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Slf4j
-public class OpenAiCollectionProcessor implements CollectionProcessor {
+public class CollectionProcessorOpenAi implements CollectionProcessor {
 
     private static final Pattern CATEGORIZATION_RESULT_PATTERN = Pattern.compile("^-\\s("
             + Arrays.stream(CollectionCategory.values())
@@ -32,7 +32,7 @@ public class OpenAiCollectionProcessor implements CollectionProcessor {
                     - 카테고리는 최소 1개에서 최대 3개입니다.
                     - 아래 [답변 형식]에 맞게 답변해야 합니다.
                     - 지시한 내용들을 지키지 못하면 당신은 불이익을 받을 것입니다.
-                                
+                    
                     [답변 형식]
                     - ...
                     - ...

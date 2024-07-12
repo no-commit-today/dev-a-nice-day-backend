@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.batch.job;
 
-import com.nocommittoday.techswipe.batch.param.DateJobParameters;
+import com.nocommittoday.techswipe.batch.param.LocalDateDateJobParameter;
 import com.nocommittoday.techswipe.batch.processor.ContentCollectJobItemProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
@@ -46,10 +46,10 @@ public class ContentCollectJobConfig {
     private final SubscribedContentListQueryService subscribedContentListQueryService;
     private final CollectedContentIdGenerator collectedContentIdGenerator;
 
-    @Bean(JOB_NAME + DateJobParameters.NAME)
+    @Bean(JOB_NAME + LocalDateDateJobParameter.NAME)
     @JobScope
-    public DateJobParameters dateJobParameters() {
-        return new DateJobParameters();
+    public LocalDateDateJobParameter dateJobParameters() {
+        return new LocalDateDateJobParameter();
     }
 
     @Bean(JOB_NAME + "JobParametersValidator")

@@ -5,9 +5,9 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 
 @Getter
-public class TechContentProviderIdJobParameters {
+public class TechContentProviderIdJobParameter {
 
-    public static final String NAME = "ProviderIdJobParameters";
+    public static final String NAME = "TechContentProviderIdJobParameter";
 
     private TechContentProvider.Id providerId;
 

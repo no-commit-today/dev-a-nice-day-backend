@@ -21,10 +21,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class OpenAiCollectionProcessorTest {
+class CollectionProcessorOpenAiTest {
 
     @InjectMocks
-    private OpenAiCollectionProcessor openAiCollectionProcessor;
+    private CollectionProcessorOpenAi collectionProcessorOpenAi;
 
     @Mock
     private OpenAiService openAiService;
@@ -53,7 +53,7 @@ class OpenAiCollectionProcessorTest {
                 "collected content",
                 "image-url"
         );
-        final CategorizationResult result = openAiCollectionProcessor.categorize(collectedContent);
+        final CategorizationResult result = collectionProcessorOpenAi.categorize(collectedContent);
 
         // then
         assertThat(result.success()).isTrue();
@@ -87,7 +87,7 @@ class OpenAiCollectionProcessorTest {
                 "collected content",
                 "image-url"
         );
-        final CategorizationResult result = openAiCollectionProcessor.categorize(collectedContent);
+        final CategorizationResult result = collectionProcessorOpenAi.categorize(collectedContent);
 
         // then
         assertThat(result.success()).isFalse();
@@ -123,7 +123,7 @@ class OpenAiCollectionProcessorTest {
                 "collected content",
                 "image-url"
         );
-        final CategorizationResult result = openAiCollectionProcessor.categorize(collectedContent);
+        final CategorizationResult result = collectionProcessorOpenAi.categorize(collectedContent);
 
         // then
         assertThat(result.success()).isFalse();
@@ -154,7 +154,7 @@ class OpenAiCollectionProcessorTest {
                 "collected content",
                 "image-url"
         );
-        final CategorizationResult result = openAiCollectionProcessor.categorize(collectedContent);
+        final CategorizationResult result = collectionProcessorOpenAi.categorize(collectedContent);
 
         // then
         assertThat(result.success()).isFalse();
@@ -189,7 +189,7 @@ class OpenAiCollectionProcessorTest {
                 "collected content",
                 "image-url"
         );
-        final SummarizationResult result = openAiCollectionProcessor.summarize(collectedContent);
+        final SummarizationResult result = collectionProcessorOpenAi.summarize(collectedContent);
 
         // then
         assertThat(result.success()).isTrue();
@@ -226,7 +226,7 @@ class OpenAiCollectionProcessorTest {
                 "collected content",
                 "image-url"
         );
-        final SummarizationResult result = openAiCollectionProcessor.summarize(collectedContent);
+        final SummarizationResult result = collectionProcessorOpenAi.summarize(collectedContent);
 
         // then
         assertThat(result.success()).isFalse();
@@ -263,7 +263,7 @@ class OpenAiCollectionProcessorTest {
                 "collected content",
                 "image-url"
         );
-        final SummarizationResult result = openAiCollectionProcessor.summarize(collectedContent);
+        final SummarizationResult result = collectionProcessorOpenAi.summarize(collectedContent);
 
         // then
         assertThat(result.success()).isFalse();
@@ -295,7 +295,7 @@ class OpenAiCollectionProcessorTest {
                 "collected content",
                 "image-url"
         );
-        final SummarizationResult result = openAiCollectionProcessor.summarize(collectedContent);
+        final SummarizationResult result = collectionProcessorOpenAi.summarize(collectedContent);
 
         // then
         assertThat(result.success()).isFalse();
