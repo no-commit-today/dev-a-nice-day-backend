@@ -2,17 +2,16 @@ package com.nocommittoday.techswipe.image.service;
 
 import com.nocommittoday.techswipe.core.infrastructure.UuidHolder;
 import com.nocommittoday.techswipe.image.domain.Image;
-import com.nocommittoday.techswipe.image.domain.NotSupportedImageException;
+import com.nocommittoday.techswipe.image.domain.ImageSave;
 import com.nocommittoday.techswipe.image.infrastructure.ContentTypeReader;
 import com.nocommittoday.techswipe.image.infrastructure.FileStore;
 import com.nocommittoday.techswipe.image.infrastructure.ImageAppender;
-import com.nocommittoday.techswipe.image.domain.ImageSave;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Map;
 
 @Service
@@ -37,13 +36,8 @@ public class ImageStoreService {
     private final UuidHolder uuidHolder;
 
     public Image.Id store(final String originUrl, final String dirToStore) {
-        final UrlResource resource = UrlResource.from(originUrl);
-        final String contentType = Arrays.stream(
-                contentTypeReader.getContentType(originUrl).split(";")
-        ).filter(s -> s.startsWith("image/"))
-                .filter(mimeToExt::containsKey)
-                .findFirst()
-                .orElseThrow(() -> new NotSupportedImageException(originUrl));
+        final Resource resource = UrlResource.from(originUrl);
+        final String contentType = contentTypeReader.getContentType(originUrl);
 
         final String storedName = createStoredName(mimeToExt.get(contentType));
         final String storedUrl = fileStore.store(resource, Paths.get(dirToStore, storedName).toString());
