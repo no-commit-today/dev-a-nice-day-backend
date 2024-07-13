@@ -5,14 +5,11 @@ import io.awspring.cloud.s3.S3Resource;
 import io.awspring.cloud.s3.S3Template;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 @Component
 @ConditionalOnProperty(name = "app.image.s3.enabled", havingValue = "true")
@@ -30,12 +27,11 @@ public class S3FileStore implements FileStore {
     }
 
     @Override
-    public String store(final Resource resource, final String storedName) {
-        try (final InputStream input = resource.getInputStream()) {
-            final String contentType = Files.probeContentType(Path.of(storedName));
+    public String store(final ImageData imageData, final String storedName) {
+        try (final InputStream input = imageData.getInputStream()) {
             final ObjectMetadata metadata = ObjectMetadata.builder()
-                    .contentType(contentType)
-                    .contentLength(resource.contentLength())
+                    .contentType(imageData.contentType().value())
+                    .contentLength(imageData.contentLength())
                     .build();
             final S3Resource s3Resource = s3Template.upload(bucketName, storedName, input, metadata);
             return s3Resource.getURL().toString();
