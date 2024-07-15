@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.core.infrastructure;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -129,5 +130,80 @@ class IdGeneratorTest {
         // when & then
         assertThatThrownBy(idGenerator::nextId)
                 .isInstanceOf(IllegalStateException.class);
+    }
+
+    @Test
+    void 밀리초를_통해_첫번째_ID를_생성할_수_있다() {
+        // given
+        final SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
+        final long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
+                .atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
+        given(systemClockHolder.millis()).willReturn(timestamp);
+
+        final IdGenerator idGenerator = new IdGenerator(
+                systemClockHolder,
+                1000,
+                timestamp - 1,
+                0
+        );
+
+        // when
+        final long id = idGenerator.firstId(timestamp);
+
+        // then
+        final long[] attrs = idGenerator.parse(id);
+        assertThat(attrs[0]).isEqualTo(timestamp);
+        assertThat(attrs[1]).isZero();
+        assertThat(attrs[2]).isZero();
+    }
+
+    @Test
+    void LocalDateTime_을_통해_첫번째_ID를_생성할_수_있다() {
+        // given
+        final SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
+        final long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
+                .atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
+        given(systemClockHolder.millis()).willReturn(timestamp);
+
+        final IdGenerator idGenerator = new IdGenerator(
+                systemClockHolder,
+                1000,
+                timestamp - 1,
+                0
+        );
+
+        // when
+        final long id = idGenerator.firstId(LocalDateTime.of(2024, 7, 10, 0, 0, 0));
+
+        // then
+        final long[] attrs = idGenerator.parse(id);
+        assertThat(attrs[0]).isEqualTo(timestamp);
+        assertThat(attrs[1]).isZero();
+        assertThat(attrs[2]).isZero();
+    }
+
+    @Test
+    void LocalDate_을_통헤_첫번째_ID를_생성할_수_있다() {
+        // given
+        final SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
+        final long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
+                .atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
+        given(systemClockHolder.millis()).willReturn(timestamp);
+
+        final IdGenerator idGenerator = new IdGenerator(
+                systemClockHolder,
+                1000,
+                timestamp - 1,
+                0
+        );
+
+        // when
+        final long id = idGenerator.firstId(LocalDate.of(2024, 7, 10));
+
+        // then
+        final long[] attrs = idGenerator.parse(id);
+        assertThat(attrs[0]).isEqualTo(timestamp);
+        assertThat(attrs[1]).isZero();
+        assertThat(attrs[2]).isZero();
     }
 }

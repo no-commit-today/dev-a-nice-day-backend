@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.InetAddress;
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -126,5 +127,17 @@ public class IdGenerator {
         final long sequence = id & maskSequence;
 
         return new long[]{timestamp, nodeId, sequence};
+    }
+
+    public long firstId(final long millis) {
+        return (millis - EPOCH_OFFSET) << (NODE_ID_BITS + SEQUENCE_BITS);
+    }
+
+    public long firstId(final LocalDateTime dateTime) {
+        return firstId(dateTime.atZone(ZoneOffset.UTC).toInstant().toEpochMilli());
+    }
+
+    public long firstId(final LocalDate date) {
+        return firstId(date.atStartOfDay());
     }
 }
