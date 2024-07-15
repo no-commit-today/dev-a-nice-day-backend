@@ -16,10 +16,13 @@ class CategorizationLoggerAdvisor implements RequestResponseAdvisor {
 
     private final CollectedContent collectedContent;
 
+    private long startTime;
+
     @Override
     public AdvisedRequest adviseRequest(final AdvisedRequest request, final Map<String, Object> context) {
         log.trace("분류 요청 전체 내용[{}]: {}", collectedContent.getId(), request);
         log.info("분류 요청 [{}]", collectedContent.getId());
+        startTime = System.currentTimeMillis();
         return request;
     }
 
@@ -39,11 +42,12 @@ class CategorizationLoggerAdvisor implements RequestResponseAdvisor {
 
     private void responseLog(final ChatResponse response) {
         log.trace("분류 응답 전체 내용[{}]: {}", collectedContent.getId(), response);
-        log.info("분류 응답 [{}]: promptToken={}, generationToken={}, totalToken={}",
+        log.info("분류 응답 [{}]: promptToken={}, generationToken={}, totalToken={}, 소요시간={}s",
                 collectedContent.getId(),
                 response.getMetadata().getUsage().getPromptTokens(),
                 response.getMetadata().getUsage().getGenerationTokens(),
-                response.getMetadata().getUsage().getTotalTokens()
+                response.getMetadata().getUsage().getTotalTokens(),
+                (System.currentTimeMillis() - startTime) / 1000.0
         );
     }
 }
