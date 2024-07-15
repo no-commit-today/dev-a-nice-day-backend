@@ -34,7 +34,14 @@ class CollectionInfraWebConfig {
                 final ChatClient.Builder chatClientBuilder
         ) {
             return new SummarizationClientOpenAi(chatClientBuilder);
+        }
 
+        @Bean
+        CategorizationClient categorizationClientOpenAi(
+                final ChatClient.Builder chatClientBuilder,
+                @Value("${app.collection.openai.categorization-model}") final String model
+        ) {
+            return new CategorizationClientOpenAi(chatClientBuilder, model);
         }
 
     }
@@ -51,6 +58,11 @@ class CollectionInfraWebConfig {
         @Bean
         SummarizationClient summarizationClientLocal() {
             return new SummarizationClientLocal();
+        }
+
+        @Bean
+        CategorizationClient categorizationClientLocal() {
+            return new CategorizationClientLocal();
         }
     }
 
