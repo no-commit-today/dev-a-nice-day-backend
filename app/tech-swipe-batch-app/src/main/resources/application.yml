@@ -16,6 +16,12 @@ spring:
     jdbc:
       initialize-schema: never
       isolation-level-for-create: default
+
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+
   ai:
     openai:
       api-key: ${OPENAI_API_KEY:not-used}
@@ -33,8 +39,6 @@ spring:
 
   cloud:
     aws:
-      region:
-        static: ap-northeast-2
       credentials:
         access-key: ${AWS_ACCESS_KEY}
         secret-key: ${AWS_SECRET_KEY}
@@ -52,8 +56,6 @@ spring:
 
   cloud:
     aws:
-      region:
-        static: ap-northeast-2
       credentials:
         access-key: ${AWS_ACCESS_KEY}
         secret-key: ${AWS_SECRET_KEY}
@@ -71,8 +73,6 @@ spring:
 
   cloud:
     aws:
-      region:
-        static: ap-northeast-2
       credentials:
         access-key: ${AWS_ACCESS_KEY}
         secret-key: ${AWS_SECRET_KEY}
@@ -86,7 +86,3 @@ app:
     openai:
       enabled: true
       categorization-model: ${OPENAI_CATEGORIZATION_MODEL}
-  client:
-    sync:
-      base-url: ${TECH_SWIPE_ADMIN_URL}
-      authorization: ${TECH_SWIPE_ADMIN_AUTHORIZATION}
