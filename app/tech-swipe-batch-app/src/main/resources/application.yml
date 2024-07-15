@@ -26,6 +26,8 @@ spring:
         secret-key: ${AWS_SECRET_KEY}
 
   ai:
+    retry:
+      max-attempts: 0
     openai:
       api-key: ${OPENAI_API_KEY:not-used}
 
