@@ -26,6 +26,7 @@ dependencies {
     implementation(project(":domain:image:image-domain"))
 
     implementation(project(":storage:storage-mysql"))
+    implementation(project(":app:batch-app-core"))
 
     // Spring
     implementation("org.springframework.boot:spring-boot-starter-batch")
