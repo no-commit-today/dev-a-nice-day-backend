@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.subscription.domain;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.core.domain.exception.AbstractDomainException;
+import com.nocommittoday.techswipe.core.domain.AbstractDomainException;
 
 public class SubscriptionNotFoundException extends AbstractDomainException {
 

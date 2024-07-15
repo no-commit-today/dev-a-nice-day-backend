@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.core.controller.servlet;
 
 
-import com.nocommittoday.techswipe.core.domain.exception.AbstractDomainException;
-import com.nocommittoday.techswipe.core.domain.exception.ErrorCodeType;
+import com.nocommittoday.techswipe.core.domain.AbstractDomainException;
+import com.nocommittoday.techswipe.core.domain.ErrorCodeType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;

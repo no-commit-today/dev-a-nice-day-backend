@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.content.domain;
 
-import com.nocommittoday.techswipe.core.domain.enums.EnumMapperType;
+import com.nocommittoday.techswipe.core.domain.EnumMapperType;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

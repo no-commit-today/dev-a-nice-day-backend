@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.core.controller.servlet;
 
-import com.nocommittoday.techswipe.core.domain.vo.PageParam;
+import com.nocommittoday.techswipe.core.domain.PageParam;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import lombok.EqualsAndHashCode;

@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderSyncListReader;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentSyncListReader;
-import com.nocommittoday.techswipe.core.domain.vo.PageParam;
+import com.nocommittoday.techswipe.core.domain.PageParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

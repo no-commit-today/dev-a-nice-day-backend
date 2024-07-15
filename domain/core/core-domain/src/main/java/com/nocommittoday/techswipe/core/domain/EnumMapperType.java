@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.core.domain.enums;
+package com.nocommittoday.techswipe.core.domain;
 
 public interface EnumMapperType {
 

@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.collection.domain;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.core.domain.enums.EnumMapperType;
+import com.nocommittoday.techswipe.core.domain.EnumMapperType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
