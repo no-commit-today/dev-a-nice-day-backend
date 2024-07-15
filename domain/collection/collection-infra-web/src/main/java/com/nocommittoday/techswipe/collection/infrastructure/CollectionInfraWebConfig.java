@@ -1,6 +1,5 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
-import com.theokanning.openai.service.OpenAiService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -13,21 +12,6 @@ class CollectionInfraWebConfig {
     @Configuration
     @ConditionalOnProperty(name = "app.collection.openai.enabled", havingValue = "true")
     static class OpenAi {
-
-        @Bean
-        CollectionProcessor openAiCollectionProcessor(
-                final OpenAiService openAiService,
-                @Value("${app.collection.openai.categorization-model}") final String categorizationModel
-        ) {
-            return new CollectionProcessorOpenAi(openAiService, categorizationModel);
-        }
-
-        @Bean
-        OpenAiService openAiService(
-                @Value("${app.collection.openai.api-key}") final String apiKey
-        ) {
-            return new OpenAiService(apiKey);
-        }
 
         @Bean
         SummarizationClient summarizationClientOpenAi(
@@ -49,11 +33,6 @@ class CollectionInfraWebConfig {
     @Configuration
     @ConditionalOnMissingBean(OpenAi.class)
     static class Local {
-
-        @Bean
-        CollectionProcessor collectionProcessorLocal() {
-            return new CollectionProcessorLocal();
-        }
 
         @Bean
         SummarizationClient summarizationClientLocal() {

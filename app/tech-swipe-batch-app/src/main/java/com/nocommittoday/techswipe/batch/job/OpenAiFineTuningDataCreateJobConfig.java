@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.batch.job;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JsonlFileItemWriter;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
-import com.nocommittoday.techswipe.collection.infrastructure.CollectionProcessorOpenAi;
+import com.nocommittoday.techswipe.collection.infrastructure.CategorizationConst;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
@@ -87,7 +87,7 @@ public class OpenAiFineTuningDataCreateJobConfig {
     @StepScope
     public ItemProcessor<CollectedContentEntity, OpenAiFindTuningData> processor() {
         return item -> new OpenAiFindTuningData(
-                CollectionProcessorOpenAi.CATEGORIZATION_PROMPT,
+                CategorizationConst.PROMPT,
                 item.getTitle() + "\n\n" + item.getContent(),
                 item.getCategories().stream()
                         .map(category -> "- " + category.name())

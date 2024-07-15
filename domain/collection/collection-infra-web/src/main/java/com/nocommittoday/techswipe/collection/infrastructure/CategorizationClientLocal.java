@@ -15,7 +15,7 @@ class CategorizationClientLocal implements CategorizationClient {
     @Override
     public String categorize(final CollectedContent collectedContent) {
         final int numCategories = random.nextInt(
-                CollectionProcessor.MIN_CATEGORY_NUM, CollectionProcessor.MAX_CATEGORY_NUM + 1);
+                CategorizationProcessor.MIN_CATEGORY_NUM, CategorizationProcessor.MAX_CATEGORY_NUM + 1);
         final Set<CollectionCategory> categories = new HashSet<>();
         for (int i = 0; i < numCategories; i++) {
             final CollectionCategory category = CollectionCategory
