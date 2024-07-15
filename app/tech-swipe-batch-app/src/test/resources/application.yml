@@ -26,3 +26,8 @@ spring:
     jdbc:
       initialize-schema: embedded
       isolation-level-for-create: default
+
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
