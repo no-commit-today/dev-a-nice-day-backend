@@ -21,10 +21,22 @@ spring:
     aws:
       region:
         static: ap-northeast-2
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
 
   ai:
     openai:
       api-key: ${OPENAI_API_KEY:not-used}
+
+app:
+  image:
+    s3:
+      bucket-name: ${AWS_S3_BUCKET}
+    collection:
+      openai:
+        categorization-model: ${OPENAI_CATEGORIZATION_MODEL}
+
 ---
 spring:
   config:
@@ -37,52 +49,32 @@ spring:
     activate:
       on-profile: local-dev
 
-  cloud:
-    aws:
-      credentials:
-        access-key: ${AWS_ACCESS_KEY}
-        secret-key: ${AWS_SECRET_KEY}
-
 app:
   image:
     s3:
       enabled: true
-      bucket-name: ${AWS_S3_BUCKET}
+
 ---
 spring:
   config:
     activate:
       on-profile: dev
 
-  cloud:
-    aws:
-      credentials:
-        access-key: ${AWS_ACCESS_KEY}
-        secret-key: ${AWS_SECRET_KEY}
-
 app:
   image:
     s3:
       enabled: true
-      bucket-name: ${AWS_S3_BUCKET}
+
 ---
 spring:
   config:
     activate:
       on-profile: prod
 
-  cloud:
-    aws:
-      credentials:
-        access-key: ${AWS_ACCESS_KEY}
-        secret-key: ${AWS_SECRET_KEY}
-
 app:
   image:
     s3:
       enabled: true
-      bucket-name: ${AWS_S3_BUCKET}
   collection:
     openai:
       enabled: true
-      categorization-model: ${OPENAI_CATEGORIZATION_MODEL}
