@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.batch.listener.CollectedContentCategorizeSkip
 import com.nocommittoday.techswipe.batch.processor.CollectedContentCategorizeProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslZeroPagingItemReader;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
-import com.nocommittoday.techswipe.collection.infrastructure.CollectionProcessor;
+import com.nocommittoday.techswipe.collection.infrastructure.CategorizationProcessor;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +43,7 @@ public class CollectedContentCategorizeJobConfig {
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
 
-    private final CollectionProcessor collectionProcessor;
+    private final CategorizationProcessor categorizationProcessor;
 
     @Bean(JOB_NAME)
     public Job job() {
@@ -104,7 +104,7 @@ public class CollectedContentCategorizeJobConfig {
     @StepScope
     public CollectedContentCategorizeProcessor processor() {
         return new CollectedContentCategorizeProcessor(
-                collectionProcessor
+                categorizationProcessor
         );
     }
 

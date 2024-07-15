@@ -1,44 +1,50 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
-import com.theokanning.openai.service.OpenAiService;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-public class CollectionInfraWebConfig {
+class CollectionInfraWebConfig {
 
     @Configuration
     @ConditionalOnProperty(name = "app.collection.openai.enabled", havingValue = "true")
-    public static class OpenAi {
+    static class OpenAi {
 
         @Bean
-        public CollectionProcessor openAiCollectionProcessor(
-                final OpenAiService openAiService,
-                @Value("${app.collection.openai.categorization-model}") final String categorizationModel
+        SummarizationClient summarizationClientOpenAi(
+                final ChatClient.Builder chatClientBuilder
         ) {
-            return new CollectionProcessorOpenAi(openAiService, categorizationModel);
+            return new SummarizationClientOpenAi(chatClientBuilder);
         }
 
         @Bean
-        public OpenAiService openAiService(
-                @Value("${app.collection.openai.api-key}") final String apiKey
+        CategorizationClient categorizationClientOpenAi(
+                final ChatClient.Builder chatClientBuilder,
+                @Value("${app.collection.openai.categorization-model}") final String model
         ) {
-            return new OpenAiService(apiKey);
+            return new CategorizationClientOpenAi(chatClientBuilder, model);
         }
 
     }
+
     @Configuration
     @ConditionalOnMissingBean(OpenAi.class)
-    public static class Local {
+    static class Local {
 
         @Bean
-        public CollectionProcessor localCollectionProcessor() {
-            return new CollectionProcessorLocal();
+        SummarizationClient summarizationClientLocal() {
+            return new SummarizationClientLocal();
         }
 
+        @Bean
+        CategorizationClient categorizationClientLocal() {
+            return new CategorizationClientLocal();
+        }
     }
+
     private CollectionInfraWebConfig() {
     }
 }

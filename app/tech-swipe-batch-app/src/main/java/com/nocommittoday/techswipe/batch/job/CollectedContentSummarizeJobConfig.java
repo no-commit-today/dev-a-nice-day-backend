@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.batch.listener.CollectedContentSummarizeSkipL
 import com.nocommittoday.techswipe.batch.processor.CollectedContentSummarizeProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslZeroPagingItemReader;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
-import com.nocommittoday.techswipe.collection.infrastructure.CollectionProcessor;
+import com.nocommittoday.techswipe.collection.infrastructure.SummarizationProcessor;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +43,7 @@ public class CollectedContentSummarizeJobConfig {
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
 
-    private final CollectionProcessor collectionProcessor;
+    private final SummarizationProcessor summarizationProcessor;
 
     @Bean(JOB_NAME)
     public Job job() {
@@ -103,7 +103,7 @@ public class CollectedContentSummarizeJobConfig {
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
     public CollectedContentSummarizeProcessor processor() {
-        return new CollectedContentSummarizeProcessor(collectionProcessor);
+        return new CollectedContentSummarizeProcessor(summarizationProcessor);
     }
 
     @Bean(STEP_NAME + "AsyncItemWriter")
