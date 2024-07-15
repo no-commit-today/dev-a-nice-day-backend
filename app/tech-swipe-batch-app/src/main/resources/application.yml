@@ -33,9 +33,9 @@ app:
   image:
     s3:
       bucket-name: ${AWS_S3_BUCKET}
-    collection:
-      openai:
-        categorization-model: ${OPENAI_CATEGORIZATION_MODEL}
+  collection:
+    openai:
+      categorization-model: ${OPENAI_CATEGORIZATION_MODEL}
 
 ---
 spring:
