@@ -37,7 +37,7 @@ public class CollectedContentSummarizeJobConfig {
 
     private static final String JOB_NAME = "collectedContentSummarizeJob";
     private static final String STEP_NAME = "collectedContentSummarizeStep";
-    private static final int CHUNK_SIZE = 100;
+    private static final int CHUNK_SIZE = 50;
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager txManager;
@@ -134,8 +134,8 @@ public class CollectedContentSummarizeJobConfig {
     @JobScope
     public TaskExecutor taskExecutor() {
         final ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-        taskExecutor.setCorePoolSize(10);
-        taskExecutor.setMaxPoolSize(10);
+        taskExecutor.setCorePoolSize(5);
+        taskExecutor.setMaxPoolSize(5);
         taskExecutor.setThreadNamePrefix(JOB_NAME + "-");
         taskExecutor.setQueueCapacity(1000);
         taskExecutor.initialize();
