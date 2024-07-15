@@ -16,7 +16,9 @@ spring:
     jdbc:
       initialize-schema: never
       isolation-level-for-create: default
-
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:not-used}
 ---
 spring:
   config:
@@ -83,7 +85,7 @@ app:
   collection:
     openai:
       enabled: true
-      api-key: ${OPENAI_API_KEY}
+      categorization-model: ${OPENAI_CATEGORIZATION_MODEL}
   client:
     sync:
       base-url: ${TECH_SWIPE_ADMIN_URL}
