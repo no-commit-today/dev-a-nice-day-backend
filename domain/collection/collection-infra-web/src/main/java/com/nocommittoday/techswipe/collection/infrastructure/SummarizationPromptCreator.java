@@ -39,7 +39,7 @@ public class SummarizationPromptCreator {
             <내용>
             %s
             </내용>
-            """;
+            """.trim();
 
     public String create(final CollectedContent collectedContent) {
         return String.format(
