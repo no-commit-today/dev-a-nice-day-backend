@@ -9,3 +9,7 @@ Authorization: Basic {{httpBasic}}
 ### GET 컨텐츠 제공자 동기화 데이터 조회
 GET {{baseUrl}}/api/content/admin/sync-providers?from=2024-06-01T00:00:00&to=2024-06-30T23:59:59
 Authorization: Basic {{httpBasic}}
+
+### GET 컨텐츠 요약 프롬프트 조회
+GET {{baseUrl}}/api/collection/admin/collections/{{collectionId}}/summarization-prompt
+Authorization: Basic {{httpBasic}}

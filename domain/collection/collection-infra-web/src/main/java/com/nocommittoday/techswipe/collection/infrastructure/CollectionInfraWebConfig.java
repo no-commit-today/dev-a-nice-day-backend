@@ -15,9 +15,10 @@ class CollectionInfraWebConfig {
 
         @Bean
         SummarizationClient summarizationClientOpenAi(
-                final ChatClient.Builder chatClientBuilder
+                final ChatClient.Builder chatClientBuilder,
+                final SummarizationPromptCreator promptCreator
         ) {
-            return new SummarizationClientOpenAi(chatClientBuilder);
+            return new SummarizationClientOpenAi(chatClientBuilder, promptCreator);
         }
 
         @Bean
