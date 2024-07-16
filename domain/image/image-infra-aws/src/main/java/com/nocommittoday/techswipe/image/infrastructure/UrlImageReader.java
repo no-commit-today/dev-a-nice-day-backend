@@ -33,7 +33,7 @@ public class UrlImageReader {
         final HttpHeaders headers = requestHeaders(url);
 
         final MediaType contentType = headers.getContentType();
-        if (contentType == null || ImageContentType.supports(contentType.getType(), contentType.getSubtype())) {
+        if (contentType == null || !ImageContentType.supports(contentType.getType(), contentType.getSubtype())) {
             throw new NotSupportedImageException(url, contentType != null ? contentType.toString() : null);
         }
         final ImageContentType imageContentType = new ImageContentType(contentType.toString());
