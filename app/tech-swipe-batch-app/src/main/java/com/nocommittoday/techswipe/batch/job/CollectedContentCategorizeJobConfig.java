@@ -31,7 +31,7 @@ public class CollectedContentCategorizeJobConfig {
 
     private static final String JOB_NAME = "collectedContentCategorizeJob";
     private static final String STEP_NAME = "collectedContentCategorizeStep";
-    private static final int CHUNK_SIZE = 50;
+    private static final int CHUNK_SIZE = 10;
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager txManager;

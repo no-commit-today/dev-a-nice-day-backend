@@ -30,7 +30,7 @@ public class CollectedContentPublishJobConfig {
 
     private static final String JOB_NAME = "collectedContentPublishJob";
     private static final String STEP_NAME = "collectedContentPublishStep";
-    private static final int CHUNK_SIZE = 100;
+    private static final int CHUNK_SIZE = 10;
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager txManager;
