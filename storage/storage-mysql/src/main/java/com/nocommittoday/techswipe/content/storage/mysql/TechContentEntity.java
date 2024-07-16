@@ -100,6 +100,9 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
     }
 
     public void addCategory(final TechCategory category) {
+        if (categories.stream().anyMatch(c -> c.getCategory() == category)) {
+            return;
+        }
         categories.add(new TechContentCategoryEntity(this, category));
     }
 
