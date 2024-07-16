@@ -71,7 +71,7 @@ public class CollectedContentPublishJobConfig {
                 .where(
                         collectedContentEntity.status.eq(CollectionStatus.SUMMARIZED),
                         collectedContentEntity.deleted.isFalse()
-                )
+                ).orderBy(collectedContentEntity.id.asc())
         );
         return reader;
     }
