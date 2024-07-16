@@ -1,8 +1,10 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import org.springframework.stereotype.Component;
 
-public final class SummarizationPromptUtils {
+@Component
+public class SummarizationPromptCreator {
 
     private static final String PROMPT_FORMAT = """
             <목표>
@@ -39,14 +41,10 @@ public final class SummarizationPromptUtils {
             </내용>
             """;
 
-    public static String create(final CollectedContent collectedContent) {
+    public String create(final CollectedContent collectedContent) {
         return String.format(
                 PROMPT_FORMAT,
                 collectedContent.getTitle() + "\n\n" + collectedContent.getContent()
         );
-    }
-
-    private SummarizationPromptUtils() {
-        throw new UnsupportedOperationException();
     }
 }
