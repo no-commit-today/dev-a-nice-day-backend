@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class CollectedContentPublishProcessor
@@ -26,7 +27,9 @@ public class CollectedContentPublishProcessor
         if (collectedContent.getStatus() != CollectionStatus.SUMMARIZED) {
             throw new CollectionPublishUnableException(collectedContent.getId(), collectedContent.getStatus());
         }
-        final Image.Id imageId = imageStoreService.store(collectedContent.getImageUrl(), "content");
+        final Image.Id imageId = Optional.ofNullable(collectedContent.getImageUrl())
+                .map(imageUrl -> imageStoreService.store(collectedContent.getImageUrl(), "content"))
+                .orElse(null);
         final TechContentCreate content = new TechContentCreate(
                 collectedContent.getId().toTechContentId(),
                 collectedContent.getProviderId(),

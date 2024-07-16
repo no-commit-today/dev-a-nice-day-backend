@@ -75,7 +75,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
     private LocalDate publishedDate;
 
     @OneToMany(mappedBy = "content", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<TechCategoryEntity> categories = new ArrayList<>();
+    private List<TechContentCategoryEntity> categories = new ArrayList<>();
 
     public TechContentEntity(
             @Nullable final Long id,
@@ -95,12 +95,12 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
         this.url = url;
     }
 
-    public List<TechCategoryEntity> getCategories() {
+    public List<TechContentCategoryEntity> getCategories() {
         return Collections.unmodifiableList(categories);
     }
 
     public void addCategory(final TechCategory category) {
-        categories.add(new TechCategoryEntity(this, category));
+        categories.add(new TechContentCategoryEntity(this, category));
     }
 
     public static TechContentEntity from(final TechContentCreate techContentCreate) {
@@ -126,7 +126,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
                 title,
                 publishedDate,
                 summary,
-                categories.stream().map(TechCategoryEntity::getCategory).toList()
+                categories.stream().map(TechContentCategoryEntity::getCategory).toList()
         );
     }
 
@@ -138,7 +138,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
         this.summary = techContent.getSummary();
         this.publishedDate = techContent.getPublishedDate();
         this.categories = techContent.getCategories().stream()
-                .map(category -> new TechCategoryEntity(this, category))
+                .map(category -> new TechContentCategoryEntity(this, category))
                 .toList();
     }
 
