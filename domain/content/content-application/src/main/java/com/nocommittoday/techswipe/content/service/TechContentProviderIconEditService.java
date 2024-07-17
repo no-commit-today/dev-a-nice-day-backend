@@ -8,6 +8,8 @@ import com.nocommittoday.techswipe.image.infrastructure.ImageIdValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nullable;
+
 @Service
 @RequiredArgsConstructor
 public class TechContentProviderIconEditService {
@@ -18,8 +20,10 @@ public class TechContentProviderIconEditService {
 
     private final ImageIdValidator imageIdValidator;
 
-    public void edit(final TechContentProvider.Id providerId, final Image.Id iconId) {
-        imageIdValidator.validate(iconId);
+    public void edit(final TechContentProvider.Id providerId, @Nullable final Image.Id iconId) {
+        if (iconId != null) {
+            imageIdValidator.validate(iconId);
+        }
         final TechContentProvider provider = techContentProviderReader.get(providerId);
         final TechContentProvider editedProvider = provider.editIcon(iconId);
         techContentProviderUpdater.update(editedProvider);
