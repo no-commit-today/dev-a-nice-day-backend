@@ -10,6 +10,7 @@ import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import lombok.RequiredArgsConstructor;
+import org.javatuples.Pair;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.util.Objects;
@@ -17,12 +18,12 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 public class CollectedContentPublishProcessor
-        implements ItemProcessor<CollectedContentEntity, TechContentEntity> {
+        implements ItemProcessor<CollectedContentEntity, Pair<CollectedContentEntity, TechContentEntity>> {
 
     private final ImageStoreService imageStoreService;
 
     @Override
-    public TechContentEntity process(final CollectedContentEntity item) throws Exception {
+    public Pair<CollectedContentEntity, TechContentEntity> process(final CollectedContentEntity item) throws Exception {
         final CollectedContent collectedContent = item.toDomain();
         if (collectedContent.getStatus() != CollectionStatus.SUMMARIZED) {
             throw new CollectionPublishUnableException(collectedContent.getId(), collectedContent.getStatus());
@@ -42,6 +43,6 @@ public class CollectedContentPublishProcessor
                         .map(CollectionCategory::getTechCategory)
                         .toList()
         );
-        return TechContentEntity.from(content);
+        return Pair.with(CollectedContentEntity.from(collectedContent.published()), TechContentEntity.from(content));
     }
 }
