@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.core.domain.vo;
+package com.nocommittoday.techswipe.core.domain;
 
 import org.junit.jupiter.api.Test;
 

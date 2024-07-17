@@ -12,10 +12,11 @@ rootProject.name = 'tech-swipe-backend'
 include 'app:tech-swipe-api-app'
 include 'app:tech-swipe-admin-api-app'
 include 'app:tech-swipe-batch-app'
+include 'app:sync-batch-app'
+include 'app:batch-app-core'
 include 'app:servlet-api-app-core'
 
 include 'domain:core:core-domain'
-include 'domain:core:core-application'
 include 'domain:core:core-infra'
 
 include 'domain:image:image-domain'

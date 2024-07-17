@@ -10,6 +10,6 @@ public class CollectedContentSummarizeSkipListener
 
     @Override
     public void onSkipInProcess(final CollectedContentEntity item, final Throwable t) {
-        log.error("컨텐츠를 분류하는 동안 예외가 발생했습니다. CollectedContentEntity.id={}", item.getId(), t);
+        log.error("컨텐츠를 요약하는 동안 예외가 발생했습니다. CollectedContentEntity.id={}", item.getId(), t);
     }
 }

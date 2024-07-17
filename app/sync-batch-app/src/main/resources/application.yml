@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: sync-batch-app
+
+  profiles:
+    active: local
+
+  config:
+    import:
+      - storage-mysql.yml
+
+  batch:
+    job:
+      enabled: true
+      name: ${job.name:NONE}
+    jdbc:
+      initialize-schema: never
+      isolation-level-for-create: default
+
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+
+app:
+  client:
+    sync:
+      base-url: ${TECH_SWIPE_ADMIN_URL}
+      authorization: ${TECH_SWIPE_ADMIN_AUTHORIZATION}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local-dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+---
+spring:
+  config:
+    activate:
+      on-profile: prod

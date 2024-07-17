@@ -17,17 +17,11 @@ import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.integration.async.AsyncItemProcessor;
-import org.springframework.batch.integration.async.AsyncItemWriter;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.task.TaskExecutor;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.PlatformTransactionManager;
-
-import java.util.concurrent.Future;
 
 import static com.nocommittoday.techswipe.collection.storage.mysql.QCollectedContentEntity.collectedContentEntity;
 
@@ -37,7 +31,7 @@ public class CollectedContentCategorizeJobConfig {
 
     private static final String JOB_NAME = "collectedContentCategorizeJob";
     private static final String STEP_NAME = "collectedContentCategorizeStep";
-    private static final int CHUNK_SIZE = 100;
+    private static final int CHUNK_SIZE = 10;
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager txManager;
@@ -59,10 +53,10 @@ public class CollectedContentCategorizeJobConfig {
     public Step step() {
         final StepBuilder stepBuilder = new StepBuilder(STEP_NAME, jobRepository);
         return stepBuilder
-                .<CollectedContentEntity, Future<CollectedContentEntity>>chunk(CHUNK_SIZE, txManager)
+                .<CollectedContentEntity, CollectedContentEntity>chunk(CHUNK_SIZE, txManager)
                 .reader(reader())
-                .processor(asyncProcessor())
-                .writer(asyncWriter())
+                .processor(processor())
+                .writer(writer())
 
                 .faultTolerant()
                 .skip(CategorizeFailureException.class)
@@ -90,15 +84,6 @@ public class CollectedContentCategorizeJobConfig {
         return reader;
     }
 
-    @Bean(STEP_NAME + "AsyncItemProcessor")
-    @StepScope
-    public AsyncItemProcessor<CollectedContentEntity, CollectedContentEntity> asyncProcessor() {
-        final AsyncItemProcessor<CollectedContentEntity, CollectedContentEntity> asyncItemProcessor
-                = new AsyncItemProcessor<>();
-        asyncItemProcessor.setDelegate(processor());
-        asyncItemProcessor.setTaskExecutor(taskExecutor());
-        return asyncItemProcessor;
-    }
 
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
@@ -106,14 +91,6 @@ public class CollectedContentCategorizeJobConfig {
         return new CollectedContentCategorizeProcessor(
                 categorizationProcessor
         );
-    }
-
-    @Bean(STEP_NAME + "AsyncItemWriter")
-    @StepScope
-    public AsyncItemWriter<CollectedContentEntity> asyncWriter() {
-        final AsyncItemWriter<CollectedContentEntity> asyncItemWriter = new AsyncItemWriter<>();
-        asyncItemWriter.setDelegate(writer());
-        return asyncItemWriter;
     }
 
     @Bean(STEP_NAME + "ItemWriter")
@@ -131,15 +108,4 @@ public class CollectedContentCategorizeJobConfig {
         return new CollectedContentCategorizeSkipListener();
     }
 
-    @Bean(JOB_NAME + "TaskExecutor")
-    @JobScope
-    public TaskExecutor taskExecutor() {
-        final ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-        taskExecutor.setCorePoolSize(10);
-        taskExecutor.setMaxPoolSize(10);
-        taskExecutor.setThreadNamePrefix(JOB_NAME + "-");
-        taskExecutor.setQueueCapacity(1000);
-        taskExecutor.initialize();
-        return taskExecutor;
-    }
 }

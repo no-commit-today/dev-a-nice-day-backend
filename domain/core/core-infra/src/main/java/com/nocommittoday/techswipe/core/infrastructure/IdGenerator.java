@@ -1,9 +1,12 @@
 package com.nocommittoday.techswipe.core.infrastructure;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.net.InetAddress;
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -14,6 +17,7 @@ import java.time.ZoneOffset;
  * 참고3: https://www.slideshare.net/slideshow/twitter-snowflake/80830757
  */
 @Slf4j
+@Component
 public class IdGenerator {
 
     private static final int UNUSED_BITS = 1; // Sign bit, Unused (always set to 0)
@@ -32,6 +36,11 @@ public class IdGenerator {
     private final long nodeId;
     private volatile long lastTimestamp;
     private volatile long sequence = 0L;
+
+    @Autowired
+    public IdGenerator(final SystemClockHolder systemClockHolder) {
+        this(systemClockHolder, createNodeId(), systemClockHolder.millis(), 0L);
+    }
 
     public IdGenerator(
             final SystemClockHolder systemClockHolder,
@@ -55,10 +64,6 @@ public class IdGenerator {
         this.nodeId = nodeId;
         this.lastTimestamp = lastTimestamp;
         this.sequence = sequence;
-    }
-
-    public IdGenerator(final SystemClockHolder systemClockHolder) {
-        this(systemClockHolder, createNodeId(), systemClockHolder.millis(), 0L);
     }
 
     private static long createNodeId() {
@@ -122,5 +127,17 @@ public class IdGenerator {
         final long sequence = id & maskSequence;
 
         return new long[]{timestamp, nodeId, sequence};
+    }
+
+    public long firstId(final long millis) {
+        return (millis - EPOCH_OFFSET) << (NODE_ID_BITS + SEQUENCE_BITS);
+    }
+
+    public long firstId(final LocalDateTime dateTime) {
+        return firstId(dateTime.atZone(ZoneOffset.UTC).toInstant().toEpochMilli());
+    }
+
+    public long firstId(final LocalDate date) {
+        return firstId(date.atStartOfDay());
     }
 }

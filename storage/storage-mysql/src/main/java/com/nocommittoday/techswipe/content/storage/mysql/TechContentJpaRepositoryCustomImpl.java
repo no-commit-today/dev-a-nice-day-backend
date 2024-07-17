@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.core.domain.vo.PageParam;
+import com.nocommittoday.techswipe.core.domain.PageParam;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.nocommittoday.techswipe.content.storage.mysql.QTechCategoryEntity.techCategoryEntity;
+import static com.nocommittoday.techswipe.content.storage.mysql.QTechContentCategoryEntity.techContentCategoryEntity;
 import static com.nocommittoday.techswipe.content.storage.mysql.QTechContentEntity.techContentEntity;
 
 
@@ -31,10 +31,10 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
                 .selectFrom(techContentEntity)
                 .join(techContentEntity.provider).fetchJoin()
                 .leftJoin(techContentEntity.image).fetchJoin()
-                .join(techCategoryEntity).on(
-                        techContentEntity.id.eq(techCategoryEntity.content.id))
+                .join(techContentCategoryEntity).on(
+                        techContentEntity.id.eq(techContentCategoryEntity.content.id))
                 .where(
-                        techCategoryEntity.category.in(categories),
+                        techContentCategoryEntity.category.in(categories),
                         techContentEntity.deleted.isFalse()
                 )
                 .groupBy(techContentEntity.publishedDate, techContentEntity.id)
@@ -48,11 +48,11 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
     public long countByCategoryInAndDeletedIsFalse(final List<TechCategory> categories) {
         return Objects.requireNonNull(
                 queryFactory
-                        .select(techCategoryEntity.content.countDistinct())
-                        .from(techCategoryEntity)
+                        .select(techContentCategoryEntity.content.countDistinct())
+                        .from(techContentCategoryEntity)
                         .where(
-                                techCategoryEntity.category.in(categories),
-                                techCategoryEntity.content.deleted.isFalse()
+                                techContentCategoryEntity.category.in(categories),
+                                techContentCategoryEntity.content.deleted.isFalse()
                         )
                         .fetchOne()
         );

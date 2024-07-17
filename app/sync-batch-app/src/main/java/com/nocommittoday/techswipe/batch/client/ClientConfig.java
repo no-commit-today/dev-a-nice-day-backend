@@ -13,8 +13,8 @@ public class ClientConfig {
     @Bean
     public SyncQueryRestClient imageSyncQueryRestClient(
             final RestClient.Builder restClientBuilder,
-            @Value("${app.client.sync.base-url:}") final String baseUrl,
-            @Value("${app.client.sync.authorization:}") final String authorization
+            @Value("${app.client.sync.base-url}") final String baseUrl,
+            @Value("${app.client.sync.authorization}") final String authorization
     ) {
         return new SyncQueryRestClient(restClientBuilder, baseUrl, authorization);
     }

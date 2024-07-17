@@ -2,12 +2,14 @@ package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.processor.CollectedContentPublishProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
+import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriter;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
+import org.javatuples.Pair;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
@@ -30,13 +32,13 @@ public class CollectedContentPublishJobConfig {
 
     private static final String JOB_NAME = "collectedContentPublishJob";
     private static final String STEP_NAME = "collectedContentPublishStep";
-    private static final int CHUNK_SIZE = 100;
+    private static final int CHUNK_SIZE = 10;
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
 
-    private final ImageStoreService imageStoreUseCase;
+    private final ImageStoreService imageStoreService;
 
     @Bean(JOB_NAME)
     public Job job() {
@@ -52,7 +54,7 @@ public class CollectedContentPublishJobConfig {
     public Step step() {
         final StepBuilder stepBuilder = new StepBuilder(STEP_NAME, jobRepository);
         return stepBuilder
-                .<CollectedContentEntity, TechContentEntity>chunk(CHUNK_SIZE, txManager)
+                .<CollectedContentEntity, Pair<CollectedContentEntity, TechContentEntity>>chunk(CHUNK_SIZE, txManager)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
@@ -71,7 +73,7 @@ public class CollectedContentPublishJobConfig {
                 .where(
                         collectedContentEntity.status.eq(CollectionStatus.SUMMARIZED),
                         collectedContentEntity.deleted.isFalse()
-                )
+                ).orderBy(collectedContentEntity.id.asc())
         );
         return reader;
     }
@@ -79,15 +81,16 @@ public class CollectedContentPublishJobConfig {
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
     public CollectedContentPublishProcessor processor() {
-        return new CollectedContentPublishProcessor(imageStoreUseCase);
+        return new CollectedContentPublishProcessor(imageStoreService);
     }
 
     @Bean(STEP_NAME + "ItemWriter")
     @StepScope
-    public JpaItemWriter<TechContentEntity> writer() {
-        return new JpaItemWriterBuilder<TechContentEntity>()
+    public JpaItemTupleWriter<Pair<CollectedContentEntity, TechContentEntity>> writer() {
+        final JpaItemWriter<Object> jpaItemWriter = new JpaItemWriterBuilder<>()
                 .entityManagerFactory(emf)
                 .usePersist(false)
                 .build();
+        return new JpaItemTupleWriter<>(jpaItemWriter);
     }
 }

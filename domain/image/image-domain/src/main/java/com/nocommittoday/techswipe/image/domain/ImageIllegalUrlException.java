@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.image.domain;
 
-import com.nocommittoday.techswipe.core.domain.exception.AbstractDomainException;
+import com.nocommittoday.techswipe.core.domain.AbstractDomainException;
 
 public class ImageIllegalUrlException extends AbstractDomainException {
 

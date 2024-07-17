@@ -23,7 +23,7 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Table(
-        name = "tech_category",
+        name = "tech_content_category",
         uniqueConstraints = {
                 @UniqueConstraint(
                         name = "uk_tech_category__tech_post_id_name",
@@ -33,7 +33,7 @@ import static lombok.AccessLevel.PROTECTED;
 )
 @NoArgsConstructor(access = PROTECTED)
 @Getter
-public class TechCategoryEntity extends BaseTimeEntity {
+public class TechContentCategoryEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -47,7 +47,7 @@ public class TechCategoryEntity extends BaseTimeEntity {
     @Column(name = "category", columnDefinition = "varchar(45)", nullable = false)
     private TechCategory category;
 
-    public TechCategoryEntity(final TechContentEntity content, final TechCategory category) {
+    public TechContentCategoryEntity(final TechContentEntity content, final TechCategory category) {
         this.content = content;
         this.category = category;
     }

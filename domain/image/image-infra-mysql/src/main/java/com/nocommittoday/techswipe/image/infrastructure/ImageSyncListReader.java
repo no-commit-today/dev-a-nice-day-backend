@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.image.infrastructure;
 
-import com.nocommittoday.techswipe.core.domain.vo.PageParam;
+import com.nocommittoday.techswipe.core.domain.PageParam;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageJpaRepository;
