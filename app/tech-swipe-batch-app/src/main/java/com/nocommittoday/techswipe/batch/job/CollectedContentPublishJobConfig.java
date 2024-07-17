@@ -36,7 +36,7 @@ public class CollectedContentPublishJobConfig {
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
 
-    private final ImageStoreService imageStoreUseCase;
+    private final ImageStoreService imageStoreService;
 
     @Bean(JOB_NAME)
     public Job job() {
@@ -79,7 +79,7 @@ public class CollectedContentPublishJobConfig {
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
     public CollectedContentPublishProcessor processor() {
-        return new CollectedContentPublishProcessor(imageStoreUseCase);
+        return new CollectedContentPublishProcessor(imageStoreService);
     }
 
     @Bean(STEP_NAME + "ItemWriter")
