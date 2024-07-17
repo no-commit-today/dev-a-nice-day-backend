@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.image.infrastructure;
 
 import com.nocommittoday.techswipe.image.domain.ImageContentType;
 import com.nocommittoday.techswipe.image.domain.NotSupportedImageException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.ClientHttpRequestFactories;
 import org.springframework.boot.web.client.ClientHttpRequestFactorySettings;
 import org.springframework.core.io.ByteArrayResource;
@@ -15,6 +16,7 @@ import org.springframework.web.client.RestClient;
 import java.time.Duration;
 import java.util.Objects;
 
+@Slf4j
 @Component
 public class UrlImageReader {
 
@@ -58,10 +60,10 @@ public class UrlImageReader {
 
     // 더이상 redirect 하지 않을 때까지 요청 후 최종 URL을 반환
     private String getOriginUrl(final String url) {
-        String originUrl = url;
+        String originUrl = UrlDecoderUtils.decode(url);
         HttpHeaders headers = requestHeaders(originUrl);
         while (headers.getLocation() != null) {
-            originUrl = Objects.requireNonNull(headers.getLocation()).toString();
+            originUrl = UrlDecoderUtils.decode(Objects.requireNonNull(headers.getLocation()).toString());
         }
         return originUrl;
     }
