@@ -5,8 +5,7 @@ dependencies {
 
     implementation(project(":domain:collection:collection-domain"))
 
+    implementation("org.springframework:spring-web")
     implementation platform("org.springframework.ai:spring-ai-bom:${springAiVersion}")
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
 }
