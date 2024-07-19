@@ -10,5 +10,5 @@ dependencies {
     implementation(project(":domain:collection:collection-infra-mysql"))
     implementation(project(":domain:collection:collection-infra-web"))
 
-    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework:spring-context")
 }
