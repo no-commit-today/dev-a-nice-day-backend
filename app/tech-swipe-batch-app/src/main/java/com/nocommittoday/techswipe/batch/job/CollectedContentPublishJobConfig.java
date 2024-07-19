@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.batch.job;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentPublishProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriter;
+import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriterBuilder;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
@@ -18,8 +19,6 @@ import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.item.database.JpaItemWriter;
-import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -87,10 +86,9 @@ public class CollectedContentPublishJobConfig {
     @Bean(STEP_NAME + "ItemWriter")
     @StepScope
     public JpaItemTupleWriter<Pair<CollectedContentEntity, TechContentEntity>> writer() {
-        final JpaItemWriter<Object> jpaItemWriter = new JpaItemWriterBuilder<>()
+        return new JpaItemTupleWriterBuilder<Pair<CollectedContentEntity, TechContentEntity>>()
                 .entityManagerFactory(emf)
                 .usePersist(false)
                 .build();
-        return new JpaItemTupleWriter<>(jpaItemWriter);
     }
 }
