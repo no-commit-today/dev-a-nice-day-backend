@@ -27,14 +27,14 @@ public class ImageStoreService {
         log.info("이미지 저장 요청: originUrl={}, dirToStore={}", originUrl, dirToStore);
         final ImageData imageData = urlImageReader.get(originUrl);
 
-        final String storedName = createStoredName(imageData.contentType().ext());
-        final String storedUrl = fileStore.store(imageData, Paths.get(dirToStore, storedName).toString());
+        final String storedName = createStoredName(imageData.contentType().ext(), dirToStore);
+        final String storedUrl = fileStore.store(imageData, storedName);
 
         return new Image.Id(imageAppender.save(new ImageSave(storedUrl, originUrl, storedName)));
     }
 
-    private String createStoredName(final String ext) {
-        String uuid = uuidHolder.random();
-        return uuid + "." + ext;
+    private String createStoredName(final String ext, final String dirToStore) {
+        final String uuid = uuidHolder.random();
+        return Paths.get(dirToStore, (uuid + "." + ext)).toString();
     }
 }
