@@ -25,8 +25,8 @@ spring:
 app:
   client:
     sync:
-      base-url: ${TECH_SWIPE_ADMIN_URL}
-      authorization: ${TECH_SWIPE_ADMIN_AUTHORIZATION}
+      base-url: ${TECHSWIPE_ADMIN_URL}
+      authorization: ${TECHSWIPE_ADMIN_AUTHORIZATION}
 
 ---
 spring:

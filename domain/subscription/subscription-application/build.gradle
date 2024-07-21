@@ -8,5 +8,6 @@ dependencies {
     implementation(project(":domain:subscription:subscription-infra-web"))
     implementation(project(":domain:subscription:subscription-infra-mysql"))
 
-    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework:spring-context")
+    implementation("org.springframework.boot:spring-boot-starter-logging")
 }
