@@ -19,7 +19,7 @@ import java.nio.file.Paths;
 public class ImageStoreService {
 
     private final FileStore fileStore;
-    private final ImageAppender imageSavePort;
+    private final ImageAppender imageAppender;
     private final UuidHolder uuidHolder;
     private final UrlImageReader urlImageReader;
 
@@ -30,7 +30,7 @@ public class ImageStoreService {
         final String storedName = createStoredName(imageData.contentType().ext());
         final String storedUrl = fileStore.store(imageData, Paths.get(dirToStore, storedName).toString());
 
-        return new Image.Id(imageSavePort.save(new ImageSave(storedUrl, originUrl, storedName)));
+        return new Image.Id(imageAppender.save(new ImageSave(storedUrl, originUrl, storedName)));
     }
 
     private String createStoredName(final String ext) {
