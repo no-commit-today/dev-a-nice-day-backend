@@ -1,6 +1,6 @@
 spring:
   application:
-    name: tech-swipe-admin-api
+    name: techswipe-admin-app
 
   profiles:
     active: local
