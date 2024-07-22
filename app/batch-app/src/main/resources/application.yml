@@ -1,6 +1,6 @@
 spring:
   application:
-    name: tech-swipe-batch
+    name: techswipe-batch-app
 
   profiles:
     active: local
