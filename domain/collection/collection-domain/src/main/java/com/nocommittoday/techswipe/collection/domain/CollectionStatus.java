@@ -26,4 +26,8 @@ public enum CollectionStatus {
     public boolean summarizable() {
         return this == CATEGORIZED || this == SUMMARIZATION_FAILED;
     }
+
+    public boolean publishable() {
+        return this == SUMMARIZED;
+    }
 }

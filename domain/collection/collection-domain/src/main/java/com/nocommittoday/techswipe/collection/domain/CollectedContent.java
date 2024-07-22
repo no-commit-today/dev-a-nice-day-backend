@@ -108,6 +108,10 @@ public class CollectedContent {
     }
 
     public CollectedContent failCategorization() {
+        if (!status.categorizable()) {
+            throw new CollectionCategorizeUnableException(id, status);
+        }
+
         return new CollectedContent(
                 id,
                 CollectionStatus.CATEGORIZATION_FAILED,
@@ -140,8 +144,27 @@ public class CollectedContent {
         );
     }
 
+    public CollectedContent failSummarization() {
+        if (!status.summarizable()) {
+            throw new CollectionSummarizeUnableException(id, status);
+        }
+
+        return new CollectedContent(
+                id,
+                CollectionStatus.SUMMARIZATION_FAILED,
+                categories,
+                summary,
+                providerId,
+                url,
+                title,
+                publishedDate,
+                content,
+                imageUrl
+        );
+    }
+
     public CollectedContent published() {
-        if (status != CollectionStatus.SUMMARIZED) {
+        if (!status.publishable()) {
             throw new CollectionPublishUnableException(id, status);
         }
         return new CollectedContent(
