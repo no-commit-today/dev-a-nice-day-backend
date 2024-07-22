@@ -9,7 +9,7 @@ pluginManagement {
 
 rootProject.name = 'tech-swipe-backend'
 
-include 'app:tech-swipe-api-app'
+include 'app:api-app'
 include 'app:admin-app'
 include 'app:batch-app'
 include 'app:sync-batch-app'
