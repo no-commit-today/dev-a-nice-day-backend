@@ -1,6 +1,5 @@
 package com.nocommittoday.techswipe.batch.processor;
 
-import com.nocommittoday.techswipe.batch.exception.CategorizeFailureException;
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.infrastructure.CategorizationProcessor;
 import com.nocommittoday.techswipe.collection.infrastructure.CategorizationResult;
@@ -21,7 +20,9 @@ public class CollectedContentCategorizeProcessor implements ItemProcessor<Collec
         final CollectedContent collectedContent = item.toDomain();
         final CategorizationResult categorizationResult = categorizationProcessor.categorize(collectedContent);
         if (!categorizationResult.success()) {
-            throw new CategorizeFailureException(collectedContent.getId(), categorizationResult.exception());
+            log.error("카테고리 분류 실패 id={}", collectedContent.getId(), categorizationResult.exception());
+            final CollectedContent categorizationFailed = collectedContent.failCategorization();
+            return CollectedContentEntity.from(categorizationFailed);
         }
         final CollectedContent categorized = collectedContent.categorize(categorizationResult.categories());
         return CollectedContentEntity.from(categorized);

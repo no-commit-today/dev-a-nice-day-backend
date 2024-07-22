@@ -1,6 +1,5 @@
 package com.nocommittoday.techswipe.batch.job;
 
-import com.nocommittoday.techswipe.batch.exception.CategorizeFailureException;
 import com.nocommittoday.techswipe.batch.listener.CollectedContentCategorizeSkipListener;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentCategorizeProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslZeroPagingItemReader;
@@ -57,12 +56,6 @@ public class CollectedContentCategorizeJobConfig {
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
-
-                .faultTolerant()
-                .skip(CategorizeFailureException.class)
-                .skipLimit(10)
-                .listener(listener())
-
                 .build();
     }
 
