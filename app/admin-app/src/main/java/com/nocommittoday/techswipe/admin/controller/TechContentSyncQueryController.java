@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.admin.controller;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProviderSync;
+import com.nocommittoday.techswipe.content.domain.TechContentSync;
 import com.nocommittoday.techswipe.content.service.TechContentSyncQueryParam;
 import com.nocommittoday.techswipe.content.service.TechContentSyncQueryService;
 import com.nocommittoday.techswipe.core.controller.servlet.ListResponse;
@@ -18,18 +19,16 @@ public class TechContentSyncQueryController {
     private final TechContentSyncQueryService techContentSyncQueryService;
 
     @GetMapping("/api/content/admin/sync-contents")
-    public ListResponse<TechContentSyncQueryResponse> getList(
+    public ListResponse<TechContentSync> getList(
             @Validated @ModelAttribute final TechContentSyncQueryRequest request,
             @Validated @ModelAttribute final PageRequest pageRequest
     ) {
         return new ListResponse<>(
                 techContentSyncQueryService.getList(
-                                pageRequest.toPageParam(),
-                                new TechContentSyncQueryParam(request.from(), request.to())
-                        )
-                        .stream()
-                        .map(TechContentSyncQueryResponse::from)
-                        .toList()
+                        pageRequest.toPageParam(),
+                        new TechContentSyncQueryParam(request.from(), request.to())
+                )
+
         );
     }
 

@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.content.service;
 
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderSync;
+import com.nocommittoday.techswipe.content.domain.TechContentSync;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderSyncListReader;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentSyncListReader;
 import com.nocommittoday.techswipe.core.domain.PageParam;
@@ -18,7 +19,7 @@ public class TechContentSyncQueryService {
 
     private final TechContentProviderSyncListReader techContentProviderSyncListReader;
 
-    public List<TechContent> getList(
+    public List<TechContentSync> getList(
             final PageParam pageParam, final TechContentSyncQueryParam queryParam
     ) {
         return techContentSyncListReader.getList(pageParam, queryParam.from(), queryParam.to());

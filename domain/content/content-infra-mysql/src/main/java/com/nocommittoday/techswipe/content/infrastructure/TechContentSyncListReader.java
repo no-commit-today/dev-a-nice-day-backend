@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
-import com.nocommittoday.techswipe.content.domain.TechContent;
+import com.nocommittoday.techswipe.content.domain.TechContentSync;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentJpaRepository;
 import com.nocommittoday.techswipe.core.domain.PageParam;
@@ -20,8 +20,8 @@ public class TechContentSyncListReader {
     private final TechContentJpaRepository techContentJpaRepository;
 
     @Transactional
-    public List<TechContent> getList(final PageParam pageParam, final LocalDateTime from, final LocalDateTime to) {
-        return techContentJpaRepository.findAllByLastModifiedAtGreaterThanEqualAndLastModifiedAtLessThanAndDeletedIsFalse(
+    public List<TechContentSync> getList(final PageParam pageParam, final LocalDateTime from, final LocalDateTime to) {
+        return techContentJpaRepository.findAllByLastModifiedAtGreaterThanEqualAndLastModifiedAtLessThan(
                          PageRequest.of(
                                  pageParam.page() - 1, pageParam.size(),
                                  Sort.by(Sort.Order.desc("lastModifiedAt"))
@@ -29,7 +29,7 @@ public class TechContentSyncListReader {
                         from, to
                 )
                 .stream()
-                .map(TechContentEntity::toDomain)
+                .map(TechContentEntity::toSync)
                 .toList();
     }
 }
