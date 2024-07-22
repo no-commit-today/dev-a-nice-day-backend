@@ -13,9 +13,9 @@ public class TechContentReader {
 
     private final TechContentJpaRepository techContentJpaRepository;
 
-    public TechContent getByUrl(final String url) {
-        return techContentJpaRepository.findByUrlAndDeletedIsFalse(url)
+    public TechContent getIncludingDeleted(final TechContent.Id id) {
+        return techContentJpaRepository.findById(id.value())
                 .map(TechContentEntity::toDomain)
-                .orElseThrow(() -> new TechContentNotFoundException(url));
+                .orElseThrow(() -> new TechContentNotFoundException(id));
     }
 }

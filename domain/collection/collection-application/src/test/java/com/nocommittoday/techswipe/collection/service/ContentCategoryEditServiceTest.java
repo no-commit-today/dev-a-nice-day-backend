@@ -69,7 +69,7 @@ class ContentCategoryEditServiceTest {
                 "imageUrl"
         ).categorize(List.of(CollectionCategory.SERVER));
         given(collectedContentReader.get(new CollectedContent.Id(1))).willReturn(collectedContent);
-        given(techContentUrlExistsReader.exists("url")).willReturn(true);
+        given(techContentUrlExistsReader.existsIncludingDeleted(new TechContent.Id(1))).willReturn(true);
 
         final TechContent techContent = new TechContent(
                 new TechContent.Id(1),
@@ -88,7 +88,7 @@ class ContentCategoryEditServiceTest {
                 List.of(TechCategory.APP)
         );
 
-        given(techContentReader.getByUrl("url")).willReturn(techContent);
+        given(techContentReader.getIncludingDeleted(new TechContent.Id(1))).willReturn(techContent);
 
         // when
         contentCategoryEditService.applyCategoryEdited(new CollectedContent.Id(1));
@@ -131,7 +131,7 @@ class ContentCategoryEditServiceTest {
                 "imageUrl"
         ).categorize(List.of(CollectionCategory.SERVER));
         given(collectedContentReader.get(new CollectedContent.Id(1))).willReturn(collectedContent);
-        given(techContentUrlExistsReader.exists("url")).willReturn(false);
+        given(techContentUrlExistsReader.existsIncludingDeleted(new TechContent.Id(1))).willReturn(false);
 
         // when
         contentCategoryEditService.applyCategoryEdited(new CollectedContent.Id(1));
@@ -154,7 +154,7 @@ class ContentCategoryEditServiceTest {
                 "imageUrl"
         ).categorize(List.of(CollectionCategory.NON_DEV));
         given(collectedContentReader.get(new CollectedContent.Id(1))).willReturn(collectedContent);
-        given(techContentUrlExistsReader.exists("url")).willReturn(true);
+        given(techContentUrlExistsReader.existsIncludingDeleted(new TechContent.Id(1))).willReturn(true);
 
         final TechContent techContent = new TechContent(
                 new TechContent.Id(1),
@@ -173,7 +173,7 @@ class ContentCategoryEditServiceTest {
                 List.of(TechCategory.APP)
         );
 
-        given(techContentReader.getByUrl("url")).willReturn(techContent);
+        given(techContentReader.getIncludingDeleted(new TechContent.Id(1))).willReturn(techContent);
 
         // when
         contentCategoryEditService.applyCategoryEdited(new CollectedContent.Id(1));
