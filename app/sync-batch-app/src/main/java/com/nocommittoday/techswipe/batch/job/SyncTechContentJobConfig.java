@@ -1,16 +1,12 @@
 package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.client.SyncQueryRestClient;
-import com.nocommittoday.techswipe.batch.client.TechContentSyncQueryResponse;
 import com.nocommittoday.techswipe.batch.param.LocalDateTimeFromJobParameter;
 import com.nocommittoday.techswipe.batch.param.LocalDateTimeToJobParameter;
 import com.nocommittoday.techswipe.batch.reader.PagingItemReaderAdapter;
 import com.nocommittoday.techswipe.batch.reader.PagingItemReaderAdapterBuilder;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentSync;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
-import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
-import com.nocommittoday.techswipe.image.domain.Image;
-import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -81,7 +77,7 @@ public class SyncTechContentJobConfig {
     public Step step() {
         final StepBuilder stepBuilder = new StepBuilder(STEP_NAME, jobRepository);
         return stepBuilder
-                .<TechContentSyncQueryResponse, TechContentEntity>chunk(CHUNK_SIZE, txManager)
+                .<TechContentSync, TechContentEntity>chunk(CHUNK_SIZE, txManager)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
@@ -90,10 +86,10 @@ public class SyncTechContentJobConfig {
 
     @Bean(STEP_NAME + "ItemReader")
     @StepScope
-    public PagingItemReaderAdapter<TechContentSyncQueryResponse> reader() {
+    public PagingItemReaderAdapter<TechContentSync> reader() {
         final LocalDateTime from = fromJobParameter().getFrom();
         final LocalDateTime to = toJobParameter().getTo();
-        return new PagingItemReaderAdapterBuilder<TechContentSyncQueryResponse>()
+        return new PagingItemReaderAdapterBuilder<TechContentSync>()
                 .pageOffset(1)
                 .name(STEP_NAME + "ItemReader")
                 .readStrategy((page, size) ->
@@ -104,20 +100,8 @@ public class SyncTechContentJobConfig {
 
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
-    public ItemProcessor<TechContentSyncQueryResponse, TechContentEntity> processor() {
-        return item -> {
-            final TechContentEntity entity = new TechContentEntity(
-                    item.id(),
-                    TechContentProviderEntity.from(new TechContentProvider.Id(item.providerId())),
-                    item.imageId() == null ? null : ImageEntity.from(new Image.Id(item.imageId())),
-                    item.url(),
-                    item.title(),
-                    item.summary(),
-                    item.publishedDate()
-            );
-            item.categories().forEach(entity::addCategory);
-            return entity;
-        };
+    public ItemProcessor<TechContentSync, TechContentEntity> processor() {
+        return TechContentEntity::from;
     }
 
     @Bean(STEP_NAME + "ItemWriter")

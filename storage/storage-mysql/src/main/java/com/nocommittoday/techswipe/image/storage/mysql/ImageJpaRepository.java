@@ -10,6 +10,6 @@ public interface ImageJpaRepository extends JpaRepository<ImageEntity, Long> {
 
     boolean existsByIdAndDeletedIsFalse(Long id);
 
-    List<ImageEntity> findAllByLastModifiedAtGreaterThanEqualAndLastModifiedAtLessThanAndDeletedIsFalse(
+    List<ImageEntity> findAllByLastModifiedAtGreaterThanEqualAndLastModifiedAtLessThan(
             Pageable pageable, LocalDateTime lastModifiedAtStart, LocalDateTime lastModifiedAtEnd);
 }

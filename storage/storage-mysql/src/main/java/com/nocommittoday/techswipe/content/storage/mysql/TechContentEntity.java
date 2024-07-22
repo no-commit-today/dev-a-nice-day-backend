@@ -3,6 +3,8 @@ package com.nocommittoday.techswipe.content.storage.mysql;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentCreate;
+import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentSync;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
@@ -120,6 +122,25 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
         return entity;
     }
 
+    public static TechContentEntity from(final TechContentSync contentSync) {
+        final TechContentEntity entity = new TechContentEntity(
+                contentSync.id().value(),
+                TechContentProviderEntity.from(contentSync.providerId()),
+                contentSync.imageId() == null ? null : ImageEntity.from(contentSync.imageId()),
+                contentSync.url(),
+                contentSync.title(),
+                contentSync.summary(),
+                contentSync.publishedDate()
+        );
+        contentSync.categories().forEach(category -> entity.addCategory(category));
+
+        if (contentSync.deleted()) {
+            entity.delete();
+        }
+
+        return entity;
+    }
+
     public TechContent toDomain() {
         return new TechContent(
                 new TechContent.Id(id),
@@ -130,6 +151,20 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
                 publishedDate,
                 summary,
                 categories.stream().map(TechContentCategoryEntity::getCategory).toList()
+        );
+    }
+
+    public TechContentSync toSync() {
+        return new TechContentSync(
+                new TechContent.Id(id),
+                new TechContentProvider.Id(provider.getId()),
+                image == null ? null : new Image.Id(image.getId()),
+                url,
+                title,
+                summary,
+                publishedDate,
+                categories.stream().map(TechContentCategoryEntity::getCategory).toList(),
+                isDeleted()
         );
     }
 

@@ -1,11 +1,11 @@
 package com.nocommittoday.techswipe.batch.job;
 
-import com.nocommittoday.techswipe.batch.client.ImageSyncQueryResponse;
 import com.nocommittoday.techswipe.batch.client.SyncQueryRestClient;
 import com.nocommittoday.techswipe.batch.param.LocalDateTimeFromJobParameter;
 import com.nocommittoday.techswipe.batch.param.LocalDateTimeToJobParameter;
 import com.nocommittoday.techswipe.batch.reader.PagingItemReaderAdapter;
 import com.nocommittoday.techswipe.batch.reader.PagingItemReaderAdapterBuilder;
+import com.nocommittoday.techswipe.image.domain.ImageSync;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
@@ -77,7 +77,7 @@ public class SyncImageJobConfig {
     public Step step() {
         final StepBuilder stepBuilder = new StepBuilder(STEP_NAME, jobRepository);
         return stepBuilder
-                .<ImageSyncQueryResponse, ImageEntity>chunk(CHUNK_SIZE, txManager)
+                .<ImageSync, ImageEntity>chunk(CHUNK_SIZE, txManager)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
@@ -86,10 +86,10 @@ public class SyncImageJobConfig {
 
     @Bean(STEP_NAME + "ItemReader")
     @StepScope
-    public PagingItemReaderAdapter<ImageSyncQueryResponse> reader() {
+    public PagingItemReaderAdapter<ImageSync> reader() {
         final LocalDateTime from = fromJobParameter().getFrom();
         final LocalDateTime to = toJobParameter().getTo();
-        return new PagingItemReaderAdapterBuilder<ImageSyncQueryResponse>()
+        return new PagingItemReaderAdapterBuilder<ImageSync>()
                 .pageOffset(1)
                 .name(STEP_NAME + "ItemReader")
                 .readStrategy((page, size) ->
@@ -100,13 +100,8 @@ public class SyncImageJobConfig {
 
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
-    public ItemProcessor<ImageSyncQueryResponse, ImageEntity> processor() {
-        return item -> new ImageEntity(
-                item.id(),
-                item.url(),
-                item.originalUrl(),
-                item.storedName()
-        );
+    public ItemProcessor<ImageSync, ImageEntity> processor() {
+        return ImageEntity::from;
     }
 
     @Bean(STEP_NAME + "ItemWriter")

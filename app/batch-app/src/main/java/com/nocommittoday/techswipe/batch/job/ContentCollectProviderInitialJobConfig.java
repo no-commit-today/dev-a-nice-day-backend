@@ -2,17 +2,14 @@ package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.application.CollectedContentUrlInMemoryExistsReader;
 import com.nocommittoday.techswipe.batch.param.TechContentProviderIdJobParameter;
-import com.nocommittoday.techswipe.batch.param.TechContentProviderIdListJobParameter;
 import com.nocommittoday.techswipe.batch.processor.ContentCollectProviderInitialJobItemProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrlListReader;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +30,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.nocommittoday.techswipe.subscription.storage.mysql.QSubscriptionEntity.subscriptionEntity;
 
@@ -90,21 +86,11 @@ public class ContentCollectProviderInitialJobConfig {
         reader.setQueryFunction(queryFactory -> queryFactory
                 .selectFrom(subscriptionEntity)
                 .where(
-                        providerIdIn(),
+                        subscriptionEntity.provider.id.eq(providerIdListJobParameters().getProviderId().value()),
                         subscriptionEntity.deleted.isFalse()
                 ).orderBy(subscriptionEntity.id.asc())
         );
         return reader;
-    }
-
-    private BooleanExpression providerIdIn() {
-        return Optional.ofNullable(providerIdListJobParameters().getProviderIdList())
-                .map(idList -> idList.stream()
-                        .mapToLong(TechContentProvider.Id::value)
-                        .boxed()
-                        .toList()
-                ).map(subscriptionEntity.provider.id::in)
-                .orElse(null);
     }
 
     @Bean(STEP_NAME + "ItemProcessor")
@@ -130,15 +116,15 @@ public class ContentCollectProviderInitialJobConfig {
     @Bean(JOB_NAME + "JobParametersValidator")
     public JobParametersValidator jobParametersValidator() {
         return new DefaultJobParametersValidator(
-                new String[]{"provider.ids"},
+                new String[]{"provider.id"},
                 new String[]{}
         );
     }
 
     @Bean(JOB_NAME + TechContentProviderIdJobParameter.NAME)
     @JobScope
-    public TechContentProviderIdListJobParameter providerIdListJobParameters() {
-        return new TechContentProviderIdListJobParameter();
+    public TechContentProviderIdJobParameter providerIdListJobParameters() {
+        return new TechContentProviderIdJobParameter();
     }
 
     @Bean
@@ -146,7 +132,7 @@ public class ContentCollectProviderInitialJobConfig {
     public CollectedContentUrlInMemoryExistsReader collectedContentUrlInMemoryExistsReader() {
         return new CollectedContentUrlInMemoryExistsReader(
                 collectedContentUrlListReader,
-                providerIdListJobParameters().getProviderIdList()
+                providerIdListJobParameters().getProviderId()
         );
     }
 

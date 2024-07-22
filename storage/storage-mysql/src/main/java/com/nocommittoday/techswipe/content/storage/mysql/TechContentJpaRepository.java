@@ -9,6 +9,6 @@ import java.util.List;
 public interface TechContentJpaRepository
         extends JpaRepository<TechContentEntity, Long>, TechContentJpaRepositoryCustom {
 
-    List<TechContentEntity> findAllByLastModifiedAtGreaterThanEqualAndLastModifiedAtLessThanAndDeletedIsFalse(
+    List<TechContentEntity> findAllByLastModifiedAtGreaterThanEqualAndLastModifiedAtLessThan(
             Pageable pageable, LocalDateTime lastModifiedAtStart, LocalDateTime lastModifiedAtEnd);
 }

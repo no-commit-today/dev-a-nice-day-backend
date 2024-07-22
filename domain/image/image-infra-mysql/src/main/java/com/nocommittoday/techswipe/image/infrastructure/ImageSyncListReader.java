@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.image.infrastructure;
 
 import com.nocommittoday.techswipe.core.domain.PageParam;
-import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageSync;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +18,8 @@ public class ImageSyncListReader {
 
     private final ImageJpaRepository imageJpaRepository;
 
-    public List<Image> getList(final PageParam pageParam, final LocalDateTime from, final LocalDateTime to) {
-        return imageJpaRepository.findAllByLastModifiedAtGreaterThanEqualAndLastModifiedAtLessThanAndDeletedIsFalse(
+    public List<ImageSync> getList(final PageParam pageParam, final LocalDateTime from, final LocalDateTime to) {
+        return imageJpaRepository.findAllByLastModifiedAtGreaterThanEqualAndLastModifiedAtLessThan(
                          PageRequest.of(
                                  pageParam.page() - 1, pageParam.size(),
                                  Sort.by(Sort.Order.desc("lastModifiedAt"))
@@ -27,7 +27,7 @@ public class ImageSyncListReader {
                         from, to
                 )
                 .stream()
-                .map(ImageEntity::toDomain)
+                .map(ImageEntity::toSync)
                 .toList();
     }
 }
