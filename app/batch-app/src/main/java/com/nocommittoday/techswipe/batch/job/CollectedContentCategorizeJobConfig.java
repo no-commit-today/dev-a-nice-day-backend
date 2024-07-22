@@ -1,6 +1,5 @@
 package com.nocommittoday.techswipe.batch.job;
 
-import com.nocommittoday.techswipe.batch.listener.CollectedContentCategorizeSkipListener;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentCategorizeProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslZeroPagingItemReader;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
@@ -93,12 +92,6 @@ public class CollectedContentCategorizeJobConfig {
                 .entityManagerFactory(emf)
                 .usePersist(false)
                 .build();
-    }
-
-    @Bean(STEP_NAME + "SkipListener")
-    @StepScope
-    public CollectedContentCategorizeSkipListener listener() {
-        return new CollectedContentCategorizeSkipListener();
     }
 
 }

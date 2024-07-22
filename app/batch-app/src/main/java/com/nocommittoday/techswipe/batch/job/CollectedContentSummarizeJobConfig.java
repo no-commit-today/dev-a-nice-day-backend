@@ -1,7 +1,5 @@
 package com.nocommittoday.techswipe.batch.job;
 
-import com.nocommittoday.techswipe.batch.exception.SummarizeFailureException;
-import com.nocommittoday.techswipe.batch.listener.CollectedContentSummarizeSkipListener;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentSummarizeProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslZeroPagingItemReader;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
@@ -57,12 +55,6 @@ public class CollectedContentSummarizeJobConfig {
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
-
-                .faultTolerant()
-                .skip(SummarizeFailureException.class)
-                .skipLimit(10)
-                .listener(listener())
-
                 .build();
     }
 
@@ -97,13 +89,6 @@ public class CollectedContentSummarizeJobConfig {
                 .entityManagerFactory(emf)
                 .usePersist(false)
                 .build();
-    }
-
-
-    @Bean(STEP_NAME + "SkipListener")
-    @StepScope
-    public CollectedContentSummarizeSkipListener listener() {
-        return new CollectedContentSummarizeSkipListener();
     }
 
 }
