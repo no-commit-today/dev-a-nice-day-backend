@@ -42,4 +42,8 @@ out/
 ### Mackbook ###
 .DS_Store
 
+### HTTP ###
 http-client.private.env.json
+
+### Temp ###
+tmp/
