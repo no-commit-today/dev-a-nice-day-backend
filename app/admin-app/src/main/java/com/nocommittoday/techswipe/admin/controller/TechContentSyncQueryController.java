@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
+import com.nocommittoday.techswipe.content.domain.TechContentProviderSync;
 import com.nocommittoday.techswipe.content.service.TechContentSyncQueryParam;
 import com.nocommittoday.techswipe.content.service.TechContentSyncQueryService;
 import com.nocommittoday.techswipe.core.controller.servlet.ListResponse;
@@ -23,8 +24,8 @@ public class TechContentSyncQueryController {
     ) {
         return new ListResponse<>(
                 techContentSyncQueryService.getList(
-                        pageRequest.toPageParam(),
-                        new TechContentSyncQueryParam(request.from(), request.to())
+                                pageRequest.toPageParam(),
+                                new TechContentSyncQueryParam(request.from(), request.to())
                         )
                         .stream()
                         .map(TechContentSyncQueryResponse::from)
@@ -33,7 +34,7 @@ public class TechContentSyncQueryController {
     }
 
     @GetMapping("/api/content/admin/sync-providers")
-    public ListResponse<TechContentProviderSyncQueryResponse> getProviderList(
+    public ListResponse<TechContentProviderSync> getProviderList(
             @Validated @ModelAttribute final TechContentSyncQueryRequest request,
             @Validated @ModelAttribute final PageRequest pageRequest
     ) {
@@ -41,10 +42,7 @@ public class TechContentSyncQueryController {
                 techContentSyncQueryService.getProviderList(
                         pageRequest.toPageParam(),
                         new TechContentSyncQueryParam(request.from(), request.to())
-                        )
-                        .stream()
-                        .map(TechContentProviderSyncQueryResponse::from)
-                        .toList()
+                )
         );
     }
 }

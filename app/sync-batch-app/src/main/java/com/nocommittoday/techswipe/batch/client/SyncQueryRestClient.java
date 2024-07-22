@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.batch.client;
 
+import com.nocommittoday.techswipe.content.domain.TechContentProviderSync;
 import com.nocommittoday.techswipe.image.domain.ImageSync;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
@@ -12,7 +13,7 @@ public class SyncQueryRestClient {
     private static final ParameterizedTypeReference<ListResponse<ImageSync>> IMAGE_RESPONSE_TYPE
             = new ParameterizedTypeReference<>() {};
 
-    private static final ParameterizedTypeReference<ListResponse<TechContentProviderSyncQueryResponse>> PROVIDER_RESPONSE_TYPE
+    private static final ParameterizedTypeReference<ListResponse<TechContentProviderSync>> PROVIDER_RESPONSE_TYPE
             = new ParameterizedTypeReference<>() {};
 
     private static final ParameterizedTypeReference<ListResponse<TechContentSyncQueryResponse>> CONTENT_RESPONSE_TYPE
@@ -44,7 +45,7 @@ public class SyncQueryRestClient {
                 .body(IMAGE_RESPONSE_TYPE);
     }
 
-    public ListResponse<TechContentProviderSyncQueryResponse> getProviderList(
+    public ListResponse<TechContentProviderSync> getProviderList(
             final LocalDateTime from, final LocalDateTime to, int page, int size) {
         return restClient.get()
                 .uri("/api/content/admin/sync-providers", uriBuilder -> uriBuilder

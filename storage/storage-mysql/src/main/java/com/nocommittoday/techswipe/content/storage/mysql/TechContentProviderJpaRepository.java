@@ -12,6 +12,6 @@ public interface TechContentProviderJpaRepository extends JpaRepository<TechCont
 
     boolean existsByUrl(String url);
 
-    List<TechContentProviderEntity> findAllByLastModifiedAtGreaterThanEqualAndLastModifiedAtLessThanAndDeletedIsFalse(
+    List<TechContentProviderEntity> findAllByLastModifiedAtGreaterThanEqualAndLastModifiedAtLessThan(
             Pageable pageable, LocalDateTime lastModifiedAtStart, LocalDateTime lastModifiedAtEnd);
 }
