@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.client.core.ClientResponse;
-import com.nocommittoday.client.feed.FeedClient;
-import com.nocommittoday.client.feed.FeedResponse;
+import com.nocommittoday.techswipe.client.core.ClientResponse;
+import com.nocommittoday.techswipe.client.feed.FeedClient;
+import com.nocommittoday.techswipe.client.feed.FeedResponse;
 import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
