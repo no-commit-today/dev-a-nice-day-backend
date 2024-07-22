@@ -86,7 +86,7 @@ public class CollectedContent {
     }
 
     public CollectedContent categorize(final List<CollectionCategory> categories) {
-        if (status != CollectionStatus.INIT) {
+        if (!status.categorizable()) {
             throw new CollectionCategorizeUnableException(id, status);
         }
         final CollectionStatus nextStatus = categories.stream()
