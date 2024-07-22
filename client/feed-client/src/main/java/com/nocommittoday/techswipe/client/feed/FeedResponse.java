@@ -1,4 +1,4 @@
-package com.nocommittoday.client.feed;
+package com.nocommittoday.techswipe.client.feed;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
