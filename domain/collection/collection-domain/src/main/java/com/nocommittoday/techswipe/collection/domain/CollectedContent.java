@@ -123,7 +123,7 @@ public class CollectedContent {
     }
 
     public CollectedContent summarize(final String summary) {
-        if (status != CollectionStatus.CATEGORIZED) {
+        if (!status.summarizable()) {
             throw new CollectionSummarizeUnableException(id, status);
         }
         return new CollectedContent(
