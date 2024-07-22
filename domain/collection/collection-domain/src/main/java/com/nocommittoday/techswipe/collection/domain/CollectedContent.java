@@ -107,6 +107,21 @@ public class CollectedContent {
         );
     }
 
+    public CollectedContent failCategorization() {
+        return new CollectedContent(
+                id,
+                CollectionStatus.CATEGORIZATION_FAILED,
+                categories,
+                summary,
+                providerId,
+                url,
+                title,
+                publishedDate,
+                content,
+                imageUrl
+        );
+    }
+
     public CollectedContent summarize(final String summary) {
         if (status != CollectionStatus.CATEGORIZED) {
             throw new CollectionSummarizeUnableException(id, status);
