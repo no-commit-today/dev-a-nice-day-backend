@@ -25,7 +25,7 @@ public class ImageStoreService {
 
     public Image.Id store(final String originUrl, final String dirToStore) {
         log.info("이미지 저장 요청: originUrl={}, dirToStore={}", originUrl, dirToStore);
-        final ImageData imageData = urlImageReader.get(originUrl);
+        final ImageData imageData = urlImageReader.get(originUrl).data();
 
         final String storedName = createStoredName(imageData.contentType().ext(), dirToStore);
         final String storedUrl = fileStore.store(imageData, storedName);
