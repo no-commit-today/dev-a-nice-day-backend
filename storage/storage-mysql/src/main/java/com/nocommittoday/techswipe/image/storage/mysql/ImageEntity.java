@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.image.storage.mysql;
 
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageSync;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,12 +44,35 @@ public class ImageEntity extends BaseSoftDeleteEntity {
         );
     }
 
+    public static ImageEntity from(final ImageSync imageSync) {
+        final ImageEntity entity = new ImageEntity(
+                imageSync.id().value(),
+                imageSync.url(),
+                imageSync.originalUrl(),
+                imageSync.storedName()
+        );
+        if (imageSync.deleted()) {
+            entity.delete();
+        }
+        return entity;
+    }
+
     public Image toDomain() {
         return new Image(
                 new Image.Id(id),
                 url,
                 originalUrl,
                 storedName
+        );
+    }
+
+    public ImageSync toSync() {
+        return new ImageSync(
+                new Image.Id(id),
+                url,
+                originalUrl,
+                storedName,
+                isDeleted()
         );
     }
 }

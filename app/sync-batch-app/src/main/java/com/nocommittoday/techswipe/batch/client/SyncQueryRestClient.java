@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.batch.client;
 
+import com.nocommittoday.techswipe.image.domain.ImageSync;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestClient;
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
 
 public class SyncQueryRestClient {
 
-    private static final ParameterizedTypeReference<ListResponse<ImageSyncQueryResponse>> IMAGE_RESPONSE_TYPE
+    private static final ParameterizedTypeReference<ListResponse<ImageSync>> IMAGE_RESPONSE_TYPE
             = new ParameterizedTypeReference<>() {};
 
     private static final ParameterizedTypeReference<ListResponse<TechContentProviderSyncQueryResponse>> PROVIDER_RESPONSE_TYPE
@@ -30,7 +31,7 @@ public class SyncQueryRestClient {
                 .build();
     }
 
-    public ListResponse<ImageSyncQueryResponse> getImageList(
+    public ListResponse<ImageSync> getImageList(
             final LocalDateTime from, final LocalDateTime to, int page, int size) {
         return restClient.get()
                 .uri("/api/image/admin/sync-images", uriBuilder -> uriBuilder
