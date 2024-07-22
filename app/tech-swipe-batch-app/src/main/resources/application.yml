@@ -28,6 +28,9 @@ spring:
   ai:
     openai:
       api-key: ${OPENAI_API_KEY:not-used}
+      chat:
+        options:
+          model: gpt-4o-mini
 
 app:
   image:
