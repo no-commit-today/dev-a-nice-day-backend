@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.AdvisedRequest;
 import org.springframework.ai.chat.client.RequestResponseAdvisor;
 import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.openai.OpenAiChatOptions;
 import reactor.core.publisher.Flux;
 
 import java.util.Map;
@@ -20,8 +21,9 @@ class SummarizationLoggerAdvisor implements RequestResponseAdvisor {
 
     @Override
     public AdvisedRequest adviseRequest(final AdvisedRequest request, final Map<String, Object> context) {
+        final OpenAiChatOptions openAiChatOptions = (OpenAiChatOptions) request.chatOptions();
         log.trace("요약 요청 전체 내용[{}]: {}", collectedContent.getId(), request);
-        log.info("요약 요청 [{}]", collectedContent.getId());
+        log.info("요약 요청 id={}, model={}", collectedContent.getId(), openAiChatOptions.getModel());
         startTime = System.currentTimeMillis();
         return request;
     }

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: techswipe-sync-batch-app
+    name: techswipe-batch-app
 
   profiles:
     active: local
@@ -21,12 +21,24 @@ spring:
     aws:
       region:
         static: ap-northeast-2
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:not-used}
+      chat:
+        options:
+          model: gpt-4o-mini
 
 app:
-  client:
-    sync:
-      base-url: ${TECHSWIPE_ADMIN_URL}
-      authorization: ${TECHSWIPE_ADMIN_AUTHORIZATION}
+  image:
+    s3:
+      bucket-name: ${AWS_S3_BUCKET}
+  collection:
+    openai:
+      categorization-model: ${OPENAI_CATEGORIZATION_MODEL}
 
 ---
 spring:
@@ -40,13 +52,32 @@ spring:
     activate:
       on-profile: local-dev
 
+app:
+  image:
+    s3:
+      enabled: true
+
 ---
 spring:
   config:
     activate:
       on-profile: dev
+
+app:
+  image:
+    s3:
+      enabled: true
+
 ---
 spring:
   config:
     activate:
       on-profile: prod
+
+app:
+  image:
+    s3:
+      enabled: true
+  collection:
+    openai:
+      enabled: true

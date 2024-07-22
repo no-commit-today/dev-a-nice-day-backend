@@ -86,7 +86,7 @@ public class CollectedContent {
     }
 
     public CollectedContent categorize(final List<CollectionCategory> categories) {
-        if (status != CollectionStatus.INIT) {
+        if (!status.categorizable()) {
             throw new CollectionCategorizeUnableException(id, status);
         }
         final CollectionStatus nextStatus = categories.stream()
@@ -107,8 +107,27 @@ public class CollectedContent {
         );
     }
 
+    public CollectedContent failCategorization() {
+        if (!status.categorizable()) {
+            throw new CollectionCategorizeUnableException(id, status);
+        }
+
+        return new CollectedContent(
+                id,
+                CollectionStatus.CATEGORIZATION_FAILED,
+                categories,
+                summary,
+                providerId,
+                url,
+                title,
+                publishedDate,
+                content,
+                imageUrl
+        );
+    }
+
     public CollectedContent summarize(final String summary) {
-        if (status != CollectionStatus.CATEGORIZED) {
+        if (!status.summarizable()) {
             throw new CollectionSummarizeUnableException(id, status);
         }
         return new CollectedContent(
@@ -125,8 +144,27 @@ public class CollectedContent {
         );
     }
 
+    public CollectedContent failSummarization() {
+        if (!status.summarizable()) {
+            throw new CollectionSummarizeUnableException(id, status);
+        }
+
+        return new CollectedContent(
+                id,
+                CollectionStatus.SUMMARIZATION_FAILED,
+                categories,
+                summary,
+                providerId,
+                url,
+                title,
+                publishedDate,
+                content,
+                imageUrl
+        );
+    }
+
     public CollectedContent published() {
-        if (status != CollectionStatus.SUMMARIZED) {
+        if (!status.publishable()) {
             throw new CollectionPublishUnableException(id, status);
         }
         return new CollectedContent(

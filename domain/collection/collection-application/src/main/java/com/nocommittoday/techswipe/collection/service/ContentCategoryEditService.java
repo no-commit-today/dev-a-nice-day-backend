@@ -44,11 +44,12 @@ public class ContentCategoryEditService {
             throw new CollectionCategoryNotApplicableException(collectedContent.getId());
         }
 
-        if (!techContentUrlExistsReader.exists(collectedContent.getUrl())) {
+        final TechContent.Id techContentId = id.toTechContentId();
+        if (!techContentUrlExistsReader.existsIncludingDeleted(techContentId)) {
             return;
         }
 
-        final TechContent techContent = techContentReader.getByUrl(collectedContent.getUrl());
+        final TechContent techContent = techContentReader.getIncludingDeleted(techContentId);
         if (CollectionStatus.FILTERED == collectedContent.getStatus()) {
             techContentDeleter.delete(techContent.getId());
         } else {
