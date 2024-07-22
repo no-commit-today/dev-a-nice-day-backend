@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.client.core.ClientResponse;
+import com.nocommittoday.techswipe.client.core.ClientResponse;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;

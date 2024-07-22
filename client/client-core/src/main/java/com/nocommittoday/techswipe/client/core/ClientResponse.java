@@ -1,4 +1,4 @@
-package com.nocommittoday.client.core;
+package com.nocommittoday.techswipe.client.core;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;

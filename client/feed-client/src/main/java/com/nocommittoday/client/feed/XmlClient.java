@@ -1,6 +1,6 @@
 package com.nocommittoday.client.feed;
 
-import com.nocommittoday.client.core.ClientLog;
+import com.nocommittoday.techswipe.client.core.ClientLog;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.client.RestTemplate;
 

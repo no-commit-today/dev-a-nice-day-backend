@@ -1,4 +1,4 @@
-package com.nocommittoday.client.core;
+package com.nocommittoday.techswipe.client.core;
 
 public class ClientException extends RuntimeException {
 

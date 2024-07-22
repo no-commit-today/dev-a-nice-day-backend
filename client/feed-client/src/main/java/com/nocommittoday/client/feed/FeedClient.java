@@ -1,6 +1,6 @@
 package com.nocommittoday.client.feed;
 
-import com.nocommittoday.client.core.ClientResponse;
+import com.nocommittoday.techswipe.client.core.ClientResponse;
 import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;

@@ -1,6 +1,6 @@
 package com.nocommittoday.client.feed.dev;
 
-import com.nocommittoday.client.core.ClientResponse;
+import com.nocommittoday.techswipe.client.core.ClientResponse;
 import com.nocommittoday.client.feed.FeedClient;
 import com.nocommittoday.client.feed.FeedClientConfig;
 import com.nocommittoday.client.feed.FeedResponse;

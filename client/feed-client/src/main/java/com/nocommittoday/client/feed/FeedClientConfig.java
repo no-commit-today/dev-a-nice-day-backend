@@ -1,6 +1,6 @@
 package com.nocommittoday.client.feed;
 
-import com.nocommittoday.client.core.ClientLogAspect;
+import com.nocommittoday.techswipe.client.core.ClientLogAspect;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

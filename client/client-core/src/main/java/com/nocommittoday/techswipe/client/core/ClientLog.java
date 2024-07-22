@@ -1,4 +1,4 @@
-package com.nocommittoday.client.core;
+package com.nocommittoday.techswipe.client.core;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
