@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.subscription.infrastructure;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionNotFoundException;
+import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionNotFoundException;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionJpaRepository;
 import lombok.RequiredArgsConstructor;

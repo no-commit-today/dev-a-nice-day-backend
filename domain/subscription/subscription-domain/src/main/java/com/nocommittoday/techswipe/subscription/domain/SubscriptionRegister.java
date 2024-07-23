@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.subscription.domain;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionRegisterFailureException;
 import lombok.NonNull;
 
 import javax.annotation.Nullable;
