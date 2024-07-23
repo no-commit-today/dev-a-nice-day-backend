@@ -1,16 +1,15 @@
 package com.nocommittoday.techswipe.subscription.domain;
 
 import javax.annotation.Nullable;
-import java.time.LocalDate;
 
 public record SubscribedContentResult(
         boolean success,
-        Content content,
+        SubscribedContent content,
         @Nullable Exception exception
 ) {
 
     public static SubscribedContentResult ok(
-            final Content content
+            final SubscribedContent content
     ) {
         return new SubscribedContentResult(true, content, null);
     }
@@ -21,7 +20,7 @@ public record SubscribedContentResult(
     ) {
         return new SubscribedContentResult(
                 false,
-                new Content(
+                new SubscribedContent(
                         url,
                         null,
                         null,
@@ -33,12 +32,4 @@ public record SubscribedContentResult(
         );
     }
 
-    public record Content(
-            String url,
-            String title,
-            @Nullable String imageUrl,
-            LocalDate publishedDate,
-            String content
-    ) {
-    }
 }

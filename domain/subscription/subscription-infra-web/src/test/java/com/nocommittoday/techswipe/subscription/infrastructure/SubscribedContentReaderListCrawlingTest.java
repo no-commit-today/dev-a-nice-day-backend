@@ -5,6 +5,7 @@ import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawlingSubscription;
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -91,7 +92,7 @@ class SubscribedContentReaderListCrawlingTest {
 
         // then
         assertThat(result).containsExactly(
-                SubscribedContentResult.ok(new SubscribedContentResult.Content(
+                SubscribedContentResult.ok(new SubscribedContent(
                         "content-url-1",
                         "title-crawl-1",
                         "image-url-1",
@@ -164,7 +165,7 @@ class SubscribedContentReaderListCrawlingTest {
 
         // then
         assertThat(result).containsExactly(
-                SubscribedContentResult.ok(new SubscribedContentResult.Content(
+                SubscribedContentResult.ok(new SubscribedContent(
                         "content-url-1",
                         "title-crawl-1",
                         "image-url-1",

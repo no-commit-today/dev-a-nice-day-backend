@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.client.feed.FeedClient;
 import com.nocommittoday.techswipe.client.feed.FeedResponse;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.FeedSubscription;
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
@@ -69,7 +70,7 @@ public class SubscribedContentReaderFeed implements SubscribedContentReader {
                         .map(crawler::getCleaned)
                         .orElseGet(() -> htmlTagCleaner.clean(entry.content()));
 
-                result.add(SubscribedContentResult.ok(new SubscribedContentResult.Content(
+                result.add(SubscribedContentResult.ok(new SubscribedContent(
                         entry.link(),
                         title,
                         imageUrl,

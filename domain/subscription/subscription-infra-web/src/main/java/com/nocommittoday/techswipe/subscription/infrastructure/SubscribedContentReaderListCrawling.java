@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.subscription.infrastructure;
 import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawlingSubscription;
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
@@ -59,7 +60,7 @@ public class SubscribedContentReaderListCrawling implements SubscribedContentRea
                 final String title = crawler.getText(contentCrawling.title());
                 final String imageUrl = crawler.getImageUrl();
                 final String content = crawler.getCleaned(contentCrawling.content());
-                result.add(SubscribedContentResult.ok(new SubscribedContentResult.Content(
+                result.add(SubscribedContentResult.ok(new SubscribedContent(
                         url,
                         title,
                         imageUrl,
