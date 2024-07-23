@@ -1,9 +1,11 @@
 package com.nocommittoday.techswipe.collection.service;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionAlreadyCollectedException;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionIllegalProviderIdException;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentAppender;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
+import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrlExistsReader;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderExistsReader;
 import org.junit.jupiter.api.Test;
@@ -33,6 +35,9 @@ class ContentCollectServiceTest {
     @Mock
     private CollectedContentAppender collectedContentAppender;
 
+    @Mock
+    private CollectedContentUrlExistsReader collectedContentUrlExistsReader;
+
     @Test
     void 존재하지_않는_providerId_일_경우_예외를_발생시킨다() {
         // given
@@ -50,6 +55,26 @@ class ContentCollectServiceTest {
         // then
         assertThatThrownBy(() -> contentCollectService.collect(command))
                 .isInstanceOf(CollectionIllegalProviderIdException.class);
+    }
+
+    @Test
+    void 이미_수집된_url_일_경우_예외를_발생시킨다() {
+        // given
+        final ContentCollectCommand command = new ContentCollectCommand(
+                new TechContentProvider.Id(1),
+                "url",
+                "title",
+                LocalDate.of(2021, 1, 1),
+                "content",
+                "imageUrl"
+        );
+        given(techContentProviderExistsReader.exists(new TechContentProvider.Id(1))).willReturn(true);
+        given(collectedContentUrlExistsReader.exists("url")).willReturn(true);
+
+        // when
+        // then
+        assertThatThrownBy(() -> contentCollectService.collect(command))
+                .isInstanceOf(CollectionAlreadyCollectedException.class);
     }
 
     @Test
