@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.collection.service;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.domain.CollectionSummaryFormatNotRegistrableException;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionSummaryFormatNotRegistrableException;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentReader;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUpdater;
 import com.nocommittoday.techswipe.collection.infrastructure.SummarizationPromptCreator;

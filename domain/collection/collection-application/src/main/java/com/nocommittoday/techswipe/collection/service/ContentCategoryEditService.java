@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.collection.service;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
-import com.nocommittoday.techswipe.collection.domain.CollectionCategoryNotApplicableException;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategoryNotApplicableException;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.ContentCategoryEdit;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentReader;

@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.collection.domain;
 
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategoryNotEditableException;
 import com.nocommittoday.techswipe.content.domain.TechContentCategoryEdit;
 import lombok.NonNull;
 

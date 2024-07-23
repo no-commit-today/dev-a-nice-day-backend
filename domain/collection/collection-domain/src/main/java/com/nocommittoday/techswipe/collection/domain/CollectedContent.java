@@ -1,5 +1,9 @@
 package com.nocommittoday.techswipe.collection.domain;
 
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategorizeUnableException;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategoryNotEditableException;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionPublishUnableException;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionSummarizeUnableException;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import lombok.Getter;
