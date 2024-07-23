@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.image.domain;
 
+import com.nocommittoday.techswipe.image.domain.exception.NotSupportedImageException;
 import lombok.NonNull;
 
 import java.util.Map;
