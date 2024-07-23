@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.content.domain;
+package com.nocommittoday.techswipe.content.domain.exception;
 
 import com.nocommittoday.techswipe.core.domain.AbstractDomainException;
 

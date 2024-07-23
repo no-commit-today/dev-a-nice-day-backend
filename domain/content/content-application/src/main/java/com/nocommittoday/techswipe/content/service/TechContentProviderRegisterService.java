@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.content.service;
 import com.nocommittoday.techswipe.collection.infrastructure.TechContentProviderIdGenerator;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderUrlExistsException;
+import com.nocommittoday.techswipe.content.domain.exception.TechContentProviderUrlExistsException;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderAppender;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderUrlExistsReader;
 import com.nocommittoday.techswipe.image.infrastructure.ImageIdValidator;

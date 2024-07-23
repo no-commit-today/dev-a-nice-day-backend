@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.collection.infrastructure.TechContentProvider
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderUrlExistsException;
+import com.nocommittoday.techswipe.content.domain.exception.TechContentProviderUrlExistsException;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderAppender;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderUrlExistsReader;
 import com.nocommittoday.techswipe.image.domain.Image;
