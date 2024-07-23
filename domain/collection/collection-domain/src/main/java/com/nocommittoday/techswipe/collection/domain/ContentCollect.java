@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 import java.time.LocalDate;
 
 public record ContentCollect(
-        CollectedContent.Id id,
+        @NonNull CollectedContent.Id id,
         @NonNull TechContentProvider.Id providerId,
         @NonNull String url,
         @NonNull String title,

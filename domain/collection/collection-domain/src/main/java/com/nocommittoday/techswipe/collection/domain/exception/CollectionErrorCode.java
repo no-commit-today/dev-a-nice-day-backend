@@ -16,6 +16,7 @@ public enum CollectionErrorCode implements ErrorCodeType {
     CATEGORY_NOT_EDITABLE("COLLECTION-007", "카테고리를 수정할 수 없습니다.", HttpURLConnection.HTTP_BAD_REQUEST),
     CATEGORY_NOT_APPLICABLE("COLLECTION-008", "카테고리를 컨텐츠에 반영할 수 없습니다.", HttpURLConnection.HTTP_BAD_REQUEST),
     SUMMARY_FORMAT_NOT_REGISTRABLE("COLLECTION-009", "등록할 수 없는 요약 형식입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
+    ILLEGAL_PROVIDER_ID("COLLECTION-010", "잘못된 컨텐츠 제공자 아이디입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
     ;
 
     private final String code;
