@@ -1,12 +1,6 @@
-package com.nocommittoday.techswipe.subscription.domain.vo;
+package com.nocommittoday.techswipe.subscription.domain;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
-import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
-import com.nocommittoday.techswipe.subscription.domain.Crawling;
-import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
-import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionRegisterFailureException;
 import org.junit.jupiter.api.Test;
 
