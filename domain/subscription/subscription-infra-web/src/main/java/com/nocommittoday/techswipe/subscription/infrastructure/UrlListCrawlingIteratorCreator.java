@@ -16,9 +16,7 @@ public class UrlListCrawlingIteratorCreator {
         return new UrlListCrawlingIterator(
                 documentConnector,
                 documentElementExtractor,
-                listCrawling.crawling(),
-                listCrawling.url(),
-                listCrawling.pageUrlFormat()
+                listCrawling
         );
     }
 }

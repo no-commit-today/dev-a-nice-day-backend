@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.subscription.infrastructure.dev;
 
 import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
+import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
 import com.nocommittoday.techswipe.subscription.infrastructure.DocumentConnector;
 import com.nocommittoday.techswipe.subscription.infrastructure.DocumentElementExtractor;
 import com.nocommittoday.techswipe.subscription.infrastructure.UrlListCrawlingIterator;
@@ -23,13 +24,14 @@ class UrlListCrawlingIteratorDevTest {
         final UrlListCrawlingIterator iterator = new UrlListCrawlingIterator(
                 documentConnector,
                 documentElementExtractor,
-                new Crawling(
-                        CrawlingType.INDEX,
-                        null,
-                        List.of(0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0)
-                ),
-                "https://toss.tech/tech",
-                null
+                new ListCrawling(
+                        "https://toss.tech/tech",
+                        new Crawling(
+                                CrawlingType.INDEX,
+                                null,
+                                List.of(0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0)
+                        ),
+                        null)
         );
 
         List<String> urls = new ArrayList<>();
