@@ -8,7 +8,7 @@ import lombok.NonNull;
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 
-public record ContentCollectManuallyCommand(
+public record ContentCollectCommand(
         @NonNull TechContentProviderId providerId,
         @NonNull String url,
         @NonNull String title,

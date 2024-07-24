@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.collection.service.ContentCollectManuallyCommand;
+import com.nocommittoday.techswipe.collection.service.ContentCollectCommand;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,8 +19,8 @@ public record ContentCollectRequest(
         @URL String imageUrl
 ) {
 
-    public ContentCollectManuallyCommand toCommand() {
-        return new ContentCollectManuallyCommand(
+    public ContentCollectCommand toCommand() {
+        return new ContentCollectCommand(
                 new TechContentProviderId(providerId),
                 url,
                 title,

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ContentCollectManuallyService {
+public class ContentCollectService {
 
     private final CollectedContentIdGenerator idGenerator;
 
@@ -22,7 +22,7 @@ public class ContentCollectManuallyService {
 
     private final CollectedContentAppender collectedContentAppender;
 
-    public CollectedContentId collect(final ContentCollectManuallyCommand command) {
+    public CollectedContentId collect(final ContentCollectCommand command) {
         if (!techContentProviderExistsReader.exists(command.providerId())) {
             throw new CollectionIllegalProviderIdException(command.providerId());
         }
