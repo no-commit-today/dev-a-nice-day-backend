@@ -7,6 +7,7 @@ import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentCategorizedListReader;
 import com.nocommittoday.techswipe.core.domain.PageParam;
 import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.infrastructure.ImageReader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,7 +43,7 @@ class TechContentListQueryServiceTest {
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
                 "provider-url",
-                new Image.Id(21L)
+                new ImageId(21L)
         );
         given(techContentCategorizedListReader.getList(pageParam, List.of(TechCategory.SERVER)))
                 .willReturn(List.of(
@@ -59,7 +60,7 @@ class TechContentListQueryServiceTest {
                         new TechContent(
                                 new TechContent.Id(2L),
                                 contentProvider,
-                                new Image.Id(22L),
+                                new ImageId(22L),
                                 "url-2",
                                 "title-2",
                                 LocalDate.of(2021, 1, 1),
@@ -67,9 +68,9 @@ class TechContentListQueryServiceTest {
                                 List.of(TechCategory.SERVER)
                         )
                 ));
-        given(imageReader.getAll(Set.of(new Image.Id(21L), new Image.Id(22L))))
+        given(imageReader.getAll(Set.of(new ImageId(21L), new ImageId(22L))))
                 .willReturn(List.of(
-                        new Image(new Image.Id(21L), "url-21", "original-url-21", "stored-name-21")
+                        new Image(new ImageId(21L), "url-21", "original-url-21", "stored-name-21")
                 ));
 
         // when

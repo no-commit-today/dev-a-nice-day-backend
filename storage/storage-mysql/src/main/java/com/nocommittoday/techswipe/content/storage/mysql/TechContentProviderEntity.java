@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderSync;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
-import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
@@ -99,7 +99,7 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
                 type,
                 title,
                 url,
-                icon == null ? null : new Image.Id(icon.getId())
+                icon == null ? null : new ImageId(icon.getId())
         );
     }
 
@@ -109,7 +109,7 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
                 type,
                 title,
                 url,
-                icon == null ? null : new Image.Id(icon.getId()),
+                icon == null ? null : new ImageId(icon.getId()),
                 isDeleted()
         );
     }

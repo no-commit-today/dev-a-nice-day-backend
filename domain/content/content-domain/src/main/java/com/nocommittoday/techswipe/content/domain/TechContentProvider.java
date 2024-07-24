@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.content.domain;
 
-import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import lombok.Getter;
 
 import javax.annotation.Nullable;
@@ -17,14 +17,14 @@ public class TechContentProvider {
     private final String url;
 
     @Nullable
-    private final Image.Id iconId;
+    private final ImageId iconId;
 
     public TechContentProvider(
             final Id id,
             final TechContentProviderType type,
             final String title,
             final String url,
-            @Nullable final Image.Id iconId
+            @Nullable final ImageId iconId
     ) {
         this.id = id;
         this.type = type;
@@ -33,7 +33,7 @@ public class TechContentProvider {
         this.iconId = iconId;
     }
 
-    public TechContentProvider editIcon(Image.Id iconId) {
+    public TechContentProvider editIcon(final ImageId iconId) {
         return new TechContentProvider(
                 this.id,
                 this.type,

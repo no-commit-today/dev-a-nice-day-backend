@@ -6,7 +6,7 @@ import com.nocommittoday.techswipe.content.domain.TechContentCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentSync;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
-import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
@@ -145,7 +145,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
         return new TechContent(
                 new TechContent.Id(id),
                 provider.toDomain(),
-                image == null ? null : new Image.Id(image.getId()),
+                image == null ? null : new ImageId(image.getId()),
                 url,
                 title,
                 publishedDate,
@@ -158,7 +158,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
         return new TechContentSync(
                 new TechContent.Id(id),
                 new TechContentProvider.Id(provider.getId()),
-                image == null ? null : new Image.Id(image.getId()),
+                image == null ? null : new ImageId(image.getId()),
                 url,
                 title,
                 summary,

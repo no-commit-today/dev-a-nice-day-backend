@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.image.storage.mysql;
 
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.domain.ImageSync;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,7 +36,7 @@ public class ImageEntity extends BaseSoftDeleteEntity {
     @Column(name = "stored_name", length = 1000, nullable = false)
     private String storedName;
 
-    public static ImageEntity from(final Image.Id id) {
+    public static ImageEntity from(final ImageId id) {
         return new ImageEntity(
                 id.value(),
                 null,
@@ -59,7 +60,7 @@ public class ImageEntity extends BaseSoftDeleteEntity {
 
     public Image toDomain() {
         return new Image(
-                new Image.Id(id),
+                new ImageId(id),
                 url,
                 originalUrl,
                 storedName
@@ -68,7 +69,7 @@ public class ImageEntity extends BaseSoftDeleteEntity {
 
     public ImageSync toSync() {
         return new ImageSync(
-                new Image.Id(id),
+                new ImageId(id),
                 url,
                 originalUrl,
                 storedName,

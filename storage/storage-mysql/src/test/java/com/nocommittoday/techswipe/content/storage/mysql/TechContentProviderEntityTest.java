@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.content.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
-import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +30,7 @@ class TechContentProviderEntityTest {
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "title",
                 "url",
-                ImageEntity.from(new Image.Id(2L))
+                ImageEntity.from(new ImageId(2L))
         );
 
         // when
@@ -41,7 +41,7 @@ class TechContentProviderEntityTest {
         assertThat(result.getType()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getUrl()).isEqualTo("url");
-        assertThat(result.getIconId()).isEqualTo(new Image.Id(2));
+        assertThat(result.getIconId()).isEqualTo(new ImageId(2));
     }
 
 }

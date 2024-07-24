@@ -7,7 +7,7 @@ import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.content.domain.exception.TechContentProviderUrlExistsException;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderAppender;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderUrlExistsReader;
-import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.infrastructure.ImageIdValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -77,7 +77,7 @@ class TechContentProviderRegisterServiceTest {
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "title",
                 "url",
-                new Image.Id(1L)
+                new ImageId(1L)
         );
         given(techContentProviderUrlExistsReader.exists("url"))
                 .willReturn(false);
@@ -95,7 +95,7 @@ class TechContentProviderRegisterServiceTest {
         assertThat(captor.getValue().type()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(captor.getValue().title()).isEqualTo("title");
         assertThat(captor.getValue().url()).isEqualTo("url");
-        assertThat(captor.getValue().iconId()).isEqualTo(new Image.Id(1L));
+        assertThat(captor.getValue().iconId()).isEqualTo(new ImageId(1L));
     }
 
     @Test

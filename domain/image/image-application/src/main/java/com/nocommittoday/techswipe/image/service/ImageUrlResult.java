@@ -1,9 +1,10 @@
 package com.nocommittoday.techswipe.image.service;
 
 import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 
 public record ImageUrlResult(
-        Image.Id id,
+        ImageId id,
         String url
 ) {
 

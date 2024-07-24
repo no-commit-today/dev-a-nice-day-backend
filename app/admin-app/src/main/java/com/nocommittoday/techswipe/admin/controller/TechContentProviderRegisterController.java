@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.admin.controller;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.service.TechContentProviderRegisterCommand;
 import com.nocommittoday.techswipe.content.service.TechContentProviderRegisterService;
-import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class TechContentProviderRegisterController {
     ResponseEntity<TechContentProviderRegisterResponse> register(
             @RequestBody @Valid final TechContentProviderRegisterRequest request
     ) {
-        final Image.Id iconId = Optional.ofNullable(request.iconUrl())
+        final ImageId iconId = Optional.ofNullable(request.iconUrl())
                 .map(url -> imageStoreService.store(url, "provider"))
                 .orElse(null);
         final TechContentProvider.Id providerId = techContentProviderRegisterService.register(

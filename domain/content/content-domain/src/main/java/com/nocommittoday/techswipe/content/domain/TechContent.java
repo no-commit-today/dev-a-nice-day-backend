@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.content.domain;
 
-import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import lombok.Getter;
 
 import javax.annotation.Nullable;
@@ -22,7 +22,7 @@ public class TechContent {
     private final LocalDate publishedDate;
 
     @Nullable
-    private final Image.Id imageId;
+    private final ImageId imageId;
 
     private final String summary;
 
@@ -33,7 +33,7 @@ public class TechContent {
     public TechContent(
             final Id id,
             final TechContentProvider provider,
-            @Nullable final Image.Id imageId,
+            @Nullable final ImageId imageId,
             final String url,
             final String title,
             final LocalDate publishedDate,

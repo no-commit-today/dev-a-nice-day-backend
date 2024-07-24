@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.content.domain;
 
-import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import lombok.NonNull;
 
 import javax.annotation.Nullable;
@@ -13,7 +13,7 @@ public record TechContentCreate(
         @NonNull String url,
         @NonNull String title,
         @NonNull LocalDate publishedDate,
-        @Nullable Image.Id imageId,
+        @Nullable ImageId imageId,
         @NonNull String summary,
         @NonNull List<TechCategory> categories
 ) {
