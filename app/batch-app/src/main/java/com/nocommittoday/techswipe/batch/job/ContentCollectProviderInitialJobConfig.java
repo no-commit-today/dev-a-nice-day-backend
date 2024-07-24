@@ -127,7 +127,7 @@ public class ContentCollectProviderInitialJobConfig {
         return new TechContentProviderIdJobParameter();
     }
 
-    @Bean
+    @Bean(STEP_NAME + "CollectedContentUrlInMemoryExistsReader")
     @StepScope
     public CollectedContentUrlInMemoryExistsReader collectedContentUrlInMemoryExistsReader() {
         return new CollectedContentUrlInMemoryExistsReader(
