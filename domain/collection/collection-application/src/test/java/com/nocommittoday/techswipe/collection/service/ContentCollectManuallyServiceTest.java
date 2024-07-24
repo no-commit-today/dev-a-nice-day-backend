@@ -21,10 +21,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class ContentCollectServiceTest {
+class ContentCollectManuallyServiceTest {
 
     @InjectMocks
-    private ContentCollectService contentCollectService;
+    private ContentCollectManuallyService contentCollectManuallyService;
 
     @Mock
     private TechContentProviderExistsReader techContentProviderExistsReader;
@@ -41,7 +41,7 @@ class ContentCollectServiceTest {
     @Test
     void 존재하지_않는_providerId_일_경우_예외를_발생시킨다() {
         // given
-        final ContentCollectCommand command = new ContentCollectCommand(
+        final ContentCollectManuallyCommand command = new ContentCollectManuallyCommand(
                 new TechContentProvider.Id(1),
                 "url",
                 "title",
@@ -53,14 +53,14 @@ class ContentCollectServiceTest {
 
         // when
         // then
-        assertThatThrownBy(() -> contentCollectService.collect(command))
+        assertThatThrownBy(() -> contentCollectManuallyService.collect(command))
                 .isInstanceOf(CollectionIllegalProviderIdException.class);
     }
 
     @Test
     void 이미_수집된_url_일_경우_예외를_발생시킨다() {
         // given
-        final ContentCollectCommand command = new ContentCollectCommand(
+        final ContentCollectManuallyCommand command = new ContentCollectManuallyCommand(
                 new TechContentProvider.Id(1),
                 "url",
                 "title",
@@ -73,14 +73,14 @@ class ContentCollectServiceTest {
 
         // when
         // then
-        assertThatThrownBy(() -> contentCollectService.collect(command))
+        assertThatThrownBy(() -> contentCollectManuallyService.collect(command))
                 .isInstanceOf(CollectionAlreadyCollectedException.class);
     }
 
     @Test
     void 컨텐츠를_직접_수집할_수_있다() {
         // given
-        final ContentCollectCommand command = new ContentCollectCommand(
+        final ContentCollectManuallyCommand command = new ContentCollectManuallyCommand(
                 new TechContentProvider.Id(1),
                 "url",
                 "title",
@@ -93,7 +93,7 @@ class ContentCollectServiceTest {
         given(collectedContentAppender.save(command.toDomain(new CollectedContent.Id(2)))).willReturn(new CollectedContent.Id(2));
 
         // when
-        final CollectedContent.Id collectedContentId = contentCollectService.collect(command);
+        final CollectedContent.Id collectedContentId = contentCollectManuallyService.collect(command);
 
         // then
         assertThat(collectedContentId).isEqualTo(new CollectedContent.Id(2));

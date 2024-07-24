@@ -9,12 +9,12 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ContentCollectCommandTest {
+class ContentCollectManuallyCommandTest {
 
     @Test
     void ContentCollect_도메인_객체를_생성할_수_있다() {
         // given
-        final ContentCollectCommand contentCollectCommand = new ContentCollectCommand(
+        final ContentCollectManuallyCommand contentCollectManuallyCommand = new ContentCollectManuallyCommand(
                 new TechContentProvider.Id(1),
                 "url",
                 "title",
@@ -24,7 +24,7 @@ class ContentCollectCommandTest {
         );
 
         // when
-        final ContentCollect contentCollect = contentCollectCommand.toDomain(new CollectedContent.Id(2));
+        final ContentCollect contentCollect = contentCollectManuallyCommand.toDomain(new CollectedContent.Id(2));
 
         // then
         assertThat(contentCollect.id()).isEqualTo(new CollectedContent.Id(2));

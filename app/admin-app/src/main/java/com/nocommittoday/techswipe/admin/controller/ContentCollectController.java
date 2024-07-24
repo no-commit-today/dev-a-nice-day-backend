@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.collection.service.ContentCollectService;
+import com.nocommittoday.techswipe.collection.service.ContentCollectManuallyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ContentCollectController {
 
-    private final ContentCollectService contentCollectService;
+    private final ContentCollectManuallyService contentCollectManuallyService;
 
     @PostMapping("/api/collection/admin/collections")
     public ContentCollectResponse collect(
             @RequestBody @Validated final ContentCollectRequest request
     ) {
         return ContentCollectResponse.from(
-                contentCollectService.collect(request.toCommand())
+                contentCollectManuallyService.collect(request.toCommand())
         );
     }
 }
