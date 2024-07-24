@@ -3,6 +3,8 @@ package com.nocommittoday.techswipe.subscription.service;
 import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.infrastructure.SubscribedContentReader;
+import com.nocommittoday.techswipe.subscription.service.exception.NotSupportedSubscriptionInitTypeException;
+import com.nocommittoday.techswipe.subscription.service.exception.NotSupportedSubscriptionTypeException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +26,7 @@ public class SubscribedContentListQueryService {
             }
             return reader.getList(subscription, date);
         }
-        throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getType());
+        throw new NotSupportedSubscriptionTypeException(subscription.getId());
     }
 
     public List<SubscribedContentResult> getInitList(final Subscription subscription) {
@@ -35,7 +37,7 @@ public class SubscribedContentListQueryService {
             }
             return reader.getList(subscription, date);
         }
-        throw new IllegalArgumentException("지원하지 않는 타입: " + subscription.getInitType());
+        throw new NotSupportedSubscriptionInitTypeException(subscription.getId());
     }
 
 }
