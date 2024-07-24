@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.collection.domain;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategorizeUnableException;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionSummarizeUnableException;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -20,7 +20,7 @@ class CollectedContentTest {
         // given
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContentId(1L),
-                new TechContentProvider.Id(2L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -41,7 +41,7 @@ class CollectedContentTest {
         // given
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContentId(1L),
-                new TechContentProvider.Id(2L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -64,7 +64,7 @@ class CollectedContentTest {
         // given
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContentId(1L),
-                new TechContentProvider.Id(2L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -83,7 +83,7 @@ class CollectedContentTest {
         // given
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContentId(1L),
-                new TechContentProvider.Id(2L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -108,7 +108,7 @@ class CollectedContentTest {
         // given
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContentId(1L),
-                new TechContentProvider.Id(2L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -127,7 +127,7 @@ class CollectedContentTest {
         // given
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContentId(1L),
-                new TechContentProvider.Id(2L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -150,7 +150,7 @@ class CollectedContentTest {
         // given
         CollectedContent collectedContent = new CollectedContent(
                 new CollectedContentId(1L),
-                new TechContentProvider.Id(2L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -171,7 +171,7 @@ class CollectedContentTest {
         assertThat(result.getStatus()).isEqualTo(CollectionStatus.PUBLISHED);
 
         assertThat(result.getId()).isEqualTo(new CollectedContentId(1L));
-        assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.Id(2L));
+        assertThat(result.getProviderId()).isEqualTo(new TechContentProviderId(2L));
         assertThat(result.getUrl()).isEqualTo("url");
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getPublishedDate()).isEqualTo(LocalDate.of(2021, 1, 1));
@@ -186,7 +186,7 @@ class CollectedContentTest {
         // given
         CollectedContent none = new CollectedContent(
                 new CollectedContentId(1L),
-                new TechContentProvider.Id(2L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),

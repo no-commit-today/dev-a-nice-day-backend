@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.content.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderSync;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
@@ -69,7 +70,7 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
         this.icon = icon;
     }
 
-    public static TechContentProviderEntity from(final TechContentProvider.Id id) {
+    public static TechContentProviderEntity from(final TechContentProviderId id) {
         return new TechContentProviderEntity(
                 id.value(),
                 null,
@@ -95,7 +96,7 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
 
     public TechContentProvider toDomain() {
         return new TechContentProvider(
-                new TechContentProvider.Id(id),
+                new TechContentProviderId(id),
                 type,
                 title,
                 url,
@@ -105,7 +106,7 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
 
     public TechContentProviderSync toSync() {
         return new TechContentProviderSync(
-                new TechContentProvider.Id(id),
+                new TechContentProviderId(id),
                 type,
                 title,
                 url,

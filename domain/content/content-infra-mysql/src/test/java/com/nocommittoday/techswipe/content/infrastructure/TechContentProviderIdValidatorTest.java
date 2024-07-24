@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.exception.TechContentProviderNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +23,7 @@ class TechContentProviderIdValidatorTest {
     @Test
     void 컨텐츠_제공자가_존재하지_않을_경우_예외를_발생시킨다() {
         // given
-        final TechContentProvider.Id id = new TechContentProvider.Id(1L);
+        final TechContentProviderId id = new TechContentProviderId(1L);
         given(techContentProviderExistsReader.exists(id)).willReturn(false);
 
         // when

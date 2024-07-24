@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.batch.param;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -20,7 +20,7 @@ public class TechContentProviderIdListJobParameter {
     );
 
     @Nullable
-    private List<TechContentProvider.Id> providerIdList;
+    private List<TechContentProviderId> providerIdList;
 
     @Value("#{jobParameters['provider.ids']}")
     public void setProviderId(final String parameter) {
@@ -40,7 +40,7 @@ public class TechContentProviderIdListJobParameter {
         this.providerIdList = Arrays.stream(idParams.split(";"))
                 .distinct()
                 .map(Long::valueOf)
-                .map(TechContentProvider.Id::new)
+                .map(TechContentProviderId::new)
                 .toList();
     }
 }

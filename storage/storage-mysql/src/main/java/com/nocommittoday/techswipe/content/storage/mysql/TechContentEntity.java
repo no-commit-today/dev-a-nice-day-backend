@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.content.storage.mysql;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentCreate;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.TechContentSync;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.image.domain.ImageId;
@@ -157,7 +157,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
     public TechContentSync toSync() {
         return new TechContentSync(
                 new TechContent.Id(id),
-                new TechContentProvider.Id(provider.getId()),
+                new TechContentProviderId(provider.getId()),
                 image == null ? null : new ImageId(image.getId()),
                 url,
                 title,

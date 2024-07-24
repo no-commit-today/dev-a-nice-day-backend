@@ -9,6 +9,7 @@ import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUpd
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentDeleter;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentReader;
@@ -62,7 +63,7 @@ class ContentCategoryEditServiceTest {
         // given
         final CollectedContent collectedContent = new CollectedContent(
                 new CollectedContentId(1),
-                new TechContentProvider.Id(2),
+                new TechContentProviderId(2),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -75,7 +76,7 @@ class ContentCategoryEditServiceTest {
         final TechContent techContent = new TechContent(
                 new TechContent.Id(1),
                 new TechContentProvider(
-                        new TechContentProvider.Id(2),
+                        new TechContentProviderId(2),
                         TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                         "name",
                         "url",
@@ -105,7 +106,7 @@ class ContentCategoryEditServiceTest {
         // given
         final CollectedContent collectedContent = new CollectedContent(
                 new CollectedContentId(1),
-                new TechContentProvider.Id(2),
+                new TechContentProviderId(2),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -124,7 +125,7 @@ class ContentCategoryEditServiceTest {
         // given
         final CollectedContent collectedContent = new CollectedContent(
                 new CollectedContentId(1),
-                new TechContentProvider.Id(2),
+                new TechContentProviderId(2),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -147,7 +148,7 @@ class ContentCategoryEditServiceTest {
         // given
         final CollectedContent collectedContent = new CollectedContent(
                 new CollectedContentId(1),
-                new TechContentProvider.Id(2),
+                new TechContentProviderId(2),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -160,7 +161,7 @@ class ContentCategoryEditServiceTest {
         final TechContent techContent = new TechContent(
                 new TechContent.Id(1),
                 new TechContentProvider(
-                        new TechContentProvider.Id(2),
+                        new TechContentProviderId(2),
                         TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                         "name",
                         "url",

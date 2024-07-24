@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.content.controller.v1;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.service.TechContentListQueryParam;
 import com.nocommittoday.techswipe.content.service.TechContentListQueryService;
 import com.nocommittoday.techswipe.content.service.TechContentProviderQueryResult;
@@ -50,7 +50,7 @@ class TechContentListQueryControllerDocsTest extends AbstractDocsTest {
                 new TechContentQueryResult(
                         new TechContent.Id(1L),
                         new TechContentProviderQueryResult(
-                                new TechContentProvider.Id(2L),
+                                new TechContentProviderId(2L),
                                 "title",
                                 "https://provider-url",
                                 "https://provider-icon-url"

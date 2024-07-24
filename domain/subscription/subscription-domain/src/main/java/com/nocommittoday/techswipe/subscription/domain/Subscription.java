@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.domain;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -14,7 +14,7 @@ public class Subscription {
 
     private final SubscriptionId id;
 
-    private final TechContentProvider.Id providerId;
+    private final TechContentProviderId providerId;
 
     private final SubscriptionType type;
 

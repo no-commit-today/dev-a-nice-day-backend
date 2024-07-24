@@ -4,8 +4,7 @@ import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategor
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategoryNotEditableException;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionSummarizeUnableException;
-import com.nocommittoday.techswipe.content.domain.TechContent;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import lombok.Getter;
 
 import javax.annotation.Nullable;
@@ -25,7 +24,7 @@ public class CollectedContent {
     @Nullable
     private final String summary;
 
-    private final TechContentProvider.Id providerId;
+    private final TechContentProviderId providerId;
 
     private final String url;
 
@@ -39,7 +38,7 @@ public class CollectedContent {
 
     public CollectedContent(
             final CollectedContentId id,
-            final TechContentProvider.Id providerId,
+            final TechContentProviderId providerId,
             final String url,
             final String title,
             final LocalDate publishedDate,
@@ -64,7 +63,7 @@ public class CollectedContent {
             final CollectionStatus status,
             @Nullable final List<CollectionCategory> categories,
             @Nullable final String summary,
-            final TechContentProvider.Id providerId,
+            final TechContentProviderId providerId,
             final String url,
             final String title,
             final LocalDate publishedDate,

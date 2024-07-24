@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;
@@ -117,7 +117,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
                 status,
                 categories,
                 summary,
-                provider.getId() != null ? new TechContentProvider.Id(provider.getId()) : null,
+                provider.getId() != null ? new TechContentProviderId(provider.getId()) : null,
                 url,
                 title,
                 publishedDate,

@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.content.service;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderReader;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderUpdater;
 import com.nocommittoday.techswipe.image.domain.ImageId;
@@ -20,7 +21,7 @@ public class TechContentProviderIconEditService {
 
     private final ImageIdValidator imageIdValidator;
 
-    public void edit(final TechContentProvider.Id providerId, @Nullable final ImageId iconId) {
+    public void edit(final TechContentProviderId providerId, @Nullable final ImageId iconId) {
         if (iconId != null) {
             imageIdValidator.validate(iconId);
         }

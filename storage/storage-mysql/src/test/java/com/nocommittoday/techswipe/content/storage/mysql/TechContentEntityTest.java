@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.content.storage.mysql;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentCreate;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
@@ -21,7 +21,7 @@ class TechContentEntityTest {
         // given
         final TechContentCreate domain = new TechContentCreate(
                 new TechContent.Id(1),
-                new TechContentProvider.Id(3),
+                new TechContentProviderId(3),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -70,7 +70,7 @@ class TechContentEntityTest {
 
         // then
         assertThat(result.getId()).isEqualTo(new TechContent.Id(1));
-        assertThat(result.getProvider().getId()).isEqualTo(new TechContentProvider.Id(3));
+        assertThat(result.getProvider().getId()).isEqualTo(new TechContentProviderId(3));
         assertThat(result.getProvider().getType()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(result.getProvider().getTitle()).isEqualTo("providerTitle");
         assertThat(result.getProvider().getUrl()).isEqualTo("providerUrl");

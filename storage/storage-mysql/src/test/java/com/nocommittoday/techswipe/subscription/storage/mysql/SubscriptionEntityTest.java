@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.storage.mysql;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.Crawling;
@@ -22,7 +22,7 @@ class SubscriptionEntityTest {
     void SubscriptionRegister로_부터_생성할_수_있다() {
         // given
         SubscriptionRegister subscriptionRegister = new SubscriptionRegister(
-                new TechContentProvider.Id(1L),
+                new TechContentProviderId(1L),
                 SubscriptionType.FEED,
                 SubscriptionType.LIST_CRAWLING,
                 "feedUrl",
@@ -64,7 +64,7 @@ class SubscriptionEntityTest {
         // given
         final SubscriptionEntity entity = new SubscriptionEntity(
                 1L,
-                TechContentProviderEntity.from(new TechContentProvider.Id(2L)),
+                TechContentProviderEntity.from(new TechContentProviderId(2L)),
                 SubscriptionType.FEED,
                 SubscriptionType.LIST_CRAWLING,
                 new SubscriptionData(
@@ -90,7 +90,7 @@ class SubscriptionEntityTest {
         // then
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(new SubscriptionId(1L));
-        assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.Id(2L));
+        assertThat(result.getProviderId()).isEqualTo(new TechContentProviderId(2L));
         assertThat(result.getType()).isEqualTo(SubscriptionType.FEED);
         assertThat(result.getInitType()).isEqualTo(SubscriptionType.LIST_CRAWLING);
         assertThat(result.getFeedUrl()).isEqualTo("feedUrl");

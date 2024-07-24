@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderJpaRepository;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
@@ -17,8 +17,8 @@ public class TechContentProviderAppender {
 
     private final TechContentProviderJpaRepository repository;
 
-    public TechContentProvider.Id save(final TechContentProviderCreate command) {
-        return new TechContentProvider.Id(Objects.requireNonNull(repository.save(
+    public TechContentProviderId save(final TechContentProviderCreate command) {
+        return new TechContentProviderId(Objects.requireNonNull(repository.save(
                 new TechContentProviderEntity(
                         command.id().value(),
                         command.type(),

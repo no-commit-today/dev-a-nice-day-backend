@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ class CollectedContentEntityTest {
                 CollectionStatus.INIT,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
                 "summary",
-                new TechContentProvider.Id(2L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -53,7 +53,7 @@ class CollectedContentEntityTest {
         // given
         final ContentCollect contentCollect = new ContentCollect(
                 new CollectedContentId(1L),
-                new TechContentProvider.Id(2L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -83,7 +83,7 @@ class CollectedContentEntityTest {
         final CollectedContentEntity entity = new CollectedContentEntity(
                 1L,
                 CollectionStatus.CATEGORIZED,
-                TechContentProviderEntity.from(new TechContentProvider.Id(2L)),
+                TechContentProviderEntity.from(new TechContentProviderId(2L)),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -98,7 +98,7 @@ class CollectedContentEntityTest {
 
         // then
         assertThat(result.getId()).isEqualTo(new CollectedContentId(1L));
-        assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.Id(2L));
+        assertThat(result.getProviderId()).isEqualTo(new TechContentProviderId(2L));
         assertThat(result.getUrl()).isEqualTo("url");
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getContent()).isEqualTo("content");
@@ -111,7 +111,7 @@ class CollectedContentEntityTest {
         CollectedContentEntity entity = new CollectedContentEntity(
                 1L,
                 CollectionStatus.INIT,
-                TechContentProviderEntity.from(new TechContentProvider.Id(2L)),
+                TechContentProviderEntity.from(new TechContentProviderId(2L)),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -126,7 +126,7 @@ class CollectedContentEntityTest {
                 CollectionStatus.CATEGORIZED,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
                 "summary",
-                new TechContentProvider.Id(3L),
+                new TechContentProviderId(3L),
                 "updated-url",
                 "updated-title",
                 LocalDate.of(2021, 1, 2),

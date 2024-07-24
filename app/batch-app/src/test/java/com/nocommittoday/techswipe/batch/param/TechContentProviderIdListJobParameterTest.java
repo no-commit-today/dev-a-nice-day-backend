@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.batch.param;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,9 +19,9 @@ class TechContentProviderIdListJobParameterTest {
 
         // then
         assertThat(techContentProviderIdListJobParameter.getProviderIdList()).containsExactly(
-                new TechContentProvider.Id(1L),
-                new TechContentProvider.Id(2L),
-                new TechContentProvider.Id(3L)
+                new TechContentProviderId(1L),
+                new TechContentProviderId(2L),
+                new TechContentProviderId(3L)
         );
     }
 
@@ -47,9 +47,9 @@ class TechContentProviderIdListJobParameterTest {
 
         // then
         assertThat(techContentProviderIdListJobParameter.getProviderIdList()).containsExactly(
-                new TechContentProvider.Id(1L),
-                new TechContentProvider.Id(2L),
-                new TechContentProvider.Id(3L)
+                new TechContentProviderId(1L),
+                new TechContentProviderId(2L),
+                new TechContentProviderId(3L)
         );
     }
 

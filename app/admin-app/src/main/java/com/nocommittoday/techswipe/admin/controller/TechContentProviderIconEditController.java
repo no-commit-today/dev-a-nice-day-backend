@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.service.TechContentProviderIconEditService;
 import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
@@ -26,6 +26,6 @@ public class TechContentProviderIconEditController {
         final ImageId iconId = Optional.ofNullable(request.iconUrl())
                 .map(url -> imageStoreService.store(url, "provider"))
                 .orElse(null);
-        techContentProviderIconEditService.edit(new TechContentProvider.Id(providerId), iconId);
+        techContentProviderIconEditService.edit(new TechContentProviderId(providerId), iconId);
     }
 }

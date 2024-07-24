@@ -8,7 +8,7 @@ import java.util.List;
 
 public record TechContentSync(
         TechContent.Id id,
-        TechContentProvider.Id providerId,
+        TechContentProviderId providerId,
         @Nullable ImageId imageId,
         String url,
         String title,

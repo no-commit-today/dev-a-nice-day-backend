@@ -1,13 +1,13 @@
 package com.nocommittoday.techswipe.subscription.domain.vo;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
-import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionRegisterFailureException;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
+import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionRegisterFailureException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -22,7 +22,7 @@ class SubscriptionRegisterTest {
         // when
         // then
         assertThatThrownBy(() -> new SubscriptionRegister(
-                new TechContentProvider.Id(1),
+                new TechContentProviderId(1),
                 SubscriptionType.FEED,
                 SubscriptionType.NONE,
                 null,
@@ -41,7 +41,7 @@ class SubscriptionRegisterTest {
         // when
         // then
         assertThatThrownBy(() -> new SubscriptionRegister(
-                new TechContentProvider.Id(1),
+                new TechContentProviderId(1),
                 SubscriptionType.LIST_CRAWLING,
                 SubscriptionType.LIST_CRAWLING,
                 null,
@@ -60,7 +60,7 @@ class SubscriptionRegisterTest {
         // when
         // then
         assertThatThrownBy(() -> new SubscriptionRegister(
-                new TechContentProvider.Id(1),
+                new TechContentProviderId(1),
                 SubscriptionType.LIST_CRAWLING,
                 SubscriptionType.LIST_CRAWLING,
                 null,

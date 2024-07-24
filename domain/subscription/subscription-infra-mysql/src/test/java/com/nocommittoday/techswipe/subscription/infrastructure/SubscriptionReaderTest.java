@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionNotFoundException;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
@@ -42,7 +42,7 @@ class SubscriptionReaderTest {
         // when
         // then
         assertThatThrownBy(() -> subscriptionReader.getByProviderId(
-                new TechContentProvider.Id(1)))
+                new TechContentProviderId(1)))
                 .isInstanceOf(SubscriptionNotFoundException.class);
 
         assertThat(providerCaptor.getValue().getId()).isEqualTo(1L);
@@ -60,7 +60,7 @@ class SubscriptionReaderTest {
         // when
         // then
         assertThatThrownBy(() -> subscriptionReader.getByProviderId(
-                new TechContentProvider.Id(1)))
+                new TechContentProviderId(1)))
                 .isInstanceOf(SubscriptionNotFoundException.class);
 
         assertThat(providerCaptor.getValue().getId()).isEqualTo(1L);

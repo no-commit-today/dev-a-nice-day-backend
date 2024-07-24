@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.image.domain.ImageId;
 import javax.annotation.Nullable;
 
 public record TechContentProviderSync(
-        TechContentProvider.Id id,
+        TechContentProviderId id,
         TechContentProviderType type,
         String title,
         String url,

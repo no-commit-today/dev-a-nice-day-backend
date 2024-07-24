@@ -9,7 +9,7 @@ import java.util.List;
 
 public record TechContentCreate(
         @NonNull TechContent.Id id,
-        @NonNull TechContentProvider.Id providerId,
+        @NonNull TechContentProviderId providerId,
         @NonNull String url,
         @NonNull String title,
         @NonNull LocalDate publishedDate,

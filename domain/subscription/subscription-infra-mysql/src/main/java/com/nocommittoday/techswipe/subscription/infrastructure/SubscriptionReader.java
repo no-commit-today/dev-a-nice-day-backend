@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionNotFoundException;
@@ -15,7 +15,7 @@ public class SubscriptionReader {
 
     private final SubscriptionJpaRepository subscriptionRepository;
 
-    public Subscription getByProviderId(final TechContentProvider.Id providerId) {
+    public Subscription getByProviderId(final TechContentProviderId providerId) {
         final SubscriptionEntity subscriptionEntity = subscriptionRepository.findByProvider(
                         TechContentProviderEntity.from(providerId)
                 )

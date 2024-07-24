@@ -6,7 +6,7 @@ import com.nocommittoday.techswipe.collection.domain.exception.CollectionIllegal
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentAppender;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrlExistsReader;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderExistsReader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,14 +42,14 @@ class ContentCollectManuallyServiceTest {
     void 존재하지_않는_providerId_일_경우_예외를_발생시킨다() {
         // given
         final ContentCollectManuallyCommand command = new ContentCollectManuallyCommand(
-                new TechContentProvider.Id(1),
+                new TechContentProviderId(1),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
                 "content",
                 "imageUrl"
         );
-        given(techContentProviderExistsReader.exists(new TechContentProvider.Id(1))).willReturn(false);
+        given(techContentProviderExistsReader.exists(new TechContentProviderId(1))).willReturn(false);
 
         // when
         // then
@@ -61,14 +61,14 @@ class ContentCollectManuallyServiceTest {
     void 이미_수집된_url_일_경우_예외를_발생시킨다() {
         // given
         final ContentCollectManuallyCommand command = new ContentCollectManuallyCommand(
-                new TechContentProvider.Id(1),
+                new TechContentProviderId(1),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
                 "content",
                 "imageUrl"
         );
-        given(techContentProviderExistsReader.exists(new TechContentProvider.Id(1))).willReturn(true);
+        given(techContentProviderExistsReader.exists(new TechContentProviderId(1))).willReturn(true);
         given(collectedContentUrlExistsReader.exists("url")).willReturn(true);
 
         // when
@@ -81,14 +81,14 @@ class ContentCollectManuallyServiceTest {
     void 컨텐츠를_직접_수집할_수_있다() {
         // given
         final ContentCollectManuallyCommand command = new ContentCollectManuallyCommand(
-                new TechContentProvider.Id(1),
+                new TechContentProviderId(1),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
                 "content",
                 "imageUrl"
         );
-        given(techContentProviderExistsReader.exists(new TechContentProvider.Id(1))).willReturn(true);
+        given(techContentProviderExistsReader.exists(new TechContentProviderId(1))).willReturn(true);
         given(idGenerator.nextId()).willReturn(new CollectedContentId(2));
         given(collectedContentAppender.save(command.toDomain(new CollectedContentId(2)))).willReturn(new CollectedContentId(2));
 

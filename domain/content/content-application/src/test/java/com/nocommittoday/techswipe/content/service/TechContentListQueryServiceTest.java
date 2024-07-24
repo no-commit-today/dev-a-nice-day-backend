@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.content.service;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentCategorizedListReader;
 import com.nocommittoday.techswipe.core.domain.PageParam;
@@ -39,7 +40,7 @@ class TechContentListQueryServiceTest {
         // given
         final PageParam pageParam = new PageParam(1, 10);
         final TechContentProvider contentProvider = new TechContentProvider(
-                new TechContentProvider.Id(11L),
+                new TechContentProviderId(11L),
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
                 "provider-url",
@@ -79,7 +80,7 @@ class TechContentListQueryServiceTest {
         // then
         assertThat(techContentQueryResults).hasSize(2);
         assertThat(techContentQueryResults.get(0).id()).isEqualTo(new TechContent.Id(1L));
-        assertThat(techContentQueryResults.get(0).provider().id()).isEqualTo(new TechContentProvider.Id(11L));
+        assertThat(techContentQueryResults.get(0).provider().id()).isEqualTo(new TechContentProviderId(11L));
         assertThat(techContentQueryResults.get(0).provider().title()).isEqualTo("provider-title");
         assertThat(techContentQueryResults.get(0).provider().url()).isEqualTo("provider-url");
         assertThat(techContentQueryResults.get(0).provider().iconUrl())
@@ -94,7 +95,7 @@ class TechContentListQueryServiceTest {
         assertThat(techContentQueryResults.get(0).summary()).isEqualTo("summary-1");
         assertThat(techContentQueryResults.get(0).categories()).containsExactly(TechCategory.SERVER);
         assertThat(techContentQueryResults.get(1).id()).isEqualTo(new TechContent.Id(2L));
-        assertThat(techContentQueryResults.get(1).provider().id()).isEqualTo(new TechContentProvider.Id(11L));
+        assertThat(techContentQueryResults.get(1).provider().id()).isEqualTo(new TechContentProviderId(11L));
         assertThat(techContentQueryResults.get(1).provider().title()).isEqualTo("provider-title");
         assertThat(techContentQueryResults.get(1).publishedDate()).isEqualTo(LocalDate.of(2021, 1, 1));
         assertThat(techContentQueryResults.get(1).provider().url()).isEqualTo("provider-url");

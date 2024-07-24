@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.content.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
@@ -13,7 +14,7 @@ class TechContentProviderEntityTest {
     @Test
     void 도메인_엔티티_ID로부터_생성할_수_있다() {
         // given
-        final TechContentProvider.Id id = new TechContentProvider.Id(1);
+        final TechContentProviderId id = new TechContentProviderId(1);
 
         // when
         final TechContentProviderEntity result = TechContentProviderEntity.from(id);
@@ -37,7 +38,7 @@ class TechContentProviderEntityTest {
         final TechContentProvider result = provider.toDomain();
 
         // then
-        assertThat(result.getId()).isEqualTo(new TechContentProvider.Id(1));
+        assertThat(result.getId()).isEqualTo(new TechContentProviderId(1));
         assertThat(result.getType()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getUrl()).isEqualTo("url");

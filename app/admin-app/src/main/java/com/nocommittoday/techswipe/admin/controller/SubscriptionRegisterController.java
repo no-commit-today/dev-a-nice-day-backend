@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.subscription.service.SubscriptionRegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class SubscriptionRegisterController {
             @Validated @RequestBody final SubscriptionRegisterRequest request
     ) {
         subscriptionRegisterService.register(request.toDomain(
-                new TechContentProvider.Id(providerId)));
+                new TechContentProviderId(providerId)));
         return ResponseEntity.ok().build();
     }
 }

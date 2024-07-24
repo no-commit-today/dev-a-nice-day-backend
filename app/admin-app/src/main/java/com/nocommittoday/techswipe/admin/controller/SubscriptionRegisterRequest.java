@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
@@ -38,7 +38,7 @@ public record SubscriptionRegisterRequest(
     ) {
     }
 
-    public SubscriptionRegister toDomain(final TechContentProvider.Id providerId) {
+    public SubscriptionRegister toDomain(final TechContentProviderId providerId) {
         return new SubscriptionRegister(
                 providerId,
                 type,

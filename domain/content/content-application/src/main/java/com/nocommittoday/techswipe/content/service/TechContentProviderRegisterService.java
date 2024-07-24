@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.content.service;
 
 import com.nocommittoday.techswipe.collection.infrastructure.TechContentProviderIdGenerator;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.exception.TechContentProviderUrlExistsException;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderAppender;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderUrlExistsReader;
@@ -19,7 +19,7 @@ public class TechContentProviderRegisterService {
     private final TechContentProviderUrlExistsReader techContentProviderUrlExistsReader;
     private final TechContentProviderIdGenerator techContentProviderIdGenerator;
 
-    public TechContentProvider.Id register(final TechContentProviderRegisterCommand command) {
+    public TechContentProviderId register(final TechContentProviderRegisterCommand command) {
         if (techContentProviderUrlExistsReader.exists(command.url())) {
             throw new TechContentProviderUrlExistsException(command.url());
         }

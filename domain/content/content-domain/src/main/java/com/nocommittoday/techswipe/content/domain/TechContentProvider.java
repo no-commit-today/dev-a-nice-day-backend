@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 @Getter
 public class TechContentProvider {
 
-    private final Id id;
+    private final TechContentProviderId id;
 
     private final TechContentProviderType type;
 
@@ -20,7 +20,7 @@ public class TechContentProvider {
     private final ImageId iconId;
 
     public TechContentProvider(
-            final Id id,
+            final TechContentProviderId id,
             final TechContentProviderType type,
             final String title,
             final String url,
@@ -43,5 +43,4 @@ public class TechContentProvider {
         );
     }
 
-    public record Id(long value) { }
 }
