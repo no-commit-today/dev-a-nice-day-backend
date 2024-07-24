@@ -34,7 +34,7 @@ public class Subscription {
         );
     }
 
-    public List<ListCrawlingSubscription> toListCrawling() {
+    public List<ListCrawlingSubscription> toListCrawlings() {
         return listCrawlings.stream()
                 .map(listCrawling ->
                         new ListCrawlingSubscription(listCrawling, contentCrawling)

@@ -25,7 +25,7 @@ public class SubscribedContentReaderListCrawling implements SubscribedContentRea
 
     @Override
     public List<SubscribedContentResult> getList(final Subscription subscription, final LocalDate date) {
-        return subscription.toListCrawling().stream()
+        return subscription.toListCrawlings().stream()
                 .map(listCrawling -> getList(listCrawling, date))
                 .flatMap(List::stream)
                 .toList();
