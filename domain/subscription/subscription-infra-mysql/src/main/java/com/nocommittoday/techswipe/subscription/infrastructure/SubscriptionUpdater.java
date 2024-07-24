@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
-import com.nocommittoday.techswipe.subscription.domain.Subscription;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionId;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionJpaRepository;
@@ -14,8 +14,8 @@ public class SubscriptionUpdater {
 
     private final SubscriptionJpaRepository subscriptionJpaRepository;
 
-    public Subscription.Id update(final SubscriptionRegister register) {
-        return new Subscription.Id(
+    public SubscriptionId update(final SubscriptionRegister register) {
+        return new SubscriptionId(
                 subscriptionJpaRepository.findByProvider(
                                 TechContentProviderEntity.from(register.providerId())
                         ).map(entity -> {

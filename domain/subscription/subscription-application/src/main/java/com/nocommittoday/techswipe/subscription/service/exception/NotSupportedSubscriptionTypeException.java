@@ -1,10 +1,10 @@
 package com.nocommittoday.techswipe.subscription.service.exception;
 
-import com.nocommittoday.techswipe.subscription.domain.Subscription;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionId;
 
 public class NotSupportedSubscriptionTypeException extends SubscriptionApplicationException {
 
-    public NotSupportedSubscriptionTypeException(final Subscription.Id id) {
+    public NotSupportedSubscriptionTypeException(final SubscriptionId id) {
         super("지원하지 않는 타입. id= " + id);
     }
 }

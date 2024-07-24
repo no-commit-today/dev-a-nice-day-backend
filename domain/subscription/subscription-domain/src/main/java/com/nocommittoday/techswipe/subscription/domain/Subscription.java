@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 public class Subscription {
 
-    private final Id id;
+    private final SubscriptionId id;
 
     private final TechContentProvider.Id providerId;
 
@@ -26,8 +26,6 @@ public class Subscription {
     private final ContentCrawling contentCrawling;
 
     private final List<ListCrawling> listCrawlings;
-
-    public record Id(long value) {}
 
     public FeedSubscription toFeed() {
         return new FeedSubscription(

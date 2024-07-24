@@ -7,6 +7,7 @@ import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionId;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import org.junit.jupiter.api.Test;
@@ -88,7 +89,7 @@ class SubscriptionEntityTest {
 
         // then
         assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo(new Subscription.Id(1L));
+        assertThat(result.getId()).isEqualTo(new SubscriptionId(1L));
         assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.Id(2L));
         assertThat(result.getType()).isEqualTo(SubscriptionType.FEED);
         assertThat(result.getInitType()).isEqualTo(SubscriptionType.LIST_CRAWLING);
