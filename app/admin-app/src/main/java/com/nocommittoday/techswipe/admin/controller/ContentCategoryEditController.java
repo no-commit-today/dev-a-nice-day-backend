@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.ContentCategoryEdit;
 import com.nocommittoday.techswipe.collection.service.ContentCategoryEditService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class ContentCategoryEditController {
             @RequestBody @Validated final ContentCategoryEditRequest request
     ) {
         categoryEditService.editCategory(
-                new CollectedContent.Id(collectionId),
+                new CollectedContentId(collectionId),
                 new ContentCategoryEdit(request.categories())
         );
     }
@@ -32,6 +32,6 @@ public class ContentCategoryEditController {
     public void apply(
             @PathVariable final Long collectionId
     ) {
-        categoryEditService.applyCategoryEdited(new CollectedContent.Id(collectionId));
+        categoryEditService.applyCategoryEdited(new CollectedContentId(collectionId));
     }
 }

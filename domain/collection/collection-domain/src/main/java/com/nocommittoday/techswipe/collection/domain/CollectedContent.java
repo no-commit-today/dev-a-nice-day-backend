@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 public class CollectedContent {
 
-    private final Id id;
+    private final CollectedContentId id;
 
     private final CollectionStatus status;
 
@@ -37,14 +37,8 @@ public class CollectedContent {
 
     private final String imageUrl;
 
-    public record Id(long value) {
-        public TechContent.Id toTechContentId() {
-            return new TechContent.Id(value);
-        }
-    }
-
     public CollectedContent(
-            final Id id,
+            final CollectedContentId id,
             final TechContentProvider.Id providerId,
             final String url,
             final String title,
@@ -66,7 +60,7 @@ public class CollectedContent {
 
     // FIXME 해당 생성자를 사용하지 않는 방법 고민해야 겠음. status 가 도메인 로직에 의해서 변경되어야 함
     public CollectedContent(
-            final Id id,
+            final CollectedContentId id,
             final CollectionStatus status,
             @Nullable final List<CollectionCategory> categories,
             @Nullable final String summary,

@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.collection.service;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionSummaryFormatNotRegistrableException;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentReader;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUpdater;
@@ -21,7 +22,7 @@ public class CollectionSummaryRegisterService {
 
     private final CollectedContentUpdater collectedContentUpdater;
 
-    public CollectionSummarizationPromptResult getPrompt(final CollectedContent.Id id) {
+    public CollectionSummarizationPromptResult getPrompt(final CollectedContentId id) {
         final CollectedContent collectedContent = collectedContentReader.get(id);
         final String prompt = summarizationPromptCreator.create(collectedContent);
         return new CollectionSummarizationPromptResult(prompt);

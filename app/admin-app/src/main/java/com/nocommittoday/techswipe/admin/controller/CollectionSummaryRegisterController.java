@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.service.CollectionSummaryRegisterCommand;
 import com.nocommittoday.techswipe.collection.service.CollectionSummaryRegisterService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class CollectionSummaryRegisterController {
         return ResponseEntity
                 .ok()
                 .contentType(MediaType.TEXT_PLAIN)
-                .body(summaryRegisterService.getPrompt(new CollectedContent.Id(collectionId)).content());
+                .body(summaryRegisterService.getPrompt(new CollectedContentId(collectionId)).content());
     }
 
     @PostMapping("/api/collection/admin/collections/{collectionId}/summary")
@@ -35,7 +35,7 @@ public class CollectionSummaryRegisterController {
             @RequestBody @Validated CollectionSummaryRegisterRequest registerRequest
     ) {
         summaryRegisterService.register(new CollectionSummaryRegisterCommand(
-                new CollectedContent.Id(collectionId), registerRequest.summary())
+                new CollectedContentId(collectionId), registerRequest.summary())
         );
     }
 }

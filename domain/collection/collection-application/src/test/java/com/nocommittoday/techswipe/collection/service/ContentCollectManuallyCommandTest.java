@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.collection.service;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import org.junit.jupiter.api.Test;
@@ -24,10 +24,10 @@ class ContentCollectManuallyCommandTest {
         );
 
         // when
-        final ContentCollect contentCollect = contentCollectManuallyCommand.toDomain(new CollectedContent.Id(2));
+        final ContentCollect contentCollect = contentCollectManuallyCommand.toDomain(new CollectedContentId(2));
 
         // then
-        assertThat(contentCollect.id()).isEqualTo(new CollectedContent.Id(2));
+        assertThat(contentCollect.id()).isEqualTo(new CollectedContentId(2));
         assertThat(contentCollect.providerId()).isEqualTo(new TechContentProvider.Id(1));
         assertThat(contentCollect.url()).isEqualTo("url");
         assertThat(contentCollect.title()).isEqualTo("title");

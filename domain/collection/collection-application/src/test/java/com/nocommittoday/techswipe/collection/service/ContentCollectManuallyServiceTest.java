@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.collection.service;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionAlreadyCollectedException;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionIllegalProviderIdException;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentAppender;
@@ -89,13 +89,13 @@ class ContentCollectManuallyServiceTest {
                 "imageUrl"
         );
         given(techContentProviderExistsReader.exists(new TechContentProvider.Id(1))).willReturn(true);
-        given(idGenerator.nextId()).willReturn(new CollectedContent.Id(2));
-        given(collectedContentAppender.save(command.toDomain(new CollectedContent.Id(2)))).willReturn(new CollectedContent.Id(2));
+        given(idGenerator.nextId()).willReturn(new CollectedContentId(2));
+        given(collectedContentAppender.save(command.toDomain(new CollectedContentId(2)))).willReturn(new CollectedContentId(2));
 
         // when
-        final CollectedContent.Id collectedContentId = contentCollectManuallyService.collect(command);
+        final CollectedContentId collectedContentId = contentCollectManuallyService.collect(command);
 
         // then
-        assertThat(collectedContentId).isEqualTo(new CollectedContent.Id(2));
+        assertThat(collectedContentId).isEqualTo(new CollectedContentId(2));
     }
 }

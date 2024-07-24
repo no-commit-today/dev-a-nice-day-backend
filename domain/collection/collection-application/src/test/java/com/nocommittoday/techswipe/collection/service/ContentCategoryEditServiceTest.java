@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.collection.service;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategoryNotApplicableException;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentReader;
@@ -60,7 +61,7 @@ class ContentCategoryEditServiceTest {
     void 수정된_카테고리를_컨텐츠에_반영한다() {
         // given
         final CollectedContent collectedContent = new CollectedContent(
-                new CollectedContent.Id(1),
+                new CollectedContentId(1),
                 new TechContentProvider.Id(2),
                 "url",
                 "title",
@@ -68,7 +69,7 @@ class ContentCategoryEditServiceTest {
                 "content",
                 "imageUrl"
         ).categorize(List.of(CollectionCategory.SERVER));
-        given(collectedContentReader.get(new CollectedContent.Id(1))).willReturn(collectedContent);
+        given(collectedContentReader.get(new CollectedContentId(1))).willReturn(collectedContent);
         given(techContentUrlExistsReader.existsIncludingDeleted(new TechContent.Id(1))).willReturn(true);
 
         final TechContent techContent = new TechContent(
@@ -91,7 +92,7 @@ class ContentCategoryEditServiceTest {
         given(techContentReader.getIncludingDeleted(new TechContent.Id(1))).willReturn(techContent);
 
         // when
-        contentCategoryEditService.applyCategoryEdited(new CollectedContent.Id(1));
+        contentCategoryEditService.applyCategoryEdited(new CollectedContentId(1));
 
         // then
         then(techContentUpdater).should().update(techContentArgumentCaptor.capture());
@@ -103,7 +104,7 @@ class ContentCategoryEditServiceTest {
     void 카테고리가_없으면_예외를_발생시킨다() {
         // given
         final CollectedContent collectedContent = new CollectedContent(
-                new CollectedContent.Id(1),
+                new CollectedContentId(1),
                 new TechContentProvider.Id(2),
                 "url",
                 "title",
@@ -111,10 +112,10 @@ class ContentCategoryEditServiceTest {
                 "content",
                 "imageUrl"
         );
-        given(collectedContentReader.get(new CollectedContent.Id(1))).willReturn(collectedContent);
+        given(collectedContentReader.get(new CollectedContentId(1))).willReturn(collectedContent);
 
         // when, then
-        assertThatThrownBy(() -> contentCategoryEditService.applyCategoryEdited(new CollectedContent.Id(1)))
+        assertThatThrownBy(() -> contentCategoryEditService.applyCategoryEdited(new CollectedContentId(1)))
                 .isInstanceOf(CollectionCategoryNotApplicableException.class);
     }
 
@@ -122,7 +123,7 @@ class ContentCategoryEditServiceTest {
     void url에_해당하는_컨텐츠가_없으면_종료된다() {
         // given
         final CollectedContent collectedContent = new CollectedContent(
-                new CollectedContent.Id(1),
+                new CollectedContentId(1),
                 new TechContentProvider.Id(2),
                 "url",
                 "title",
@@ -130,11 +131,11 @@ class ContentCategoryEditServiceTest {
                 "content",
                 "imageUrl"
         ).categorize(List.of(CollectionCategory.SERVER));
-        given(collectedContentReader.get(new CollectedContent.Id(1))).willReturn(collectedContent);
+        given(collectedContentReader.get(new CollectedContentId(1))).willReturn(collectedContent);
         given(techContentUrlExistsReader.existsIncludingDeleted(new TechContent.Id(1))).willReturn(false);
 
         // when
-        contentCategoryEditService.applyCategoryEdited(new CollectedContent.Id(1));
+        contentCategoryEditService.applyCategoryEdited(new CollectedContentId(1));
 
         // then
         then(techContentUpdater).shouldHaveNoInteractions();
@@ -145,7 +146,7 @@ class ContentCategoryEditServiceTest {
     void 컨텐츠가_필터링_상태이면_컨텐츠를_삭제한다() {
         // given
         final CollectedContent collectedContent = new CollectedContent(
-                new CollectedContent.Id(1),
+                new CollectedContentId(1),
                 new TechContentProvider.Id(2),
                 "url",
                 "title",
@@ -153,7 +154,7 @@ class ContentCategoryEditServiceTest {
                 "content",
                 "imageUrl"
         ).categorize(List.of(CollectionCategory.NON_DEV));
-        given(collectedContentReader.get(new CollectedContent.Id(1))).willReturn(collectedContent);
+        given(collectedContentReader.get(new CollectedContentId(1))).willReturn(collectedContent);
         given(techContentUrlExistsReader.existsIncludingDeleted(new TechContent.Id(1))).willReturn(true);
 
         final TechContent techContent = new TechContent(
@@ -176,7 +177,7 @@ class ContentCategoryEditServiceTest {
         given(techContentReader.getIncludingDeleted(new TechContent.Id(1))).willReturn(techContent);
 
         // when
-        contentCategoryEditService.applyCategoryEdited(new CollectedContent.Id(1));
+        contentCategoryEditService.applyCategoryEdited(new CollectedContentId(1));
 
         // then
         then(techContentDeleter).should().delete(techContent.getId());

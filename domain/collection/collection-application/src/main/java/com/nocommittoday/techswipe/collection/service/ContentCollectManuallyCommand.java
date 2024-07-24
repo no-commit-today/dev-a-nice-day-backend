@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.collection.service;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import lombok.NonNull;
@@ -17,7 +17,7 @@ public record ContentCollectManuallyCommand(
         @Nullable String imageUrl
 ) {
 
-    public ContentCollect toDomain(final CollectedContent.Id id) {
+    public ContentCollect toDomain(final CollectedContentId id) {
         return new ContentCollect(
                 id,
                 providerId,

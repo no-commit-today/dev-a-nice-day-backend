@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.collection.service;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionAlreadyCollectedException;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionIllegalProviderIdException;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentAppender;
@@ -22,7 +22,7 @@ public class ContentCollectManuallyService {
 
     private final CollectedContentAppender collectedContentAppender;
 
-    public CollectedContent.Id collect(final ContentCollectManuallyCommand command) {
+    public CollectedContentId collect(final ContentCollectManuallyCommand command) {
         if (!techContentProviderExistsReader.exists(command.providerId())) {
             throw new CollectionIllegalProviderIdException(command.providerId());
         }

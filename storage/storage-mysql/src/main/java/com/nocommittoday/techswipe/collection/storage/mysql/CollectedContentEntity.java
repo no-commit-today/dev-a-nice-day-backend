@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.collection.storage.mysql;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
@@ -112,7 +113,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
 
     public CollectedContent toDomain() {
         return new CollectedContent(
-                new CollectedContent.Id(id),
+                new CollectedContentId(id),
                 status,
                 categories,
                 summary,

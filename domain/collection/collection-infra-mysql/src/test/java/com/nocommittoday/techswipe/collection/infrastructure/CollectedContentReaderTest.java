@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionNotFoundException;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentJpaRepository;
@@ -35,7 +36,7 @@ class CollectedContentReaderTest {
         given(collectedContentJpaRepository.findById(1L)).willReturn(Optional.of(entity));
 
         // when
-        final CollectedContent result = reader.get(new CollectedContent.Id(1L));
+        final CollectedContent result = reader.get(new CollectedContentId(1L));
 
         // then
         assertThat(result).isNotNull();
@@ -49,7 +50,7 @@ class CollectedContentReaderTest {
         given(collectedContentJpaRepository.findById(1L)).willReturn(Optional.of(entity));
 
         // when, then
-        assertThatThrownBy(() -> reader.get(new CollectedContent.Id(1L)))
+        assertThatThrownBy(() -> reader.get(new CollectedContentId(1L)))
                 .isInstanceOf(CollectionNotFoundException.class);
     }
 

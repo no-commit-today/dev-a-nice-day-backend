@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.collection.storage.mysql;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
@@ -19,7 +20,7 @@ class CollectedContentEntityTest {
     void 도메인_엔티티로부터_생성할_수_있다() {
         // given
         final CollectedContent content = new CollectedContent(
-                new CollectedContent.Id(1L),
+                new CollectedContentId(1L),
                 CollectionStatus.INIT,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
                 "summary",
@@ -51,7 +52,7 @@ class CollectedContentEntityTest {
     void ContentCollect_도메인_객체로부터_생성할_수_있다() {
         // given
         final ContentCollect contentCollect = new ContentCollect(
-                new CollectedContent.Id(1L),
+                new CollectedContentId(1L),
                 new TechContentProvider.Id(2L),
                 "url",
                 "title",
@@ -96,7 +97,7 @@ class CollectedContentEntityTest {
         final CollectedContent result = entity.toDomain();
 
         // then
-        assertThat(result.getId()).isEqualTo(new CollectedContent.Id(1L));
+        assertThat(result.getId()).isEqualTo(new CollectedContentId(1L));
         assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.Id(2L));
         assertThat(result.getUrl()).isEqualTo("url");
         assertThat(result.getTitle()).isEqualTo("title");
@@ -121,7 +122,7 @@ class CollectedContentEntityTest {
         );
 
         final CollectedContent domain = new CollectedContent(
-                new CollectedContent.Id(1L),
+                new CollectedContentId(1L),
                 CollectionStatus.CATEGORIZED,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
                 "summary",

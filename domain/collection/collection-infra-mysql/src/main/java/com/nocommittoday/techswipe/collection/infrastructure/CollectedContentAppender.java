@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentJpaRepository;
@@ -15,8 +15,8 @@ public class CollectedContentAppender {
 
     private final CollectedContentJpaRepository repository;
 
-    public CollectedContent.Id save(final ContentCollect contentCollect) {
-        return new CollectedContent.Id(Objects.requireNonNull(
+    public CollectedContentId save(final ContentCollect contentCollect) {
+        return new CollectedContentId(Objects.requireNonNull(
                 repository.save(CollectedContentEntity.from(contentCollect)).getId()
         ));
     }
