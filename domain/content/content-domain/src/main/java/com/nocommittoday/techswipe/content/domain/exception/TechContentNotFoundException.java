@@ -1,11 +1,11 @@
 package com.nocommittoday.techswipe.content.domain.exception;
 
-import com.nocommittoday.techswipe.content.domain.TechContent;
+import com.nocommittoday.techswipe.content.domain.TechContentId;
 import com.nocommittoday.techswipe.core.domain.AbstractDomainException;
 
 public class TechContentNotFoundException extends AbstractDomainException {
 
-    public TechContentNotFoundException(final TechContent.Id id) {
+    public TechContentNotFoundException(final TechContentId id) {
         super(TechContentErrorCode.CONTENT_NOT_FOUND, "id=" + id.value());
     }
 

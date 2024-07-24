@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.controller.v1;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.content.domain.TechContent;
+import com.nocommittoday.techswipe.content.domain.TechContentId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.service.TechContentListQueryParam;
 import com.nocommittoday.techswipe.content.service.TechContentListQueryService;
@@ -48,7 +48,7 @@ class TechContentListQueryControllerDocsTest extends AbstractDocsTest {
                 new TechContentListQueryParam(List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING))
         )).willReturn(List.of(
                 new TechContentQueryResult(
-                        new TechContent.Id(1L),
+                        new TechContentId(1L),
                         new TechContentProviderQueryResult(
                                 new TechContentProviderId(2L),
                                 "title",

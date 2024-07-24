@@ -8,6 +8,7 @@ import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentRea
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUpdater;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
+import com.nocommittoday.techswipe.content.domain.TechContentId;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
@@ -71,10 +72,10 @@ class ContentCategoryEditServiceTest {
                 "imageUrl"
         ).categorize(List.of(CollectionCategory.SERVER));
         given(collectedContentReader.get(new CollectedContentId(1))).willReturn(collectedContent);
-        given(techContentUrlExistsReader.existsIncludingDeleted(new TechContent.Id(1))).willReturn(true);
+        given(techContentUrlExistsReader.existsIncludingDeleted(new TechContentId(1))).willReturn(true);
 
         final TechContent techContent = new TechContent(
-                new TechContent.Id(1),
+                new TechContentId(1),
                 new TechContentProvider(
                         new TechContentProviderId(2),
                         TechContentProviderType.DOMESTIC_COMPANY_BLOG,
@@ -90,7 +91,7 @@ class ContentCategoryEditServiceTest {
                 List.of(TechCategory.APP)
         );
 
-        given(techContentReader.getIncludingDeleted(new TechContent.Id(1))).willReturn(techContent);
+        given(techContentReader.getIncludingDeleted(new TechContentId(1))).willReturn(techContent);
 
         // when
         contentCategoryEditService.applyCategoryEdited(new CollectedContentId(1));
@@ -133,7 +134,7 @@ class ContentCategoryEditServiceTest {
                 "imageUrl"
         ).categorize(List.of(CollectionCategory.SERVER));
         given(collectedContentReader.get(new CollectedContentId(1))).willReturn(collectedContent);
-        given(techContentUrlExistsReader.existsIncludingDeleted(new TechContent.Id(1))).willReturn(false);
+        given(techContentUrlExistsReader.existsIncludingDeleted(new TechContentId(1))).willReturn(false);
 
         // when
         contentCategoryEditService.applyCategoryEdited(new CollectedContentId(1));
@@ -156,10 +157,10 @@ class ContentCategoryEditServiceTest {
                 "imageUrl"
         ).categorize(List.of(CollectionCategory.NON_DEV));
         given(collectedContentReader.get(new CollectedContentId(1))).willReturn(collectedContent);
-        given(techContentUrlExistsReader.existsIncludingDeleted(new TechContent.Id(1))).willReturn(true);
+        given(techContentUrlExistsReader.existsIncludingDeleted(new TechContentId(1))).willReturn(true);
 
         final TechContent techContent = new TechContent(
-                new TechContent.Id(1),
+                new TechContentId(1),
                 new TechContentProvider(
                         new TechContentProviderId(2),
                         TechContentProviderType.DOMESTIC_COMPANY_BLOG,
@@ -175,7 +176,7 @@ class ContentCategoryEditServiceTest {
                 List.of(TechCategory.APP)
         );
 
-        given(techContentReader.getIncludingDeleted(new TechContent.Id(1))).willReturn(techContent);
+        given(techContentReader.getIncludingDeleted(new TechContentId(1))).willReturn(techContent);
 
         // when
         contentCategoryEditService.applyCategoryEdited(new CollectedContentId(1));

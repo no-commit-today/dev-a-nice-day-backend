@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
-import com.nocommittoday.techswipe.content.domain.TechContent;
+import com.nocommittoday.techswipe.content.domain.TechContentId;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ public class TechContentDeleter {
     private final TechContentJpaRepository techContentJpaRepository;
 
     @Transactional
-    public void delete(final TechContent.Id id) {
+    public void delete(final TechContentId id) {
         techContentJpaRepository.findById(id.value())
                 .ifPresent(TechContentEntity::delete);
     }

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record TechContentSync(
-        TechContent.Id id,
+        TechContentId id,
         TechContentProviderId providerId,
         @Nullable ImageId imageId,
         String url,

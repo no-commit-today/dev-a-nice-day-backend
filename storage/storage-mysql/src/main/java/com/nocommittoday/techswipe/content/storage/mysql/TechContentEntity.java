@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.content.storage.mysql;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentCreate;
+import com.nocommittoday.techswipe.content.domain.TechContentId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.TechContentSync;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
@@ -31,6 +32,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static lombok.AccessLevel.PROTECTED;
 
@@ -132,7 +134,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
                 contentSync.summary(),
                 contentSync.publishedDate()
         );
-        contentSync.categories().forEach(category -> entity.addCategory(category));
+        contentSync.categories().forEach(entity::addCategory);
 
         if (contentSync.deleted()) {
             entity.delete();
@@ -143,7 +145,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
 
     public TechContent toDomain() {
         return new TechContent(
-                new TechContent.Id(id),
+                new TechContentId(id),
                 provider.toDomain(),
                 image == null ? null : new ImageId(image.getId()),
                 url,
@@ -156,8 +158,8 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
 
     public TechContentSync toSync() {
         return new TechContentSync(
-                new TechContent.Id(id),
-                new TechContentProviderId(provider.getId()),
+                new TechContentId(id),
+                new TechContentProviderId(Objects.requireNonNull(provider.getId())),
                 image == null ? null : new ImageId(image.getId()),
                 url,
                 title,

@@ -11,6 +11,7 @@ import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUpd
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentCategoryEdit;
+import com.nocommittoday.techswipe.content.domain.TechContentId;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentDeleter;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentReader;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentUpdater;
@@ -45,7 +46,7 @@ public class ContentCategoryEditService {
             throw new CollectionCategoryNotApplicableException(collectedContent.getId());
         }
 
-        final TechContent.Id techContentId = id.toTechContentId();
+        final TechContentId techContentId = id.toTechContentId();
         if (!techContentUrlExistsReader.existsIncludingDeleted(techContentId)) {
             return;
         }

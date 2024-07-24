@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.content.storage.mysql;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentCreate;
+import com.nocommittoday.techswipe.content.domain.TechContentId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.image.domain.ImageId;
@@ -20,7 +21,7 @@ class TechContentEntityTest {
     void TechContentCreate_도메인_모델로부터_생성할_수_있다() {
         // given
         final TechContentCreate domain = new TechContentCreate(
-                new TechContent.Id(1),
+                new TechContentId(1),
                 new TechContentProviderId(3),
                 "url",
                 "title",
@@ -69,7 +70,7 @@ class TechContentEntityTest {
         final TechContent result = content.toDomain();
 
         // then
-        assertThat(result.getId()).isEqualTo(new TechContent.Id(1));
+        assertThat(result.getId()).isEqualTo(new TechContentId(1));
         assertThat(result.getProvider().getId()).isEqualTo(new TechContentProviderId(3));
         assertThat(result.getProvider().getType()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(result.getProvider().getTitle()).isEqualTo("providerTitle");

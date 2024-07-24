@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.content.service;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
+import com.nocommittoday.techswipe.content.domain.TechContentId;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
@@ -49,7 +50,7 @@ class TechContentListQueryServiceTest {
         given(techContentCategorizedListReader.getList(pageParam, List.of(TechCategory.SERVER)))
                 .willReturn(List.of(
                         new TechContent(
-                                new TechContent.Id(1L),
+                                new TechContentId(1L),
                                 contentProvider,
                                 null,
                                 "url-1",
@@ -59,7 +60,7 @@ class TechContentListQueryServiceTest {
                                 List.of(TechCategory.SERVER)
                         ),
                         new TechContent(
-                                new TechContent.Id(2L),
+                                new TechContentId(2L),
                                 contentProvider,
                                 new ImageId(22L),
                                 "url-2",
@@ -79,7 +80,7 @@ class TechContentListQueryServiceTest {
 
         // then
         assertThat(techContentQueryResults).hasSize(2);
-        assertThat(techContentQueryResults.get(0).id()).isEqualTo(new TechContent.Id(1L));
+        assertThat(techContentQueryResults.get(0).id()).isEqualTo(new TechContentId(1L));
         assertThat(techContentQueryResults.get(0).provider().id()).isEqualTo(new TechContentProviderId(11L));
         assertThat(techContentQueryResults.get(0).provider().title()).isEqualTo("provider-title");
         assertThat(techContentQueryResults.get(0).provider().url()).isEqualTo("provider-url");
@@ -94,7 +95,7 @@ class TechContentListQueryServiceTest {
                 .isNull();
         assertThat(techContentQueryResults.get(0).summary()).isEqualTo("summary-1");
         assertThat(techContentQueryResults.get(0).categories()).containsExactly(TechCategory.SERVER);
-        assertThat(techContentQueryResults.get(1).id()).isEqualTo(new TechContent.Id(2L));
+        assertThat(techContentQueryResults.get(1).id()).isEqualTo(new TechContentId(2L));
         assertThat(techContentQueryResults.get(1).provider().id()).isEqualTo(new TechContentProviderId(11L));
         assertThat(techContentQueryResults.get(1).provider().title()).isEqualTo("provider-title");
         assertThat(techContentQueryResults.get(1).publishedDate()).isEqualTo(LocalDate.of(2021, 1, 1));

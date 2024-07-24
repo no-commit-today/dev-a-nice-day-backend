@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 public class TechContent {
 
-    private final Id id;
+    private final TechContentId id;
 
     private final TechContentProvider provider;
 
@@ -28,10 +28,8 @@ public class TechContent {
 
     private final List<TechCategory> categories;
 
-    public record Id(long value) { }
-
     public TechContent(
-            final Id id,
+            final TechContentId id,
             final TechContentProvider provider,
             @Nullable final ImageId imageId,
             final String url,

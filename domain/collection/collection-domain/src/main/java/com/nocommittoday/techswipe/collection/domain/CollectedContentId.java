@@ -1,10 +1,10 @@
 package com.nocommittoday.techswipe.collection.domain;
 
-import com.nocommittoday.techswipe.content.domain.TechContent;
+import com.nocommittoday.techswipe.content.domain.TechContentId;
 
 public record CollectedContentId(long value) {
 
-    public TechContent.Id toTechContentId() {
-        return new TechContent.Id(value);
+    public TechContentId toTechContentId() {
+        return new TechContentId(value);
     }
 }
