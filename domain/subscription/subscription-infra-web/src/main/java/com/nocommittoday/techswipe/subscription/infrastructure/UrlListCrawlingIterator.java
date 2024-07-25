@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.subscription.infrastructure;
 
 import com.nocommittoday.techswipe.client.core.ClientResponse;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
+import com.nocommittoday.techswipe.subscription.infrastructure.exception.DocumentConnectException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Iterator;
@@ -50,10 +51,13 @@ public class UrlListCrawlingIterator implements Iterator<String> {
         final ClientResponse<DocumentCrawler> documentResponse = documentConnector.connect(listPageUrl);
         if (documentResponse.isNotFound()) {
             if (page == 1) {
-                throw documentResponse.getException();
+                throw new DocumentConnectException(documentResponse.getException());
             }
             log.debug("게시글 목록 페이지가 존재하지 않습니다: {}", listPageUrl);
             return List.of();
+        }
+        if (documentResponse.isFailed()) {
+            throw new DocumentConnectException(documentResponse.getException());
         }
         final DocumentCrawler documentCrawler = documentResponse.get();
         return documentCrawler.getUrlList(listCrawling.crawling());
