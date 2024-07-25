@@ -44,4 +44,13 @@ class CollectedContentJpaRepositoryCustomImpl implements CollectedContentJpaRepo
                 .where(collectedContentEntity.provider.in(providers))
                 .fetch();
     }
+
+    @Override
+    public List<String> findAllUrlByUrlIn(final Collection<String> urls) {
+        return queryFactory
+                .select(collectedContentEntity.url)
+                .from(collectedContentEntity)
+                .where(collectedContentEntity.url.in(urls))
+                .fetch();
+    }
 }
