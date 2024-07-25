@@ -1,14 +1,13 @@
 package com.nocommittoday.techswipe.batch.job;
 
-import com.nocommittoday.techswipe.batch.infrastructure.CollectedContentUrlInMemoryExistsReader;
+import com.nocommittoday.techswipe.batch.infrastructure.CollectedUrlFilterCreator;
 import com.nocommittoday.techswipe.batch.listener.SubscriptionFailureSkipListener;
 import com.nocommittoday.techswipe.batch.param.LocalDateDateJobParameter;
 import com.nocommittoday.techswipe.batch.param.TechContentProviderIdJobParameter;
-import com.nocommittoday.techswipe.batch.processor.ContentCollectProviderJobItemProcessor;
+import com.nocommittoday.techswipe.batch.processor.ContentCollectJobItemProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
-import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrlListReader;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionSubscribeFailureException;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
@@ -51,11 +50,11 @@ public class ContentCollectProviderJobConfig {
 
     private final EntityManagerFactory emf;
 
-    private final CollectedContentUrlListReader collectedContentUrlListReader;
-
     private final SubscribedContentListQueryService subscribedContentListQueryService;
 
     private final CollectedContentIdGenerator collectedContentIdGenerator;
+
+    private final CollectedUrlFilterCreator collectedUrlFilterCreator;
 
     @Bean(JOB_NAME)
     public Job job() {
@@ -118,10 +117,10 @@ public class ContentCollectProviderJobConfig {
 
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
-    public ContentCollectProviderJobItemProcessor processor() {
-        return new ContentCollectProviderJobItemProcessor(
+    public ContentCollectJobItemProcessor processor() {
+        return new ContentCollectJobItemProcessor(
                 subscribedContentListQueryService,
-                collectedContentUrlInMemoryExistsReader(),
+                collectedUrlFilterCreator,
                 collectedContentIdGenerator,
                 dateJobParameter().getDate()
         );
@@ -141,15 +140,6 @@ public class ContentCollectProviderJobConfig {
     @JobScope
     public TechContentProviderIdJobParameter providerIdListJobParameter() {
         return new TechContentProviderIdJobParameter();
-    }
-
-    @Bean(STEP_NAME + "CollectedContentUrlInMemoryExistsReader")
-    @StepScope
-    public CollectedContentUrlInMemoryExistsReader collectedContentUrlInMemoryExistsReader() {
-        return new CollectedContentUrlInMemoryExistsReader(
-                collectedContentUrlListReader,
-                providerIdListJobParameter().getProviderId()
-        );
     }
 
     @Bean(STEP_NAME + "SubscriptionFailureSkipListener")

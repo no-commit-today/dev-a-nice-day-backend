@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.batch.processor;
 
-import com.nocommittoday.techswipe.batch.infrastructure.CollectedContentUrlInMemoryExistsReader;
+import com.nocommittoday.techswipe.batch.infrastructure.CollectedUrlFilter;
+import com.nocommittoday.techswipe.batch.infrastructure.CollectedUrlFilterCreator;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
@@ -20,23 +21,18 @@ public class ContentCollectProviderInitialJobItemProcessor implements ItemProces
 
     private final SubscribedContentListQueryService subscribedContentListQueryService;
 
-    private final CollectedContentUrlInMemoryExistsReader urlExistsReader;
-
     private final CollectedContentIdGenerator collectedContentIdGenerator;
+
+    private final CollectedUrlFilterCreator collectedUrlFilterCreator;
 
     @Override
     public List<CollectedContentEntity> process(final SubscriptionEntity item) throws Exception {
         final Subscription subscription = item.toDomain();
         final List<SubscribedContent> subscribedContentList = subscribedContentListQueryService
                 .getInitList(subscription);
+        final CollectedUrlFilter urlFilter = collectedUrlFilterCreator.createFromContents(subscribedContentList);
         return subscribedContentList.stream()
-                .filter(subscribedContent -> {
-                    final boolean exists = urlExistsReader.exists(subscribedContent.content());
-                    if (exists) {
-                        log.info("이미 수집된 URL: {}", subscribedContent.content());
-                    }
-                    return !exists;
-                })
+                .filter(subscribedContent -> urlFilter.doFilter(subscribedContent.url()))
                 .map(subscribedContent -> new ContentCollect(
                         collectedContentIdGenerator.nextId(),
                         subscription.getProviderId(),

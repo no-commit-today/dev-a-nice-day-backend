@@ -1,13 +1,12 @@
 package com.nocommittoday.techswipe.batch.job;
 
-import com.nocommittoday.techswipe.batch.infrastructure.CollectedContentUrlInMemoryExistsReader;
+import com.nocommittoday.techswipe.batch.infrastructure.CollectedUrlFilterCreator;
 import com.nocommittoday.techswipe.batch.listener.SubscriptionFailureSkipListener;
 import com.nocommittoday.techswipe.batch.param.TechContentProviderIdJobParameter;
 import com.nocommittoday.techswipe.batch.processor.ContentCollectProviderInitialJobItemProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
-import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrlListReader;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionSubscribeFailureException;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
@@ -50,7 +49,7 @@ public class ContentCollectProviderInitialJobConfig {
 
     private final EntityManagerFactory emf;
 
-    private final CollectedContentUrlListReader collectedContentUrlListReader;
+    private final CollectedUrlFilterCreator collectedUrlFilterCreator;
 
     private final SubscribedContentListQueryService subscribedContentListQueryService;
 
@@ -119,8 +118,8 @@ public class ContentCollectProviderInitialJobConfig {
     public ContentCollectProviderInitialJobItemProcessor processor() {
         return new ContentCollectProviderInitialJobItemProcessor(
                 subscribedContentListQueryService,
-                collectedContentUrlInMemoryExistsReader(),
-                collectedContentIdGenerator
+                collectedContentIdGenerator,
+                collectedUrlFilterCreator
         );
     }
 
@@ -132,15 +131,6 @@ public class ContentCollectProviderInitialJobConfig {
                 .usePersist(true)
                 .build();
         return new JpaItemListWriter<>(jpaItemWriter);
-    }
-
-    @Bean(STEP_NAME + "CollectedContentUrlInMemoryExistsReader")
-    @StepScope
-    public CollectedContentUrlInMemoryExistsReader collectedContentUrlInMemoryExistsReader() {
-        return new CollectedContentUrlInMemoryExistsReader(
-                collectedContentUrlListReader,
-                providerIdListJobParameter().getProviderId()
-        );
     }
 
     @Bean(STEP_NAME + "SubscriptionFailureSkipListener")

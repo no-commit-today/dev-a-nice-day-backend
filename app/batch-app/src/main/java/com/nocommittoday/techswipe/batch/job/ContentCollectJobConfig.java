@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.batch.job;
 
+import com.nocommittoday.techswipe.batch.infrastructure.CollectedUrlFilterCreator;
 import com.nocommittoday.techswipe.batch.listener.SubscriptionFailureSkipListener;
 import com.nocommittoday.techswipe.batch.param.LocalDateDateJobParameter;
 import com.nocommittoday.techswipe.batch.processor.ContentCollectJobItemProcessor;
@@ -47,6 +48,7 @@ public class ContentCollectJobConfig {
 
     private final SubscribedContentListQueryService subscribedContentListQueryService;
     private final CollectedContentIdGenerator collectedContentIdGenerator;
+    private final CollectedUrlFilterCreator collectedUrlFilterCreator;
 
     @Bean(JOB_NAME)
     public Job job() {
@@ -109,6 +111,7 @@ public class ContentCollectJobConfig {
     public ItemProcessor<SubscriptionEntity, List<CollectedContentEntity>> processor() {
         return new ContentCollectJobItemProcessor(
                 subscribedContentListQueryService,
+                collectedUrlFilterCreator,
                 collectedContentIdGenerator,
                 dateJobParameter().getDate()
         );

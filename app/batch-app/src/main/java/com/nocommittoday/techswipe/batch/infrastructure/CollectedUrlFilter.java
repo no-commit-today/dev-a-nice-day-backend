@@ -13,7 +13,7 @@ public class CollectedUrlFilter {
 
     public boolean doFilter(final String url) {
         final boolean filtered = !urlSet.contains(url);
-        if (filtered) {
+        if (!filtered) {
             log.info("url[{}] 이 존재합니다.", url);
         }
         return filtered;
