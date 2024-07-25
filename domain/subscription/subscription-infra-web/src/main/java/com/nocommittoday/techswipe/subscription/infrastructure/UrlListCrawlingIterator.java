@@ -18,7 +18,7 @@ public class UrlListCrawlingIterator implements Iterator<String> {
     private final ListCrawling listCrawling;
     private int page = 1;
 
-    private final Queue<String> postUrls = new LinkedList<>();
+    private final Queue<String> urls = new LinkedList<>();
 
     public UrlListCrawlingIterator(
             final DocumentConnector documentConnector,
@@ -26,16 +26,16 @@ public class UrlListCrawlingIterator implements Iterator<String> {
     ) {
         this.documentConnector = documentConnector;
         this.listCrawling = listCrawling;
-        postUrls.addAll(getUrls(this.listCrawling.url()));
+        urls.addAll(getUrls(this.listCrawling.url()));
     }
 
     @Override
     public boolean hasNext() {
-        if (postUrls.isEmpty() && listCrawling.isPaginated()) {
+        if (urls.isEmpty() && listCrawling.isPaginated()) {
             page += 1;
-            postUrls.addAll(getUrls(listCrawling.getPageUrl(page)));
+            urls.addAll(getUrls(listCrawling.getPageUrl(page)));
         }
-        return !postUrls.isEmpty();
+        return !urls.isEmpty();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class UrlListCrawlingIterator implements Iterator<String> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        return Objects.requireNonNull(postUrls.poll());
+        return Objects.requireNonNull(urls.poll());
     }
 
     private List<String> getUrls(final String listPageUrl) {
