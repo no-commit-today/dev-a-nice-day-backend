@@ -26,7 +26,7 @@ public class UrlListCrawlingIterator implements Iterator<String> {
     ) {
         this.documentConnector = documentConnector;
         this.listCrawling = listCrawling;
-        postUrls.addAll(getUrls(listCrawling.url()));
+        postUrls.addAll(getUrls(this.listCrawling.url()));
     }
 
     @Override
@@ -49,6 +49,9 @@ public class UrlListCrawlingIterator implements Iterator<String> {
     private List<String> getUrls(final String listPageUrl) {
         final ClientResponse<DocumentCrawler> documentResponse = documentConnector.connect(listPageUrl);
         if (documentResponse.isNotFound()) {
+            if (page == 1) {
+                throw documentResponse.getException();
+            }
             log.debug("게시글 목록 페이지가 존재하지 않습니다: {}", listPageUrl);
             return List.of();
         }
