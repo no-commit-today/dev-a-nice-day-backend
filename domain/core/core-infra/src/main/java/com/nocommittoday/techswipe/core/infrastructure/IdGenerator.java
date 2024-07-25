@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.core.infrastructure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.net.InetAddress;
@@ -17,6 +18,7 @@ import java.time.ZoneOffset;
  * 참고3: https://www.slideshare.net/slideshow/twitter-snowflake/80830757
  */
 @Slf4j
+@Scope("prototype")
 @Component
 public class IdGenerator {
 
