@@ -1,11 +1,13 @@
 package com.nocommittoday.techswipe.batch.job;
 
+import com.nocommittoday.techswipe.batch.listener.SubscriptionFailureSkipListener;
 import com.nocommittoday.techswipe.batch.param.LocalDateDateJobParameter;
 import com.nocommittoday.techswipe.batch.processor.ContentCollectJobItemProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
+import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionSubscribeFailureException;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
 import jakarta.persistence.EntityManagerFactory;
@@ -46,9 +48,19 @@ public class ContentCollectJobConfig {
     private final SubscribedContentListQueryService subscribedContentListQueryService;
     private final CollectedContentIdGenerator collectedContentIdGenerator;
 
+    @Bean(JOB_NAME)
+    public Job job() {
+        final JobBuilder jobBuilder = new JobBuilder(JOB_NAME, jobRepository);
+        return jobBuilder
+                .validator(jobParametersValidator())
+                .incrementer(new RunIdIncrementer())
+                .start(step())
+                .build();
+    }
+
     @Bean(JOB_NAME + LocalDateDateJobParameter.NAME)
     @JobScope
-    public LocalDateDateJobParameter dateJobParameters() {
+    public LocalDateDateJobParameter dateJobParameter() {
         return new LocalDateDateJobParameter();
     }
 
@@ -60,16 +72,6 @@ public class ContentCollectJobConfig {
         );
     }
 
-    @Bean(JOB_NAME)
-    public Job job() {
-        final JobBuilder jobBuilder = new JobBuilder(JOB_NAME, jobRepository);
-        return jobBuilder
-                .validator(jobParametersValidator())
-                .incrementer(new RunIdIncrementer())
-                .start(step())
-                .build();
-    }
-
     @Bean(STEP_NAME)
     @JobScope
     public Step step() {
@@ -79,6 +81,11 @@ public class ContentCollectJobConfig {
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
+
+                .faultTolerant()
+                .skip(SubscriptionSubscribeFailureException.class)
+                .listener(listener())
+
                 .build();
     }
 
@@ -103,7 +110,7 @@ public class ContentCollectJobConfig {
         return new ContentCollectJobItemProcessor(
                 subscribedContentListQueryService,
                 collectedContentIdGenerator,
-                dateJobParameters().getDate()
+                dateJobParameter().getDate()
         );
     }
 
@@ -115,5 +122,11 @@ public class ContentCollectJobConfig {
                 .usePersist(true)
                 .build();
         return new JpaItemListWriter<>(jpaItemWriter);
+    }
+
+    @Bean
+    @StepScope
+    public SubscriptionFailureSkipListener listener() {
+        return new SubscriptionFailureSkipListener();
     }
 }

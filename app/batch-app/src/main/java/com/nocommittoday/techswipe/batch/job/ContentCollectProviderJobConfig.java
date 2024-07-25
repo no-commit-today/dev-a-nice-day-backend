@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.application.CollectedContentUrlInMemoryExistsReader;
+import com.nocommittoday.techswipe.batch.listener.SubscriptionFailureSkipListener;
 import com.nocommittoday.techswipe.batch.param.LocalDateDateJobParameter;
 import com.nocommittoday.techswipe.batch.param.TechContentProviderIdJobParameter;
 import com.nocommittoday.techswipe.batch.processor.ContentCollectProviderJobItemProcessor;
@@ -9,6 +10,7 @@ import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrlListReader;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
+import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionSubscribeFailureException;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
 import jakarta.persistence.EntityManagerFactory;
@@ -89,6 +91,11 @@ public class ContentCollectProviderJobConfig {
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
+
+                .faultTolerant()
+                .skip(SubscriptionSubscribeFailureException.class)
+                .listener(listener())
+
                 .build();
     }
 
@@ -102,7 +109,7 @@ public class ContentCollectProviderJobConfig {
         reader.setQueryFunction(queryFactory -> queryFactory
                 .selectFrom(subscriptionEntity)
                 .where(
-                        subscriptionEntity.provider.id.eq(providerIdListJobParameters().getProviderId().value()),
+                        subscriptionEntity.provider.id.eq(providerIdListJobParameter().getProviderId().value()),
                         subscriptionEntity.deleted.isFalse()
                 ).orderBy(subscriptionEntity.id.asc())
         );
@@ -132,7 +139,7 @@ public class ContentCollectProviderJobConfig {
 
     @Bean(JOB_NAME + TechContentProviderIdJobParameter.NAME)
     @JobScope
-    public TechContentProviderIdJobParameter providerIdListJobParameters() {
+    public TechContentProviderIdJobParameter providerIdListJobParameter() {
         return new TechContentProviderIdJobParameter();
     }
 
@@ -141,8 +148,14 @@ public class ContentCollectProviderJobConfig {
     public CollectedContentUrlInMemoryExistsReader collectedContentUrlInMemoryExistsReader() {
         return new CollectedContentUrlInMemoryExistsReader(
                 collectedContentUrlListReader,
-                providerIdListJobParameters().getProviderId()
+                providerIdListJobParameter().getProviderId()
         );
+    }
+
+    @Bean
+    @StepScope
+    public SubscriptionFailureSkipListener listener() {
+        return new SubscriptionFailureSkipListener();
     }
 
 }
