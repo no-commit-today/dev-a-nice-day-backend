@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.batch.application.CollectedContentUrlInMemory
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
-import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
@@ -27,35 +27,24 @@ public class ContentCollectProviderInitialJobItemProcessor implements ItemProces
     @Override
     public List<CollectedContentEntity> process(final SubscriptionEntity item) throws Exception {
         final Subscription subscription = item.toDomain();
-        final List<SubscribedContentResult> subscribedContentList = subscribedContentListQueryService
+        final List<SubscribedContent> subscribedContentList = subscribedContentListQueryService
                 .getInitList(subscription);
         return subscribedContentList.stream()
                 .filter(subscribedContent -> {
-                    final boolean exists = urlExistsReader.exists(subscribedContent.content().url());
+                    final boolean exists = urlExistsReader.exists(subscribedContent.content());
                     if (exists) {
-                        log.info("이미 수집된 URL: {}", subscribedContent.content().url());
+                        log.info("이미 수집된 URL: {}", subscribedContent.content());
                     }
                     return !exists;
-                })
-                .filter(subscribedContent -> {
-                    if (!subscribedContent.success()) {
-                        log.error("구독 컨텐츠 수집 실패 techContentProvider.id={}, subscription.id={}, url={}",
-                                subscription.getProviderId(),
-                                subscription.getId(),
-                                subscribedContent.content().url(),
-                                subscribedContent.exception()
-                        );
-                    }
-                    return subscribedContent.success();
                 })
                 .map(subscribedContent -> new ContentCollect(
                         collectedContentIdGenerator.nextId(),
                         subscription.getProviderId(),
-                        subscribedContent.content().url(),
-                        subscribedContent.content().title(),
-                        subscribedContent.content().publishedDate(),
-                        subscribedContent.content().content(),
-                        subscribedContent.content().imageUrl()
+                        subscribedContent.url(),
+                        subscribedContent.title(),
+                        subscribedContent.publishedDate(),
+                        subscribedContent.content(),
+                        subscribedContent.imageUrl()
                 ))
                 .map(CollectedContentEntity::from)
                 .toList();

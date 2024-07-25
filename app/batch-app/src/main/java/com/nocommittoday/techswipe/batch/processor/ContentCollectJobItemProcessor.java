@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.batch.processor;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
-import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
@@ -27,28 +27,17 @@ public class ContentCollectJobItemProcessor implements ItemProcessor<Subscriptio
     @Override
     public List<CollectedContentEntity> process(final SubscriptionEntity item) throws Exception {
         final Subscription subscription = item.toDomain();
-        final List<SubscribedContentResult> subscribedContentList = subscribedContentListQueryService.getList(
+        final List<SubscribedContent> subscribedContentList = subscribedContentListQueryService.getList(
                 subscription, date);
         return subscribedContentList.stream()
-                .filter(subscribedContent -> {
-                    if (!subscribedContent.success()) {
-                        log.error("구독 컨텐츠 수집 실패 techContentProvider.id={}, subscription.id={}, url={}",
-                                subscription.getProviderId(),
-                                subscription.getId(),
-                                subscribedContent.content().url(),
-                                subscribedContent.exception()
-                        );
-                    }
-                    return subscribedContent.success();
-                })
                 .map(subscribedContent -> new ContentCollect(
                         collectedContentIdGenerator.nextId(),
                         subscription.getProviderId(),
-                        subscribedContent.content().url(),
-                        subscribedContent.content().title(),
-                        subscribedContent.content().publishedDate(),
-                        subscribedContent.content().content(),
-                        subscribedContent.content().imageUrl()
+                        subscribedContent.url(),
+                        subscribedContent.title(),
+                        subscribedContent.publishedDate(),
+                        subscribedContent.content(),
+                        subscribedContent.imageUrl()
                 ))
                 .map(CollectedContentEntity::from)
                 .toList();

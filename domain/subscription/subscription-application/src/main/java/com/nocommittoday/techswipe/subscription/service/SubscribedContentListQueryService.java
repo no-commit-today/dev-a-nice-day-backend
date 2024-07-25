@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.service;
 
-import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.infrastructure.SubscribedContentReader;
 import com.nocommittoday.techswipe.subscription.service.exception.NotSupportedSubscriptionInitTypeException;
@@ -17,7 +17,7 @@ public class SubscribedContentListQueryService {
 
     private final List<SubscribedContentReader> subscribedContentReaders;
 
-    public List<SubscribedContentResult> getList(
+    public List<SubscribedContent> getList(
             final Subscription subscription, final LocalDate date
     ) {
         for (SubscribedContentReader reader : subscribedContentReaders) {
@@ -29,7 +29,7 @@ public class SubscribedContentListQueryService {
         throw new NotSupportedSubscriptionTypeException(subscription.getId());
     }
 
-    public List<SubscribedContentResult> getInitList(final Subscription subscription) {
+    public List<SubscribedContent> getInitList(final Subscription subscription) {
         final LocalDate date = LocalDate.MIN;
         for (SubscribedContentReader reader : subscribedContentReaders) {
             if (!reader.supportsInit(subscription)) {

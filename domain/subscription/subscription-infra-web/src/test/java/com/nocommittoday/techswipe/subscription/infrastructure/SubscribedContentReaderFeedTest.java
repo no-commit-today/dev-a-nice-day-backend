@@ -7,7 +7,7 @@ import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.FeedSubscription;
-import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -65,7 +65,7 @@ class SubscribedContentReaderFeedTest {
 
 
         // when
-        final List<SubscribedContentResult> result = subscribedContentReaderFeed.getList(
+        final List<SubscribedContent> result = subscribedContentReaderFeed.getList(
                 new FeedSubscription(
                         "feed-url",
                         new ContentCrawling(
@@ -79,11 +79,11 @@ class SubscribedContentReaderFeedTest {
 
         // then
         assertThat(result).hasSize(1);
-        assertThat(result.get(0).content().url()).isEqualTo("entry-url");
-        assertThat(result.get(0).content().title()).isEqualTo("entry-title");
-        assertThat(result.get(0).content().imageUrl()).isEqualTo("entry-image-url");
-        assertThat(result.get(0).content().content()).isEqualTo("entry-content-cleaned");
-        assertThat(result.get(0).content().publishedDate()).isEqualTo(LocalDate.of(2024, 6, 17));
+        assertThat(result.get(0).url()).isEqualTo("entry-url");
+        assertThat(result.get(0).title()).isEqualTo("entry-title");
+        assertThat(result.get(0).imageUrl()).isEqualTo("entry-image-url");
+        assertThat(result.get(0).content()).isEqualTo("entry-content-cleaned");
+        assertThat(result.get(0).publishedDate()).isEqualTo(LocalDate.of(2024, 6, 17));
     }
 
     @Test
@@ -118,7 +118,7 @@ class SubscribedContentReaderFeedTest {
         given(htmlTagCleaner.clean("entry-content-1")).willReturn("entry-content-1-cleaned");
 
         // when
-        final List<SubscribedContentResult> result = subscribedContentReaderFeed.getList(
+        final List<SubscribedContent> result = subscribedContentReaderFeed.getList(
                 new FeedSubscription(
                         "feed-url",
                         new ContentCrawling(
@@ -132,7 +132,7 @@ class SubscribedContentReaderFeedTest {
 
         // then
         assertThat(result).hasSize(1);
-        assertThat(result.get(0).content().publishedDate()).isEqualTo(LocalDate.of(2024, 6, 17));
+        assertThat(result.get(0).publishedDate()).isEqualTo(LocalDate.of(2024, 6, 17));
     }
 
     @Test
@@ -180,7 +180,7 @@ class SubscribedContentReaderFeedTest {
         given(htmlTagCleaner.clean("entry-content-crawl")).willReturn("entry-content-crawl-cleaned");
 
         // when
-        final List<SubscribedContentResult> result = subscribedContentReaderFeed.getList(
+        final List<SubscribedContent> result = subscribedContentReaderFeed.getList(
                 new FeedSubscription(
                         "feed-url",
                         new ContentCrawling(
@@ -194,10 +194,10 @@ class SubscribedContentReaderFeedTest {
 
         // then
         assertThat(result).hasSize(1);
-        assertThat(result.get(0).content().url()).isEqualTo("entry-url");
-        assertThat(result.get(0).content().title()).isEqualTo("entry-title-crawl");
-        assertThat(result.get(0).content().publishedDate()).isEqualTo(LocalDate.of(2024, 6, 17));
-        assertThat(result.get(0).content().content()).isEqualTo("entry-content-crawl-cleaned");
-        assertThat(result.get(0).content().imageUrl()).isEqualTo("entry-image-url");
+        assertThat(result.get(0).url()).isEqualTo("entry-url");
+        assertThat(result.get(0).title()).isEqualTo("entry-title-crawl");
+        assertThat(result.get(0).publishedDate()).isEqualTo(LocalDate.of(2024, 6, 17));
+        assertThat(result.get(0).content()).isEqualTo("entry-content-crawl-cleaned");
+        assertThat(result.get(0).imageUrl()).isEqualTo("entry-image-url");
     }
 }

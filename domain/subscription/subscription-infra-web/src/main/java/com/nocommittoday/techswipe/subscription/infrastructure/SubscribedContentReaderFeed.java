@@ -5,7 +5,6 @@ import com.nocommittoday.techswipe.client.feed.FeedResponse;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.FeedSubscription;
 import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
-import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,7 @@ public class SubscribedContentReaderFeed implements SubscribedContentReader {
     private final HtmlTagCleaner htmlTagCleaner;
 
     @Override
-    public List<SubscribedContentResult> getList(final Subscription subscription, final LocalDate date) {
+    public List<SubscribedContent> getList(final Subscription subscription, final LocalDate date) {
         return getList(subscription.toFeed(), date);
     }
 
@@ -41,45 +40,41 @@ public class SubscribedContentReaderFeed implements SubscribedContentReader {
         return SubscriptionType.FEED == subscription.getInitType();
     }
 
-    public List<SubscribedContentResult> getList(
+    public List<SubscribedContent> getList(
             final FeedSubscription subscription,
             final LocalDate date
     ) {
         final FeedResponse feed = feedClient.get(subscription.url()).get();
-        final List<SubscribedContentResult> result = new ArrayList<>();
+        final List<SubscribedContent> result = new ArrayList<>();
 
         for (FeedResponse.Entry entry : feed.entries()) {
             final DocumentCrawler documentCrawler = documentConnector.connect(entry.link()).get();
-            try {
-                final LocalDate publishedDate = Optional.of(subscription.contentCrawling().date())
-                        .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
-                        .map(documentCrawler::getText)
-                        .map(localDateParser::parse)
-                        .orElse(entry.date());
-                if (date.isAfter(publishedDate)) {
-                    break;
-                }
-                final String imageUrl = documentCrawler.getImageUrl();
-                final String title = Optional.of(subscription.contentCrawling().title())
-                        .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
-                        .map(documentCrawler::getText)
-                        .orElse(entry.title());
-                final String content = Optional.of(subscription.contentCrawling().content())
-                        .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
-                        .map(documentCrawler::get)
-                        .map(htmlTagCleaner::clean)
-                        .orElseGet(() -> htmlTagCleaner.clean(entry.content()));
-
-                result.add(SubscribedContentResult.ok(new SubscribedContent(
-                        entry.link(),
-                        title,
-                        imageUrl,
-                        publishedDate,
-                        content
-                )));
-            } catch (final Exception ex) {
-                result.add(SubscribedContentResult.fail(entry.link(), ex));
+            final LocalDate publishedDate = Optional.of(subscription.contentCrawling().date())
+                    .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
+                    .map(documentCrawler::getText)
+                    .map(localDateParser::parse)
+                    .orElse(entry.date());
+            if (date.isAfter(publishedDate)) {
+                break;
             }
+            final String imageUrl = documentCrawler.getImageUrl();
+            final String title = Optional.of(subscription.contentCrawling().title())
+                    .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
+                    .map(documentCrawler::getText)
+                    .orElse(entry.title());
+            final String content = Optional.of(subscription.contentCrawling().content())
+                    .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
+                    .map(documentCrawler::get)
+                    .map(htmlTagCleaner::clean)
+                    .orElseGet(() -> htmlTagCleaner.clean(entry.content()));
+
+            result.add(new SubscribedContent(
+                    entry.link(),
+                    title,
+                    imageUrl,
+                    publishedDate,
+                    content
+            ));
         }
 
         return Collections.unmodifiableList(result);

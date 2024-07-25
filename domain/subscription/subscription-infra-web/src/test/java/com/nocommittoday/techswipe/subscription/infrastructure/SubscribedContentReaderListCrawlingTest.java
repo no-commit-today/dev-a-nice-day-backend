@@ -7,7 +7,6 @@ import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawlingSubscription;
 import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
-import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -87,7 +86,7 @@ class SubscribedContentReaderListCrawlingTest {
         given(localDateParser.parse("date-crawl-1")).willReturn(LocalDate.of(2024, 6, 17));
 
         // when
-        final List<SubscribedContentResult> result = subscribedContentReaderListCrawling.getList(
+        final List<SubscribedContent> result = subscribedContentReaderListCrawling.getList(
                 new ListCrawlingSubscription(
                         listCrawling,
                         contentCrawling
@@ -97,13 +96,13 @@ class SubscribedContentReaderListCrawlingTest {
 
         // then
         assertThat(result).containsExactly(
-                SubscribedContentResult.ok(new SubscribedContent(
+                new SubscribedContent(
                         "content-url-1",
                         "title-crawl-1",
                         "image-url-1",
                         LocalDate.of(2024, 6, 17),
                         "content-crawl-1-cleaned"
-                ))
+                )
         );
     }
 
@@ -161,7 +160,7 @@ class SubscribedContentReaderListCrawlingTest {
         given(localDateParser.parse("date-crawl-2")).willReturn(LocalDate.of(2024, 6, 16));
 
         // when
-        final List<SubscribedContentResult> result = subscribedContentReaderListCrawling.getList(
+        final List<SubscribedContent> result = subscribedContentReaderListCrawling.getList(
                 new ListCrawlingSubscription(
                         listCrawling,
                         contentCrawling
@@ -171,13 +170,13 @@ class SubscribedContentReaderListCrawlingTest {
 
         // then
         assertThat(result).containsExactly(
-                SubscribedContentResult.ok(new SubscribedContent(
+                new SubscribedContent(
                         "content-url-1",
                         "title-crawl-1",
                         "image-url-1",
                         LocalDate.of(2024, 6, 17),
                         "content-crawl-1-cleaned"
-                ))
+                )
         );
     }
 }
