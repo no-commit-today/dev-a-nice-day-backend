@@ -124,7 +124,7 @@ public class ContentCollectJobConfig {
         return new JpaItemListWriter<>(jpaItemWriter);
     }
 
-    @Bean
+    @Bean(STEP_NAME + "SubscriptionFailureSkipListener")
     @StepScope
     public SubscriptionFailureSkipListener listener() {
         return new SubscriptionFailureSkipListener();
