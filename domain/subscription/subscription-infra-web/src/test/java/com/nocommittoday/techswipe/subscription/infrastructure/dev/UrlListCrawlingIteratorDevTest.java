@@ -4,7 +4,6 @@ import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
 import com.nocommittoday.techswipe.subscription.infrastructure.DocumentConnector;
-import com.nocommittoday.techswipe.subscription.infrastructure.DocumentElementExtractor;
 import com.nocommittoday.techswipe.subscription.infrastructure.UrlListCrawlingIterator;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -15,15 +14,12 @@ import java.util.List;
 @Tag("develop")
 class UrlListCrawlingIteratorDevTest {
 
-    private DocumentElementExtractor documentElementExtractor = new DocumentElementExtractor();
-
     private DocumentConnector documentConnector = new DocumentConnector();
 
     @Test
     void 토스() {
         final UrlListCrawlingIterator iterator = new UrlListCrawlingIterator(
                 documentConnector,
-                documentElementExtractor,
                 new ListCrawling(
                         "https://toss.tech/tech",
                         new Crawling(

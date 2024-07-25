@@ -22,7 +22,7 @@ import java.util.Optional;
 public class SubscribedContentReaderFeed implements SubscribedContentReader {
 
     private final FeedClient feedClient;
-    private final ContentCrawlerCreator contentCrawlerCreator;
+    private final DocumentConnector documentConnector;
     private final LocalDateParser localDateParser;
     private final HtmlTagCleaner htmlTagCleaner;
 
@@ -49,25 +49,25 @@ public class SubscribedContentReaderFeed implements SubscribedContentReader {
         final List<SubscribedContentResult> result = new ArrayList<>();
 
         for (FeedResponse.Entry entry : feed.entries()) {
-            final ContentCrawler crawler = contentCrawlerCreator.create(entry.link());
-
+            final DocumentCrawler documentCrawler = documentConnector.connect(entry.link()).get();
             try {
                 final LocalDate publishedDate = Optional.of(subscription.contentCrawling().date())
                         .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
-                        .map(crawler::getText)
+                        .map(documentCrawler::getText)
                         .map(localDateParser::parse)
                         .orElse(entry.date());
                 if (date.isAfter(publishedDate)) {
                     break;
                 }
-                final String imageUrl = crawler.getImageUrl();
+                final String imageUrl = documentCrawler.getImageUrl();
                 final String title = Optional.of(subscription.contentCrawling().title())
                         .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
-                        .map(crawler::getText)
+                        .map(documentCrawler::getText)
                         .orElse(entry.title());
                 final String content = Optional.of(subscription.contentCrawling().content())
                         .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
-                        .map(crawler::getCleaned)
+                        .map(documentCrawler::get)
+                        .map(htmlTagCleaner::clean)
                         .orElseGet(() -> htmlTagCleaner.clean(entry.content()));
 
                 result.add(SubscribedContentResult.ok(new SubscribedContent(

@@ -20,8 +20,9 @@ import java.util.List;
 public class SubscribedContentReaderListCrawling implements SubscribedContentReader {
 
     private final UrlListCrawlingIteratorCreator urlListCrawlingIteratorCreator;
-    private final ContentCrawlerCreator contentCrawlerCreator;
+    private final DocumentConnector documentConnector;
     private final LocalDateParser localDateParser;
+    private final HtmlTagCleaner htmlTagCleaner;
 
     @Override
     public List<SubscribedContentResult> getList(final Subscription subscription, final LocalDate date) {
@@ -41,7 +42,8 @@ public class SubscribedContentReaderListCrawling implements SubscribedContentRea
         return SubscriptionType.LIST_CRAWLING == subscription.getInitType();
     }
 
-    public List<SubscribedContentResult> getList(final ListCrawlingSubscription subscription, final LocalDate date) {
+    public List<SubscribedContentResult> getList(
+            final ListCrawlingSubscription subscription, final LocalDate date) {
         final ListCrawling listCrawling = subscription.listCrawling();
         final ContentCrawling contentCrawling = subscription.contentCrawling();
         final UrlListCrawlingIterator iterator = urlListCrawlingIteratorCreator.create(listCrawling);
@@ -50,16 +52,16 @@ public class SubscribedContentReaderListCrawling implements SubscribedContentRea
         while (iterator.hasNext()) {
             final String url = iterator.next();
             try {
-                final ContentCrawler crawler = contentCrawlerCreator.create(url);
+                final DocumentCrawler documentCrawler = documentConnector.connect(url).get();
                 final LocalDate publishedDate = localDateParser.parse(
-                        crawler.getText(contentCrawling.date()));
+                        documentCrawler.getText(contentCrawling.date()));
                 if (date.isAfter(publishedDate)) {
                     break;
                 }
 
-                final String title = crawler.getText(contentCrawling.title());
-                final String imageUrl = crawler.getImageUrl();
-                final String content = crawler.getCleaned(contentCrawling.content());
+                final String title = documentCrawler.getText(contentCrawling.title());
+                final String imageUrl = documentCrawler.getImageUrl();
+                final String content = htmlTagCleaner.clean(documentCrawler.get(contentCrawling.content()));
                 result.add(SubscribedContentResult.ok(new SubscribedContent(
                         url,
                         title,

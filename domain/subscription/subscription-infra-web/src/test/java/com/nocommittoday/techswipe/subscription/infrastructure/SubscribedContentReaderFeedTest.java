@@ -32,7 +32,7 @@ class SubscribedContentReaderFeedTest {
     private FeedClient feedClient;
 
     @Mock
-    private ContentCrawlerCreator contentCrawlerCreator;
+    private DocumentConnector documentConnector;
 
     @Mock
     private LocalDateParser localDateParser;
@@ -58,9 +58,9 @@ class SubscribedContentReaderFeedTest {
         );
         given(feedClient.get("feed-url")).willReturn(ClientResponse.success(feedResponse));
 
-        final ContentCrawler contentCrawler = mock(ContentCrawler.class);
-        given(contentCrawler.getImageUrl()).willReturn("entry-image-url");
-        given(contentCrawlerCreator.create("entry-url")).willReturn(contentCrawler);
+        final DocumentCrawler documentCrawler = mock(DocumentCrawler.class);
+        given(documentCrawler.getImageUrl()).willReturn("entry-image-url");
+        given(documentConnector.connect("entry-url")).willReturn(ClientResponse.success(documentCrawler));
         given(htmlTagCleaner.clean("entry-content")).willReturn("entry-content-cleaned");
 
 
@@ -110,11 +110,11 @@ class SubscribedContentReaderFeedTest {
         );
         given(feedClient.get("feed-url")).willReturn(ClientResponse.success(feedResponse));
 
-        final ContentCrawler contentCrawler = mock(ContentCrawler.class);
-        given(contentCrawler.getImageUrl()).willReturn("entry-image-url-1");
-        given(contentCrawlerCreator.create("entry-url-1")).willReturn(contentCrawler);
-        given(contentCrawlerCreator.create("entry-url-2"))
-                .willReturn(mock(ContentCrawler.class));
+        final DocumentCrawler documentCrawler = mock(DocumentCrawler.class);
+        given(documentCrawler.getImageUrl()).willReturn("entry-image-url-1");
+        given(documentConnector.connect("entry-url-1")).willReturn(ClientResponse.success(documentCrawler));
+        given(documentConnector.connect("entry-url-2"))
+                .willReturn(ClientResponse.success(mock(DocumentCrawler.class)));
         given(htmlTagCleaner.clean("entry-content-1")).willReturn("entry-content-1-cleaned");
 
         // when
@@ -153,9 +153,9 @@ class SubscribedContentReaderFeedTest {
         );
         given(feedClient.get("feed-url")).willReturn(ClientResponse.success(feedResponse));
 
-        final ContentCrawler contentCrawler = mock(ContentCrawler.class);
-        given(contentCrawler.getImageUrl()).willReturn("entry-image-url");
-        given(contentCrawlerCreator.create("entry-url")).willReturn(contentCrawler);
+        final DocumentCrawler documentCrawler = mock(DocumentCrawler.class);
+        given(documentCrawler.getImageUrl()).willReturn("entry-image-url");
+        given(documentConnector.connect("entry-url")).willReturn(ClientResponse.success(documentCrawler));
 
         final Crawling titleCrawling = new Crawling(
                 CrawlingType.INDEX,
@@ -173,10 +173,11 @@ class SubscribedContentReaderFeedTest {
                 List.of(3)
         );
 
-        given(contentCrawler.getText(dateCrawling)).willReturn("entry-date-crawl");
+        given(documentCrawler.getText(dateCrawling)).willReturn("entry-date-crawl");
         given(localDateParser.parse("entry-date-crawl")).willReturn(LocalDate.of(2024, 6, 17));
-        given(contentCrawler.getText(titleCrawling)).willReturn("entry-title-crawl");
-        given(contentCrawler.getCleaned(contentCrawling)).willReturn("entry-content-crawl");
+        given(documentCrawler.getText(titleCrawling)).willReturn("entry-title-crawl");
+        given(documentCrawler.get(contentCrawling)).willReturn("entry-content-crawl");
+        given(htmlTagCleaner.clean("entry-content-crawl")).willReturn("entry-content-crawl-cleaned");
 
         // when
         final List<SubscribedContentResult> result = subscribedContentReaderFeed.getList(
@@ -196,7 +197,7 @@ class SubscribedContentReaderFeedTest {
         assertThat(result.get(0).content().url()).isEqualTo("entry-url");
         assertThat(result.get(0).content().title()).isEqualTo("entry-title-crawl");
         assertThat(result.get(0).content().publishedDate()).isEqualTo(LocalDate.of(2024, 6, 17));
-        assertThat(result.get(0).content().content()).isEqualTo("entry-content-crawl");
+        assertThat(result.get(0).content().content()).isEqualTo("entry-content-crawl-cleaned");
         assertThat(result.get(0).content().imageUrl()).isEqualTo("entry-image-url");
     }
 }
