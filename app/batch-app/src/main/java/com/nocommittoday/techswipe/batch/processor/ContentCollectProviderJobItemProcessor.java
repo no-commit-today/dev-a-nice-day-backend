@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.batch.processor;
 
-import com.nocommittoday.techswipe.batch.application.CollectedContentUrlInMemoryExistsReader;
+import com.nocommittoday.techswipe.batch.infrastructure.CollectedContentUrlInMemoryExistsReader;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;

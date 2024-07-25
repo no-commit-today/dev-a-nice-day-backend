@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.batch.application;
+package com.nocommittoday.techswipe.batch.infrastructure;
 
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrlListReader;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;

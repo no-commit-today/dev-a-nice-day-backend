@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.batch.job;
 
-import com.nocommittoday.techswipe.batch.application.CollectedContentUrlInMemoryExistsReader;
+import com.nocommittoday.techswipe.batch.infrastructure.CollectedContentUrlInMemoryExistsReader;
 import com.nocommittoday.techswipe.batch.listener.SubscriptionFailureSkipListener;
 import com.nocommittoday.techswipe.batch.param.TechContentProviderIdJobParameter;
 import com.nocommittoday.techswipe.batch.processor.ContentCollectProviderInitialJobItemProcessor;
