@@ -29,7 +29,7 @@ public class CollectedContentPublishProcessor
             throw new CollectionPublishUnableException(collectedContent.getId(), collectedContent.getStatus());
         }
         final ImageId imageId = Optional.ofNullable(collectedContent.getImageUrl())
-                .map(imageUrl -> imageStoreService.store(collectedContent.getImageUrl(), "content"))
+                .map(imageUrl -> imageStoreService.store(collectedContent.getImageUrl(), "content").get())
                 .orElse(null);
         final TechContentCreate content = new TechContentCreate(
                 collectedContent.getId().toTechContentId(),

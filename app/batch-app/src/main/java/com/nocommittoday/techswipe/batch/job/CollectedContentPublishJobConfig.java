@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.batch.job;
 
+import com.nocommittoday.techswipe.batch.listener.CollectedContentPublishJobSkipListener;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentPublishProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriter;
@@ -8,6 +9,7 @@ import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
+import com.nocommittoday.techswipe.image.service.exception.ImageApplicationException;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.javatuples.Pair;
@@ -57,6 +59,11 @@ public class CollectedContentPublishJobConfig {
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
+
+                .faultTolerant()
+                .skip(ImageApplicationException.class)
+                .listener(listener())
+
                 .build();
     }
 
@@ -90,5 +97,11 @@ public class CollectedContentPublishJobConfig {
                 .entityManagerFactory(emf)
                 .usePersist(false)
                 .build();
+    }
+
+    @Bean(STEP_NAME + "CollectedContentPublishJobSkipListener")
+    @StepScope
+    public CollectedContentPublishJobSkipListener listener() {
+        return new CollectedContentPublishJobSkipListener();
     }
 }

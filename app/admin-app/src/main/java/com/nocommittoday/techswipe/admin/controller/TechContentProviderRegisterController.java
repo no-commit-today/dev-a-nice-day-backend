@@ -28,7 +28,7 @@ public class TechContentProviderRegisterController {
             @RequestBody @Valid final TechContentProviderRegisterRequest request
     ) {
         final ImageId iconId = Optional.ofNullable(request.iconUrl())
-                .map(url -> imageStoreService.store(url, "provider"))
+                .map(url -> imageStoreService.store(url, "provider").get())
                 .orElse(null);
         final TechContentProviderId providerId = techContentProviderRegisterService.register(
                 new TechContentProviderRegisterCommand(

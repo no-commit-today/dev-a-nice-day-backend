@@ -3,6 +3,7 @@ dependencies {
 
     implementation(project(":domain:image:image-domain"))
     implementation(project(":domain:image:image-infra-aws"))
+    implementation(project(":domain:image:image-infra-web"))
     implementation(project(":domain:image:image-infra-mysql"))
 
     implementation("org.springframework:spring-context")

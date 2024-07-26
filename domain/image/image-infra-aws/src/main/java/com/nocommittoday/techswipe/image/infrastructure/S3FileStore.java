@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.image.infrastructure;
 
+import com.nocommittoday.techswipe.image.domain.ImageFile;
 import io.awspring.cloud.s3.ObjectMetadata;
 import io.awspring.cloud.s3.S3Resource;
 import io.awspring.cloud.s3.S3Template;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
@@ -28,18 +28,18 @@ public class S3FileStore implements FileStore {
     }
 
     @Override
-    public String store(final ImageData imageData, final String storedName) {
-        try (final InputStream input = new FileInputStream(imageData.file())) {
+    public String store(final ImageFile imageFile, final String storedName) {
+        try (final InputStream input = imageFile.getInputStream()) {
             final ObjectMetadata metadata = ObjectMetadata.builder()
-                    .contentType(imageData.contentType().value())
-                    .contentLength(imageData.file().length())
+                    .contentType(imageFile.getContentType().value())
+                    .contentLength(imageFile.getContentLength())
                     .build();
             final S3Resource s3Resource = s3Template.upload(bucketName, storedName, input, metadata);
             return s3Resource.getURL().toString();
         } catch (final IOException e) {
             throw new UncheckedIOException(e);
         } finally {
-            imageData.file().delete();
+            imageFile.delete();
         }
     }
 }
