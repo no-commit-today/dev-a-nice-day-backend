@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.image.domain;
 import com.nocommittoday.techswipe.image.domain.exception.NotSupportedImageException;
 import lombok.NonNull;
 
+import javax.annotation.Nullable;
 import java.util.Map;
 
 public record ImageContentType(
@@ -21,11 +22,17 @@ public record ImageContentType(
             "image/vnd.microsoft.icon", "ico"
     );
 
-    public static boolean supports(final String contentType) {
+    public static boolean supports(@Nullable final String contentType) {
+        if (contentType == null) {
+            return false;
+        }
         return TYPE_TO_EXT.containsKey(contentType.split(";")[0]);
     }
 
-    public static boolean supports(final String type, final String subType) {
+    public static boolean supports(@Nullable final String type, @Nullable final String subType) {
+        if (type == null || subType == null) {
+            return false;
+        }
         return TYPE_TO_EXT.containsKey(type + "/" + subType);
     }
 
