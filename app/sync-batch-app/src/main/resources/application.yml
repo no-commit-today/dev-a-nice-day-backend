@@ -17,11 +17,6 @@ spring:
       initialize-schema: never
       isolation-level-for-create: default
 
-  cloud:
-    aws:
-      region:
-        static: ap-northeast-2
-
 app:
   client:
     sync:
