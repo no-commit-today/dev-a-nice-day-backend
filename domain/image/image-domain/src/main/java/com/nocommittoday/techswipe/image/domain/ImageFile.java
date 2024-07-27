@@ -1,7 +1,5 @@
 package com.nocommittoday.techswipe.image.domain;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,7 +8,6 @@ import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 
-@Slf4j
 public class ImageFile {
 
     private final File file;
