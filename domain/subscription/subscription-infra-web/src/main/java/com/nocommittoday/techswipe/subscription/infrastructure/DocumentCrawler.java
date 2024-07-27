@@ -31,6 +31,7 @@ public class DocumentCrawler {
                                 .first()
                 )
                 .map(element -> element.attr("content"))
+                .filter(url -> !url.isBlank())
                 .orElse(null);
     }
 
