@@ -45,8 +45,17 @@ spring:
   config:
     activate:
       on-profile: dev
+
+  batch:
+    job:
+      name: syncJob
+
 ---
 spring:
   config:
     activate:
       on-profile: prod
+
+  batch:
+    job:
+      name: syncJob
