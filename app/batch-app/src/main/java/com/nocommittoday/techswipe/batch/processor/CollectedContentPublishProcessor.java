@@ -2,7 +2,6 @@ package com.nocommittoday.techswipe.batch.processor;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
-import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.content.domain.TechContentCreate;
@@ -25,7 +24,7 @@ public class CollectedContentPublishProcessor
     @Override
     public Pair<CollectedContentEntity, TechContentEntity> process(final CollectedContentEntity item) throws Exception {
         final CollectedContent collectedContent = item.toDomain();
-        if (collectedContent.getStatus() != CollectionStatus.SUMMARIZED) {
+        if (!collectedContent.getStatus().publishable()) {
             throw new CollectionPublishUnableException(collectedContent.getId(), collectedContent.getStatus());
         }
         final ImageId imageId = Optional.ofNullable(collectedContent.getImageUrl())
