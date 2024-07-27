@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
+import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntityMapper;
 import com.nocommittoday.techswipe.content.domain.TechContentCreate;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.image.domain.ImageId;
@@ -20,6 +21,8 @@ public class CollectedContentPublishProcessor
         implements ItemProcessor<CollectedContentEntity, Pair<CollectedContentEntity, TechContentEntity>> {
 
     private final ImageStoreService imageStoreService;
+
+    private final CollectedContentEntityMapper collectedContentEntityMapper;
 
     @Override
     public Pair<CollectedContentEntity, TechContentEntity> process(final CollectedContentEntity item) throws Exception {
@@ -42,6 +45,6 @@ public class CollectedContentPublishProcessor
                         .map(CollectionCategory::getTechCategory)
                         .toList()
         );
-        return Pair.with(CollectedContentEntity.from(collectedContent.published()), TechContentEntity.from(content));
+        return Pair.with(collectedContentEntityMapper.from(collectedContent.published()), TechContentEntity.from(content));
     }
 }

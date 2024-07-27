@@ -5,6 +5,7 @@ import com.nocommittoday.techswipe.batch.infrastructure.CollectedUrlFilterCreato
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
+import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntityMapper;
 import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
@@ -25,6 +26,8 @@ public class ContentCollectProviderInitialJobItemProcessor implements ItemProces
 
     private final CollectedUrlFilterCreator collectedUrlFilterCreator;
 
+    private final CollectedContentEntityMapper collectedContentEntityMapper;
+
     @Override
     public List<CollectedContentEntity> process(final SubscriptionEntity item) throws Exception {
         final Subscription subscription = item.toDomain();
@@ -42,7 +45,7 @@ public class ContentCollectProviderInitialJobItemProcessor implements ItemProces
                         subscribedContent.content(),
                         subscribedContent.imageUrl()
                 ))
-                .map(CollectedContentEntity::from)
+                .map(collectedContentEntityMapper::from)
                 .toList();
     }
 }

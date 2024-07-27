@@ -8,6 +8,7 @@ import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
+import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntityMapper;
 import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionSubscribeFailureException;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
@@ -44,16 +45,13 @@ public class ContentCollectProviderInitialJobConfig {
     private static final int CHUNK_SIZE = 1;
 
     private final JobRepository jobRepository;
-
     private final PlatformTransactionManager txManager;
-
     private final EntityManagerFactory emf;
 
     private final CollectedUrlFilterCreator collectedUrlFilterCreator;
-
     private final SubscribedContentListQueryService subscribedContentListQueryService;
-
     private final CollectedContentIdGenerator collectedContentIdGenerator;
+    private final CollectedContentEntityMapper collectedContentEntityMapper;
 
     @Bean(JOB_NAME)
     public Job job() {
@@ -119,7 +117,8 @@ public class ContentCollectProviderInitialJobConfig {
         return new ContentCollectProviderInitialJobItemProcessor(
                 subscribedContentListQueryService,
                 collectedContentIdGenerator,
-                collectedUrlFilterCreator
+                collectedUrlFilterCreator,
+                collectedContentEntityMapper
         );
     }
 

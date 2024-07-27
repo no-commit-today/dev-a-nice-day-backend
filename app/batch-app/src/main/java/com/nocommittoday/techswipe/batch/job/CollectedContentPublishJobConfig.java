@@ -7,6 +7,7 @@ import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriter;
 import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriterBuilder;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
+import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntityMapper;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import com.nocommittoday.techswipe.image.service.exception.ImageApplicationException;
@@ -40,6 +41,7 @@ public class CollectedContentPublishJobConfig {
     private final EntityManagerFactory emf;
 
     private final ImageStoreService imageStoreService;
+    private final CollectedContentEntityMapper collectedContentEntityMapper;
 
     @Bean(JOB_NAME)
     public Job job() {
@@ -87,7 +89,10 @@ public class CollectedContentPublishJobConfig {
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
     public CollectedContentPublishProcessor processor() {
-        return new CollectedContentPublishProcessor(imageStoreService);
+        return new CollectedContentPublishProcessor(
+                imageStoreService,
+                collectedContentEntityMapper
+        );
     }
 
     @Bean(STEP_NAME + "ItemWriter")
