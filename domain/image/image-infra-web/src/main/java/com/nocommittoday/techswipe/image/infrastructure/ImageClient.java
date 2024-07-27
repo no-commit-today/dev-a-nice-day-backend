@@ -76,10 +76,12 @@ public class ImageClient {
             final File file = downloadFile(resource);
             final ImageContentType contentType = getContentType(headers, url);
 
-            if (!file.renameTo(new File(file.getAbsolutePath() + "." + contentType.ext()))) {
+            final File fileWithExtension = new File(file.getAbsolutePath() + "." + contentType.ext());
+            if (!file.renameTo(fileWithExtension)) {
                 log.warn("[ImageClient] 파일 확장자 변경에 실패했습니다. file={}", file);
+                return ClientResponse.success(new ImageFile(file, contentType));
             }
-            return ClientResponse.success(new ImageFile(file, contentType));
+            return ClientResponse.success(new ImageFile(fileWithExtension, contentType));
         } catch (final Exception e) {
             log.error("[ImageClient] url={}", url, e);
             return ClientResponse.failed(e);
