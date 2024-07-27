@@ -69,10 +69,9 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
                 register.initType(),
                 new SubscriptionData(
                         new FeedData(register.feedUrl()),
-                        register.contentCrawling(),
-                        new ListCrawlingData(register.listCrawlings())
-                )
-        );
+                        ContentCrawlingData.from(register.contentCrawling()),
+                        ListCrawlingListData.from(register.listCrawlings())
+                ));
     }
 
     public void update(final SubscriptionRegister register) {
@@ -80,8 +79,8 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
         initType = register.initType();
         data = new SubscriptionData(
                 new FeedData(register.feedUrl()),
-                register.contentCrawling(),
-                new ListCrawlingData(register.listCrawlings())
+                ContentCrawlingData.from(register.contentCrawling()),
+                ListCrawlingListData.from(register.listCrawlings())
         );
     }
 
@@ -92,8 +91,8 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
                 type,
                 initType,
                 data.getFeed().getUrl(),
-                data.getContentCrawling(),
-                data.getListCrawling().getContent()
+                data.getContentCrawling().toDomain(),
+                data.getListCrawlings().toDomain()
         );
     }
 }

@@ -49,12 +49,12 @@ class SubscriptionEntityTest {
         assertThat(result.getType()).isEqualTo(SubscriptionType.FEED);
         assertThat(result.getInitType()).isEqualTo(SubscriptionType.LIST_CRAWLING);
         assertThat(result.getData().getFeed().getUrl()).isEqualTo("feedUrl");
-        assertThat(result.getData().getContentCrawling()).isEqualTo(new ContentCrawling(
+        assertThat(result.getData().getContentCrawling().toDomain()).isEqualTo(new ContentCrawling(
                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3))
         ));
-        assertThat(result.getData().getListCrawling().getContent()).containsExactly(
+        assertThat(result.getData().getListCrawlings().toDomain()).containsExactly(
                 new ListCrawling("url1", new Crawling(CrawlingType.INDEX, null, List.of(1, 2)), "pageUrlFormat")
         );
     }
@@ -69,12 +69,12 @@ class SubscriptionEntityTest {
                 SubscriptionType.LIST_CRAWLING,
                 new SubscriptionData(
                         new FeedData("feedUrl"),
-                        new ContentCrawling(
+                        ContentCrawlingData.from(new ContentCrawling(
                                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
                                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3)),
                                 new Crawling(CrawlingType.INDEX, null, List.of(1, 2, 3))
-                        ),
-                        new ListCrawlingData(List.of(
+                        )),
+                        ListCrawlingListData.from(List.of(
                                 new ListCrawling(
                                         "url1",
                                         new Crawling(CrawlingType.INDEX, null, List.of(1, 2)),
