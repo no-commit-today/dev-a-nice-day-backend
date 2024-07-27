@@ -69,7 +69,6 @@ public class CollectedContentCategorizeJobConfig {
         reader.setTransacted(false);
         reader.setQueryFunction(queryFactory -> queryFactory
                 .selectFrom(collectedContentEntity)
-                .join(collectedContentEntity.provider).fetchJoin()
                 .where(
                         collectedContentEntity.status.eq(CollectionStatus.INIT),
                         collectedContentEntity.deleted.isFalse()

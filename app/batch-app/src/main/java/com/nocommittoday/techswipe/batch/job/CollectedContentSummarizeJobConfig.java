@@ -69,7 +69,6 @@ public class CollectedContentSummarizeJobConfig {
         reader.setTransacted(false);
         reader.setQueryFunction(queryFactory -> queryFactory
                 .selectFrom(collectedContentEntity)
-                .join(collectedContentEntity.provider).fetchJoin()
                 .where(
                         collectedContentEntity.status.eq(CollectionStatus.CATEGORIZED),
                         collectedContentEntity.deleted.isFalse()

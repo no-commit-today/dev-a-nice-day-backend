@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Getter
@@ -20,13 +19,13 @@ public class ListCrawlingListData {
         return new ListCrawlingListData(
                 listCrawling.stream()
                         .map(ListCrawlingData::from)
-                        .collect(Collectors.toList())
+                        .toList()
         );
     }
 
     public List<ListCrawling> toDomain() {
         return content.stream()
                 .map(ListCrawlingData::toDomain)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
