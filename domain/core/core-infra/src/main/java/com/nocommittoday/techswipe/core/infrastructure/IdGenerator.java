@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.net.InetAddress;
-import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -41,7 +39,11 @@ public class IdGenerator {
 
     @Autowired
     public IdGenerator(final SystemClockHolder systemClockHolder) {
-        this(systemClockHolder, createNodeId(), systemClockHolder.millis(), 0L);
+        this(systemClockHolder, NodeIdUtils.create(), systemClockHolder.millis(), 0L);
+    }
+
+    public IdGenerator(final SystemClockHolder systemClockHolder, final long nodeId) {
+        this(systemClockHolder, nodeId, systemClockHolder.millis(), 0L);
     }
 
     public IdGenerator(
@@ -53,9 +55,6 @@ public class IdGenerator {
         if (systemClockHolder == null) {
             throw new IllegalArgumentException("systemClockHolder 는 null 이 될 수 없습니다.");
         }
-        if (nodeId < 0 || nodeId > MAX_NODE_ID) {
-            throw new IllegalArgumentException(String.format("nodeId 는 %d 이상 %d 이하의 값이어야 합니다.", 0, MAX_NODE_ID));
-        }
         if (lastTimestamp < EPOCH_OFFSET) {
             throw new IllegalArgumentException(String.format("lastTimestamp 는 %d 이상의 값이어야 합니다.", EPOCH_OFFSET));
         }
@@ -63,24 +62,16 @@ public class IdGenerator {
             throw new IllegalArgumentException(String.format("sequence 는 %d 이상 %d 이하의 값이어야 합니다.", 0, MAX_SEQUENCE));
         }
         this.systemClockHolder = systemClockHolder;
-        this.nodeId = nodeId;
         this.lastTimestamp = lastTimestamp;
         this.sequence = sequence;
-    }
 
-    private static long createNodeId() {
-        long nodeId;
-        try {
-            final InetAddress localHost = InetAddress.getLocalHost();
-            final String hostName = localHost.getHostName();
-            log.info("hostName[{}] 을 통해서 nodeId 를 생성합니다.", hostName);
-            nodeId = hostName.hashCode();
-        } catch (final Exception ex) {
-            log.warn("NodeId 생성 중 에러가 발생했습니다. 랜덤 값으로 대체합니다.", ex);
-            nodeId = (new SecureRandom().nextInt());
+        if (nodeId < 0 || nodeId > MAX_NODE_ID) {
+            final long newNodeId = nodeId & MAX_NODE_ID;
+            log.debug("nodeId[{}] 가 범위를 벗어났습니다. 새로운 nodeId[{}] 로 대체합니다.", nodeId, newNodeId);
+            this.nodeId = newNodeId;
+        } else {
+            this.nodeId = nodeId;
         }
-        nodeId = nodeId & MAX_NODE_ID;
-        return nodeId;
     }
 
     public synchronized long nextId() {
