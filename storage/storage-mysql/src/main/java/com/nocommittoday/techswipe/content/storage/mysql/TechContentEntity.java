@@ -4,8 +4,6 @@ import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentId;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
-import com.nocommittoday.techswipe.content.domain.TechContentSync;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
@@ -32,7 +30,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import static lombok.AccessLevel.PROTECTED;
 
@@ -130,25 +127,6 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
         return entity;
     }
 
-    public static TechContentEntity from(final TechContentSync contentSync) {
-        final TechContentEntity entity = new TechContentEntity(
-                contentSync.id().value(),
-                TechContentProviderEntity.from(contentSync.providerId()),
-                contentSync.imageId() == null ? null : ImageEntity.from(contentSync.imageId()),
-                contentSync.url(),
-                contentSync.title(),
-                contentSync.summary(),
-                contentSync.publishedDate()
-        );
-        contentSync.categories().forEach(entity::addCategory);
-
-        if (contentSync.deleted()) {
-            entity.delete();
-        }
-
-        return entity;
-    }
-
     public TechContent toDomain() {
         return new TechContent(
                 new TechContentId(id),
@@ -159,20 +137,6 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
                 publishedDate,
                 summary,
                 categories.stream().map(TechContentCategoryEntity::getCategory).toList()
-        );
-    }
-
-    public TechContentSync toSync() {
-        return new TechContentSync(
-                new TechContentId(id),
-                new TechContentProviderId(Objects.requireNonNull(provider.getId())),
-                image == null ? null : new ImageId(image.getId()),
-                url,
-                title,
-                summary,
-                publishedDate,
-                categories.stream().map(TechContentCategoryEntity::getCategory).toList(),
-                isDeleted()
         );
     }
 

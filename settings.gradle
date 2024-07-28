@@ -12,7 +12,6 @@ rootProject.name = 'tech-swipe-backend'
 include 'app:api-app'
 include 'app:admin-app'
 include 'app:batch-app'
-include 'app:sync-batch-app'
 include 'app:batch-app-core'
 include 'app:servlet-api-app-core'
 
