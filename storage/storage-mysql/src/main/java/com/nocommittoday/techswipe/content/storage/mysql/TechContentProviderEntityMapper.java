@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.content.storage.mysql;
 
+import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntityMapper;
@@ -16,6 +17,16 @@ public class TechContentProviderEntityMapper {
 
     public TechContentProviderEntity from(final TechContentProviderId id) {
         return techContentProviderJpaRepository.getReferenceById(id.value());
+    }
+
+    public TechContentProviderEntity from(final TechContentProvider domain) {
+        return new TechContentProviderEntity(
+                domain.getId().value(),
+                domain.getType(),
+                domain.getTitle(),
+                domain.getUrl(),
+                imageEntityMapper.from(domain.getIconId())
+        );
     }
 
     public TechContentProviderEntity from(final TechContentProviderCreate command) {

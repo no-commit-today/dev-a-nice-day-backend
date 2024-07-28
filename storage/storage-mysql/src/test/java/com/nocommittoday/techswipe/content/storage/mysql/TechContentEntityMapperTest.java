@@ -79,6 +79,6 @@ class TechContentEntityMapperTest {
         assertThat(result.getPublishedDate()).isEqualTo(LocalDate.of(2021, 1, 1));
         assertThat(result.getImage()).isEqualTo(imageEntity);
         assertThat(result.getSummary()).isEqualTo("summary");
-//        assertThat(result.getCategories()).containsExactly(List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING));
+        assertThat(result.getCategories()).containsExactly(TechCategory.SERVER, TechCategory.SW_ENGINEERING);
     }
 }

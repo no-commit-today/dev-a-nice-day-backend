@@ -38,8 +38,10 @@ class ImageEntityMapperTest {
     @Test
     void 도메인_엔티티가_null일_경우_null을_리턴한다() {
         // given
+        final ImageId id = null;
+
         // when
-        final ImageEntity result = imageEntityMapper.from(null);
+        final ImageEntity result = imageEntityMapper.from(id);
 
         // then
         assertThat(result).isNull();

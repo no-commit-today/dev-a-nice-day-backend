@@ -7,6 +7,7 @@ import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEnti
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntityMapper;
 import com.nocommittoday.techswipe.content.domain.TechContentCreate;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
+import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntityMapper;
 import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,8 @@ public class CollectedContentPublishProcessor
     private final ImageStoreService imageStoreService;
 
     private final CollectedContentEntityMapper collectedContentEntityMapper;
+
+    private final TechContentEntityMapper techContentEntityMapper;
 
     @Override
     public Pair<CollectedContentEntity, TechContentEntity> process(final CollectedContentEntity item) throws Exception {
@@ -45,6 +48,9 @@ public class CollectedContentPublishProcessor
                         .map(CollectionCategory::getTechCategory)
                         .toList()
         );
-        return Pair.with(collectedContentEntityMapper.from(collectedContent.published()), TechContentEntity.from(content));
+        return Pair.with(
+                collectedContentEntityMapper.from(collectedContent.published()),
+                techContentEntityMapper.from(content)
+        );
     }
 }

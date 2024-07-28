@@ -9,18 +9,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ImageEntityTest {
 
     @Test
-    void 도메인_엔티티_ID로부터_생성할_수_있다() {
-        // given
-        final ImageId id = new ImageId(1);
-
-        // when
-        final ImageEntity result = ImageEntity.from(id);
-
-        // then
-        assertThat(result.getId()).isEqualTo(1L);
-    }
-
-    @Test
     void 도메인_엔티티로_전환할_수_있다() {
         // given
         final ImageEntity imageEntity = new ImageEntity(

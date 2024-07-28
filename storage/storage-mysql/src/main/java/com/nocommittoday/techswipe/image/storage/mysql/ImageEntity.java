@@ -47,15 +47,6 @@ public class ImageEntity extends BaseSoftDeleteEntity {
         this.storedName = storedName;
     }
 
-    public static ImageEntity from(final ImageId id) {
-        return new ImageEntity(
-                id.value(),
-                null,
-                null,
-                null
-        );
-    }
-
     public Image toDomain() {
         return new Image(
                 new ImageId(id),

@@ -2,7 +2,6 @@ package com.nocommittoday.techswipe.content.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
-import com.nocommittoday.techswipe.content.domain.TechContentCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentId;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.image.domain.ImageId;
@@ -113,20 +112,6 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
         categories.add(new TechContentCategoryEntity(this, category));
     }
 
-    public static TechContentEntity from(final TechContentCreate techContentCreate) {
-        final TechContentEntity entity = new TechContentEntity(
-                techContentCreate.id().value(),
-                TechContentProviderEntity.from(techContentCreate.providerId()),
-                techContentCreate.imageId() == null ? null : ImageEntity.from(techContentCreate.imageId()),
-                techContentCreate.url(),
-                techContentCreate.title(),
-                techContentCreate.summary(),
-                techContentCreate.publishedDate()
-        );
-        techContentCreate.categories().forEach(entity::addCategory);
-        return entity;
-    }
-
     public TechContent toDomain() {
         return new TechContent(
                 new TechContentId(id),
@@ -138,18 +123,6 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
                 summary,
                 categories.stream().map(TechContentCategoryEntity::getCategory).toList()
         );
-    }
-
-    public void update(final TechContent techContent) {
-        this.provider = TechContentProviderEntity.from(techContent.getProvider().getId());
-        this.image = techContent.getImageId() == null ? null : ImageEntity.from(techContent.getImageId());
-        this.url = techContent.getUrl();
-        this.title = techContent.getTitle();
-        this.summary = techContent.getSummary();
-        this.publishedDate = techContent.getPublishedDate();
-        this.categories = techContent.getCategories().stream()
-                .map(category -> new TechContentCategoryEntity(this, category))
-                .toList();
     }
 
     @Override

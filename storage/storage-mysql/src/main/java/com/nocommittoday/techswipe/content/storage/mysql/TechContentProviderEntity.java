@@ -89,13 +89,6 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
         );
     }
 
-    public void update(final TechContentProvider techContentProvider) {
-        this.type = techContentProvider.getType();
-        this.title = techContentProvider.getTitle();
-        this.url = techContentProvider.getUrl();
-        this.icon = techContentProvider.getIconId() == null ? null : ImageEntity.from(techContentProvider.getIconId());
-    }
-
     @Override
     public boolean isNew() {
         return getCreatedAt() == null;

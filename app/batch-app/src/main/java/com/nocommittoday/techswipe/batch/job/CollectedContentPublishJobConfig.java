@@ -9,6 +9,7 @@ import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntityMapper;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
+import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntityMapper;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import com.nocommittoday.techswipe.image.service.exception.ImageApplicationException;
 import jakarta.persistence.EntityManagerFactory;
@@ -42,6 +43,7 @@ public class CollectedContentPublishJobConfig {
 
     private final ImageStoreService imageStoreService;
     private final CollectedContentEntityMapper collectedContentEntityMapper;
+    private final TechContentEntityMapper techContentEntityMapper;
 
     @Bean(JOB_NAME)
     public Job job() {
@@ -91,7 +93,8 @@ public class CollectedContentPublishJobConfig {
     public CollectedContentPublishProcessor processor() {
         return new CollectedContentPublishProcessor(
                 imageStoreService,
-                collectedContentEntityMapper
+                collectedContentEntityMapper,
+                techContentEntityMapper
         );
     }
 
