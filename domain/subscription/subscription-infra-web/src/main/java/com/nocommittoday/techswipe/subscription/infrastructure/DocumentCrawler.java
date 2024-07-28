@@ -58,7 +58,7 @@ public class DocumentCrawler {
             if (CrawlingType.INDEX == crawling.type()) {
                 return extractByIndex(Objects.requireNonNull(crawling.indexes()));
             } else if (CrawlingType.SELECTOR == crawling.type()) {
-                return extractBySelector(Objects.requireNonNull(crawling.selector()));
+                return extractAllBySelector(Objects.requireNonNull(crawling.selector())).first();
             }
         } catch (final Exception ex) {
             throw new CrawlingException(document.baseUri(), crawling, ex);
@@ -82,13 +82,13 @@ public class DocumentCrawler {
         return element;
     }
 
-    private Element extractBySelector(final String selector) {
+    private Elements extractAllBySelector(final String selector) {
         log.debug("셀렉터로 추출 시작. url={}", document.baseUri());
         final Elements elements = document.body().select(selector);
         if (log.isTraceEnabled()) {
             log.trace("url={}, selector={}, \n{}",
                     document.baseUri(), selector, elements.html());
         }
-        return elements.first();
+        return elements;
     }
 }

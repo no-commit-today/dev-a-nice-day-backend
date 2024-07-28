@@ -6,10 +6,25 @@ import java.util.Objects;
 public record ListCrawling(
         String url,
         Crawling crawling,
-        @Nullable String pageUrlFormat
+        @Nullable String pageUrlFormat,
+        @Nullable String contentUrlFormat
 ) {
 
+    public ListCrawling(final String url, final Crawling crawling) {
+        this(url, crawling, null, null);
+    }
+
+    public ListCrawling(
+            final String url,
+            final Crawling crawling,
+            @Nullable final String pageUrlFormat
+    ) {
+        this(url, crawling, pageUrlFormat, null);
+    }
+
     public static final String PAGE_URL_PAGE_PLACEHOLDER = "{page}";
+
+    public static final String CONTENT_URL_ID_PLACEHOLDER = "{contentId}";
 
     public boolean isPaginated() {
         return pageUrlFormat != null;
@@ -17,5 +32,17 @@ public record ListCrawling(
 
     public String getPageUrl(final int page) {
         return Objects.requireNonNull(pageUrlFormat).replace(PAGE_URL_PAGE_PLACEHOLDER, String.valueOf(page));
+    }
+
+    public boolean isContentUrl(@Nullable final String url) {
+        if (url == null) {
+            return false;
+        }
+
+        if (contentUrlFormat == null) {
+            return true;
+        }
+
+        return url.matches(contentUrlFormat.replace(CONTENT_URL_ID_PLACEHOLDER, ".+"));
     }
 }

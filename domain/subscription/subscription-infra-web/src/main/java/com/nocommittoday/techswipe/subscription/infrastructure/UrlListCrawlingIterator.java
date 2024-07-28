@@ -60,7 +60,9 @@ public class UrlListCrawlingIterator implements Iterator<String> {
             throw new DocumentConnectException(documentResponse.getException());
         }
         final DocumentCrawler documentCrawler = documentResponse.get();
-        return documentCrawler.getUrlList(listCrawling.crawling());
+        return documentCrawler.getUrlList(listCrawling.crawling()).stream()
+                .filter(listCrawling::isContentUrl)
+                .toList();
     }
 
 }
