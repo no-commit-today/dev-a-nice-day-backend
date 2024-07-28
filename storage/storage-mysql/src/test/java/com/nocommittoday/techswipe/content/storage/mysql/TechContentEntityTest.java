@@ -43,7 +43,7 @@ class TechContentEntityTest {
         assertThat(result.getSummary()).isEqualTo("summary");
         assertThat(result.getSummary()).isEqualTo("summary");
         assertThat(result.getCategories()).hasSize(1);
-        assertThat(result.getCategories().get(0).getCategory()).isEqualTo(TechCategory.DEVOPS);
+        assertThat(result.getCategories().get(0)).isEqualTo(TechCategory.DEVOPS);
     }
 
     @Test

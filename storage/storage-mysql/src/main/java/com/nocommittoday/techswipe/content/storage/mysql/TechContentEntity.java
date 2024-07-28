@@ -82,7 +82,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
     private List<TechContentCategoryEntity> categories = new ArrayList<>();
 
     public TechContentEntity(
-            @Nullable final Long id,
+            final Long id,
             final TechContentProviderEntity provider,
             @Nullable final ImageEntity image,
             final String url,
@@ -99,7 +99,13 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
         this.url = url;
     }
 
-    public List<TechContentCategoryEntity> getCategories() {
+    public List<TechCategory> getCategories() {
+        return categories.stream()
+                .map(TechContentCategoryEntity::getCategory)
+                .toList();
+    }
+
+    public List<TechContentCategoryEntity> getCategoryEntities() {
         return Collections.unmodifiableList(categories);
     }
 
