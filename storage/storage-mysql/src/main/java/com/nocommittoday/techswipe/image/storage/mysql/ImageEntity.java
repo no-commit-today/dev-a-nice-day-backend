@@ -10,9 +10,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.annotation.Nullable;
 
 import static lombok.AccessLevel.PROTECTED;
 
@@ -20,7 +21,6 @@ import static lombok.AccessLevel.PROTECTED;
 @Table(name = "images")
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-@AllArgsConstructor
 public class ImageEntity extends BaseSoftDeleteEntity {
 
     @Id
@@ -35,6 +35,18 @@ public class ImageEntity extends BaseSoftDeleteEntity {
 
     @Column(name = "stored_name", length = 1000, nullable = false)
     private String storedName;
+
+    public ImageEntity(
+            @Nullable final Long id,
+            final String originalUrl,
+            final String storedName,
+            final String url
+    ) {
+        this.id = id;
+        this.originalUrl = originalUrl;
+        this.storedName = storedName;
+        this.url = url;
+    }
 
     public static ImageEntity from(final ImageId id) {
         return new ImageEntity(
