@@ -1,8 +1,7 @@
-package com.nocommittoday.techswipe.image.application.port.in;
+package com.nocommittoday.techswipe.image.service;
 
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.domain.ImageId;
-import com.nocommittoday.techswipe.image.service.ImageUrlResult;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

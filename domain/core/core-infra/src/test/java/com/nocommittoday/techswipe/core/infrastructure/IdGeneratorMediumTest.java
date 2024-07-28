@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.core.infrastructure;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.concurrent.Future;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Tag("context")
 class IdGeneratorMediumTest {
 
     private IdGenerator idGenerator = new IdGenerator(new SystemClockHolder());
