@@ -1,10 +1,10 @@
 package com.nocommittoday.techswipe.content.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderSync;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
-import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
@@ -69,7 +69,7 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
         this.icon = icon;
     }
 
-    public static TechContentProviderEntity from(final TechContentProvider.Id id) {
+    public static TechContentProviderEntity from(final TechContentProviderId id) {
         return new TechContentProviderEntity(
                 id.value(),
                 null,
@@ -79,46 +79,14 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
         );
     }
 
-    public static TechContentProviderEntity from(final TechContentProviderSync providerSync) {
-        final TechContentProviderEntity entity = new TechContentProviderEntity(
-                providerSync.id().value(),
-                providerSync.type(),
-                providerSync.title(),
-                providerSync.url(),
-                providerSync.iconId() == null ? null : ImageEntity.from(providerSync.iconId())
-        );
-        if (providerSync.deleted()) {
-            entity.delete();
-        }
-        return entity;
-    }
-
     public TechContentProvider toDomain() {
         return new TechContentProvider(
-                new TechContentProvider.Id(id),
+                new TechContentProviderId(id),
                 type,
                 title,
                 url,
-                icon == null ? null : new Image.Id(icon.getId())
+                icon == null ? null : new ImageId(icon.getId())
         );
-    }
-
-    public TechContentProviderSync toSync() {
-        return new TechContentProviderSync(
-                new TechContentProvider.Id(id),
-                type,
-                title,
-                url,
-                icon == null ? null : new Image.Id(icon.getId()),
-                isDeleted()
-        );
-    }
-
-    public void update(final TechContentProvider techContentProvider) {
-        this.type = techContentProvider.getType();
-        this.title = techContentProvider.getTitle();
-        this.url = techContentProvider.getUrl();
-        this.icon = techContentProvider.getIconId() == null ? null : ImageEntity.from(techContentProvider.getIconId());
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderNotFoundException;
-import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
+import com.nocommittoday.techswipe.content.domain.exception.TechContentProviderNotFoundException;
+import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntityMapper;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -14,10 +14,13 @@ public class TechContentProviderUpdater {
 
     private final TechContentProviderJpaRepository techContentProviderJpaRepository;
 
+    private final TechContentProviderEntityMapper mapper;
+
     @Transactional
     public void update(final TechContentProvider provider) {
-        final TechContentProviderEntity entity = techContentProviderJpaRepository.findById(provider.getId().value())
-                .orElseThrow(() -> new TechContentProviderNotFoundException(provider.getId()));
-        entity.update(provider);
+        if (!techContentProviderJpaRepository.existsById(provider.getId().value())) {
+            throw new TechContentProviderNotFoundException(provider.getId());
+        }
+        techContentProviderJpaRepository.save(mapper.from(provider));
     }
 }

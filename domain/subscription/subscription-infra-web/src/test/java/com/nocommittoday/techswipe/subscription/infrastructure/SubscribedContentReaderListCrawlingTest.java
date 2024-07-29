@@ -1,11 +1,12 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
+import com.nocommittoday.techswipe.client.core.ClientResponse;
 import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawlingSubscription;
-import com.nocommittoday.techswipe.subscription.domain.SubscribedContentResult;
+import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,10 +30,13 @@ class SubscribedContentReaderListCrawlingTest {
     private UrlListCrawlingIteratorCreator urlListCrawlingIteratorCreator;
 
     @Mock
-    private ContentCrawlerCreator contentCrawlerCreator;
+    private DocumentConnector documentConnector;
 
     @Mock
     private LocalDateParser localDateParser;
+
+    @Mock
+    private HtmlTagCleaner htmlTagCleaner;
 
     @Test
     void 컨텐츠_목록_리스트의_url을_크롤링한_후_url을_통해_컨텐츠를_크롤링한다() {
@@ -53,8 +57,8 @@ class SubscribedContentReaderListCrawlingTest {
 
         given(urlListCrawlingIteratorCreator.create(listCrawling)).willReturn(iterator);
 
-        final ContentCrawler contentCrawler = mock(ContentCrawler.class);
-        given(contentCrawlerCreator.create("content-url-1")).willReturn(contentCrawler);
+        final DocumentCrawler documentCrawler = mock(DocumentCrawler.class);
+        given(documentConnector.connect("content-url-1")).willReturn(ClientResponse.success(documentCrawler));
 
         final ContentCrawling contentCrawling = new ContentCrawling(
                 new Crawling(
@@ -74,14 +78,15 @@ class SubscribedContentReaderListCrawlingTest {
                 )
         );
 
-        given(contentCrawler.getText(contentCrawling.date())).willReturn("date-crawl-1");
-        given(contentCrawler.getText(contentCrawling.title())).willReturn("title-crawl-1");
-        given(contentCrawler.getImageUrl()).willReturn("image-url-1");
-        given(contentCrawler.getCleaned(contentCrawling.content())).willReturn("content-crawl-1");
+        given(documentCrawler.getText(contentCrawling.date())).willReturn("date-crawl-1");
+        given(documentCrawler.getText(contentCrawling.title())).willReturn("title-crawl-1");
+        given(documentCrawler.getImageUrl()).willReturn("image-url-1");
+        given(documentCrawler.get(contentCrawling.content())).willReturn("content-crawl-1");
+        given(htmlTagCleaner.clean("content-crawl-1")).willReturn("content-crawl-1-cleaned");
         given(localDateParser.parse("date-crawl-1")).willReturn(LocalDate.of(2024, 6, 17));
 
         // when
-        final List<SubscribedContentResult> result = subscribedContentReaderListCrawling.getList(
+        final List<SubscribedContent> result = subscribedContentReaderListCrawling.getList(
                 new ListCrawlingSubscription(
                         listCrawling,
                         contentCrawling
@@ -91,13 +96,13 @@ class SubscribedContentReaderListCrawlingTest {
 
         // then
         assertThat(result).containsExactly(
-                SubscribedContentResult.ok(new SubscribedContentResult.Content(
+                new SubscribedContent(
                         "content-url-1",
                         "title-crawl-1",
                         "image-url-1",
                         LocalDate.of(2024, 6, 17),
-                        "content-crawl-1"
-                ))
+                        "content-crawl-1-cleaned"
+                )
         );
     }
 
@@ -120,11 +125,11 @@ class SubscribedContentReaderListCrawlingTest {
 
         given(urlListCrawlingIteratorCreator.create(listCrawling)).willReturn(iterator);
 
-        final ContentCrawler contentCrawler1 = mock(ContentCrawler.class);
-        given(contentCrawlerCreator.create("content-url-1")).willReturn(contentCrawler1);
+        final DocumentCrawler documentCrawler1 = mock(DocumentCrawler.class);
+        given(documentConnector.connect("content-url-1")).willReturn(ClientResponse.success(documentCrawler1));
 
-        final ContentCrawler contentCrawler2 = mock(ContentCrawler.class);
-        given(contentCrawlerCreator.create("content-url-2")).willReturn(contentCrawler2);
+        final DocumentCrawler documentCrawler2 = mock(DocumentCrawler.class);
+        given(documentConnector.connect("content-url-2")).willReturn(ClientResponse.success(documentCrawler2));
 
         final ContentCrawling contentCrawling = new ContentCrawling(
                 new Crawling(
@@ -144,17 +149,18 @@ class SubscribedContentReaderListCrawlingTest {
                 )
         );
 
-        given(contentCrawler1.getText(contentCrawling.date())).willReturn("date-crawl-1");
-        given(contentCrawler1.getText(contentCrawling.title())).willReturn("title-crawl-1");
-        given(contentCrawler1.getImageUrl()).willReturn("image-url-1");
-        given(contentCrawler1.getCleaned(contentCrawling.content())).willReturn("content-crawl-1");
+        given(documentCrawler1.getText(contentCrawling.date())).willReturn("date-crawl-1");
+        given(documentCrawler1.getText(contentCrawling.title())).willReturn("title-crawl-1");
+        given(documentCrawler1.getImageUrl()).willReturn("image-url-1");
+        given(documentCrawler1.get(contentCrawling.content())).willReturn("content-crawl-1");
+        given(htmlTagCleaner.clean("content-crawl-1")).willReturn("content-crawl-1-cleaned");
         given(localDateParser.parse("date-crawl-1")).willReturn(LocalDate.of(2024, 6, 17));
 
-        given(contentCrawler2.getText(contentCrawling.date())).willReturn("date-crawl-2");
+        given(documentCrawler2.getText(contentCrawling.date())).willReturn("date-crawl-2");
         given(localDateParser.parse("date-crawl-2")).willReturn(LocalDate.of(2024, 6, 16));
 
         // when
-        final List<SubscribedContentResult> result = subscribedContentReaderListCrawling.getList(
+        final List<SubscribedContent> result = subscribedContentReaderListCrawling.getList(
                 new ListCrawlingSubscription(
                         listCrawling,
                         contentCrawling
@@ -164,13 +170,13 @@ class SubscribedContentReaderListCrawlingTest {
 
         // then
         assertThat(result).containsExactly(
-                SubscribedContentResult.ok(new SubscribedContentResult.Content(
+                new SubscribedContent(
                         "content-url-1",
                         "title-crawl-1",
                         "image-url-1",
                         LocalDate.of(2024, 6, 17),
-                        "content-crawl-1"
-                ))
+                        "content-crawl-1-cleaned"
+                )
         );
     }
 }

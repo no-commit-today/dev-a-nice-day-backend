@@ -29,7 +29,13 @@ public class GlobalServletExceptionHandler extends ResponseEntityExceptionHandle
         final ProblemDetail body = createProblemDetail(
                 ex, status, errorCode.getMessage(), null, null, request);
         body.setProperty("errorCode", errorCode.getCode());
-        log.info("{}: {}", ex.getClass(), ex.getMessage(), ex);
+
+        if (HttpStatus.valueOf(errorCode.getStatus()).is5xxServerError()) {
+            log.error("handleDomainException[{}]: {}", ex.getClass(), ex.getMessage(), ex);
+        } else {
+            log.info("handleDomainException[{}]: {}", ex.getClass(), ex.getMessage(), ex);
+        }
+
         return handleExceptionInternal(ex, body, headers, status, request);
     }
 
@@ -40,7 +46,7 @@ public class GlobalServletExceptionHandler extends ResponseEntityExceptionHandle
         final HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         final ProblemDetail body = createProblemDetail(
                 ex, status, "서버에 문제가 발생했습니다.", null, null, request);
-        log.error("{}: {}", ex.getClass(), ex.getMessage(), ex);
+        log.error("handleRootException[{}]: {}", ex.getClass(), ex.getMessage(), ex);
         return handleExceptionInternal(ex, body, headers, status, request);
     }
 

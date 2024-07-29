@@ -1,7 +1,10 @@
 package com.nocommittoday.techswipe.collection.domain;
 
-import com.nocommittoday.techswipe.content.domain.TechContent;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategorizeUnableException;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategoryNotEditableException;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionPublishUnableException;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionSummarizeUnableException;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import lombok.Getter;
 
 import javax.annotation.Nullable;
@@ -11,7 +14,7 @@ import java.util.List;
 @Getter
 public class CollectedContent {
 
-    private final Id id;
+    private final CollectedContentId id;
 
     private final CollectionStatus status;
 
@@ -21,7 +24,7 @@ public class CollectedContent {
     @Nullable
     private final String summary;
 
-    private final TechContentProvider.Id providerId;
+    private final TechContentProviderId providerId;
 
     private final String url;
 
@@ -33,15 +36,9 @@ public class CollectedContent {
 
     private final String imageUrl;
 
-    public record Id(long value) {
-        public TechContent.Id toTechContentId() {
-            return new TechContent.Id(value);
-        }
-    }
-
     public CollectedContent(
-            final Id id,
-            final TechContentProvider.Id providerId,
+            final CollectedContentId id,
+            final TechContentProviderId providerId,
             final String url,
             final String title,
             final LocalDate publishedDate,
@@ -62,11 +59,11 @@ public class CollectedContent {
 
     // FIXME 해당 생성자를 사용하지 않는 방법 고민해야 겠음. status 가 도메인 로직에 의해서 변경되어야 함
     public CollectedContent(
-            final Id id,
+            final CollectedContentId id,
             final CollectionStatus status,
             @Nullable final List<CollectionCategory> categories,
             @Nullable final String summary,
-            final TechContentProvider.Id providerId,
+            final TechContentProviderId providerId,
             final String url,
             final String title,
             final LocalDate publishedDate,

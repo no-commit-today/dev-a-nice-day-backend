@@ -1,13 +1,14 @@
 package com.nocommittoday.techswipe.subscription.domain;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
+import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionRegisterFailureException;
 import lombok.NonNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 public record SubscriptionRegister(
-        @NonNull TechContentProvider.Id providerId,
+        @NonNull TechContentProviderId providerId,
         @NonNull SubscriptionType type,
         @NonNull SubscriptionType initType,
         @Nullable String feedUrl,

@@ -1,9 +1,10 @@
 package com.nocommittoday.techswipe.content.service;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderReader;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderUpdater;
-import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.infrastructure.ImageIdValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class TechContentProviderIconEditService {
 
     private final ImageIdValidator imageIdValidator;
 
-    public void edit(final TechContentProvider.Id providerId, @Nullable final Image.Id iconId) {
+    public void edit(final TechContentProviderId providerId, @Nullable final ImageId iconId) {
         if (iconId != null) {
             imageIdValidator.validate(iconId);
         }

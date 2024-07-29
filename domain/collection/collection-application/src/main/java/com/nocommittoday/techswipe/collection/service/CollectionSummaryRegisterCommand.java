@@ -1,10 +1,10 @@
 package com.nocommittoday.techswipe.collection.service;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import lombok.NonNull;
 
 public record CollectionSummaryRegisterCommand(
-        @NonNull CollectedContent.Id id,
+        @NonNull CollectedContentId id,
         @NonNull String summary
 ) {
 }

@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.image.infrastructure;
 
-import com.nocommittoday.techswipe.image.domain.Image;
-import com.nocommittoday.techswipe.image.domain.ImageNotFoundException;
+import com.nocommittoday.techswipe.image.domain.ImageId;
+import com.nocommittoday.techswipe.image.domain.exception.ImageNotFoundException;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageJpaRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +24,7 @@ class ImageIdValidatorTest {
     @Test
     void 이미지_ID가_존재하지_않으면_예외를_던진다() {
         // given
-        final Image.Id imageId = new Image.Id(1L);
+        final ImageId imageId = new ImageId(1L);
         given(imageJpaRepository.existsByIdAndDeletedIsFalse(1L))
                 .willReturn(false);
 

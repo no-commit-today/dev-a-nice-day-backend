@@ -1,8 +1,9 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderNotFoundException;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
+import com.nocommittoday.techswipe.content.domain.exception.TechContentProviderNotFoundException;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderJpaRepository;
 import org.junit.jupiter.api.Test;
@@ -40,7 +41,7 @@ class TechContentProviderReaderTest {
                 .willReturn(Optional.of(providerEntity));
 
         // when
-        final TechContentProvider provider = techContentProviderReader.get(new TechContentProvider.Id(1L));
+        final TechContentProvider provider = techContentProviderReader.get(new TechContentProviderId(1L));
 
         // then
         assertThat(provider).isNotNull();
@@ -63,7 +64,7 @@ class TechContentProviderReaderTest {
 
         // when
         // then
-        assertThatThrownBy(() -> techContentProviderReader.get(new TechContentProvider.Id(1L)))
+        assertThatThrownBy(() -> techContentProviderReader.get(new TechContentProviderId(1L)))
                 .isInstanceOf(TechContentProviderNotFoundException.class);
     }
 

@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.Crawling;
@@ -54,7 +54,7 @@ class SubscriptionUpdaterTest {
 
         // when
         subscriptionUpdater.update(new SubscriptionRegister(
-                new TechContentProvider.Id(1),
+                new TechContentProviderId(1),
                 SubscriptionType.FEED,
                 SubscriptionType.NONE,
                 "feed-url",
@@ -87,7 +87,7 @@ class SubscriptionUpdaterTest {
 
         // when
         final SubscriptionRegister subscriptionRegister = new SubscriptionRegister(
-                new TechContentProvider.Id(1),
+                new TechContentProviderId(1),
                 SubscriptionType.FEED,
                 SubscriptionType.NONE,
                 "feed-url",

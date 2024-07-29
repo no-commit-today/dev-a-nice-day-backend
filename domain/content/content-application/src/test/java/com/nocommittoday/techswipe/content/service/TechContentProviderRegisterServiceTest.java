@@ -1,13 +1,13 @@
 package com.nocommittoday.techswipe.content.service;
 
 import com.nocommittoday.techswipe.collection.infrastructure.TechContentProviderIdGenerator;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderUrlExistsException;
+import com.nocommittoday.techswipe.content.domain.exception.TechContentProviderUrlExistsException;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderAppender;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderUrlExistsReader;
-import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.infrastructure.ImageIdValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,17 +53,17 @@ class TechContentProviderRegisterServiceTest {
         );
         given(techContentProviderUrlExistsReader.exists("url"))
                 .willReturn(false);
-        final TechContentProvider.Id id = new TechContentProvider.Id(1L);
+        final TechContentProviderId id = new TechContentProviderId(1L);
         given(techContentProviderIdGenerator.nextId()).willReturn(id);
         given(techContentProviderAppender.save(captor.capture()))
                 .willReturn(id);
 
         // when
-        final TechContentProvider.Id providerId = techContentProviderRegisterService.register(command);
+        final TechContentProviderId providerId = techContentProviderRegisterService.register(command);
 
         // then
         assertThat(providerId.value()).isEqualTo(1L);
-        assertThat(captor.getValue().id()).isEqualTo(new TechContentProvider.Id(1));
+        assertThat(captor.getValue().id()).isEqualTo(new TechContentProviderId(1));
         assertThat(captor.getValue().type()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(captor.getValue().title()).isEqualTo("title");
         assertThat(captor.getValue().url()).isEqualTo("url");
@@ -77,25 +77,25 @@ class TechContentProviderRegisterServiceTest {
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "title",
                 "url",
-                new Image.Id(1L)
+                new ImageId(1L)
         );
         given(techContentProviderUrlExistsReader.exists("url"))
                 .willReturn(false);
-        final TechContentProvider.Id id = new TechContentProvider.Id(1L);
+        final TechContentProviderId id = new TechContentProviderId(1L);
         given(techContentProviderIdGenerator.nextId()).willReturn(id);
         given(techContentProviderAppender.save(captor.capture()))
                 .willReturn(id);
 
         // when
-        final TechContentProvider.Id providerId = techContentProviderRegisterService.register(command);
+        final TechContentProviderId providerId = techContentProviderRegisterService.register(command);
 
         // then
-        assertThat(providerId).isEqualTo(new TechContentProvider.Id(1L));
-        assertThat(captor.getValue().id()).isEqualTo(new TechContentProvider.Id(1));
+        assertThat(providerId).isEqualTo(new TechContentProviderId(1L));
+        assertThat(captor.getValue().id()).isEqualTo(new TechContentProviderId(1));
         assertThat(captor.getValue().type()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
         assertThat(captor.getValue().title()).isEqualTo("title");
         assertThat(captor.getValue().url()).isEqualTo("url");
-        assertThat(captor.getValue().iconId()).isEqualTo(new Image.Id(1L));
+        assertThat(captor.getValue().iconId()).isEqualTo(new ImageId(1L));
     }
 
     @Test

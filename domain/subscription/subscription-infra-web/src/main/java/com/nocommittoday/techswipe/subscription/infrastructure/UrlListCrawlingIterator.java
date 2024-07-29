@@ -1,15 +1,11 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
 import com.nocommittoday.techswipe.client.core.ClientResponse;
-import com.nocommittoday.techswipe.subscription.domain.Crawling;
-import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
+import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
+import com.nocommittoday.techswipe.subscription.infrastructure.exception.DocumentConnectException;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
-import javax.annotation.Nullable;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -20,40 +16,27 @@ import java.util.Queue;
 public class UrlListCrawlingIterator implements Iterator<String> {
 
     private final DocumentConnector documentConnector;
-    private final DocumentElementExtractor documentElementExtractor;
-    private final Crawling crawling;
-    private String postListPageUrl;
-    @Nullable
-    private final String postListPageUrlFormat;
+    private final ListCrawling listCrawling;
     private int page = 1;
 
-    private final Queue<String> postUrls = new LinkedList<>();
+    private final Queue<String> urls = new LinkedList<>();
 
     public UrlListCrawlingIterator(
             final DocumentConnector documentConnector,
-            final DocumentElementExtractor documentElementExtractor,
-            final Crawling crawling,
-            final String postListPageUrl,
-            @Nullable final String postListPageUrlFormat
+            final ListCrawling listCrawling
     ) {
         this.documentConnector = documentConnector;
-        this.documentElementExtractor = documentElementExtractor;
-        this.crawling = crawling;
-        this.postListPageUrl = postListPageUrl;
-        postUrls.addAll(getNextPostUrls());
-
-        this.postListPageUrlFormat = postListPageUrlFormat;
-
+        this.listCrawling = listCrawling;
+        urls.addAll(getUrls(this.listCrawling.url()));
     }
 
     @Override
     public boolean hasNext() {
-        if (postUrls.isEmpty() && isPaginated()) {
+        if (urls.isEmpty() && listCrawling.isPaginated()) {
             page += 1;
-            postListPageUrl = String.format(Objects.requireNonNull(postListPageUrlFormat), page);
-            postUrls.addAll(getNextPostUrls());
+            urls.addAll(getUrls(listCrawling.getPageUrl(page)));
         }
-        return !postUrls.isEmpty();
+        return !urls.isEmpty();
     }
 
     @Override
@@ -61,42 +44,25 @@ public class UrlListCrawlingIterator implements Iterator<String> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        return Objects.requireNonNull(postUrls.poll());
+        return Objects.requireNonNull(urls.poll());
     }
 
-    private List<String> getNextPostUrls() {
-        final ClientResponse<Document> documentResponse = documentConnector.connect(postListPageUrl);
+    private List<String> getUrls(final String listPageUrl) {
+        final ClientResponse<DocumentCrawler> documentResponse = documentConnector.connect(listPageUrl);
         if (documentResponse.isNotFound()) {
-            log.debug("게시글 목록 페이지가 존재하지 않습니다: {}", postListPageUrl);
+            if (page == 1) {
+                throw new DocumentConnectException(documentResponse.getException());
+            }
+            log.debug("게시글 목록 페이지가 존재하지 않습니다: {}", listPageUrl);
             return List.of();
         }
         if (documentResponse.isFailed()) {
-            log.error("게시글 목록 페이지를 가져오는 중 오류 발생: {}", postListPageUrl);
-            throw documentResponse.getException();
+            throw new DocumentConnectException(documentResponse.getException());
         }
-        final Document document = documentResponse.getData();
-
-        if (CrawlingType.INDEX == crawling.type()) {
-            return crawlByIndex(document, Objects.requireNonNull(crawling.indexes()));
-        } else if (CrawlingType.SELECTOR == crawling.type()) {
-            return crawlBySelector(document, Objects.requireNonNull(crawling.selector()));
-        } else {
-            throw new IllegalArgumentException("지원하지 않는 크롤링 타입입니다: " + crawling.type());
-
-        }
+        final DocumentCrawler documentCrawler = documentResponse.get();
+        return documentCrawler.getUrlList(listCrawling.crawling()).stream()
+                .filter(listCrawling::isContentUrl)
+                .toList();
     }
 
-    private List<String> crawlByIndex(final Document document, final List<Integer> postUrlListIndexes) {
-        Element element = documentElementExtractor.extractByIndex(document, postUrlListIndexes);
-        return new LinkedList<>(element.select("a").eachAttr("abs:href")).stream().toList();
-    }
-
-    private List<String> crawlBySelector(final Document document, final String selector) {
-        final Element element = documentElementExtractor.extractBySelector(document, selector);
-        return new LinkedHashSet<>(element.select("a").eachAttr("abs:href")).stream().toList();
-    }
-
-    private boolean isPaginated() {
-        return postListPageUrlFormat != null;
-    }
 }

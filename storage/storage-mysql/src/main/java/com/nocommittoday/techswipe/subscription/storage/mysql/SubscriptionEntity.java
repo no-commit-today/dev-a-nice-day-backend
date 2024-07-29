@@ -1,9 +1,10 @@
 package com.nocommittoday.techswipe.subscription.storage.mysql;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
+import com.nocommittoday.techswipe.subscription.domain.SubscriptionId;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
 import jakarta.persistence.Column;
@@ -68,10 +69,9 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
                 register.initType(),
                 new SubscriptionData(
                         new FeedData(register.feedUrl()),
-                        register.contentCrawling(),
-                        new ListCrawlingData(register.listCrawlings())
-                )
-        );
+                        ContentCrawlingData.from(register.contentCrawling()),
+                        ListCrawlingListData.from(register.listCrawlings())
+                ));
     }
 
     public void update(final SubscriptionRegister register) {
@@ -79,20 +79,20 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
         initType = register.initType();
         data = new SubscriptionData(
                 new FeedData(register.feedUrl()),
-                register.contentCrawling(),
-                new ListCrawlingData(register.listCrawlings())
+                ContentCrawlingData.from(register.contentCrawling()),
+                ListCrawlingListData.from(register.listCrawlings())
         );
     }
 
     public Subscription toDomain() {
         return new Subscription(
-                new Subscription.Id(id),
-                provider.getId() != null ? new TechContentProvider.Id(provider.getId()) : null,
+                new SubscriptionId(id),
+                provider.getId() != null ? new TechContentProviderId(provider.getId()) : null,
                 type,
                 initType,
                 data.getFeed().getUrl(),
-                data.getContentCrawling(),
-                data.getListCrawling().getContent()
+                data.getContentCrawling().toDomain(),
+                data.getListCrawlings().toDomain()
         );
     }
 }

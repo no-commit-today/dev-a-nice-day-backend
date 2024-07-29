@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.image.service;
 
-import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.infrastructure.ImageReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,11 +13,11 @@ public class ImageUrlQueryService {
 
     private final ImageReader imageReader;
 
-    public ImageUrlResult get(final Image.Id id) {
+    public ImageUrlResult get(final ImageId id) {
         return ImageUrlResult.from(imageReader.get(id));
     }
 
-    public List<ImageUrlResult> getAll(final List<Image.Id> ids) {
+    public List<ImageUrlResult> getAll(final List<ImageId> ids) {
         return imageReader.getAll(ids).stream()
                 .map(ImageUrlResult::from)
                 .toList();

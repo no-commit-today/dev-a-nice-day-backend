@@ -1,10 +1,10 @@
 package com.nocommittoday.techswipe.collection.storage.mysql;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
+import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
-import com.nocommittoday.techswipe.collection.domain.ContentCollect;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;
@@ -50,7 +50,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
     @Column(name = "status", columnDefinition = "varchar(45)", nullable = false)
     private CollectionStatus status;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "provider_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private TechContentProviderEntity provider;
 
@@ -80,43 +80,13 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
     @Column(name = "summary", length = 2_000)
     private String summary;
 
-    public static CollectedContentEntity from(final CollectedContent collectedContent) {
-        return new CollectedContentEntity(
-                collectedContent.getId().value(),
-                collectedContent.getStatus(),
-                TechContentProviderEntity.from(collectedContent.getProviderId()),
-                collectedContent.getUrl(),
-                collectedContent.getTitle(),
-                collectedContent.getPublishedDate(),
-                collectedContent.getContent(),
-                collectedContent.getImageUrl(),
-                collectedContent.getCategories(),
-                collectedContent.getSummary()
-        );
-    }
-
-    public static CollectedContentEntity from(final ContentCollect contentCollect) {
-        return new CollectedContentEntity(
-                contentCollect.id().value(),
-                CollectionStatus.INIT,
-                TechContentProviderEntity.from(contentCollect.providerId()),
-                contentCollect.url(),
-                contentCollect.title(),
-                contentCollect.publishedDate(),
-                contentCollect.content(),
-                contentCollect.imageUrl(),
-                null,
-                null
-        );
-    }
-
     public CollectedContent toDomain() {
         return new CollectedContent(
-                new CollectedContent.Id(id),
+                new CollectedContentId(id),
                 status,
                 categories,
                 summary,
-                provider.getId() != null ? new TechContentProvider.Id(provider.getId()) : null,
+                provider.getId() != null ? new TechContentProviderId(provider.getId()) : null,
                 url,
                 title,
                 publishedDate,

@@ -52,8 +52,12 @@ public class FeedClient {
 
     private static String extractIconUrl(final SyndFeed syndFeed) {
         return Optional.ofNullable(syndFeed.getIcon())
-                .or(() -> Optional.ofNullable(syndFeed.getImage()))
                 .map(SyndImage::getUrl)
+                .filter(url -> !url.isBlank())
+                .or(() -> Optional.ofNullable(syndFeed.getImage())
+                        .map(SyndImage::getUrl)
+                        .filter(url -> !url.isBlank())
+                )
                 .orElse(null);
     }
 

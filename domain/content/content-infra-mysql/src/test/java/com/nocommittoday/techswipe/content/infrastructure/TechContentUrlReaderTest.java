@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
-import com.nocommittoday.techswipe.content.domain.TechContent;
-import com.nocommittoday.techswipe.content.domain.TechContentNotFoundException;
+import com.nocommittoday.techswipe.content.domain.TechContentId;
+import com.nocommittoday.techswipe.content.domain.exception.TechContentNotFoundException;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentJpaRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +30,7 @@ class TechContentUrlReaderTest {
                 .willReturn(Optional.empty());
 
         // when
-        assertThatThrownBy(() -> techContentUrlReader.get(new TechContent.Id(1L)))
+        assertThatThrownBy(() -> techContentUrlReader.get(new TechContentId(1L)))
                 .isInstanceOf(TechContentNotFoundException.class);
     }
 

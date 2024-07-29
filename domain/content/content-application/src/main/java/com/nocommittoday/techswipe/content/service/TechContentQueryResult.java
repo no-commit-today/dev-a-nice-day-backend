@@ -1,14 +1,14 @@
 package com.nocommittoday.techswipe.content.service;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.content.domain.TechContent;
+import com.nocommittoday.techswipe.content.domain.TechContentId;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.List;
 
 public record TechContentQueryResult(
-        TechContent.Id id,
+        TechContentId id,
         TechContentProviderQueryResult provider,
         String url,
         String title,

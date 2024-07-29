@@ -49,7 +49,28 @@ subprojects {
 
 	test {
 		useJUnitPlatform {
-			excludeTags('develop')
+			excludeTags('develop', 'restdocs')
+		}
+	}
+
+	tasks.register('unitTest', Test) {
+		group = 'verification'
+		useJUnitPlatform {
+			excludeTags('develop', 'context', 'restdocs')
+		}
+	}
+
+	tasks.register('contextTest', Test) {
+		group = 'verification'
+		useJUnitPlatform {
+			includeTags('context')
+		}
+	}
+
+	tasks.register('restDocsTest', Test) {
+		group = 'verification'
+		useJUnitPlatform {
+			includeTags('restdocs')
 		}
 	}
 
@@ -58,5 +79,9 @@ subprojects {
 		useJUnitPlatform {
 			includeTags('develop')
 		}
+	}
+
+	tasks.named('asciidoctor') {
+		dependsOn restDocsTest
 	}
 }

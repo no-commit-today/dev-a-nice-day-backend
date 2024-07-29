@@ -1,6 +1,9 @@
 package com.nocommittoday.techswipe.collection.domain;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategorizeUnableException;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionPublishUnableException;
+import com.nocommittoday.techswipe.collection.domain.exception.CollectionSummarizeUnableException;
+import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -16,8 +19,8 @@ class CollectedContentTest {
     void 카테고리가_분류되면_status_가_CATEGORIZED_로_변경된다() {
         // given
         CollectedContent collectedContent = new CollectedContent(
-                new CollectedContent.Id(1L),
-                new TechContentProvider.Id(2L),
+                new CollectedContentId(1L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -37,8 +40,8 @@ class CollectedContentTest {
     void 분류된_카테고리중_사용되지_않는_카테고리가_있을_경우_status_가_FILTERED_로_변경된다() {
         // given
         CollectedContent collectedContent = new CollectedContent(
-                new CollectedContent.Id(1L),
-                new TechContentProvider.Id(2L),
+                new CollectedContentId(1L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -60,8 +63,8 @@ class CollectedContentTest {
     void NONE_상태가_아닐_경우_카테고리를_분류할_수_없다() {
         // given
         CollectedContent collectedContent = new CollectedContent(
-                new CollectedContent.Id(1L),
-                new TechContentProvider.Id(2L),
+                new CollectedContentId(1L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -79,8 +82,8 @@ class CollectedContentTest {
     void 카테고리가_분류된_후_내용_요약을_추가하면_status_가_SUMMARIZED_로_변경된다() {
         // given
         CollectedContent collectedContent = new CollectedContent(
-                new CollectedContent.Id(1L),
-                new TechContentProvider.Id(2L),
+                new CollectedContentId(1L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -104,8 +107,8 @@ class CollectedContentTest {
     void 카테고리가_분류되기_전에_내용_요약을_추가할_수_없다() {
         // given
         CollectedContent collectedContent = new CollectedContent(
-                new CollectedContent.Id(1L),
-                new TechContentProvider.Id(2L),
+                new CollectedContentId(1L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -123,8 +126,8 @@ class CollectedContentTest {
     void 카테고리_분류에서_필터링되면_내용_요약을_추가할_수_없다() {
         // given
         CollectedContent collectedContent = new CollectedContent(
-                new CollectedContent.Id(1L),
-                new TechContentProvider.Id(2L),
+                new CollectedContentId(1L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -146,8 +149,8 @@ class CollectedContentTest {
     void 발행_완료로_상태를_변경할_수_있다() {
         // given
         CollectedContent collectedContent = new CollectedContent(
-                new CollectedContent.Id(1L),
-                new TechContentProvider.Id(2L),
+                new CollectedContentId(1L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
@@ -167,8 +170,8 @@ class CollectedContentTest {
         // then
         assertThat(result.getStatus()).isEqualTo(CollectionStatus.PUBLISHED);
 
-        assertThat(result.getId()).isEqualTo(new CollectedContent.Id(1L));
-        assertThat(result.getProviderId()).isEqualTo(new TechContentProvider.Id(2L));
+        assertThat(result.getId()).isEqualTo(new CollectedContentId(1L));
+        assertThat(result.getProviderId()).isEqualTo(new TechContentProviderId(2L));
         assertThat(result.getUrl()).isEqualTo("url");
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getPublishedDate()).isEqualTo(LocalDate.of(2021, 1, 1));
@@ -182,8 +185,8 @@ class CollectedContentTest {
     void 요약_완료된_상태가_아니면_발행_완료_상태로_변경할_수_없다() {
         // given
         CollectedContent none = new CollectedContent(
-                new CollectedContent.Id(1L),
-                new TechContentProvider.Id(2L),
+                new CollectedContentId(1L),
+                new TechContentProviderId(2L),
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),

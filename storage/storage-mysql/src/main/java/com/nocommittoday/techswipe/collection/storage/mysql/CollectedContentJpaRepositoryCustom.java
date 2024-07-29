@@ -12,4 +12,6 @@ interface CollectedContentJpaRepositoryCustom {
     List<String> findAllUrlByProvider(TechContentProviderEntity provider);
 
     List<String> findAllUrlByProviderIn(Collection<TechContentProviderEntity> providers);
+
+    List<String> findAllUrlByUrlIn(Collection<String> urls);
 }

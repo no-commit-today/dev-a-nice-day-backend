@@ -1,4 +1,0 @@
-#logging:
-#  level:
-#    apache.coyote.http11: trace
-#    springframework.security: trace

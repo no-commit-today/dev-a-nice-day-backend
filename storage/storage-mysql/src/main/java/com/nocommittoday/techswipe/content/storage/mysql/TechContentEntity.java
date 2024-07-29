@@ -2,11 +2,9 @@ package com.nocommittoday.techswipe.content.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
-import com.nocommittoday.techswipe.content.domain.TechContentCreate;
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.domain.TechContentSync;
+import com.nocommittoday.techswipe.content.domain.TechContentId;
 import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
-import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
@@ -80,7 +78,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
     private List<TechContentCategoryEntity> categories = new ArrayList<>();
 
     public TechContentEntity(
-            @Nullable final Long id,
+            final Long id,
             final TechContentProviderEntity provider,
             @Nullable final ImageEntity image,
             final String url,
@@ -97,7 +95,13 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
         this.url = url;
     }
 
-    public List<TechContentCategoryEntity> getCategories() {
+    public List<TechCategory> getCategories() {
+        return categories.stream()
+                .map(TechContentCategoryEntity::getCategory)
+                .toList();
+    }
+
+    public List<TechContentCategoryEntity> getCategoryEntities() {
         return Collections.unmodifiableList(categories);
     }
 
@@ -108,76 +112,17 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
         categories.add(new TechContentCategoryEntity(this, category));
     }
 
-    public static TechContentEntity from(final TechContentCreate techContentCreate) {
-        final TechContentEntity entity = new TechContentEntity(
-                techContentCreate.id().value(),
-                TechContentProviderEntity.from(techContentCreate.providerId()),
-                techContentCreate.imageId() == null ? null : ImageEntity.from(techContentCreate.imageId()),
-                techContentCreate.url(),
-                techContentCreate.title(),
-                techContentCreate.summary(),
-                techContentCreate.publishedDate()
-        );
-        techContentCreate.categories().forEach(entity::addCategory);
-        return entity;
-    }
-
-    public static TechContentEntity from(final TechContentSync contentSync) {
-        final TechContentEntity entity = new TechContentEntity(
-                contentSync.id().value(),
-                TechContentProviderEntity.from(contentSync.providerId()),
-                contentSync.imageId() == null ? null : ImageEntity.from(contentSync.imageId()),
-                contentSync.url(),
-                contentSync.title(),
-                contentSync.summary(),
-                contentSync.publishedDate()
-        );
-        contentSync.categories().forEach(category -> entity.addCategory(category));
-
-        if (contentSync.deleted()) {
-            entity.delete();
-        }
-
-        return entity;
-    }
-
     public TechContent toDomain() {
         return new TechContent(
-                new TechContent.Id(id),
+                new TechContentId(id),
                 provider.toDomain(),
-                image == null ? null : new Image.Id(image.getId()),
+                image == null ? null : new ImageId(image.getId()),
                 url,
                 title,
                 publishedDate,
                 summary,
                 categories.stream().map(TechContentCategoryEntity::getCategory).toList()
         );
-    }
-
-    public TechContentSync toSync() {
-        return new TechContentSync(
-                new TechContent.Id(id),
-                new TechContentProvider.Id(provider.getId()),
-                image == null ? null : new Image.Id(image.getId()),
-                url,
-                title,
-                summary,
-                publishedDate,
-                categories.stream().map(TechContentCategoryEntity::getCategory).toList(),
-                isDeleted()
-        );
-    }
-
-    public void update(final TechContent techContent) {
-        this.provider = TechContentProviderEntity.from(techContent.getProvider().getId());
-        this.image = techContent.getImageId() == null ? null : ImageEntity.from(techContent.getImageId());
-        this.url = techContent.getUrl();
-        this.title = techContent.getTitle();
-        this.summary = techContent.getSummary();
-        this.publishedDate = techContent.getPublishedDate();
-        this.categories = techContent.getCategories().stream()
-                .map(category -> new TechContentCategoryEntity(this, category))
-                .toList();
     }
 
     @Override

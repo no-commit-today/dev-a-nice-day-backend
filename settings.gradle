@@ -9,10 +9,9 @@ pluginManagement {
 
 rootProject.name = 'tech-swipe-backend'
 
-include 'app:api-app'
-include 'app:admin-app'
-include 'app:batch-app'
-include 'app:sync-batch-app'
+include 'app:techswipe-api-app'
+include 'app:techswipe-admin-app'
+include 'app:techswipe-batch-app'
 include 'app:batch-app-core'
 include 'app:servlet-api-app-core'
 
@@ -22,6 +21,7 @@ include 'domain:core:core-infra'
 include 'domain:image:image-domain'
 include 'domain:image:image-application'
 include 'domain:image:image-infra-aws'
+include 'domain:image:image-infra-web'
 include 'domain:image:image-infra-mysql'
 
 include 'domain:content:content-domain'
@@ -47,6 +47,5 @@ include 'module:race-condition-test'
 
 include 'client:client-core'
 include 'client:feed-client'
-include 'client:file-client'
 
 include 'support:monitoring'

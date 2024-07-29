@@ -14,9 +14,11 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class DocumentConnector {
 
-    public ClientResponse<Document> connect(final String url) {
+    public ClientResponse<DocumentCrawler> connect(final String url) {
         try {
-            return ClientResponse.success(Jsoup.connect(url).get());
+            final Document document = Jsoup.connect(url).get();
+            final DocumentCrawler documentCrawler = new DocumentCrawler(document);
+            return ClientResponse.success(documentCrawler);
         } catch (final HttpStatusException e) {
             if (HttpStatus.NOT_FOUND.value() == e.getStatusCode()) {
                 return ClientResponse.notFound(e);

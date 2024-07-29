@@ -5,6 +5,7 @@ import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentCategorizedListReader;
 import com.nocommittoday.techswipe.core.domain.PageParam;
 import com.nocommittoday.techswipe.image.domain.Image;
+import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.infrastructure.ImageReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class TechContentListQueryService {
 
     public List<TechContentQueryResult> getList(final PageParam pageParam, final TechContentListQueryParam queryParam) {
         final List<TechContent> contents = techContentCategorizedListReader.getList(pageParam, queryParam.categories());
-        final Map<Image.Id, String> imageIdToUrl = getImageIdStringMap(contents);
+        final Map<ImageId, String> imageIdToUrl = getImageIdStringMap(contents);
         return contents.stream()
                 .map(content -> new TechContentQueryResult(
                                 content.getId(),
@@ -45,8 +46,8 @@ public class TechContentListQueryService {
                 ).toList();
     }
 
-    private Map<Image.Id, String> getImageIdStringMap(final List<TechContent> contentList) {
-        final Set<Image.Id> imageIds = new HashSet<>();
+    private Map<ImageId, String> getImageIdStringMap(final List<TechContent> contentList) {
+        final Set<ImageId> imageIds = new HashSet<>();
         contentList.stream()
                 .map(TechContent::getImageId)
                 .filter(Objects::nonNull)
