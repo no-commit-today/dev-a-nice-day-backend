@@ -17,12 +17,12 @@ public class TechContentEntityMapper {
 
     private final ImageEntityMapper imageEntityMapper;
 
-    public TechContentEntity from(final TechContentId id) {
+    public TechContentEntity from(TechContentId id) {
         return techContentJpaRepository.getReferenceById(id.value());
     }
 
-    public TechContentEntity from(final TechContent domain) {
-        final TechContentEntity entity = new TechContentEntity(
+    public TechContentEntity from(TechContent domain) {
+        TechContentEntity entity = new TechContentEntity(
                 domain.getId().value(),
                 techContentProviderEntityMapper.from(domain.getProvider().getId()),
                 imageEntityMapper.from(domain.getImageId()),
@@ -35,8 +35,8 @@ public class TechContentEntityMapper {
         return entity;
     }
 
-    public TechContentEntity from(final TechContentCreate techContentCreate) {
-        final TechContentEntity entity = new TechContentEntity(
+    public TechContentEntity from(TechContentCreate techContentCreate) {
+        TechContentEntity entity = new TechContentEntity(
                 techContentCreate.id().value(),
                 techContentProviderEntityMapper.from(techContentCreate.providerId()),
                 imageEntityMapper.from(techContentCreate.imageId()),

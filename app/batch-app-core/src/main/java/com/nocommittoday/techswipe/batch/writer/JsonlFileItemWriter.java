@@ -15,7 +15,7 @@ public class JsonlFileItemWriter<T> extends AbstractFileItemWriter<T> {
 
     private JsonObjectMarshaller<T> jsonObjectMarshaller;
 
-    public JsonlFileItemWriter(final WritableResource resource, final JsonObjectMarshaller<T> jsonObjectMarshaller) {
+    public JsonlFileItemWriter(WritableResource resource, JsonObjectMarshaller<T> jsonObjectMarshaller) {
         Assert.notNull(resource, "resource must not be null");
         Assert.notNull(jsonObjectMarshaller, "json object marshaller must not be null");
         setResource(resource);
@@ -35,7 +35,7 @@ public class JsonlFileItemWriter<T> extends AbstractFileItemWriter<T> {
     }
 
     @Override
-    protected String doWrite(final Chunk<? extends T> items) {
+    protected String doWrite(Chunk<? extends T> items) {
         StringBuilder lines = new StringBuilder();
         Iterator<? extends T> iterator = items.iterator();
         if (!items.isEmpty() && state.getLinesWritten() > 0) {

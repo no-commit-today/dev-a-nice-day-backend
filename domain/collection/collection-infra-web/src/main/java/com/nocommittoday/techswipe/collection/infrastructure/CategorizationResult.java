@@ -11,11 +11,11 @@ public record CategorizationResult(
         @Nullable Exception exception
 ) {
 
-    public static CategorizationResult success(final List<CollectionCategory> categories) {
+    public static CategorizationResult success(List<CollectionCategory> categories) {
         return new CategorizationResult(true, categories, null);
     }
 
-    public static CategorizationResult failure(final Exception ex) {
+    public static CategorizationResult failure(Exception ex) {
         return new CategorizationResult(false, null, ex);
     }
 }

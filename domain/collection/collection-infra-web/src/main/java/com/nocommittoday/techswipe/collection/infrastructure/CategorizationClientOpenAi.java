@@ -11,7 +11,7 @@ class CategorizationClientOpenAi implements CategorizationClient {
     private final ChatClient chatClient;
 
     public CategorizationClientOpenAi(
-            final ChatClient.Builder chatClientBuilder, String model
+            ChatClient.Builder chatClientBuilder, String model
     ) {
         log.info("분류에 사용되는 모델: {}", model);
         this.chatClient = chatClientBuilder
@@ -22,7 +22,7 @@ class CategorizationClientOpenAi implements CategorizationClient {
     }
 
     @Override
-    public String categorize(final CollectedContent collectedContent) {
+    public String categorize(CollectedContent collectedContent) {
         return chatClient.prompt()
                 .advisors(new CategorizationLoggerAdvisor(collectedContent))
                 .system(CategorizationConst.PROMPT)

@@ -33,7 +33,7 @@ public class PagingItemReaderAdapter<T> extends AbstractPagingItemReader<T> {
             results.clear();
         }
 
-        final List<T> result = readStrategy.readPage(getPageOffset() + getPage(), getPageSize());
+        List<T> result = readStrategy.readPage(getPageOffset() + getPage(), getPageSize());
         results.addAll(result);
     }
 }

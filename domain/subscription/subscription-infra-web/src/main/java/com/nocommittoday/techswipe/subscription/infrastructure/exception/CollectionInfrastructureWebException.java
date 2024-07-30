@@ -5,15 +5,15 @@ public abstract class CollectionInfrastructureWebException extends RuntimeExcept
     public CollectionInfrastructureWebException() {
     }
 
-    public CollectionInfrastructureWebException(final Exception cause) {
+    public CollectionInfrastructureWebException(Exception cause) {
         super(cause);
     }
 
-    public CollectionInfrastructureWebException(final String message) {
+    public CollectionInfrastructureWebException(String message) {
         super(message);
     }
 
-    public CollectionInfrastructureWebException(final String message, final Exception cause) {
+    public CollectionInfrastructureWebException(String message, Exception cause) {
         super(message, cause);
     }
 

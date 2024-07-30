@@ -4,7 +4,7 @@ import com.rometools.rome.io.FeedException;
 
 public class UncheckedFeedException extends RuntimeException {
 
-    public UncheckedFeedException(final FeedException cause) {
+    public UncheckedFeedException(FeedException cause) {
         super(cause);
     }
 }

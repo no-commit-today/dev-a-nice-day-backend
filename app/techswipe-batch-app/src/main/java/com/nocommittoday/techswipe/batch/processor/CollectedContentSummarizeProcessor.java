@@ -19,17 +19,17 @@ public class CollectedContentSummarizeProcessor
     private final CollectedContentEntityMapper collectedContentEntityMapper;
 
     @Override
-    public CollectedContentEntity process(final CollectedContentEntity item) throws Exception {
-        final CollectedContent collectedContent = item.toDomain();
-        final SummarizationResult summarizationResult = summarizationProcessor.summarize(collectedContent);
+    public CollectedContentEntity process(CollectedContentEntity item) throws Exception {
+        CollectedContent collectedContent = item.toDomain();
+        SummarizationResult summarizationResult = summarizationProcessor.summarize(collectedContent);
 
         if (!summarizationResult.success()) {
             log.error("요약 실패 id={}", collectedContent.getId(), summarizationResult.exception());
-            final CollectedContent summarizationFailed = collectedContent.failSummarization();
+            CollectedContent summarizationFailed = collectedContent.failSummarization();
             return collectedContentEntityMapper.from(summarizationFailed);
         }
 
-        final CollectedContent summarized = collectedContent.summarize(summarizationResult.summary());
+        CollectedContent summarized = collectedContent.summarize(summarizationResult.summary());
         return collectedContentEntityMapper.from(summarized);
     }
 }

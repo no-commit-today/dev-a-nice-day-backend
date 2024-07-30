@@ -51,7 +51,7 @@ class SubscriptionReaderTest {
     @Test
     void 컨텐츠_제공자에_등록된_구독이_삭제되었으면_예외를_던진다() {
         // given
-        final SubscriptionEntity entity = mock(SubscriptionEntity.class);
+        SubscriptionEntity entity = mock(SubscriptionEntity.class);
         given(subscriptionRepository.findByProvider(
                 providerCaptor.capture()
         )).willReturn(Optional.of(entity));

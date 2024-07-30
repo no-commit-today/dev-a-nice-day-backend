@@ -10,10 +10,10 @@ class TechContentProviderEntityTest {
     @Test
     void 도메인_엔티티_ID로부터_생성할_수_있다() {
         // given
-        final TechContentProviderId id = new TechContentProviderId(1);
+        TechContentProviderId id = new TechContentProviderId(1);
 
         // when
-        final TechContentProviderEntity result = TechContentProviderEntity.from(id);
+        TechContentProviderEntity result = TechContentProviderEntity.from(id);
 
         // then
         assertThat(result.getId()).isEqualTo(1L);

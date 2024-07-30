@@ -17,7 +17,7 @@ public class TechContentProviderAppender {
 
     private final TechContentProviderEntityMapper mapper;
 
-    public TechContentProviderId save(final TechContentProviderCreate command) {
+    public TechContentProviderId save(TechContentProviderCreate command) {
         return new TechContentProviderId(
                 Objects.requireNonNull(repository.save(mapper.from(command)).getId())
         );

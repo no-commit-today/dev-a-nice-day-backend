@@ -78,13 +78,13 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
     private List<TechContentCategoryEntity> categories = new ArrayList<>();
 
     public TechContentEntity(
-            final Long id,
-            final TechContentProviderEntity provider,
-            @Nullable final ImageEntity image,
-            final String url,
-            final String title,
-            final String summary,
-            final LocalDate publishedDate
+            Long id,
+            TechContentProviderEntity provider,
+            @Nullable ImageEntity image,
+            String url,
+            String title,
+            String summary,
+            LocalDate publishedDate
     ) {
         this.id = id;
         this.image = image;
@@ -105,7 +105,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
         return Collections.unmodifiableList(categories);
     }
 
-    public void addCategory(final TechCategory category) {
+    public void addCategory(TechCategory category) {
         if (categories.stream().anyMatch(c -> c.getCategory() == category)) {
             return;
         }

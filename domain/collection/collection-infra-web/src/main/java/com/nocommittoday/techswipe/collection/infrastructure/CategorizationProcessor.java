@@ -27,10 +27,10 @@ public class CategorizationProcessor {
 
     private final CategorizationClient categorizationClient;
 
-    public CategorizationResult categorize(final CollectedContent collectedContent) {
+    public CategorizationResult categorize(CollectedContent collectedContent) {
         try {
-            final String responseContent = categorizationClient.categorize(collectedContent);
-            final List<String> responseContentLines = Arrays.stream(
+            String responseContent = categorizationClient.categorize(collectedContent);
+            List<String> responseContentLines = Arrays.stream(
                             responseContent.split("\n"))
                     .filter(message -> !message.isBlank())
                     .map(String::trim)
@@ -42,7 +42,7 @@ public class CategorizationProcessor {
                         "분류 결과가 올바르지 않습니다. ", collectedContent.getId(), responseContent);
             }
 
-            final List<CollectionCategory> categories = responseContentLines.stream()
+            List<CollectionCategory> categories = responseContentLines.stream()
                     .map(line -> line.replaceFirst("^- ", ""))
                     .map(CollectionCategory::valueOf)
                     .distinct()
@@ -59,7 +59,7 @@ public class CategorizationProcessor {
                         collectedContent.getId(), responseContent, categories);
             }
             return CategorizationResult.success(categories);
-        } catch (final Exception e) {
+        } catch (Exception e) {
             return CategorizationResult.failure(e);
         }
     }

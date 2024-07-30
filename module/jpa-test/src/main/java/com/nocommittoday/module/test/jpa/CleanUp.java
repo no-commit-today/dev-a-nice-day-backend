@@ -11,7 +11,7 @@ public class CleanUp {
 
     private final EntityManager entityManager;
 
-    public CleanUp(final JdbcTemplate jdbcTemplate, final EntityManager entityManager) {
+    public CleanUp(JdbcTemplate jdbcTemplate, EntityManager entityManager) {
         this.jdbcTemplate = jdbcTemplate;
         this.entityManager = entityManager;
     }
@@ -19,7 +19,7 @@ public class CleanUp {
     @Transactional
     public void all() {
         entityManager.getMetamodel().getEntities().forEach(entityType -> {
-            final String tableName = entityType.getJavaType().getAnnotation(Table.class).name();
+            String tableName = entityType.getJavaType().getAnnotation(Table.class).name();
             jdbcTemplate.execute("TRUNCATE TABLE " + tableName);
         });
     }

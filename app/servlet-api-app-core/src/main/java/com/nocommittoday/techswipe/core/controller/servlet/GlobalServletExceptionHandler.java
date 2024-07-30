@@ -22,11 +22,11 @@ public class GlobalServletExceptionHandler extends ResponseEntityExceptionHandle
 
     @ExceptionHandler(AbstractDomainException.class)
     private ResponseEntity<Object> handleDomainException(
-            final AbstractDomainException ex, final WebRequest request) {
-        final HttpHeaders headers = new HttpHeaders();
-        final ErrorCodeType errorCode = ex.getErrorCode();
-        final HttpStatusCode status = HttpStatusCode.valueOf(errorCode.getStatus());
-        final ProblemDetail body = createProblemDetail(
+            AbstractDomainException ex, WebRequest request) {
+        HttpHeaders headers = new HttpHeaders();
+        ErrorCodeType errorCode = ex.getErrorCode();
+        HttpStatusCode status = HttpStatusCode.valueOf(errorCode.getStatus());
+        ProblemDetail body = createProblemDetail(
                 ex, status, errorCode.getMessage(), null, null, request);
         body.setProperty("errorCode", errorCode.getCode());
 
@@ -40,11 +40,10 @@ public class GlobalServletExceptionHandler extends ResponseEntityExceptionHandle
     }
 
     @ExceptionHandler(Exception.class)
-    protected ResponseEntity<Object> handleRootException(
-            final Exception ex, final WebRequest request) {
-        final HttpHeaders headers = new HttpHeaders();
-        final HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        final ProblemDetail body = createProblemDetail(
+    protected ResponseEntity<Object> handleRootException(Exception ex, WebRequest request) {
+        HttpHeaders headers = new HttpHeaders();
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        ProblemDetail body = createProblemDetail(
                 ex, status, "서버에 문제가 발생했습니다.", null, null, request);
         log.error("handleRootException[{}]: {}", ex.getClass(), ex.getMessage(), ex);
         return handleExceptionInternal(ex, body, headers, status, request);
@@ -52,12 +51,9 @@ public class GlobalServletExceptionHandler extends ResponseEntityExceptionHandle
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            final MethodArgumentNotValidException ex,
-            final HttpHeaders headers,
-            final HttpStatusCode status,
-            final WebRequest request
+            MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request
     ) {
-        final ProblemDetail body = ex.updateAndGetBody(getMessageSource(), LocaleContextHolder.getLocale());
+        ProblemDetail body = ex.updateAndGetBody(getMessageSource(), LocaleContextHolder.getLocale());
         body.setProperty("fields", ex.getBindingResult().getFieldErrors().stream()
                 .map(fieldError -> new FieldErrorResponse(
                         fieldError.getField(),
@@ -70,11 +66,7 @@ public class GlobalServletExceptionHandler extends ResponseEntityExceptionHandle
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(
-            final Exception ex,
-            final Object body,
-            final HttpHeaders headers,
-            final HttpStatusCode statusCode,
-            final WebRequest request
+            Exception ex, Object body, HttpHeaders headers, HttpStatusCode statusCode, WebRequest request
     ) {
         log.debug("handleExceptionInternal[{}]: {}", ex.getClass(), ex.getMessage(), ex);
         return super.handleExceptionInternal(ex, body, headers, statusCode, request);

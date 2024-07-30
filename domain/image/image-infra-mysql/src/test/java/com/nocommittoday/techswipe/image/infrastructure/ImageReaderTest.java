@@ -30,7 +30,7 @@ class ImageReaderTest {
     @Test
     void 이미지를_조회할_수_있다() {
         // given
-        final ImageEntity imageEntity = new ImageEntity(
+        ImageEntity imageEntity = new ImageEntity(
                 1L,
                 "url",
                 "original-url",
@@ -40,7 +40,7 @@ class ImageReaderTest {
                 .willReturn(Optional.of(imageEntity));
 
         // when
-        final Image image = imageReader.get(new ImageId(1L));
+        Image image = imageReader.get(new ImageId(1L));
 
         // then
         assertThat(image).isNotNull();
@@ -49,7 +49,7 @@ class ImageReaderTest {
     @Test
     void 삭제된_이미지는_조회할_수_없다() {
         // given
-        final ImageEntity imageEntity = new ImageEntity(
+        ImageEntity imageEntity = new ImageEntity(
                 1L,
                 "url",
                 "original-url",
@@ -68,13 +68,13 @@ class ImageReaderTest {
     @Test
     void 이미지_목록을_조회할_수_있다() {
         // given
-        final ImageEntity imageEntity1 = new ImageEntity(
+        ImageEntity imageEntity1 = new ImageEntity(
                 1L,
                 "url",
                 "original-url",
                 "stored-name"
         );
-        final ImageEntity imageEntity2 = new ImageEntity(
+        ImageEntity imageEntity2 = new ImageEntity(
                 2L,
                 "url",
                 "original-url",
@@ -84,7 +84,7 @@ class ImageReaderTest {
                 .willReturn(List.of(imageEntity1, imageEntity2));
 
         // when
-        final List<Image> images = imageReader.getAll(List.of(
+        List<Image> images = imageReader.getAll(List.of(
                 new ImageId(1L), new ImageId(2L)
         ));
 
@@ -95,13 +95,13 @@ class ImageReaderTest {
     @Test
     void 삭제된_이미지는_목록에서_제외된다() {
         // given
-        final ImageEntity imageEntity1 = new ImageEntity(
+        ImageEntity imageEntity1 = new ImageEntity(
                 1L,
                 "url",
                 "original-url",
                 "stored-name"
         );
-        final ImageEntity imageEntity2 = new ImageEntity(
+        ImageEntity imageEntity2 = new ImageEntity(
                 2L,
                 "url",
                 "original-url",
@@ -112,7 +112,7 @@ class ImageReaderTest {
                 .willReturn(List.of(imageEntity1, imageEntity2));
 
         // when
-        final List<Image> images = imageReader.getAll(List.of(
+        List<Image> images = imageReader.getAll(List.of(
                 new ImageId(1L), new ImageId(2L)
         ));
 

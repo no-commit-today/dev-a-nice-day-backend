@@ -16,12 +16,12 @@ class IdGeneratorTest {
     @Test
     void ID_를_생성할_수_있다() {
         // given
-        final SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
-        final long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
+        SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
+        long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
                 .atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
         given(systemClockHolder.millis()).willReturn(timestamp);
 
-        final IdGenerator idGenerator = new IdGenerator(
+        IdGenerator idGenerator = new IdGenerator(
                 systemClockHolder,
                 1000,
                 timestamp - 1,
@@ -29,10 +29,10 @@ class IdGeneratorTest {
         );
 
         // when
-        final long id = idGenerator.nextId();
+        long id = idGenerator.nextId();
 
         // then
-        final long[] attrs = idGenerator.parse(id);
+        long[] attrs = idGenerator.parse(id);
         assertThat(attrs[0]).isEqualTo(timestamp);
         assertThat(attrs[1]).isEqualTo(1000);
         assertThat(attrs[2]).isZero();
@@ -41,12 +41,12 @@ class IdGeneratorTest {
     @Test
     void 현재_시간이_이전_시간보다_작으면_오류를_발생시킨다() {
         // given
-        final SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
-        final long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
+        SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
+        long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
                 .atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
         given(systemClockHolder.millis()).willReturn(timestamp);
 
-        final IdGenerator idGenerator = new IdGenerator(
+        IdGenerator idGenerator = new IdGenerator(
                 systemClockHolder,
                 1000,
                 timestamp + 1,
@@ -61,12 +61,12 @@ class IdGeneratorTest {
     @Test
     void 현재_시간이_이전_시간과_같으면_시퀀스를_증가시킨다() {
         // given
-        final SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
-        final long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
+        SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
+        long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
                 .atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
         given(systemClockHolder.millis()).willReturn(timestamp);
 
-        final IdGenerator idGenerator = new IdGenerator(
+        IdGenerator idGenerator = new IdGenerator(
                 systemClockHolder,
                 1000,
                 timestamp,
@@ -74,10 +74,10 @@ class IdGeneratorTest {
         );
 
         // when
-        final long id = idGenerator.nextId();
+        long id = idGenerator.nextId();
 
         // then
-        final long[] attrs = idGenerator.parse(id);
+        long[] attrs = idGenerator.parse(id);
         assertThat(attrs[0]).isEqualTo(timestamp);
         assertThat(attrs[1]).isEqualTo(1000);
         assertThat(attrs[2]).isEqualTo(1);
@@ -86,8 +86,8 @@ class IdGeneratorTest {
     @Test
     void 시퀀스가_최대값에_도달하면_다음_millis로_넘어간다() {
         // given
-        final SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
-        final long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
+        SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
+        long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
                 .atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
         given(systemClockHolder.millis())
                 .willReturn(timestamp)
@@ -95,7 +95,7 @@ class IdGeneratorTest {
                 .willReturn(timestamp)
                 .willReturn(timestamp + 1);
 
-        final IdGenerator idGenerator = new IdGenerator(
+        IdGenerator idGenerator = new IdGenerator(
                 systemClockHolder,
                 1000,
                 timestamp,
@@ -103,10 +103,10 @@ class IdGeneratorTest {
         );
 
         // when
-        final long id = idGenerator.nextId();
+        long id = idGenerator.nextId();
 
         // then
-        final long[] attrs = idGenerator.parse(id);
+        long[] attrs = idGenerator.parse(id);
         assertThat(attrs[0]).isEqualTo(timestamp + 1);
         assertThat(attrs[1]).isEqualTo(1000);
         assertThat(attrs[2]).isZero();
@@ -115,12 +115,12 @@ class IdGeneratorTest {
     @Test
     void 시간값이_최대_시간을_초과했을_경우_예외가_발생한다() {
         // given
-        final SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
-        final long timestamp = LocalDateTime.of(2100, 7, 10, 0, 0, 0)
+        SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
+        long timestamp = LocalDateTime.of(2100, 7, 10, 0, 0, 0)
                 .atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
         given(systemClockHolder.millis()).willReturn(timestamp);
 
-        final IdGenerator idGenerator = new IdGenerator(
+        IdGenerator idGenerator = new IdGenerator(
                 systemClockHolder,
                 1000,
                 timestamp - 1,
@@ -135,12 +135,12 @@ class IdGeneratorTest {
     @Test
     void 밀리초를_통해_첫번째_ID를_생성할_수_있다() {
         // given
-        final SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
-        final long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
+        SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
+        long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
                 .atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
         given(systemClockHolder.millis()).willReturn(timestamp);
 
-        final IdGenerator idGenerator = new IdGenerator(
+        IdGenerator idGenerator = new IdGenerator(
                 systemClockHolder,
                 1000,
                 timestamp - 1,
@@ -148,10 +148,10 @@ class IdGeneratorTest {
         );
 
         // when
-        final long id = idGenerator.firstId(timestamp);
+        long id = idGenerator.firstId(timestamp);
 
         // then
-        final long[] attrs = idGenerator.parse(id);
+        long[] attrs = idGenerator.parse(id);
         assertThat(attrs[0]).isEqualTo(timestamp);
         assertThat(attrs[1]).isZero();
         assertThat(attrs[2]).isZero();
@@ -160,12 +160,12 @@ class IdGeneratorTest {
     @Test
     void LocalDateTime_을_통해_첫번째_ID를_생성할_수_있다() {
         // given
-        final SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
-        final long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
+        SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
+        long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
                 .atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
         given(systemClockHolder.millis()).willReturn(timestamp);
 
-        final IdGenerator idGenerator = new IdGenerator(
+        IdGenerator idGenerator = new IdGenerator(
                 systemClockHolder,
                 1000,
                 timestamp - 1,
@@ -173,10 +173,10 @@ class IdGeneratorTest {
         );
 
         // when
-        final long id = idGenerator.firstId(LocalDateTime.of(2024, 7, 10, 0, 0, 0));
+        long id = idGenerator.firstId(LocalDateTime.of(2024, 7, 10, 0, 0, 0));
 
         // then
-        final long[] attrs = idGenerator.parse(id);
+        long[] attrs = idGenerator.parse(id);
         assertThat(attrs[0]).isEqualTo(timestamp);
         assertThat(attrs[1]).isZero();
         assertThat(attrs[2]).isZero();
@@ -185,12 +185,12 @@ class IdGeneratorTest {
     @Test
     void LocalDate_을_통헤_첫번째_ID를_생성할_수_있다() {
         // given
-        final SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
-        final long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
+        SystemClockHolder systemClockHolder = mock(SystemClockHolder.class);
+        long timestamp = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
                 .atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
         given(systemClockHolder.millis()).willReturn(timestamp);
 
-        final IdGenerator idGenerator = new IdGenerator(
+        IdGenerator idGenerator = new IdGenerator(
                 systemClockHolder,
                 1000,
                 timestamp - 1,
@@ -198,10 +198,10 @@ class IdGeneratorTest {
         );
 
         // when
-        final long id = idGenerator.firstId(LocalDate.of(2024, 7, 10));
+        long id = idGenerator.firstId(LocalDate.of(2024, 7, 10));
 
         // then
-        final long[] attrs = idGenerator.parse(id);
+        long[] attrs = idGenerator.parse(id);
         assertThat(attrs[0]).isEqualTo(timestamp);
         assertThat(attrs[1]).isZero();
         assertThat(attrs[2]).isZero();

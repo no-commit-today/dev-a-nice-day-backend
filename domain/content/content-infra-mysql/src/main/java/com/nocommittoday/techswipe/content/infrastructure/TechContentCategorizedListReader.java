@@ -19,8 +19,8 @@ public class TechContentCategorizedListReader {
 
     @Transactional(readOnly = true)
     public List<TechContent> getList(
-            final PageParam pageParam,
-            final List<TechCategory> categories
+            PageParam pageParam,
+            List<TechCategory> categories
     ) {
         return techContentJpaRepository.findAllWithProviderByCategoryInOrderByPublishedDateDesc(
                         pageParam,
@@ -30,7 +30,7 @@ public class TechContentCategorizedListReader {
                 .toList();
     }
 
-    public long count(final List<TechCategory> categories) {
+    public long count(List<TechCategory> categories) {
         return techContentJpaRepository.countByCategoryInAndDeletedIsFalse(categories);
     }
 }

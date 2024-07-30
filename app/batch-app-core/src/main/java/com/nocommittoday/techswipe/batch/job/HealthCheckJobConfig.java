@@ -29,7 +29,7 @@ public class HealthCheckJobConfig {
 
     @Bean(JOB_NAME)
     public Job job() {
-        final JobBuilder jobBuilder = new JobBuilder(JOB_NAME, jobRepository);
+        JobBuilder jobBuilder = new JobBuilder(JOB_NAME, jobRepository);
         return jobBuilder
                 .incrementer(new RunIdIncrementer())
                 .start(step())
@@ -39,7 +39,7 @@ public class HealthCheckJobConfig {
     @Bean(STEP_NAME)
     @JobScope
     public Step step() {
-        final TaskletStepBuilder taskletStepBuilder = new TaskletStepBuilder(new StepBuilder(STEP_NAME, jobRepository));
+        TaskletStepBuilder taskletStepBuilder = new TaskletStepBuilder(new StepBuilder(STEP_NAME, jobRepository));
         return taskletStepBuilder
                 .tasklet((contribution, chunkContext) -> {
                     log.info("<<<<<<<<<<<< 헬스체크 >>>>>>>>>>>>");

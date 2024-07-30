@@ -54,7 +54,7 @@ public class ContentCollectJobConfig {
 
     @Bean(JOB_NAME)
     public Job job() {
-        final JobBuilder jobBuilder = new JobBuilder(JOB_NAME, jobRepository);
+        JobBuilder jobBuilder = new JobBuilder(JOB_NAME, jobRepository);
         return jobBuilder
                 .validator(jobParametersValidator())
                 .incrementer(new RunIdIncrementer())
@@ -79,7 +79,7 @@ public class ContentCollectJobConfig {
     @Bean(STEP_NAME)
     @JobScope
     public Step step() {
-        final StepBuilder stepBuilder = new StepBuilder(STEP_NAME, jobRepository);
+        StepBuilder stepBuilder = new StepBuilder(STEP_NAME, jobRepository);
         return stepBuilder
                 .<SubscriptionEntity, List<CollectedContentEntity>>chunk(CHUNK_SIZE, txManager)
                 .reader(reader())
@@ -96,7 +96,7 @@ public class ContentCollectJobConfig {
     @Bean(STEP_NAME + "ItemReader")
     @StepScope
     public QuerydslPagingItemReader<SubscriptionEntity> reader() {
-        final QuerydslPagingItemReader<SubscriptionEntity> reader = new QuerydslPagingItemReader<>();
+        QuerydslPagingItemReader<SubscriptionEntity> reader = new QuerydslPagingItemReader<>();
         reader.setEntityManagerFactory(emf);
         reader.setPageSize(CHUNK_SIZE);
         reader.setTransacted(false);

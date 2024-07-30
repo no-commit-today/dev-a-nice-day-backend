@@ -10,7 +10,7 @@ public class CollectedContentUrlExistsReader {
 
     private final CollectedContentJpaRepository collectedContentJpaRepository;
 
-    public boolean exists(final String url) {
+    public boolean exists(String url) {
         return collectedContentJpaRepository.existsByUrl(url);
     }
 }

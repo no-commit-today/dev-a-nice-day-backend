@@ -19,9 +19,7 @@ public class SubscribedContentListQueryService {
 
     private final List<SubscribedContentReader> subscribedContentReaders;
 
-    public List<SubscribedContent> getList(
-            final Subscription subscription, final LocalDate date
-    ) {
+    public List<SubscribedContent> getList(Subscription subscription, LocalDate date) {
         try {
             for (SubscribedContentReader reader : subscribedContentReaders) {
                 if (!reader.supports(subscription)) {
@@ -29,14 +27,14 @@ public class SubscribedContentListQueryService {
                 }
                 return reader.getList(subscription, date);
             }
-        } catch (final CollectionInfrastructureWebException e) {
+        } catch (CollectionInfrastructureWebException e) {
             throw new SubscriptionSubscribeFailureException(subscription.getId(), e);
         }
         throw new NotSupportedSubscriptionTypeException(subscription.getId());
     }
 
-    public List<SubscribedContent> getInitList(final Subscription subscription) {
-        final LocalDate date = LocalDate.MIN;
+    public List<SubscribedContent> getInitList(Subscription subscription) {
+        LocalDate date = LocalDate.MIN;
         try {
             for (SubscribedContentReader reader : subscribedContentReaders) {
                 if (!reader.supportsInit(subscription)) {
@@ -44,7 +42,7 @@ public class SubscribedContentListQueryService {
                 }
                 return reader.getList(subscription, date);
             }
-        } catch (final CollectionInfrastructureWebException e) {
+        } catch (CollectionInfrastructureWebException e) {
             throw new SubscriptionSubscribeFailureException(subscription.getId(), e);
         }
         throw new NotSupportedSubscriptionInitTypeException(subscription.getId());

@@ -49,3 +49,4 @@ include 'client:client-core'
 include 'client:feed-client'
 
 include 'support:monitoring'
+include 'support:logging'

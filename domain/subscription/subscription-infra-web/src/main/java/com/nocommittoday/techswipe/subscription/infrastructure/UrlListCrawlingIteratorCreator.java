@@ -10,7 +10,7 @@ public class UrlListCrawlingIteratorCreator {
 
     private final DocumentConnector documentConnector;
 
-    public UrlListCrawlingIterator create(final ListCrawling listCrawling) {
+    public UrlListCrawlingIterator create(ListCrawling listCrawling) {
         return new UrlListCrawlingIterator(
                 documentConnector,
                 listCrawling

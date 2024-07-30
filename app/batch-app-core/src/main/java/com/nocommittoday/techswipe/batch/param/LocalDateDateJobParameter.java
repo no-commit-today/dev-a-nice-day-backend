@@ -15,7 +15,7 @@ public class LocalDateDateJobParameter {
     }
 
     @Value("#{jobParameters['date']}")
-    public void setType(final LocalDate date) {
+    public void setType(LocalDate date) {
         this.date = date;
     }
 }

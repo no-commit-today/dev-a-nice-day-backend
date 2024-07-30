@@ -25,7 +25,7 @@ public class PageRequest {
     private final int size;
 
     public PageRequest(
-            @Nullable final Integer page, @Nullable final Integer size
+            @Nullable Integer page, @Nullable Integer size
     ) {
         this.page = page == null ? getDefaultPage() : page;
         this.size = size == null ? getDefaultSize() : size;

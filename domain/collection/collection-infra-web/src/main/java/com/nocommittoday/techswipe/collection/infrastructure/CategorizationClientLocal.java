@@ -10,15 +10,15 @@ import java.util.stream.Collectors;
 
 class CategorizationClientLocal implements CategorizationClient {
 
-    private final Random random = new Random();
+    private Random random = new Random();
 
     @Override
-    public String categorize(final CollectedContent collectedContent) {
-        final int numCategories = random.nextInt(
+    public String categorize(CollectedContent collectedContent) {
+        int numCategories = random.nextInt(
                 CategorizationProcessor.MIN_CATEGORY_NUM, CategorizationProcessor.MAX_CATEGORY_NUM + 1);
-        final Set<CollectionCategory> categories = new HashSet<>();
+        Set<CollectionCategory> categories = new HashSet<>();
         for (int i = 0; i < numCategories; i++) {
-            final CollectionCategory category = CollectionCategory
+            CollectionCategory category = CollectionCategory
                     .values()[random.nextInt(CollectionCategory.values().length)];
             categories.add(category);
         }

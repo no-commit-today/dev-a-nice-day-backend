@@ -20,12 +20,12 @@ public record ContentCategoryEdit(
     private static final Set<CollectionStatus> EDITABLE_STATUSES = Set.of(
             CollectionStatus.FILTERED, CollectionStatus.PUBLISHED);
 
-    public boolean isEditable(final CollectionStatus status) {
+    public boolean isEditable(CollectionStatus status) {
         return EDITABLE_STATUSES.contains(status);
     }
 
-    public CollectionStatus nextContentStatus(final CollectedContent collectedContent) {
-        final CollectionStatus prevStatus = collectedContent.getStatus();
+    public CollectionStatus nextContentStatus(CollectedContent collectedContent) {
+        CollectionStatus prevStatus = collectedContent.getStatus();
         if (!isEditable(prevStatus)) {
             throw new CollectionCategoryNotEditableException(collectedContent.getId());
         }

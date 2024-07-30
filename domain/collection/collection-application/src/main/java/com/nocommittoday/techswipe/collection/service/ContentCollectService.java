@@ -22,7 +22,7 @@ public class ContentCollectService {
 
     private final CollectedContentAppender collectedContentAppender;
 
-    public CollectedContentId collect(final ContentCollectCommand command) {
+    public CollectedContentId collect(ContentCollectCommand command) {
         if (!techContentProviderExistsReader.exists(command.providerId())) {
             throw new CollectionIllegalProviderIdException(command.providerId());
         }

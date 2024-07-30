@@ -17,7 +17,7 @@ public record ContentCollectCommand(
         @Nullable String imageUrl
 ) {
 
-    public ContentCollect toDomain(final CollectedContentId id) {
+    public ContentCollect toDomain(CollectedContentId id) {
         return new ContentCollect(
                 id,
                 providerId,

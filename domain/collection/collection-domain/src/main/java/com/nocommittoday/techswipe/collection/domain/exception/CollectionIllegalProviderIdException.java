@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.core.domain.AbstractDomainException;
 
 public class CollectionIllegalProviderIdException extends AbstractDomainException {
 
-    public CollectionIllegalProviderIdException(final TechContentProviderId id) {
+    public CollectionIllegalProviderIdException(TechContentProviderId id) {
         super(CollectionErrorCode.ILLEGAL_PROVIDER_ID, "id=" + id);
     }
 }

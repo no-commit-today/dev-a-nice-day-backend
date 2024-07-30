@@ -17,8 +17,8 @@ public class ContentLinkController {
     private final TechContentLinkService techContentLinkService;
 
     @GetMapping("/contents/{contentId}/link")
-    public ResponseEntity<Void> link(@PathVariable final Long contentId) {
-        final String url = techContentLinkService.link(new TechContentId(contentId));
+    public ResponseEntity<Void> link(@PathVariable Long contentId) {
+        String url = techContentLinkService.link(new TechContentId(contentId));
 
         return ResponseEntity.status(HttpStatus.FOUND)
                 .header(HttpHeaders.LOCATION, url)

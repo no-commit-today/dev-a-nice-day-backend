@@ -19,13 +19,13 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
 
     private final JPAQueryFactory queryFactory;
 
-    public TechContentJpaRepositoryCustomImpl(final EntityManager em) {
+    public TechContentJpaRepositoryCustomImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
     @Override
     public List<TechContentEntity> findAllWithProviderByCategoryInOrderByPublishedDateDesc(
-            final PageParam pageParam, final List<TechCategory> categories
+            PageParam pageParam, List<TechCategory> categories
     ) {
         return queryFactory
                 .selectFrom(techContentEntity)
@@ -45,7 +45,7 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
     }
 
     @Override
-    public long countByCategoryInAndDeletedIsFalse(final List<TechCategory> categories) {
+    public long countByCategoryInAndDeletedIsFalse(List<TechCategory> categories) {
         return Objects.requireNonNull(
                 queryFactory
                         .select(techContentCategoryEntity.content.countDistinct())
@@ -59,7 +59,7 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
     }
 
     @Override
-    public List<TechContentEntity> findAllWithProviderOrderByPublishedDateDesc(final PageParam pageParam) {
+    public List<TechContentEntity> findAllWithProviderOrderByPublishedDateDesc(PageParam pageParam) {
         return queryFactory
                 .selectFrom(techContentEntity)
                 .join(techContentEntity.provider).fetchJoin()
@@ -71,7 +71,7 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
     }
 
     @Override
-    public Optional<String> findUrlByIdAndDeletedIsFalse(final Long id) {
+    public Optional<String> findUrlByIdAndDeletedIsFalse(Long id) {
         return Optional.ofNullable(
                 queryFactory
                         .select(techContentEntity.url)

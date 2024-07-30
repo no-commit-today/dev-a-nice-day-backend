@@ -73,7 +73,7 @@ public record SubscriptionRegister(
         validateCrawling(contentCrawling.content());
     }
 
-    private void validateCrawling(final Crawling crawling) {
+    private void validateCrawling(Crawling crawling) {
         if (CrawlingType.INDEX == crawling.type()
                 && (crawling.indexes() == null || crawling.indexes().isEmpty())) {
             throw new SubscriptionRegisterFailureException(CrawlingType.INDEX + "타입은 crawling.indexes가 필수입니다.");

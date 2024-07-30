@@ -23,14 +23,14 @@ public class TechContentProviderIdListJobParameter {
     private List<TechContentProviderId> providerIdList;
 
     @Value("#{jobParameters['provider.ids']}")
-    public void setProviderId(final String parameter) {
+    public void setProviderId(String parameter) {
 
-        final Matcher matcher = JOB_PARAMETERS_PATTERN.matcher(parameter);
+        Matcher matcher = JOB_PARAMETERS_PATTERN.matcher(parameter);
         if (!matcher.matches()) {
             throw new IllegalArgumentException("provider.ids parameter is invalid: " + parameter);
         }
 
-        final String idParams = matcher.group("idParams");
+        String idParams = matcher.group("idParams");
 
         if ("*".equals(idParams)) {
             this.providerIdList = null;

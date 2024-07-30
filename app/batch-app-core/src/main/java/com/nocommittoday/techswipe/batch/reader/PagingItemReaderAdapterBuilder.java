@@ -18,37 +18,37 @@ public class PagingItemReaderAdapterBuilder<T> {
 
     private int currentItemCount;
 
-    public PagingItemReaderAdapterBuilder<T> readStrategy(final PagingItemReadStrategy<T> readStrategy) {
+    public PagingItemReaderAdapterBuilder<T> readStrategy(PagingItemReadStrategy<T> readStrategy) {
         this.readStrategy = readStrategy;
         return this;
     }
 
-    public PagingItemReaderAdapterBuilder<T> pageSize(final int pageSize) {
+    public PagingItemReaderAdapterBuilder<T> pageSize(int pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    public PagingItemReaderAdapterBuilder<T> pageOffset(final int pageOffset) {
+    public PagingItemReaderAdapterBuilder<T> pageOffset(int pageOffset) {
         this.pageOffset = pageOffset;
         return this;
     }
 
-    public PagingItemReaderAdapterBuilder<T> saveState(final boolean saveState) {
+    public PagingItemReaderAdapterBuilder<T> saveState(boolean saveState) {
         this.saveState = saveState;
         return this;
     }
 
-    public PagingItemReaderAdapterBuilder<T> name(final String name) {
+    public PagingItemReaderAdapterBuilder<T> name(String name) {
         this.name = name;
         return this;
     }
 
-    public PagingItemReaderAdapterBuilder<T> maxItemCount(final int maxItemCount) {
+    public PagingItemReaderAdapterBuilder<T> maxItemCount(int maxItemCount) {
         this.maxItemCount = maxItemCount;
         return this;
     }
 
-    public PagingItemReaderAdapterBuilder<T> currentItemCount(final int currentItemCount) {
+    public PagingItemReaderAdapterBuilder<T> currentItemCount(int currentItemCount) {
         this.currentItemCount = currentItemCount;
         return this;
     }
@@ -61,7 +61,7 @@ public class PagingItemReaderAdapterBuilder<T> {
             Assert.hasText(name, "A name is required when saveState is set to true");
         }
 
-        final PagingItemReaderAdapter<T> reader = new PagingItemReaderAdapter<>(readStrategy);
+        PagingItemReaderAdapter<T> reader = new PagingItemReaderAdapter<>(readStrategy);
         reader.setPageSize(pageSize);
         reader.setPageOffset(pageOffset);
         reader.setSaveState(saveState);

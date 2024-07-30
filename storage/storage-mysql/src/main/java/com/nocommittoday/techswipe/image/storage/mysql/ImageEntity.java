@@ -36,10 +36,10 @@ public class ImageEntity extends BaseSoftDeleteEntity {
     private String storedName;
 
     public ImageEntity(
-            @Nullable final Long id,
-            final String url,
-            final String originalUrl,
-            final String storedName
+            @Nullable Long id,
+            String url,
+            String originalUrl,
+            String storedName
     ) {
         this.id = id;
         this.url = url;

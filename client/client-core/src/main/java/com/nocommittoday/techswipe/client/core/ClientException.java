@@ -5,15 +5,15 @@ public class ClientException extends RuntimeException {
     public ClientException() {
     }
 
-    public ClientException(final Exception cause) {
+    public ClientException(Exception cause) {
         super(cause);
     }
 
-    public ClientException(final String message) {
+    public ClientException(String message) {
         super(message);
     }
 
-    public ClientException(final String message, final Exception cause) {
+    public ClientException(String message, Exception cause) {
         super(message, cause);
     }
 }

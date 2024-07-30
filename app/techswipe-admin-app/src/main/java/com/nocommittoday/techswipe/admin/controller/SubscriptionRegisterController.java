@@ -18,8 +18,8 @@ public class SubscriptionRegisterController {
 
     @PutMapping("/api/subscription/admin/providers/{providerId}/subscription")
     public ResponseEntity<Void> register(
-            @PathVariable final Long providerId,
-            @Validated @RequestBody final SubscriptionRegisterRequest request
+            @PathVariable Long providerId,
+            @Validated @RequestBody SubscriptionRegisterRequest request
     ) {
         subscriptionRegisterService.register(request.toDomain(
                 new TechContentProviderId(providerId)));

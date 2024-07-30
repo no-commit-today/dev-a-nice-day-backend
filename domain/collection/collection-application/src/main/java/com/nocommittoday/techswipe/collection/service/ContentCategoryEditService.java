@@ -33,29 +33,29 @@ public class ContentCategoryEditService {
     private final TechContentUpdater techContentUpdater;
     private final TechContentDeleter techContentDeleter;
 
-    public void editCategory(final CollectedContentId id, final ContentCategoryEdit categoryEdit) {
-        final CollectedContent oldCollectedContent = collectedContentReader.get(id);
-        final CollectedContent newCollectedContent = oldCollectedContent.editCategory(categoryEdit);
+    public void editCategory(CollectedContentId id, ContentCategoryEdit categoryEdit) {
+        CollectedContent oldCollectedContent = collectedContentReader.get(id);
+        CollectedContent newCollectedContent = oldCollectedContent.editCategory(categoryEdit);
 
         collectedContentUpdater.update(newCollectedContent);
     }
 
-    public void applyCategoryEdited(final CollectedContentId id) {
-        final CollectedContent collectedContent = collectedContentReader.get(id);
+    public void applyCategoryEdited(CollectedContentId id) {
+        CollectedContent collectedContent = collectedContentReader.get(id);
         if (CollectionUtils.isEmpty(collectedContent.getCategories())) {
             throw new CollectionCategoryNotApplicableException(collectedContent.getId());
         }
 
-        final TechContentId techContentId = id.toTechContentId();
+        TechContentId techContentId = id.toTechContentId();
         if (!techContentUrlExistsReader.existsIncludingDeleted(techContentId)) {
             return;
         }
 
-        final TechContent techContent = techContentReader.getIncludingDeleted(techContentId);
+        TechContent techContent = techContentReader.getIncludingDeleted(techContentId);
         if (CollectionStatus.FILTERED == collectedContent.getStatus()) {
             techContentDeleter.delete(techContent.getId());
         } else {
-            final List<TechCategory> categories = collectedContent.getCategories().stream()
+            List<TechCategory> categories = collectedContent.getCategories().stream()
                     .map(CollectionCategory::getTechCategory)
                     .toList();
             techContentUpdater.update(techContent.edit(new TechContentCategoryEdit(categories)));

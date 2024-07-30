@@ -6,7 +6,7 @@ public record CollectionSummarizationPromptResponse(
         String content
 ) {
 
-    public static CollectionSummarizationPromptResponse from(final CollectionSummarizationPromptResult result) {
+    public static CollectionSummarizationPromptResponse from(CollectionSummarizationPromptResult result) {
         return new CollectionSummarizationPromptResponse(result.content());
     }
 }

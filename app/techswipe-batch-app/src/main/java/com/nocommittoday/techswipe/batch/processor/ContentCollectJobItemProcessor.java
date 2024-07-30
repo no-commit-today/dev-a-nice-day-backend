@@ -32,11 +32,11 @@ public class ContentCollectJobItemProcessor implements ItemProcessor<Subscriptio
     private final LocalDate date;
 
     @Override
-    public List<CollectedContentEntity> process(final SubscriptionEntity item) throws Exception {
-        final Subscription subscription = item.toDomain();
-        final List<SubscribedContent> subscribedContentList = subscribedContentListQueryService
+    public List<CollectedContentEntity> process(SubscriptionEntity item) throws Exception {
+        Subscription subscription = item.toDomain();
+        List<SubscribedContent> subscribedContentList = subscribedContentListQueryService
                 .getList(subscription, date);
-        final CollectedUrlFilter urlFilter = collectedUrlFilterCreator.createFromContents(subscribedContentList);
+        CollectedUrlFilter urlFilter = collectedUrlFilterCreator.createFromContents(subscribedContentList);
         return subscribedContentList.stream()
                 .filter(subscribedContent -> urlFilter.doFilter(subscribedContent.url()))
                 .map(subscribedContent -> new ContentCollect(

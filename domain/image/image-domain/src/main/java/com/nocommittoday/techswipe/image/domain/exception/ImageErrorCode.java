@@ -16,7 +16,7 @@ public enum ImageErrorCode implements ErrorCodeType {
     private final String message;
     private final int status;
 
-    ImageErrorCode(final String code, final String message, final int status) {
+    ImageErrorCode(String code, String message, int status) {
         this.code = "IMAGE-" + code;
         this.message = message;
         this.status = status;

@@ -39,8 +39,8 @@ class TechContentListQueryServiceTest {
     @Test
     void 컨텐츠_리스트를_조회할_수_있다() {
         // given
-        final PageParam pageParam = new PageParam(1, 10);
-        final TechContentProvider contentProvider = new TechContentProvider(
+        PageParam pageParam = new PageParam(1, 10);
+        TechContentProvider contentProvider = new TechContentProvider(
                 new TechContentProviderId(11L),
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
@@ -76,7 +76,7 @@ class TechContentListQueryServiceTest {
                 ));
 
         // when
-        final List<TechContentQueryResult> techContentQueryResults = techContentListQueryService.getList(pageParam, new TechContentListQueryParam(List.of(TechCategory.SERVER)));
+        List<TechContentQueryResult> techContentQueryResults = techContentListQueryService.getList(pageParam, new TechContentListQueryParam(List.of(TechCategory.SERVER)));
 
         // then
         assertThat(techContentQueryResults).hasSize(2);

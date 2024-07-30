@@ -21,19 +21,19 @@ public class FeedClient {
     private final XmlClient xmlClient;
     private final SyndFeedBuilder syndFeedBuilder;
 
-    public ClientResponse<FeedResponse> get(final String url) {
+    public ClientResponse<FeedResponse> get(String url) {
         try {
-            final String xml = xmlClient.get(url)
+            String xml = xmlClient.get(url)
                     .replaceAll("[^\\u0009\\u000A\\u000D\\u0020-\\uD7FF\\uE000-\\uFFFD\\u10000-\\u10FFF]+", " ");
-            final SyndFeed syndFeed = syndFeedBuilder.build(xml);
+            SyndFeed syndFeed = syndFeedBuilder.build(xml);
             return ClientResponse.success(convertToFeedResponse(syndFeed));
-        } catch (final Exception e) {
+        } catch (Exception e) {
             log.error("[FeedClient] url={}", url, e);
             return ClientResponse.failed(e);
         }
     }
 
-    private FeedResponse convertToFeedResponse(final SyndFeed syndFeed) {
+    private FeedResponse convertToFeedResponse(SyndFeed syndFeed) {
         return new FeedResponse(
                 syndFeed.getLink(),
                 syndFeed.getTitle(),
@@ -50,7 +50,7 @@ public class FeedClient {
         );
     }
 
-    private static String extractIconUrl(final SyndFeed syndFeed) {
+    private static String extractIconUrl(SyndFeed syndFeed) {
         return Optional.ofNullable(syndFeed.getIcon())
                 .map(SyndImage::getUrl)
                 .filter(url -> !url.isBlank())
@@ -61,15 +61,15 @@ public class FeedClient {
                 .orElse(null);
     }
 
-    private static LocalDate extractDate(final SyndEntry entry) {
-        final Date date = entry.getPublishedDate() != null
+    private static LocalDate extractDate(SyndEntry entry) {
+        Date date = entry.getPublishedDate() != null
                 ? entry.getPublishedDate() : entry.getUpdatedDate();
         return date.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
     }
 
-    private static String extractContent(final SyndEntry entry) {
+    private static String extractContent(SyndEntry entry) {
         return Optional.ofNullable(entry.getContents())
                 .filter(contents -> !contents.isEmpty())
                 .flatMap(contents -> contents

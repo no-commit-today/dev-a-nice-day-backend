@@ -20,23 +20,23 @@ public class S3FileStore implements FileStore {
     private final String bucketName;
 
     public S3FileStore(
-            final S3Template s3Template,
-            @Value("${app.image.s3.bucket-name}") final String bucketName
+            S3Template s3Template,
+            @Value("${app.image.s3.bucket-name}") String bucketName
     ) {
         this.s3Template = s3Template;
         this.bucketName = bucketName;
     }
 
     @Override
-    public String store(final ImageFile imageFile, final String storedName) {
-        try (final InputStream input = imageFile.getInputStream()) {
-            final ObjectMetadata metadata = ObjectMetadata.builder()
+    public String store(ImageFile imageFile, String storedName) {
+        try (InputStream input = imageFile.getInputStream()) {
+            ObjectMetadata metadata = ObjectMetadata.builder()
                     .contentType(imageFile.getContentType().value())
                     .contentLength(imageFile.getContentLength())
                     .build();
-            final S3Resource s3Resource = s3Template.upload(bucketName, storedName, input, metadata);
+            S3Resource s3Resource = s3Template.upload(bucketName, storedName, input, metadata);
             return s3Resource.getURL().toString();
-        } catch (final IOException e) {
+        } catch (IOException e) {
             throw new UncheckedIOException(e);
         } finally {
             imageFile.delete();

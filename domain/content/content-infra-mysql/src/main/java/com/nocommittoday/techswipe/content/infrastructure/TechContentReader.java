@@ -14,7 +14,7 @@ public class TechContentReader {
 
     private final TechContentJpaRepository techContentJpaRepository;
 
-    public TechContent getIncludingDeleted(final TechContentId id) {
+    public TechContent getIncludingDeleted(TechContentId id) {
         return techContentJpaRepository.findById(id.value())
                 .map(TechContentEntity::toDomain)
                 .orElseThrow(() -> new TechContentNotFoundException(id));

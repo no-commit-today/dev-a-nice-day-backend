@@ -62,7 +62,7 @@ class SubscriptionEntityTest {
     @Test
     void 도메인_엔티티로_전환할_수_있다() {
         // given
-        final SubscriptionEntity entity = new SubscriptionEntity(
+        SubscriptionEntity entity = new SubscriptionEntity(
                 1L,
                 TechContentProviderEntity.from(new TechContentProviderId(2L)),
                 SubscriptionType.FEED,
@@ -85,7 +85,7 @@ class SubscriptionEntityTest {
         );
 
         // when
-        final Subscription result = entity.toDomain();
+        Subscription result = entity.toDomain();
 
         // then
         assertThat(result).isNotNull();

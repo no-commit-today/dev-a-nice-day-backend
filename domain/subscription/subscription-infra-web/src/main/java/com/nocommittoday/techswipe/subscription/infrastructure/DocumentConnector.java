@@ -14,17 +14,17 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class DocumentConnector {
 
-    public ClientResponse<DocumentCrawler> connect(final String url) {
+    public ClientResponse<DocumentCrawler> connect(String url) {
         try {
-            final Document document = Jsoup.connect(url).get();
-            final DocumentCrawler documentCrawler = new DocumentCrawler(document);
+            Document document = Jsoup.connect(url).get();
+            DocumentCrawler documentCrawler = new DocumentCrawler(document);
             return ClientResponse.success(documentCrawler);
-        } catch (final HttpStatusException e) {
+        } catch (HttpStatusException e) {
             if (HttpStatus.NOT_FOUND.value() == e.getStatusCode()) {
                 return ClientResponse.notFound(e);
             }
             return ClientResponse.failed(e);
-        } catch (final IOException e) {
+        } catch (IOException e) {
             return ClientResponse.failed(e);
         }
     }

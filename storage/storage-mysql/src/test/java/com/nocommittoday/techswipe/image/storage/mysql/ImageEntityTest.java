@@ -11,7 +11,7 @@ class ImageEntityTest {
     @Test
     void 도메인_엔티티로_전환할_수_있다() {
         // given
-        final ImageEntity imageEntity = new ImageEntity(
+        ImageEntity imageEntity = new ImageEntity(
                 1L,
                 "http://example.com/image.jpg",
                 "http://original.com/image.jpg",

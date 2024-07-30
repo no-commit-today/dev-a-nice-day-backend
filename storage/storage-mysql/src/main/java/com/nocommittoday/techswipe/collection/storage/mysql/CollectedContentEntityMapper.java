@@ -13,7 +13,7 @@ public class CollectedContentEntityMapper {
 
     private final TechContentProviderJpaRepository techContentProviderJpaRepository;
 
-    public CollectedContentEntity from(final ContentCollect contentCollect) {
+    public CollectedContentEntity from(ContentCollect contentCollect) {
         return new CollectedContentEntity(
                 contentCollect.id().value(),
                 CollectionStatus.INIT,
@@ -28,7 +28,7 @@ public class CollectedContentEntityMapper {
         );
     }
 
-    public CollectedContentEntity from(final CollectedContent collectedContent) {
+    public CollectedContentEntity from(CollectedContent collectedContent) {
         return new CollectedContentEntity(
                 collectedContent.getId().value(),
                 collectedContent.getStatus(),

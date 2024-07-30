@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.core.domain.AbstractDomainException;
 
 public class CollectionCategoryNotApplicableException extends AbstractDomainException {
 
-    public CollectionCategoryNotApplicableException(final CollectedContentId id) {
+    public CollectionCategoryNotApplicableException(CollectedContentId id) {
         super(CollectionErrorCode.CATEGORY_NOT_APPLICABLE, "id=" + id);
     }
 }

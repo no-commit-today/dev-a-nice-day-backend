@@ -5,21 +5,21 @@ public class SubscriptionApplicationException extends RuntimeException {
     public SubscriptionApplicationException() {
     }
 
-    public SubscriptionApplicationException(final Exception cause) {
+    public SubscriptionApplicationException(Exception cause) {
         super(cause);
     }
 
-    public SubscriptionApplicationException(final String message) {
+    public SubscriptionApplicationException(String message) {
         super(message);
     }
 
-    public SubscriptionApplicationException(final String message, final Exception cause) {
+    public SubscriptionApplicationException(String message, Exception cause) {
         super(message, cause);
     }
 
     public SubscriptionApplicationException(
-            final String message, final Exception cause,
-            final boolean enableSuppression, final boolean writableStackTrace
+            String message, Exception cause,
+            boolean enableSuppression, boolean writableStackTrace
     ) {
         super(message, cause, enableSuppression, writableStackTrace);
     }

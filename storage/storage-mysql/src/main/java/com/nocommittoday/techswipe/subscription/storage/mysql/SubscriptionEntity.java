@@ -61,7 +61,7 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
     @Column(name = "data", columnDefinition = "json", nullable = false)
     private SubscriptionData data;
 
-    public static SubscriptionEntity from(final SubscriptionRegister register) {
+    public static SubscriptionEntity from(SubscriptionRegister register) {
         return new SubscriptionEntity(
                 null,
                 TechContentProviderEntity.from(register.providerId()),
@@ -74,7 +74,7 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
                 ));
     }
 
-    public void update(final SubscriptionRegister register) {
+    public void update(SubscriptionRegister register) {
         type = register.type();
         initType = register.initType();
         data = new SubscriptionData(

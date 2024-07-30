@@ -22,11 +22,11 @@ public class TechContentListQueryController {
 
     @GetMapping("/api/content/v1/contents")
     public ResponseEntity<ListResponse<TechContentResponse>> getList(
-            final @ModelAttribute @Valid PageRequest pageRequest,
-            final @ModelAttribute TechContentListQueryRequest request
+            @ModelAttribute @Valid PageRequest pageRequest,
+            @ModelAttribute TechContentListQueryRequest request
     ) {
 
-        final List<TechContentQueryResult> contentList = techContentListQueryService.getList(
+        List<TechContentQueryResult> contentList = techContentListQueryService.getList(
                 pageRequest.toPageParam(), new TechContentListQueryParam(request.categories())
         );
 
@@ -39,7 +39,7 @@ public class TechContentListQueryController {
 
     @GetMapping("/api/content/v1/contents-count")
     public ResponseEntity<TechContentCountResponse> count(
-            final @ModelAttribute TechContentListQueryRequest request
+            @ModelAttribute TechContentListQueryRequest request
     ) {
         return ResponseEntity.ok(new TechContentCountResponse(
                 techContentListQueryService.count(new TechContentListQueryParam(request.categories()))

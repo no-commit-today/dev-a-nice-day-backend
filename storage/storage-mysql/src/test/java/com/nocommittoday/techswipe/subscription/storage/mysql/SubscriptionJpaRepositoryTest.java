@@ -21,7 +21,7 @@ class SubscriptionJpaRepositoryTest extends AbstractDataJpaTest {
     @Test
     void 삭제되지_않은_엔티티_리스트를_조회할_수_있다() {
         // given
-        final List<SubscriptionEntity> entities = List.of(
+        List<SubscriptionEntity> entities = List.of(
                 new SubscriptionEntity(
                         1L,
                         TechContentProviderEntity.from(new TechContentProviderId(1)),
@@ -48,7 +48,7 @@ class SubscriptionJpaRepositoryTest extends AbstractDataJpaTest {
         subscriptionJpaRepository.saveAll(entities);
 
         // when
-        final List<SubscriptionEntity> result = subscriptionJpaRepository.findAllByDeletedIsFalse(
+        List<SubscriptionEntity> result = subscriptionJpaRepository.findAllByDeletedIsFalse(
                 PageRequest.of(0, 10, Sort.by("id"))
         );
 

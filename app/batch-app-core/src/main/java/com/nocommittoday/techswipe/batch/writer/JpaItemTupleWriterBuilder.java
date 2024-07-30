@@ -9,23 +9,23 @@ public class JpaItemTupleWriterBuilder<T extends Tuple> {
 
     private final JpaItemWriterBuilder<Object> jpaItemWriterBuilder = new JpaItemWriterBuilder<>();
 
-    public JpaItemTupleWriterBuilder<T> entityManagerFactory(final EntityManagerFactory entityManagerFactory) {
+    public JpaItemTupleWriterBuilder<T> entityManagerFactory(EntityManagerFactory entityManagerFactory) {
         jpaItemWriterBuilder.entityManagerFactory(entityManagerFactory);
         return this;
     }
 
-    public JpaItemTupleWriterBuilder<T> usePersist(final boolean usePersist) {
+    public JpaItemTupleWriterBuilder<T> usePersist(boolean usePersist) {
         jpaItemWriterBuilder.usePersist(usePersist);
         return this;
     }
 
-    public JpaItemTupleWriterBuilder<T> clearPersistenceContext(final boolean clearPersistenceContext) {
+    public JpaItemTupleWriterBuilder<T> clearPersistenceContext(boolean clearPersistenceContext) {
         jpaItemWriterBuilder.clearPersistenceContext(clearPersistenceContext);
         return this;
     }
 
     public JpaItemTupleWriter<T> build() {
-        final JpaItemWriter<Object> jpaItemWriter = jpaItemWriterBuilder.build();
+        JpaItemWriter<Object> jpaItemWriter = jpaItemWriterBuilder.build();
         return new JpaItemTupleWriter<>(jpaItemWriter);
     }
 }

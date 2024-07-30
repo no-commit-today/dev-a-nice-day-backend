@@ -36,18 +36,18 @@ public class LocalDateParser {
     // (?<resources>\\w+)
     private static final Pattern DAYS_AGO_PATTERN = Pattern.compile("(?<" + DAYS_AGO_PARAM + ">\\d+) days ago");
 
-    public LocalDate parse(final String text) {
+    public LocalDate parse(String text) {
         for (DateTimeFormatter formatter : FORMATTERS) {
             try {
                 return LocalDate.parse(text, formatter);
-            } catch (final DateTimeParseException ignored) {
+            } catch (DateTimeParseException ignored) {
                 // ignore
             }
         }
 
-        final Matcher daysAgoMatcher = DAYS_AGO_PATTERN.matcher(text);
+        Matcher daysAgoMatcher = DAYS_AGO_PATTERN.matcher(text);
         if (daysAgoMatcher.matches()) {
-            final int daysAgo = Integer.parseInt(daysAgoMatcher.group(DAYS_AGO_PARAM));
+            int daysAgo = Integer.parseInt(daysAgoMatcher.group(DAYS_AGO_PARAM));
             return localDateHolder.now().minusDays(daysAgo);
         }
 

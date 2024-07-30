@@ -13,11 +13,11 @@ public class ImageUrlQueryService {
 
     private final ImageReader imageReader;
 
-    public ImageUrlResult get(final ImageId id) {
+    public ImageUrlResult get(ImageId id) {
         return ImageUrlResult.from(imageReader.get(id));
     }
 
-    public List<ImageUrlResult> getAll(final List<ImageId> ids) {
+    public List<ImageUrlResult> getAll(List<ImageId> ids) {
         return imageReader.getAll(ids).stream()
                 .map(ImageUrlResult::from)
                 .toList();

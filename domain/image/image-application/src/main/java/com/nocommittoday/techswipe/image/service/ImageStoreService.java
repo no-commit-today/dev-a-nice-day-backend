@@ -24,25 +24,25 @@ public class ImageStoreService {
     private final UuidHolder uuidHolder;
     private final ImageClient imageClient;
 
-    public ImageStoreResult store(final String originUrl, final String dirToStore) {
+    public ImageStoreResult store(String originUrl, String dirToStore) {
         log.info("이미지 저장 요청: originUrl={}, dirToStore={}", originUrl, dirToStore);
-        final ClientResponse<ImageFile> clientResponse = imageClient.get(originUrl);
+        ClientResponse<ImageFile> clientResponse = imageClient.get(originUrl);
 
         if (!clientResponse.isSuccess()) {
             return ImageStoreResult.fail(clientResponse.getException());
         }
-        final ImageFile imageFile = clientResponse.get();
+        ImageFile imageFile = clientResponse.get();
 
-        final String storedName = createStoredName(imageFile.getContentType().ext(), dirToStore);
-        final String storedUrl = fileStore.store(imageFile, storedName);
+        String storedName = createStoredName(imageFile.getContentType().ext(), dirToStore);
+        String storedUrl = fileStore.store(imageFile, storedName);
 
         return ImageStoreResult.success(
                 new ImageId(imageAppender.save(new ImageSave(storedUrl, originUrl, storedName)))
         );
     }
 
-    private String createStoredName(final String ext, final String dirToStore) {
-        final String uuid = uuidHolder.random();
+    private String createStoredName(String ext, String dirToStore) {
+        String uuid = uuidHolder.random();
         return Paths.get(dirToStore, (uuid + "." + ext)).toString();
     }
 }

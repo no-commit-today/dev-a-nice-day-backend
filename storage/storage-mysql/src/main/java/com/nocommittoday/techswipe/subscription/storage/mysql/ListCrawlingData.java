@@ -20,7 +20,7 @@ public class ListCrawlingData {
     @Nullable
     private String pageUrlFormat;
 
-    public static ListCrawlingData from(final ListCrawling listCrawling) {
+    public static ListCrawlingData from(ListCrawling listCrawling) {
         return new ListCrawlingData(
                 listCrawling.url(),
                 CrawlingData.from(listCrawling.crawling()),

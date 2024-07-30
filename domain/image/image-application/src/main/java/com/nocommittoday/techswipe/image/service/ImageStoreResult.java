@@ -25,11 +25,11 @@ public class ImageStoreResult {
         this.exception = exception;
     }
 
-    public static ImageStoreResult success(final ImageId imageId) {
+    public static ImageStoreResult success(ImageId imageId) {
         return new ImageStoreResult(true, imageId, null);
     }
 
-    public static ImageStoreResult fail(final Exception exception) {
+    public static ImageStoreResult fail(Exception exception) {
         return new ImageStoreResult(false, null, new ImageApplicationException(exception));
     }
 

@@ -28,15 +28,15 @@ public class CollectedContentPublishProcessor
     private final TechContentEntityMapper techContentEntityMapper;
 
     @Override
-    public Pair<CollectedContentEntity, TechContentEntity> process(final CollectedContentEntity item) throws Exception {
-        final CollectedContent collectedContent = item.toDomain();
+    public Pair<CollectedContentEntity, TechContentEntity> process(CollectedContentEntity item) throws Exception {
+        CollectedContent collectedContent = item.toDomain();
         if (!collectedContent.getStatus().publishable()) {
             throw new CollectionPublishUnableException(collectedContent.getId(), collectedContent.getStatus());
         }
-        final ImageId imageId = Optional.ofNullable(collectedContent.getImageUrl())
+        ImageId imageId = Optional.ofNullable(collectedContent.getImageUrl())
                 .map(imageUrl -> imageStoreService.store(collectedContent.getImageUrl(), "content").get())
                 .orElse(null);
-        final TechContentCreate content = new TechContentCreate(
+        TechContentCreate content = new TechContentCreate(
                 collectedContent.getId().toTechContentId(),
                 collectedContent.getProviderId(),
                 collectedContent.getUrl(),

@@ -11,7 +11,7 @@ public class TechContentUrlExistsReader {
 
     private final TechContentJpaRepository techContentJpaRepository;
 
-    public boolean existsIncludingDeleted(final TechContentId id) {
+    public boolean existsIncludingDeleted(TechContentId id) {
         return techContentJpaRepository.existsById(id.value());
     }
 }

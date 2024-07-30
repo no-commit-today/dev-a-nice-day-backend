@@ -11,7 +11,7 @@ public class CollectedContentPublishJobSkipListener
         implements SkipListener<CollectedContentEntity, Pair<CollectedContentEntity, TechContentEntity>> {
 
     @Override
-    public void onSkipInProcess(final CollectedContentEntity item, final Throwable t) {
+    public void onSkipInProcess(CollectedContentEntity item, Throwable t) {
         log.error("컨텐츠 발행 중 오류 발생 collectedContentId={}", item.getId(), t);
     }
 }

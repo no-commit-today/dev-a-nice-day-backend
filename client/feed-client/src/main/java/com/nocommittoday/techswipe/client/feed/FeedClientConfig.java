@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Configuration;
 public class FeedClientConfig {
 
     @Bean
-    public FeedClient feedClient(final XmlClient xmlClient, final SyndFeedBuilder syndFeedBuilder) {
+    public FeedClient feedClient(XmlClient xmlClient, SyndFeedBuilder syndFeedBuilder) {
         return new FeedClient(xmlClient, syndFeedBuilder);
     }
 
     @Bean
-    public XmlClient xmlClient(final RestTemplateBuilder restTemplateBuilder) {
+    public XmlClient xmlClient(RestTemplateBuilder restTemplateBuilder) {
         return new XmlClient(restTemplateBuilder);
     }
 

@@ -10,6 +10,13 @@ spring:
       - monitoring.yml
       - storage-mysql.yml
 
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
 ---
 spring:
   config:

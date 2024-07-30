@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.subscription.domain.SubscriptionId;
 
 public class SubscriptionSubscribeFailureException extends AbstractDomainException {
 
-    public SubscriptionSubscribeFailureException(final SubscriptionId id, final Exception ex) {
+    public SubscriptionSubscribeFailureException(SubscriptionId id, Exception ex) {
         super(SubscriptionErrorCode.SUBSCRIBE_FAILURE, "subscription.id=" + id, ex);
     }
 }

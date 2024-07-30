@@ -19,7 +19,7 @@ public class TechContentProviderRegisterService {
     private final TechContentProviderUrlExistsReader techContentProviderUrlExistsReader;
     private final TechContentProviderIdGenerator techContentProviderIdGenerator;
 
-    public TechContentProviderId register(final TechContentProviderRegisterCommand command) {
+    public TechContentProviderId register(TechContentProviderRegisterCommand command) {
         if (techContentProviderUrlExistsReader.exists(command.url())) {
             throw new TechContentProviderUrlExistsException(command.url());
         }

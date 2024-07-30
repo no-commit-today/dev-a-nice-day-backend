@@ -20,9 +20,7 @@ public class CollectionSummaryRegisterController {
     private final CollectionSummaryRegisterService summaryRegisterService;
 
     @GetMapping("/api/collection/admin/collections/{collectionId}/summarization-prompt")
-    public ResponseEntity<String> getPrompt(
-            @PathVariable final Long collectionId
-    ) {
+    public ResponseEntity<String> getPrompt(@PathVariable Long collectionId) {
         return ResponseEntity
                 .ok()
                 .contentType(MediaType.TEXT_PLAIN)

@@ -14,7 +14,7 @@ public class ImageFile {
 
     private final ImageContentType contentType;
 
-    public ImageFile(final File file, final ImageContentType contentType) {
+    public ImageFile(File file, ImageContentType contentType) {
         this.file = file;
         this.contentType = contentType;
     }
@@ -30,7 +30,7 @@ public class ImageFile {
     public InputStream getInputStream() {
         try {
             return new FileInputStream(file);
-        } catch (final FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new UncheckedIOException(e);
         }
     }
@@ -38,7 +38,7 @@ public class ImageFile {
     public void delete() {
         try {
             Files.deleteIfExists(file.toPath());
-        } catch (final IOException ex) {
+        } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         }
     }

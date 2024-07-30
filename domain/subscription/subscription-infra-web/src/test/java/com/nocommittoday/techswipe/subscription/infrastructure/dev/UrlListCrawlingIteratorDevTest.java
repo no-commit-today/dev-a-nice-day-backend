@@ -18,7 +18,7 @@ class UrlListCrawlingIteratorDevTest {
 
     @Test
     void 토스() {
-        final UrlListCrawlingIterator iterator = new UrlListCrawlingIterator(
+        UrlListCrawlingIterator iterator = new UrlListCrawlingIterator(
                 documentConnector,
                 new ListCrawling(
                         "https://toss.tech/tech",

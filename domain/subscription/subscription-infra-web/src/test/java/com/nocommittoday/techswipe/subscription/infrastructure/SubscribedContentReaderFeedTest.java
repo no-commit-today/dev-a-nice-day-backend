@@ -43,7 +43,7 @@ class SubscribedContentReaderFeedTest {
     @Test
     void feed_의_컨텐츠를_가져온다() {
         // given
-        final FeedResponse feedResponse = new FeedResponse(
+        FeedResponse feedResponse = new FeedResponse(
                 "provider-url",
                 "provider-title",
                 "provider-icon-url",
@@ -58,14 +58,14 @@ class SubscribedContentReaderFeedTest {
         );
         given(feedClient.get("feed-url")).willReturn(ClientResponse.success(feedResponse));
 
-        final DocumentCrawler documentCrawler = mock(DocumentCrawler.class);
+        DocumentCrawler documentCrawler = mock(DocumentCrawler.class);
         given(documentCrawler.getImageUrl()).willReturn("entry-image-url");
         given(documentConnector.connect("entry-url")).willReturn(ClientResponse.success(documentCrawler));
         given(htmlTagCleaner.clean("entry-content")).willReturn("entry-content-cleaned");
 
 
         // when
-        final List<SubscribedContent> result = subscribedContentReaderFeed.getList(
+        List<SubscribedContent> result = subscribedContentReaderFeed.getList(
                 new FeedSubscription(
                         "feed-url",
                         new ContentCrawling(
@@ -89,7 +89,7 @@ class SubscribedContentReaderFeedTest {
     @Test
     void date이상의_컨텐츠를_가져온다() {
         // given
-        final FeedResponse feedResponse = new FeedResponse(
+        FeedResponse feedResponse = new FeedResponse(
                 "provider-url",
                 "provider-title",
                 "provider-icon-url",
@@ -110,7 +110,7 @@ class SubscribedContentReaderFeedTest {
         );
         given(feedClient.get("feed-url")).willReturn(ClientResponse.success(feedResponse));
 
-        final DocumentCrawler documentCrawler = mock(DocumentCrawler.class);
+        DocumentCrawler documentCrawler = mock(DocumentCrawler.class);
         given(documentCrawler.getImageUrl()).willReturn("entry-image-url-1");
         given(documentConnector.connect("entry-url-1")).willReturn(ClientResponse.success(documentCrawler));
         given(documentConnector.connect("entry-url-2"))
@@ -118,7 +118,7 @@ class SubscribedContentReaderFeedTest {
         given(htmlTagCleaner.clean("entry-content-1")).willReturn("entry-content-1-cleaned");
 
         // when
-        final List<SubscribedContent> result = subscribedContentReaderFeed.getList(
+        List<SubscribedContent> result = subscribedContentReaderFeed.getList(
                 new FeedSubscription(
                         "feed-url",
                         new ContentCrawling(
@@ -138,7 +138,7 @@ class SubscribedContentReaderFeedTest {
     @Test
     void 컨텐츠가_크롤링이_필요할경우_크롤링한_데이터를_반환한다() {
         // given
-        final FeedResponse feedResponse = new FeedResponse(
+        FeedResponse feedResponse = new FeedResponse(
                 "provider-url",
                 "provider-title",
                 "provider-icon-url",
@@ -153,21 +153,21 @@ class SubscribedContentReaderFeedTest {
         );
         given(feedClient.get("feed-url")).willReturn(ClientResponse.success(feedResponse));
 
-        final DocumentCrawler documentCrawler = mock(DocumentCrawler.class);
+        DocumentCrawler documentCrawler = mock(DocumentCrawler.class);
         given(documentCrawler.getImageUrl()).willReturn("entry-image-url");
         given(documentConnector.connect("entry-url")).willReturn(ClientResponse.success(documentCrawler));
 
-        final Crawling titleCrawling = new Crawling(
+        Crawling titleCrawling = new Crawling(
                 CrawlingType.INDEX,
                 null,
                 List.of(1)
         );
-        final Crawling dateCrawling = new Crawling(
+        Crawling dateCrawling = new Crawling(
                 CrawlingType.INDEX,
                 null,
                 List.of(2)
         );
-        final Crawling contentCrawling = new Crawling(
+        Crawling contentCrawling = new Crawling(
                 CrawlingType.INDEX,
                 null,
                 List.of(3)
@@ -180,7 +180,7 @@ class SubscribedContentReaderFeedTest {
         given(htmlTagCleaner.clean("entry-content-crawl")).willReturn("entry-content-crawl-cleaned");
 
         // when
-        final List<SubscribedContent> result = subscribedContentReaderFeed.getList(
+        List<SubscribedContent> result = subscribedContentReaderFeed.getList(
                 new FeedSubscription(
                         "feed-url",
                         new ContentCrawling(

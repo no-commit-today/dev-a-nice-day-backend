@@ -47,7 +47,7 @@ public class TechContentCategoryEntity extends BaseTimeEntity {
     @Column(name = "category", columnDefinition = "varchar(45)", nullable = false)
     private TechCategory category;
 
-    public TechContentCategoryEntity(final TechContentEntity content, final TechCategory category) {
+    public TechContentCategoryEntity(TechContentEntity content, TechCategory category) {
         this.content = content;
         this.category = category;
     }

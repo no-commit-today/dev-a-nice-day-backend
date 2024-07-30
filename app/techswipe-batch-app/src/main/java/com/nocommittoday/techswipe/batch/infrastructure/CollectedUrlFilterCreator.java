@@ -14,14 +14,14 @@ public class CollectedUrlFilterCreator {
 
     private final CollectedUrlSetReader collectedUrlSetReader;
 
-    public CollectedUrlFilter createFromContents(final Collection<SubscribedContent> contents) {
-        final List<String> urls = contents.stream()
+    public CollectedUrlFilter createFromContents(Collection<SubscribedContent> contents) {
+        List<String> urls = contents.stream()
                 .map(SubscribedContent::url)
                 .toList();
         return createFromUrls(urls);
     }
 
-    public CollectedUrlFilter createFromUrls(final Collection<String> urls) {
+    public CollectedUrlFilter createFromUrls(Collection<String> urls) {
         return new CollectedUrlFilter(collectedUrlSetReader.getUrlSetByUrls(urls));
     }
 }

@@ -10,7 +10,7 @@ public class TechContentProviderUrlExistsReader {
 
     private final TechContentProviderJpaRepository repository;
 
-    public boolean exists(final String url) {
+    public boolean exists(String url) {
         return repository.existsByUrl(url);
     }
 }

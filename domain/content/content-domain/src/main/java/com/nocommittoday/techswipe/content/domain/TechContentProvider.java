@@ -20,11 +20,11 @@ public class TechContentProvider {
     private final ImageId iconId;
 
     public TechContentProvider(
-            final TechContentProviderId id,
-            final TechContentProviderType type,
-            final String title,
-            final String url,
-            @Nullable final ImageId iconId
+            TechContentProviderId id,
+            TechContentProviderType type,
+            String title,
+            String url,
+            @Nullable ImageId iconId
     ) {
         this.id = id;
         this.type = type;
@@ -33,7 +33,7 @@ public class TechContentProvider {
         this.iconId = iconId;
     }
 
-    public TechContentProvider editIcon(final ImageId iconId) {
+    public TechContentProvider editIcon(ImageId iconId) {
         return new TechContentProvider(
                 this.id,
                 this.type,
