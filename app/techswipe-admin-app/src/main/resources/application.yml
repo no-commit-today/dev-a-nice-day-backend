@@ -25,6 +25,13 @@ spring:
     openai:
       api-key: ${OPENAI_API_KEY:not-used}
 
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
 app:
   image:
     s3:
