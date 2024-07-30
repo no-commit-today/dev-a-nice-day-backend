@@ -41,7 +41,7 @@ public class SummarizationPromptCreator {
             </내용>
             """.trim();
 
-    public String create(final CollectedContent collectedContent) {
+    public String create(CollectedContent collectedContent) {
         return String.format(
                 PROMPT_FORMAT,
                 collectedContent.getTitle() + "\n\n" + collectedContent.getContent()

@@ -33,7 +33,7 @@ class CollectedContentEntityMapperTest {
     @Test
     void 도메인_엔티티로부터_생성할_수_있다() {
         // given
-        final CollectedContent content = new CollectedContent(
+        CollectedContent content = new CollectedContent(
                 new CollectedContentId(1L),
                 CollectionStatus.INIT,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
@@ -45,11 +45,11 @@ class CollectedContentEntityMapperTest {
                 "content",
                 "imageUrl"
         );
-        final TechContentProviderEntity techContentProviderEntity = mock(TechContentProviderEntity.class);
+        TechContentProviderEntity techContentProviderEntity = mock(TechContentProviderEntity.class);
         given(techContentProviderJpaRepository.getReferenceById(2L)).willReturn(techContentProviderEntity);
 
         // when
-        final CollectedContentEntity entity = collectedContentEntityMapper.from(content);
+        CollectedContentEntity entity = collectedContentEntityMapper.from(content);
 
         // then
         assertThat(entity.getId()).isEqualTo(1L);
@@ -67,7 +67,7 @@ class CollectedContentEntityMapperTest {
     @Test
     void ContentCollect_도메인_객체로부터_생성할_수_있다() {
         // given
-        final ContentCollect contentCollect = new ContentCollect(
+        ContentCollect contentCollect = new ContentCollect(
                 new CollectedContentId(1L),
                 new TechContentProviderId(2L),
                 "url",
@@ -76,11 +76,11 @@ class CollectedContentEntityMapperTest {
                 "content",
                 "imageUrl"
         );
-        final TechContentProviderEntity techContentProviderEntity = mock(TechContentProviderEntity.class);
+        TechContentProviderEntity techContentProviderEntity = mock(TechContentProviderEntity.class);
         given(techContentProviderJpaRepository.getReferenceById(2L)).willReturn(techContentProviderEntity);
 
         // when
-        final CollectedContentEntity entity = collectedContentEntityMapper.from(contentCollect);
+        CollectedContentEntity entity = collectedContentEntityMapper.from(contentCollect);
 
         // then
         assertThat(entity.getId()).isEqualTo(1);

@@ -43,7 +43,7 @@ public record ImageContentType(
         }
     }
 
-    public ImageContentType(final String type, final String subType) {
+    public ImageContentType(String type, String subType) {
         this(type + "/" + subType);
     }
 

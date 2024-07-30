@@ -14,7 +14,7 @@ public class CollectedContentReader {
 
     private final CollectedContentJpaRepository collectedContentJpaRepository;
 
-    public CollectedContent get(final CollectedContentId id) {
+    public CollectedContent get(CollectedContentId id) {
         return collectedContentJpaRepository.findById(id.value())
                 .filter(CollectedContentEntity::isUsed)
                 .map(CollectedContentEntity::toDomain)

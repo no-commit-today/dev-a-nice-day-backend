@@ -17,7 +17,7 @@ public class TechContentUpdater {
     private final TechContentEntityMapper techContentEntityMapper;
 
     @Transactional
-    public void update(final TechContent techContent) {
+    public void update(TechContent techContent) {
         if (!techContentJpaRepository.existsById(techContent.getId().value())) {
             throw new TechContentNotFoundException(techContent.getId());
         }

@@ -22,7 +22,7 @@ public enum CollectionErrorCode implements ErrorCodeType {
     private final String message;
     private final int status;
 
-    CollectionErrorCode(final String code, final String message, final int status) {
+    CollectionErrorCode(String code, String message, int status) {
         this.code = "COLLECTION-" + code;
         this.message = message;
         this.status = status;

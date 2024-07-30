@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class CleanUpAutoConfiguration {
 
     @Bean
-    public CleanUp cleanUp(final JdbcTemplate jdbcTemplate, final EntityManager em) {
+    public CleanUp cleanUp(JdbcTemplate jdbcTemplate, EntityManager em) {
         return new CleanUp(jdbcTemplate, em);
     }
 }

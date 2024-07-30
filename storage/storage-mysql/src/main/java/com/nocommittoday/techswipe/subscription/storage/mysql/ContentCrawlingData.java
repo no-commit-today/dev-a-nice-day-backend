@@ -17,7 +17,7 @@ public class ContentCrawlingData {
 
     private CrawlingData content;
 
-    public static ContentCrawlingData from(final ContentCrawling contentCrawling) {
+    public static ContentCrawlingData from(ContentCrawling contentCrawling) {
         return new ContentCrawlingData(
                 CrawlingData.from(contentCrawling.title()),
                 CrawlingData.from(contentCrawling.date()),

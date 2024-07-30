@@ -7,11 +7,11 @@ public record SummarizationResult(
         @Nullable String summary,
         @Nullable Exception exception
 ) {
-    public static SummarizationResult success(final String summary) {
+    public static SummarizationResult success(String summary) {
         return new SummarizationResult(true, summary, null);
     }
 
-    public static SummarizationResult failure(final Exception ex) {
+    public static SummarizationResult failure(Exception ex) {
         return new SummarizationResult(false, null, ex);
     }
 }

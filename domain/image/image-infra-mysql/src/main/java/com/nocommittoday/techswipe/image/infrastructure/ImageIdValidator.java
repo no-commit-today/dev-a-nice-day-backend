@@ -12,7 +12,7 @@ public class ImageIdValidator {
 
     private final ImageJpaRepository imageJpaRepository;
 
-    public void validate(final ImageId imageId) {
+    public void validate(ImageId imageId) {
         if (!imageJpaRepository.existsByIdAndDeletedIsFalse(imageId.value())) {
             throw new ImageNotFoundException(imageId);
         }

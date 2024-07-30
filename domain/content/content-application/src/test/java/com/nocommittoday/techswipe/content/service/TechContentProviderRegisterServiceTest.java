@@ -45,7 +45,7 @@ class TechContentProviderRegisterServiceTest {
     @Test
     void 이미지가_없으면_이미지를_포함하지않고_저장한다() {
         // given
-        final TechContentProviderRegisterCommand command = new TechContentProviderRegisterCommand(
+        TechContentProviderRegisterCommand command = new TechContentProviderRegisterCommand(
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "title",
                 "url",
@@ -53,13 +53,13 @@ class TechContentProviderRegisterServiceTest {
         );
         given(techContentProviderUrlExistsReader.exists("url"))
                 .willReturn(false);
-        final TechContentProviderId id = new TechContentProviderId(1L);
+        TechContentProviderId id = new TechContentProviderId(1L);
         given(techContentProviderIdGenerator.nextId()).willReturn(id);
         given(techContentProviderAppender.save(captor.capture()))
                 .willReturn(id);
 
         // when
-        final TechContentProviderId providerId = techContentProviderRegisterService.register(command);
+        TechContentProviderId providerId = techContentProviderRegisterService.register(command);
 
         // then
         assertThat(providerId.value()).isEqualTo(1L);
@@ -73,7 +73,7 @@ class TechContentProviderRegisterServiceTest {
     @Test
     void 이미지가_있으면_이미지를_포함하여_저장한다() {
         // given
-        final TechContentProviderRegisterCommand command = new TechContentProviderRegisterCommand(
+        TechContentProviderRegisterCommand command = new TechContentProviderRegisterCommand(
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "title",
                 "url",
@@ -81,13 +81,13 @@ class TechContentProviderRegisterServiceTest {
         );
         given(techContentProviderUrlExistsReader.exists("url"))
                 .willReturn(false);
-        final TechContentProviderId id = new TechContentProviderId(1L);
+        TechContentProviderId id = new TechContentProviderId(1L);
         given(techContentProviderIdGenerator.nextId()).willReturn(id);
         given(techContentProviderAppender.save(captor.capture()))
                 .willReturn(id);
 
         // when
-        final TechContentProviderId providerId = techContentProviderRegisterService.register(command);
+        TechContentProviderId providerId = techContentProviderRegisterService.register(command);
 
         // then
         assertThat(providerId).isEqualTo(new TechContentProviderId(1L));
@@ -101,7 +101,7 @@ class TechContentProviderRegisterServiceTest {
     @Test
     void 컨텐츠_제공자_url_이_이미_등록되어_있을_경우_예외를_발생시킨다() {
         // given
-        final TechContentProviderRegisterCommand command = new TechContentProviderRegisterCommand(
+        TechContentProviderRegisterCommand command = new TechContentProviderRegisterCommand(
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "title",
                 "url",

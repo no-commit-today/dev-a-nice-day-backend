@@ -24,9 +24,9 @@ public class TechContentListQueryService {
     private final TechContentCategorizedListReader techContentCategorizedListReader;
     private final ImageReader imageReader;
 
-    public List<TechContentQueryResult> getList(final PageParam pageParam, final TechContentListQueryParam queryParam) {
-        final List<TechContent> contents = techContentCategorizedListReader.getList(pageParam, queryParam.categories());
-        final Map<ImageId, String> imageIdToUrl = getImageIdStringMap(contents);
+    public List<TechContentQueryResult> getList(PageParam pageParam, TechContentListQueryParam queryParam) {
+        List<TechContent> contents = techContentCategorizedListReader.getList(pageParam, queryParam.categories());
+        Map<ImageId, String> imageIdToUrl = getImageIdStringMap(contents);
         return contents.stream()
                 .map(content -> new TechContentQueryResult(
                                 content.getId(),
@@ -46,8 +46,8 @@ public class TechContentListQueryService {
                 ).toList();
     }
 
-    private Map<ImageId, String> getImageIdStringMap(final List<TechContent> contentList) {
-        final Set<ImageId> imageIds = new HashSet<>();
+    private Map<ImageId, String> getImageIdStringMap(List<TechContent> contentList) {
+        Set<ImageId> imageIds = new HashSet<>();
         contentList.stream()
                 .map(TechContent::getImageId)
                 .filter(Objects::nonNull)
@@ -63,7 +63,7 @@ public class TechContentListQueryService {
                 ));
     }
 
-    public long count(final TechContentListQueryParam queryParam) {
+    public long count(TechContentListQueryParam queryParam) {
         return techContentCategorizedListReader.count(queryParam.categories());
     }
 }

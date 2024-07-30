@@ -12,7 +12,7 @@ public class TechContentProviderIdJobParameter {
     private TechContentProviderId providerId;
 
     @Value("#{jobParameters['provider.id']}")
-    public void setProviderId(final Long providerId) {
+    public void setProviderId(Long providerId) {
         this.providerId = new TechContentProviderId(providerId);
     }
 }

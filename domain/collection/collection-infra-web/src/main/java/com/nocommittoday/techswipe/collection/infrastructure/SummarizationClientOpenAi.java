@@ -18,7 +18,7 @@ class SummarizationClientOpenAi implements SummarizationClient {
     }
 
     @Override
-    public String summarize(final CollectedContent collectedContent) {
+    public String summarize(CollectedContent collectedContent) {
         return chatClient.prompt()
                 .advisors(new SummarizationLoggerAdvisor(collectedContent))
                 .user(promptCreator.create(collectedContent))

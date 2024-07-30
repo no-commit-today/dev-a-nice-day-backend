@@ -15,7 +15,7 @@ class CollectedContentJpaRepositoryCustomImpl implements CollectedContentJpaRepo
 
     private final JPAQueryFactory queryFactory;
 
-    public CollectedContentJpaRepositoryCustomImpl(final EntityManager em) {
+    public CollectedContentJpaRepositoryCustomImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
@@ -28,7 +28,7 @@ class CollectedContentJpaRepositoryCustomImpl implements CollectedContentJpaRepo
     }
 
     @Override
-    public List<String> findAllUrlByProvider(final TechContentProviderEntity provider) {
+    public List<String> findAllUrlByProvider(TechContentProviderEntity provider) {
         return queryFactory
                 .select(collectedContentEntity.url)
                 .from(collectedContentEntity)
@@ -37,7 +37,7 @@ class CollectedContentJpaRepositoryCustomImpl implements CollectedContentJpaRepo
     }
 
     @Override
-    public List<String> findAllUrlByProviderIn(final Collection<TechContentProviderEntity> providers) {
+    public List<String> findAllUrlByProviderIn(Collection<TechContentProviderEntity> providers) {
         return queryFactory
                 .select(collectedContentEntity.url)
                 .from(collectedContentEntity)
@@ -46,7 +46,7 @@ class CollectedContentJpaRepositoryCustomImpl implements CollectedContentJpaRepo
     }
 
     @Override
-    public List<String> findAllUrlByUrlIn(final Collection<String> urls) {
+    public List<String> findAllUrlByUrlIn(Collection<String> urls) {
         return queryFactory
                 .select(collectedContentEntity.url)
                 .from(collectedContentEntity)

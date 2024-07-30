@@ -18,16 +18,16 @@ public class CollectedContentCategorizeProcessor implements ItemProcessor<Collec
     private final CollectedContentEntityMapper collectedContentEntityMapper;
 
     @Override
-    public CollectedContentEntity process(final CollectedContentEntity item) throws Exception {
+    public CollectedContentEntity process(CollectedContentEntity item) throws Exception {
         log.debug("Processing item: {}", item.getId());
-        final CollectedContent collectedContent = item.toDomain();
-        final CategorizationResult categorizationResult = categorizationProcessor.categorize(collectedContent);
+        CollectedContent collectedContent = item.toDomain();
+        CategorizationResult categorizationResult = categorizationProcessor.categorize(collectedContent);
         if (!categorizationResult.success()) {
             log.error("카테고리 분류 실패 id={}", collectedContent.getId(), categorizationResult.exception());
-            final CollectedContent categorizationFailed = collectedContent.failCategorization();
+            CollectedContent categorizationFailed = collectedContent.failCategorization();
             return collectedContentEntityMapper.from(categorizationFailed);
         }
-        final CollectedContent categorized = collectedContent.categorize(categorizationResult.categories());
+        CollectedContent categorized = collectedContent.categorize(categorizationResult.categories());
         return collectedContentEntityMapper.from(categorized);
     }
 }

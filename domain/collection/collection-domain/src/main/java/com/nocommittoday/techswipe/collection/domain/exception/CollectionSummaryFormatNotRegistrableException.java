@@ -6,7 +6,7 @@ import com.nocommittoday.techswipe.core.domain.AbstractDomainException;
 
 public class CollectionSummaryFormatNotRegistrableException extends AbstractDomainException {
 
-    public CollectionSummaryFormatNotRegistrableException(final CollectedContentId id, final String summary) {
+    public CollectionSummaryFormatNotRegistrableException(CollectedContentId id, String summary) {
         super(CollectionErrorCode.SUMMARY_FORMAT_NOT_REGISTRABLE, "id=" + id + ", summary=" + summary);
     }
 }

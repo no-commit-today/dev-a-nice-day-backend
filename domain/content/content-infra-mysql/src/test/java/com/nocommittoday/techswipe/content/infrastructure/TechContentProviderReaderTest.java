@@ -30,7 +30,7 @@ class TechContentProviderReaderTest {
     @Test
     void 컨텐츠_제공자를_조회할_수_있다() {
         // given
-        final TechContentProviderEntity providerEntity = new TechContentProviderEntity(
+        TechContentProviderEntity providerEntity = new TechContentProviderEntity(
                 1L,
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "title",
@@ -41,7 +41,7 @@ class TechContentProviderReaderTest {
                 .willReturn(Optional.of(providerEntity));
 
         // when
-        final TechContentProvider provider = techContentProviderReader.get(new TechContentProviderId(1L));
+        TechContentProvider provider = techContentProviderReader.get(new TechContentProviderId(1L));
 
         // then
         assertThat(provider).isNotNull();
@@ -50,7 +50,7 @@ class TechContentProviderReaderTest {
     @Test
     void 삭제된_컨텐츠_제공자는_조회할_수_없다() {
         // given
-        final TechContentProviderEntity providerEntity = new TechContentProviderEntity(
+        TechContentProviderEntity providerEntity = new TechContentProviderEntity(
                 1L,
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "title",

@@ -22,7 +22,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
     @Test
     void 컨텐츠_제공자에_해당하는_수집된_컨텐츠_url을_전체_조회할_수_있다() {
         // given
-        final List<CollectedContentEntity> entities = List.of(
+        List<CollectedContentEntity> entities = List.of(
                 new CollectedContentEntity(
                         idGenerator.nextId(),
                         CollectionStatus.INIT,
@@ -64,7 +64,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         collectedContentJpaRepository.saveAll(entities);
 
         // when
-        final List<String> result = collectedContentJpaRepository.findAllUrlByProvider(
+        List<String> result = collectedContentJpaRepository.findAllUrlByProvider(
                 techContentProviderJpaRepository.getReferenceById(10L)
         );
 
@@ -75,7 +75,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
     @Test
     void 여러_컨텐츠_제공자에_해당하는_수집된_컨텐츠_url을_전체_조회할_수_있다() {
         // given
-        final List<CollectedContentEntity> entities = List.of(
+        List<CollectedContentEntity> entities = List.of(
                 new CollectedContentEntity(
                         idGenerator.nextId(),
                         CollectionStatus.INIT,
@@ -117,7 +117,7 @@ class CollectedContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         collectedContentJpaRepository.saveAll(entities);
 
         // when
-        final List<String> result = collectedContentJpaRepository.findAllUrlByProviderIn(List.of(
+        List<String> result = collectedContentJpaRepository.findAllUrlByProviderIn(List.of(
                         techContentProviderJpaRepository.getReferenceById(10L),
                         techContentProviderJpaRepository.getReferenceById(11L)
                 )

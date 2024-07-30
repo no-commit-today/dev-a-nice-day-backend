@@ -22,8 +22,8 @@ public class JsonFileListItemWriter<T> extends AbstractFileItemWriter<List<T>> {
     private JsonObjectMarshaller<T> jsonObjectMarshaller;
 
     public JsonFileListItemWriter(
-            final WritableResource resource,
-            final JsonObjectMarshaller<T> jsonObjectMarshaller
+            WritableResource resource,
+            JsonObjectMarshaller<T> jsonObjectMarshaller
     ) {
         Assert.notNull(resource, "resource must not be null");
         Assert.notNull(jsonObjectMarshaller, "json object marshaller must not be null");
@@ -46,17 +46,17 @@ public class JsonFileListItemWriter<T> extends AbstractFileItemWriter<List<T>> {
     }
 
     @Override
-    public String doWrite(final Chunk<? extends List<T>> items) {
-        final StringBuilder lines = new StringBuilder();
-        final Iterator<? extends List<T>> listIterator = items.iterator();
+    public String doWrite(Chunk<? extends List<T>> items) {
+        StringBuilder lines = new StringBuilder();
+        Iterator<? extends List<T>> listIterator = items.iterator();
         if (!items.isEmpty() && state.getLinesWritten() > 0) {
             lines.append(JSON_OBJECT_SEPARATOR).append(this.lineSeparator);
         }
         while (listIterator.hasNext()) {
-            final List<T> list = listIterator.next();
-            final Iterator<T> iterator = list.iterator();
+            List<T> list = listIterator.next();
+            Iterator<T> iterator = list.iterator();
             while (iterator.hasNext()) {
-                final T item = iterator.next();
+                T item = iterator.next();
                 lines.append(' ').append(this.jsonObjectMarshaller.marshal(item));
                 if (iterator.hasNext()) {
                     lines.append(JSON_OBJECT_SEPARATOR).append(this.lineSeparator);

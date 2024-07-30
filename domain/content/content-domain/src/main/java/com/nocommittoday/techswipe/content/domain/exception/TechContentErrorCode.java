@@ -18,7 +18,7 @@ public enum TechContentErrorCode implements ErrorCodeType {
     private final String message;
     private final int status;
 
-    TechContentErrorCode(final String code, final String message, final int status) {
+    TechContentErrorCode(String code, String message, int status) {
         this.code = "CONTENT-" + code;
         this.message = message;
         this.status = status;

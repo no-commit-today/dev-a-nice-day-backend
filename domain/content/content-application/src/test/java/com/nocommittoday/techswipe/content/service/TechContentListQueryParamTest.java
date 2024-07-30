@@ -10,7 +10,7 @@ class TechContentListQueryParamTest {
     @Test
     void categories가_null이면_TechCategory_모든_값으로_초기화된다() {
         // given
-        final TechContentListQueryParam request = new TechContentListQueryParam(null);
+        TechContentListQueryParam request = new TechContentListQueryParam(null);
 
         // then
         assertThat(request.categories())

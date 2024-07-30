@@ -65,36 +65,36 @@ public class ImageClient {
         this.uuidHolder = uuidHolder;
     }
 
-    public ClientResponse<ImageFile> get(final String url) {
+    public ClientResponse<ImageFile> get(String url) {
         try {
-            final ResponseEntity<Resource> entity = restClient.get()
+            ResponseEntity<Resource> entity = restClient.get()
                     .uri(urlDecodeIfNeeds(url))
                     .retrieve()
                     .toEntity(Resource.class);
-            final Resource resource = Objects.requireNonNull(entity.getBody());
-            final HttpHeaders headers = entity.getHeaders();
-            final File file = downloadFile(resource);
-            final ImageContentType contentType = getContentType(headers, url);
+            Resource resource = Objects.requireNonNull(entity.getBody());
+            HttpHeaders headers = entity.getHeaders();
+            File file = downloadFile(resource);
+            ImageContentType contentType = getContentType(headers, url);
 
-            final File fileWithExtension = new File(file.getAbsolutePath() + "." + contentType.ext());
+            File fileWithExtension = new File(file.getAbsolutePath() + "." + contentType.ext());
             if (!file.renameTo(fileWithExtension)) {
                 log.warn("[ImageClient] 파일 확장자 변경에 실패했습니다. file={}", file);
                 return ClientResponse.success(new ImageFile(file, contentType));
             }
             return ClientResponse.success(new ImageFile(fileWithExtension, contentType));
-        } catch (final Exception e) {
+        } catch (Exception e) {
             log.error("[ImageClient] url={}", url, e);
             return ClientResponse.failed(e);
         }
     }
 
-    private String urlDecodeIfNeeds(final String url) {
+    private String urlDecodeIfNeeds(String url) {
         if (!URL_DECODING_NEEDS_PATTERN.matcher(url).matches()) {
             return url;
         }
-        final UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromUriString(url);
+        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromUriString(url);
 
-        final UriComponents uriComponents = uriComponentsBuilder.build();
+        UriComponents uriComponents = uriComponentsBuilder.build();
 
         if (uriComponents.getQueryParams().containsKey(FNAME_QUERY_PARAM_KEY)) {
             uriComponentsBuilder.replaceQueryParam(
@@ -107,8 +107,8 @@ public class ImageClient {
         return uriComponentsBuilder.toUriString();
     }
 
-    private ImageContentType getContentType(final HttpHeaders headers, final String url) {
-        final MediaType contentType = headers.getContentType();
+    private ImageContentType getContentType(HttpHeaders headers, String url) {
+        MediaType contentType = headers.getContentType();
 
         if (isImageType(contentType)) {
             return new ImageContentType(contentType.getType(), contentType.getSubtype());
@@ -118,8 +118,8 @@ public class ImageClient {
             throw new NotImageTypeException(url);
         }
 
-        final UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(url).build();
-        final MediaType mediaType = MediaTypeFactory.getMediaType(headers.getContentDisposition().getFilename())
+        UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(url).build();
+        MediaType mediaType = MediaTypeFactory.getMediaType(headers.getContentDisposition().getFilename())
                 .filter(it -> ImageContentType.supports(it.getType(), it.getSubtype()))
                 .or(() -> MediaTypeFactory.getMediaType(uriComponents.getPath()))
                 .filter(it -> ImageContentType.supports(it.getType(), it.getSubtype()))
@@ -134,26 +134,26 @@ public class ImageClient {
         return new ImageContentType(mediaType.getType(), mediaType.getSubtype());
     }
 
-    private boolean isImageType(@Nullable final MediaType contentType) {
+    private boolean isImageType(@Nullable MediaType contentType) {
         return Optional.ofNullable(contentType)
                 .filter(it -> ImageContentType.supports(it.getType(), it.getSubtype()))
                 .isPresent();
     }
 
-    private File downloadFile(final Resource resource) {
+    private File downloadFile(Resource resource) {
         createTmpDirIfAbsent();
 
-        final File imageFile = new File(TMP_DIR, uuidHolder.random());
+        File imageFile = new File(TMP_DIR, uuidHolder.random());
         try (
-                final InputStream in = resource.getInputStream();
-                final OutputStream out = new FileOutputStream(imageFile);
+                InputStream in = resource.getInputStream();
+                OutputStream out = new FileOutputStream(imageFile);
         ) {
             out.write(in.readAllBytes());
             return imageFile;
-        } catch (final IOException e) {
+        } catch (IOException e) {
             try {
                 Files.deleteIfExists(imageFile.toPath());
-            } catch (final IOException ex) {
+            } catch (IOException ex) {
                 log.warn("[ImageClient] 임시 파일 삭제에 실패했습니다. file={}", imageFile, ex);
             }
             throw new UncheckedIOException(e);

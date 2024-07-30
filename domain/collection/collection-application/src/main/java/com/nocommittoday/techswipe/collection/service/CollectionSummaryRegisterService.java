@@ -22,17 +22,17 @@ public class CollectionSummaryRegisterService {
 
     private final CollectedContentUpdater collectedContentUpdater;
 
-    public CollectionSummarizationPromptResult getPrompt(final CollectedContentId id) {
-        final CollectedContent collectedContent = collectedContentReader.get(id);
-        final String prompt = summarizationPromptCreator.create(collectedContent);
+    public CollectionSummarizationPromptResult getPrompt(CollectedContentId id) {
+        CollectedContent collectedContent = collectedContentReader.get(id);
+        String prompt = summarizationPromptCreator.create(collectedContent);
         return new CollectionSummarizationPromptResult(prompt);
     }
 
-    public void register(final CollectionSummaryRegisterCommand command) {
+    public void register(CollectionSummaryRegisterCommand command) {
         if (!summarizationValidator.check(command.summary())) {
             throw new CollectionSummaryFormatNotRegistrableException(command.id(), command.summary());
         }
-        final CollectedContent collectedContent = collectedContentReader.get(command.id());
+        CollectedContent collectedContent = collectedContentReader.get(command.id());
         collectedContentUpdater.update(collectedContent.summarize(command.summary()));
     }
 }

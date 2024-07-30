@@ -22,9 +22,9 @@ public class SpringRestDocsAccessFilter implements Filter {
 
     @Override
     public void doFilter(
-            final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain chain
+            ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain
     ) throws IOException, ServletException {
-        final HttpServletResponse response = (HttpServletResponse) servletResponse;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
         response.sendError(HttpServletResponse.SC_FORBIDDEN);
         chain.doFilter(servletRequest, response);
     }

@@ -18,11 +18,11 @@ public class CollectedContentUrlListReader {
         return collectedContentJpaRepository.findAllUrl();
     }
 
-    public List<String> getAllUrlsByProvider(final TechContentProviderId providerId) {
+    public List<String> getAllUrlsByProvider(TechContentProviderId providerId) {
         return collectedContentJpaRepository.findAllUrlByProvider(TechContentProviderEntity.from(providerId));
     }
 
-    public List<String> getAllUrlsByProviders(final List<TechContentProviderId> providerIds) {
+    public List<String> getAllUrlsByProviders(List<TechContentProviderId> providerIds) {
         return collectedContentJpaRepository.findAllUrlByProviderIn(
                 providerIds.stream()
                         .map(TechContentProviderEntity::from)

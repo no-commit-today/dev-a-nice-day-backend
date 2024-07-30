@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 class NoOpsFileStore implements FileStore {
 
     @Override
-    public String store(final ImageFile imageFile, final String storedName) {
+    public String store(ImageFile imageFile, String storedName) {
         return storedName;
     }
 }

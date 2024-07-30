@@ -21,12 +21,12 @@ public class TechContentProviderIconEditService {
 
     private final ImageIdValidator imageIdValidator;
 
-    public void edit(final TechContentProviderId providerId, @Nullable final ImageId iconId) {
+    public void edit(TechContentProviderId providerId, @Nullable ImageId iconId) {
         if (iconId != null) {
             imageIdValidator.validate(iconId);
         }
-        final TechContentProvider provider = techContentProviderReader.get(providerId);
-        final TechContentProvider editedProvider = provider.editIcon(iconId);
+        TechContentProvider provider = techContentProviderReader.get(providerId);
+        TechContentProvider editedProvider = provider.editIcon(iconId);
         techContentProviderUpdater.update(editedProvider);
     }
 }

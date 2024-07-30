@@ -15,7 +15,7 @@ public class ContentCollectController {
 
     @PostMapping("/api/collection/admin/collections")
     public ContentCollectResponse collect(
-            @RequestBody @Validated final ContentCollectRequest request
+            @RequestBody @Validated ContentCollectRequest request
     ) {
         return ContentCollectResponse.from(
                 contentCollectService.collect(request.toCommand())

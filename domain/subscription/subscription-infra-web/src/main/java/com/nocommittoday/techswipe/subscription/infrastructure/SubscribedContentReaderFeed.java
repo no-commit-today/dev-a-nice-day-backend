@@ -26,30 +26,30 @@ public class SubscribedContentReaderFeed implements SubscribedContentReader {
     private final HtmlTagCleaner htmlTagCleaner;
 
     @Override
-    public List<SubscribedContent> getList(final Subscription subscription, final LocalDate date) {
+    public List<SubscribedContent> getList(Subscription subscription, LocalDate date) {
         return getList(subscription.toFeed(), date);
     }
 
     @Override
-    public boolean supports(final Subscription subscription) {
+    public boolean supports(Subscription subscription) {
         return SubscriptionType.FEED == subscription.getType();
     }
 
     @Override
-    public boolean supportsInit(final Subscription subscription) {
+    public boolean supportsInit(Subscription subscription) {
         return SubscriptionType.FEED == subscription.getInitType();
     }
 
     public List<SubscribedContent> getList(
-            final FeedSubscription subscription,
-            final LocalDate date
+            FeedSubscription subscription,
+            LocalDate date
     ) {
-        final FeedResponse feed = feedClient.get(subscription.url()).get();
-        final List<SubscribedContent> result = new ArrayList<>();
+        FeedResponse feed = feedClient.get(subscription.url()).get();
+        List<SubscribedContent> result = new ArrayList<>();
 
         for (FeedResponse.Entry entry : feed.entries()) {
-            final DocumentCrawler documentCrawler = documentConnector.connect(entry.link()).get();
-            final LocalDate publishedDate = Optional.of(subscription.contentCrawling().date())
+            DocumentCrawler documentCrawler = documentConnector.connect(entry.link()).get();
+            LocalDate publishedDate = Optional.of(subscription.contentCrawling().date())
                     .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
                     .map(documentCrawler::getText)
                     .map(localDateParser::parse)
@@ -57,12 +57,12 @@ public class SubscribedContentReaderFeed implements SubscribedContentReader {
             if (date.isAfter(publishedDate)) {
                 break;
             }
-            final String imageUrl = documentCrawler.getImageUrl();
-            final String title = Optional.of(subscription.contentCrawling().title())
+            String imageUrl = documentCrawler.getImageUrl();
+            String title = Optional.of(subscription.contentCrawling().title())
                     .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
                     .map(documentCrawler::getText)
                     .orElse(entry.title());
-            final String content = Optional.of(subscription.contentCrawling().content())
+            String content = Optional.of(subscription.contentCrawling().content())
                     .filter(contentCrawling -> CrawlingType.NONE != contentCrawling.type())
                     .map(documentCrawler::get)
                     .map(htmlTagCleaner::clean)

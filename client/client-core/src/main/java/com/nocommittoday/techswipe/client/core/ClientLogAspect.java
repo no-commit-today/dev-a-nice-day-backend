@@ -16,7 +16,7 @@ public class ClientLogAspect {
 
     @Order(Ordered.HIGHEST_PRECEDENCE)
     @Around("@within(com.nocommittoday.techswipe.client.core.ClientLog)")
-    public Object doLog(final ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object doLog(ProceedingJoinPoint joinPoint) throws Throwable {
 
         long startTime = System.currentTimeMillis();
         try {

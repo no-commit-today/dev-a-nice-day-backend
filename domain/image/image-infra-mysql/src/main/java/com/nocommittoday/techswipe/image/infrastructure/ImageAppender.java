@@ -12,7 +12,7 @@ public class ImageAppender {
 
     private final ImageJpaRepository imageRepository;
 
-    public long save(final ImageSave imageSave) {
+    public long save(ImageSave imageSave) {
         return imageRepository.save(new ImageEntity(
                 null,
                 imageSave.url(),

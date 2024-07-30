@@ -23,7 +23,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
     @Test
     void 모든_컨텐츠를_발행일_내림차순으로_조회한다() {
         // given
-        final TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
+        TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
                 idGenerator.nextId(),
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
@@ -31,7 +31,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                 null
         ));
 
-        final List<TechContentEntity> techContentEntities = List.of(
+        List<TechContentEntity> techContentEntities = List.of(
                 new TechContentEntity(
                         idGenerator.nextId(),
                         providerEntity,
@@ -67,7 +67,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         techContentJpaRepository.saveAll(techContentEntities);
 
         // when
-        final List<TechContentEntity> result = techContentJpaRepository.findAllWithProviderOrderByPublishedDateDesc(
+        List<TechContentEntity> result = techContentJpaRepository.findAllWithProviderOrderByPublishedDateDesc(
                 new PageParam(1, 10));
 
         // then
@@ -83,7 +83,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
     @Test
     void 카테고리로_필터링해서_컨텐츠를_발행일_내림차순으로_조회한다() {
         // given
-        final TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
+        TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
                 idGenerator.nextId(),
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
@@ -91,7 +91,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                 null
         ));
 
-        final List<TechContentEntity> techContentEntities = List.of(
+        List<TechContentEntity> techContentEntities = List.of(
                 new TechContentEntity(
                         idGenerator.nextId(),
                         providerEntity,
@@ -127,7 +127,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         techContentJpaRepository.saveAll(techContentEntities);
 
         // when
-        final List<TechContentEntity> result = techContentJpaRepository.findAllWithProviderByCategoryInOrderByPublishedDateDesc(
+        List<TechContentEntity> result = techContentJpaRepository.findAllWithProviderByCategoryInOrderByPublishedDateDesc(
                 new PageParam(1, 10),
                 List.of(TechCategory.SW_ENGINEERING)
         );
@@ -144,7 +144,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
     @Test
     void 카테고리_조건을_2개이상_이용해서_컨테츠를_필터링해서_발행일_내림차순으로_조회한다() {
         // given
-        final TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
+        TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
                 idGenerator.nextId(),
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
@@ -152,7 +152,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                 null
         ));
 
-        final List<TechContentEntity> techContentEntities = List.of(
+        List<TechContentEntity> techContentEntities = List.of(
                 new TechContentEntity(
                         idGenerator.nextId(),
                         providerEntity,
@@ -188,7 +188,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         techContentJpaRepository.saveAll(techContentEntities);
 
         // when
-        final List<TechContentEntity> result = techContentJpaRepository.findAllWithProviderByCategoryInOrderByPublishedDateDesc(
+        List<TechContentEntity> result = techContentJpaRepository.findAllWithProviderByCategoryInOrderByPublishedDateDesc(
                 new PageParam(1, 10),
                 List.of(TechCategory.SW_ENGINEERING, TechCategory.APP)
         );
@@ -206,7 +206,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
     @Test
     void 카테고리에_해당하는_컨텐츠_개수를_조회한다() {
         // given
-        final List<TechContentEntity> techContentEntities = List.of(
+        List<TechContentEntity> techContentEntities = List.of(
                 new TechContentEntity(
                         idGenerator.nextId(),
                         techContentProviderJpaRepository.getReferenceById(10L),
@@ -258,7 +258,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         techContentJpaRepository.saveAll(techContentEntities);
 
         // when
-        final long result = techContentJpaRepository.countByCategoryInAndDeletedIsFalse(
+        long result = techContentJpaRepository.countByCategoryInAndDeletedIsFalse(
                 List.of(TechCategory.SW_ENGINEERING, TechCategory.APP)
         );
 
@@ -269,7 +269,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
     @Test
     void 컨텐츠_ID로_URL을_조회한다() {
         // given
-        final TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
+        TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
                 idGenerator.nextId(),
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
@@ -277,7 +277,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                 null
         ));
 
-        final TechContentEntity techContentEntity = techContentJpaRepository.save(new TechContentEntity(
+        TechContentEntity techContentEntity = techContentJpaRepository.save(new TechContentEntity(
                 idGenerator.nextId(),
                 providerEntity,
                 null,
@@ -288,7 +288,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         ));
 
         // when
-        final String result = techContentJpaRepository.findUrlByIdAndDeletedIsFalse(techContentEntity.getId()).orElse(null);
+        String result = techContentJpaRepository.findUrlByIdAndDeletedIsFalse(techContentEntity.getId()).orElse(null);
 
         // then
         assertThat(result).isEqualTo("url-1");
@@ -297,7 +297,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
     @Test
     void 컨텐츠_ID로_URL을_조회한다_삭제된_컨텐츠는_조회되지_않는다() {
         // given
-        final TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
+        TechContentProviderEntity providerEntity = techContentProviderJpaRepository.save(new TechContentProviderEntity(
                 idGenerator.nextId(),
                 TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                 "provider-title",
@@ -305,7 +305,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
                 null
         ));
 
-        final TechContentEntity techContentEntity = techContentJpaRepository.save(new TechContentEntity(
+        TechContentEntity techContentEntity = techContentJpaRepository.save(new TechContentEntity(
                 idGenerator.nextId(),
                 providerEntity,
                 null,
@@ -317,7 +317,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         techContentEntity.delete();
 
         // when
-        final String result = techContentJpaRepository.findUrlByIdAndDeletedIsFalse(techContentEntity.getId()).orElse(null);
+        String result = techContentJpaRepository.findUrlByIdAndDeletedIsFalse(techContentEntity.getId()).orElse(null);
 
         // then
         assertThat(result).isNull();

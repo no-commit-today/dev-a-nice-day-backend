@@ -12,20 +12,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class HtmlTagCleaner {
 
-    public String clean(final String html) {
-        final Document document = Jsoup.parse(html);
+    public String clean(String html) {
+        Document document = Jsoup.parse(html);
         return clean(document);
     }
 
-    public String clean(final Document document) {
-        final Element element = document.body();
+    public String clean(Document document) {
+        Element element = document.body();
         return clean(element);
     }
 
-    public String clean(final Element element) {
+    public String clean(Element element) {
         element.select("style").remove();
 
-        final StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         element.traverse(new TagCleanVisitor(sb));
 
         return sb.toString();
@@ -36,20 +36,20 @@ public class HtmlTagCleaner {
 
         private final StringBuilder text;
 
-        public void head(final Node node, final int depth) {
-            if (node instanceof final Element element) {
+        public void head(Node node, int depth) {
+            if (node instanceof Element element) {
                 if (element.tag().isBlock() && !text.isEmpty()) {
                     text.append("\n");
                 }
             }
         }
 
-        public void tail(final Node node, final int depth) {
-            if (node instanceof final Element element) {
+        public void tail(Node node, int depth) {
+            if (node instanceof Element element) {
                 if (element.tag().isBlock() && !"br".equals(element.tagName())) {
                     text.append("\n");
                 }
-            } else if (node instanceof final TextNode textNode) {
+            } else if (node instanceof TextNode textNode) {
                 text.append(textNode.getWholeText());
             }
         }

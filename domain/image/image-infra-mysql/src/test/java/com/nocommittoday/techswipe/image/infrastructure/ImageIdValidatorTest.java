@@ -24,7 +24,7 @@ class ImageIdValidatorTest {
     @Test
     void 이미지_ID가_존재하지_않으면_예외를_던진다() {
         // given
-        final ImageId imageId = new ImageId(1L);
+        ImageId imageId = new ImageId(1L);
         given(imageJpaRepository.existsByIdAndDeletedIsFalse(1L))
                 .willReturn(false);
 

@@ -38,7 +38,7 @@ public record SubscriptionRegisterRequest(
     ) {
     }
 
-    public SubscriptionRegister toDomain(final TechContentProviderId providerId) {
+    public SubscriptionRegister toDomain(TechContentProviderId providerId) {
         return new SubscriptionRegister(
                 providerId,
                 type,

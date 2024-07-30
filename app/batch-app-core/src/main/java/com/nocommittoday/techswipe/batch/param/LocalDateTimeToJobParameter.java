@@ -15,7 +15,7 @@ public class LocalDateTimeToJobParameter {
     }
 
     @Value("#{jobParameters['to']}")
-    public void setTo(final LocalDateTime to) {
+    public void setTo(LocalDateTime to) {
         this.to = to;
     }
 }

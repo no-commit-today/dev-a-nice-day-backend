@@ -12,7 +12,7 @@ public class SubscriptionFailureSkipListener
         implements SkipListener<SubscriptionEntity, List<CollectedContentEntity>> {
 
     @Override
-    public void onSkipInProcess(final SubscriptionEntity item, final Throwable t) {
+    public void onSkipInProcess(SubscriptionEntity item, Throwable t) {
         log.error("subscription.id={}", item.getId(), t);
     }
 }

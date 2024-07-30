@@ -22,10 +22,10 @@ class FeedClientDevTest {
 
     @Test
     void 무신사() {
-        final String url = "https://medium.com/feed/musinsa-tech";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
+        String url = "https://medium.com/feed/musinsa-tech";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
 
-        final FeedResponse feed = response.getData();
+        FeedResponse feed = response.getData();
         System.out.println(feed);
         assertThat(feed).isNotNull();
         assertThat(feed.title()).isNotEmpty();
@@ -33,7 +33,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNotNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -42,9 +42,9 @@ class FeedClientDevTest {
 
     @Test
     void 네이버_D2() {
-        final String url = "https://d2.naver.com/d2.atom";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://d2.naver.com/d2.atom";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -53,7 +53,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -62,9 +62,9 @@ class FeedClientDevTest {
 
     @Test
     void 마켓컬리() {
-        final String url = "https://helloworld.kurly.com/feed.xml";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://helloworld.kurly.com/feed.xml";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -73,7 +73,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -84,9 +84,9 @@ class FeedClientDevTest {
 
     @Test
     void 우아한형제들() {
-        final String url = "https://techblog.woowahan.com/feed";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://techblog.woowahan.com/feed";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -95,7 +95,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -104,9 +104,9 @@ class FeedClientDevTest {
 
     @Test
     void 카카오엔터프라이즈() {
-        final String url = "https://tech.kakaoenterprise.com/feed";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://tech.kakaoenterprise.com/feed";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -115,7 +115,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -124,9 +124,9 @@ class FeedClientDevTest {
 
     @Test
     void 데브시스터즈() {
-        final String url = "https://tech.devsisters.com/rss.xml";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://tech.devsisters.com/rss.xml";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -135,7 +135,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -144,9 +144,9 @@ class FeedClientDevTest {
 
     @Test
     void 라인() {
-        final String url = "https://techblog.lycorp.co.jp/ko/feed/index.xml";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://techblog.lycorp.co.jp/ko/feed/index.xml";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -155,7 +155,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -166,9 +166,9 @@ class FeedClientDevTest {
 
     @Test
     void 쿠팡() {
-        final String url = "https://medium.com/feed/coupang-engineering";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://medium.com/feed/coupang-engineering";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -177,7 +177,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNotNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -186,9 +186,9 @@ class FeedClientDevTest {
 
     @Test
     void 당근마켓() {
-        final String url = "https://medium.com/feed/daangn";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://medium.com/feed/daangn";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -197,7 +197,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -206,9 +206,9 @@ class FeedClientDevTest {
 
     @Test
     void 토스() {
-        final String url = "https://toss.tech/rss.xml";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://toss.tech/rss.xml";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -217,7 +217,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -226,9 +226,9 @@ class FeedClientDevTest {
 
     @Test
     void 직방() {
-        final String url = "https://medium.com/feed/zigbang";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://medium.com/feed/zigbang";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -237,7 +237,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNotNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -246,9 +246,9 @@ class FeedClientDevTest {
 
     @Test
     void 왓챠() {
-        final String url = "https://medium.com/feed/watcha";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://medium.com/feed/watcha";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -257,7 +257,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNotNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -266,9 +266,9 @@ class FeedClientDevTest {
 
     @Test
     void 뱅크샐러드() {
-        final String url = "https://blog.banksalad.com/rss.xml";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://blog.banksalad.com/rss.xml";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -277,7 +277,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -288,9 +288,9 @@ class FeedClientDevTest {
 
     @Test
     void 하이퍼커넥트() {
-        final String url = "https://hyperconnect.github.io/feed.xml";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://hyperconnect.github.io/feed.xml";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -299,7 +299,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -308,9 +308,9 @@ class FeedClientDevTest {
 
     @Test
     void 요기요() {
-        final String url = "https://techblog.yogiyo.co.kr/feed";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://techblog.yogiyo.co.kr/feed";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -319,7 +319,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNotNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -328,9 +328,9 @@ class FeedClientDevTest {
 
     @Test
     void 쏘카() {
-        final String url = "https://tech.socarcorp.kr/feed";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://tech.socarcorp.kr/feed";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -339,7 +339,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -348,9 +348,9 @@ class FeedClientDevTest {
 
     @Test
     void 리디() {
-        final String url = "https://www.ridicorp.com/feed";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://www.ridicorp.com/feed";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -359,7 +359,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -368,9 +368,9 @@ class FeedClientDevTest {
 
     @Test
     void NHN_Toast() {
-        final String url = "https://meetup.toast.com/rss";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://meetup.toast.com/rss";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -379,7 +379,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         assertThat(entry.link()).isNotEmpty();
         assertThat(entry.title()).isNotEmpty();
         assertThat(entry.date()).isNotNull();
@@ -388,9 +388,9 @@ class FeedClientDevTest {
 
     @Test
     void _29CM() {
-        final String url = "https://medium.com/feed/29cm";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://medium.com/feed/29cm";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println(feed);
 
         assertThat(feed).isNotNull();
@@ -399,7 +399,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         System.out.println("link: " + entry.link());
         System.out.println("title: " + entry.title());
         System.out.println("date: " + entry.date());
@@ -412,9 +412,9 @@ class FeedClientDevTest {
 
     @Test
     void 네이버_플레이스() {
-        final String url = "https://medium.com/feed/naver-place-dev";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://medium.com/feed/naver-place-dev";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println("link: " + feed.link());
         System.out.println("title: " + feed.title());
         System.out.println("iconUrl: " + feed.iconUrl());
@@ -425,7 +425,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         System.out.println("entry.link: " + entry.link());
         System.out.println("entry.title: " + entry.title());
         System.out.println("entry.date: " + entry.date());
@@ -438,9 +438,9 @@ class FeedClientDevTest {
 
     @Test
     void 넷마블() {
-        final String url = "https://netmarble.engineering/feed/";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://netmarble.engineering/feed/";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println("link: " + feed.link());
         System.out.println("title: " + feed.title());
         System.out.println("iconUrl: " + feed.iconUrl());
@@ -451,7 +451,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         System.out.println("entry.link: " + entry.link());
         System.out.println("entry.title: " + entry.title());
         System.out.println("entry.date: " + entry.date());
@@ -466,9 +466,9 @@ class FeedClientDevTest {
 
     @Test
     void 다나와() {
-        final String url = "https://danawalab.github.io/feed";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://danawalab.github.io/feed";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println("link: " + feed.link());
         System.out.println("title: " + feed.title());
         System.out.println("iconUrl: " + feed.iconUrl());
@@ -479,7 +479,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         System.out.println("entry.link: " + entry.link());
         System.out.println("entry.title: " + entry.title());
         System.out.println("entry.date: " + entry.date());
@@ -493,9 +493,9 @@ class FeedClientDevTest {
 
     @Test
     void 번개장터() {
-        final String url = "https://medium.com/feed/bunjang-tech-blog";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://medium.com/feed/bunjang-tech-blog";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println("link: " + feed.link());
         System.out.println("title: " + feed.title());
         System.out.println("iconUrl: " + feed.iconUrl());
@@ -508,7 +508,7 @@ class FeedClientDevTest {
                 .isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         System.out.println("entry.link: " + entry.link());
         System.out.println("entry.title: " + entry.title());
         System.out.println("entry.date: " + entry.date());
@@ -522,9 +522,9 @@ class FeedClientDevTest {
 
     @Test
     void 야놀자클라우드() {
-        final String url = "https://medium.com/feed/yanoljacloud-tech";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://medium.com/feed/yanoljacloud-tech";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println("link: " + feed.link());
         System.out.println("title: " + feed.title());
         System.out.println("iconUrl: " + feed.iconUrl());
@@ -537,7 +537,7 @@ class FeedClientDevTest {
                 .isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         System.out.println("entry.link: " + entry.link());
         System.out.println("entry.title: " + entry.title());
         System.out.println("entry.date: " + entry.date());
@@ -551,9 +551,9 @@ class FeedClientDevTest {
 
     @Test
     void 원티드() {
-        final String url = "https://medium.com/feed/wantedjobs";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://medium.com/feed/wantedjobs";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println("link: " + feed.link());
         System.out.println("title: " + feed.title());
         System.out.println("iconUrl: " + feed.iconUrl());
@@ -566,7 +566,7 @@ class FeedClientDevTest {
                 .isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         System.out.println("entry.link: " + entry.link());
         System.out.println("entry.title: " + entry.title());
         System.out.println("entry.date: " + entry.date());
@@ -580,9 +580,9 @@ class FeedClientDevTest {
 
     @Test
     void 카카오엔터테인먼트_FE() {
-        final String url = "https://fe-developers.kakaoent.com/rss.xml";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://fe-developers.kakaoent.com/rss.xml";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println("link: " + feed.link());
         System.out.println("title: " + feed.title());
         System.out.println("iconUrl: " + feed.iconUrl());
@@ -593,7 +593,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         System.out.println("entry.link: " + entry.link());
         System.out.println("entry.title: " + entry.title());
         System.out.println("entry.date: " + entry.date());
@@ -607,9 +607,9 @@ class FeedClientDevTest {
 
     @Test
     void 토스랩() {
-        final String url = "https://fe-developers.kakaoent.com/rss.xml";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://fe-developers.kakaoent.com/rss.xml";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println("link: " + feed.link());
         System.out.println("title: " + feed.title());
         System.out.println("iconUrl: " + feed.iconUrl());
@@ -620,7 +620,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         System.out.println("entry.link: " + entry.link());
         System.out.println("entry.title: " + entry.title());
         System.out.println("entry.date: " + entry.date());
@@ -634,9 +634,9 @@ class FeedClientDevTest {
 
     @Test
     void 테이블링() {
-        final String url = "https://medium.com/feed/tabling-tech";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://medium.com/feed/tabling-tech";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println("link: " + feed.link());
         System.out.println("title: " + feed.title());
         System.out.println("iconUrl: " + feed.iconUrl());
@@ -649,7 +649,7 @@ class FeedClientDevTest {
                 .isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         System.out.println("entry.link: " + entry.link());
         System.out.println("entry.title: " + entry.title());
         System.out.println("entry.date: " + entry.date());
@@ -663,9 +663,9 @@ class FeedClientDevTest {
 
     @Test
     void ZUM() {
-        final String url = "https://zuminternet.github.io/feed.xml";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://zuminternet.github.io/feed.xml";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println("link: " + feed.link());
         System.out.println("title: " + feed.title());
         System.out.println("iconUrl: " + feed.iconUrl());
@@ -677,7 +677,7 @@ class FeedClientDevTest {
                 .isNull();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         System.out.println("entry.link: " + entry.link());
         System.out.println("entry.title: " + entry.title());
         System.out.println("entry.date: " + entry.date());
@@ -692,9 +692,9 @@ class FeedClientDevTest {
 
     @Test
     void 지마켓() {
-        final String url = "https://dev.gmarket.com/rss";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://dev.gmarket.com/rss";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println("link: " + feed.link());
         System.out.println("title: " + feed.title());
         System.out.println("iconUrl: " + feed.iconUrl());
@@ -705,7 +705,7 @@ class FeedClientDevTest {
         assertThat(feed.iconUrl()).isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         System.out.println("entry.link: " + entry.link());
         System.out.println("entry.title: " + entry.title());
         System.out.println("entry.date: " + entry.date());
@@ -719,9 +719,9 @@ class FeedClientDevTest {
 
     @Test
     void 네이버파이낸셜() {
-        final String url = "https://medium.com/feed/naverfinancial";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://medium.com/feed/naverfinancial";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println("link: " + feed.link());
         System.out.println("title: " + feed.title());
         System.out.println("iconUrl: " + feed.iconUrl());
@@ -734,7 +734,7 @@ class FeedClientDevTest {
                 .isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         System.out.println("entry.link: " + entry.link());
         System.out.println("entry.title: " + entry.title());
         System.out.println("entry.date: " + entry.date());
@@ -748,9 +748,9 @@ class FeedClientDevTest {
 
     @Test
     void 여기어때() {
-        final String url = "https://medium.com/feed/naverfinancial";
-        final ClientResponse<FeedResponse> response = feedClient.get(url);
-        final FeedResponse feed = response.getData();
+        String url = "https://medium.com/feed/naverfinancial";
+        ClientResponse<FeedResponse> response = feedClient.get(url);
+        FeedResponse feed = response.getData();
         System.out.println("link: " + feed.link());
         System.out.println("title: " + feed.title());
         System.out.println("iconUrl: " + feed.iconUrl());
@@ -763,7 +763,7 @@ class FeedClientDevTest {
                 .isNotEmpty();
         assertThat(feed.entries()).isNotEmpty();
 
-        final FeedResponse.Entry entry = feed.entries().get(0);
+        FeedResponse.Entry entry = feed.entries().get(0);
         System.out.println("entry.link: " + entry.link());
         System.out.println("entry.title: " + entry.title());
         System.out.println("entry.date: " + entry.date());

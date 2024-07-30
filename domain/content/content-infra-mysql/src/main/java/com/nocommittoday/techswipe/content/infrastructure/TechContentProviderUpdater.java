@@ -17,7 +17,7 @@ public class TechContentProviderUpdater {
     private final TechContentProviderEntityMapper mapper;
 
     @Transactional
-    public void update(final TechContentProvider provider) {
+    public void update(TechContentProvider provider) {
         if (!techContentProviderJpaRepository.existsById(provider.getId().value())) {
             throw new TechContentProviderNotFoundException(provider.getId());
         }

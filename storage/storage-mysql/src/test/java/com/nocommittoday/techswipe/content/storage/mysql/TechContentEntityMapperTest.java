@@ -38,11 +38,11 @@ class TechContentEntityMapperTest {
     @Test
     void 도메인_엔티티_ID로부터_생성할_수_있다() {
         // given
-        final TechContentEntity entity = mock(TechContentEntity.class);
+        TechContentEntity entity = mock(TechContentEntity.class);
         given(techContentJpaRepository.getReferenceById(1L)).willReturn(entity);
 
         // when
-        final TechContentEntity result = techContentEntityMapper.from(new TechContentId(1));
+        TechContentEntity result = techContentEntityMapper.from(new TechContentId(1));
 
         // then
         assertThat(result).isEqualTo(entity);
@@ -51,7 +51,7 @@ class TechContentEntityMapperTest {
     @Test
     void TechContentCreate로부터_생성할_수_있다() {
         // given
-        final TechContentCreate command = new TechContentCreate(
+        TechContentCreate command = new TechContentCreate(
                 new TechContentId(1),
                 new TechContentProviderId(2),
                 "url",
@@ -62,14 +62,14 @@ class TechContentEntityMapperTest {
                 List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING)
         );
 
-        final ImageEntity imageEntity = mock(ImageEntity.class);
+        ImageEntity imageEntity = mock(ImageEntity.class);
         given(imageEntityMapper.from(new ImageId(3))).willReturn(imageEntity);
 
-        final TechContentProviderEntity providerEntity = mock(TechContentProviderEntity.class);
+        TechContentProviderEntity providerEntity = mock(TechContentProviderEntity.class);
         given(techContentProviderEntityMapper.from(new TechContentProviderId(2))).willReturn(providerEntity);
 
         // when
-        final TechContentEntity result = techContentEntityMapper.from(command);
+        TechContentEntity result = techContentEntityMapper.from(command);
 
         // then
         assertThat(result.getId()).isEqualTo(1L);

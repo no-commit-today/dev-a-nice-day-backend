@@ -22,8 +22,8 @@ public class UrlListCrawlingIterator implements Iterator<String> {
     private final Queue<String> urls = new LinkedList<>();
 
     public UrlListCrawlingIterator(
-            final DocumentConnector documentConnector,
-            final ListCrawling listCrawling
+            DocumentConnector documentConnector,
+            ListCrawling listCrawling
     ) {
         this.documentConnector = documentConnector;
         this.listCrawling = listCrawling;
@@ -47,8 +47,8 @@ public class UrlListCrawlingIterator implements Iterator<String> {
         return Objects.requireNonNull(urls.poll());
     }
 
-    private List<String> getUrls(final String listPageUrl) {
-        final ClientResponse<DocumentCrawler> documentResponse = documentConnector.connect(listPageUrl);
+    private List<String> getUrls(String listPageUrl) {
+        ClientResponse<DocumentCrawler> documentResponse = documentConnector.connect(listPageUrl);
         if (documentResponse.isNotFound()) {
             if (page == 1) {
                 throw new DocumentConnectException(documentResponse.getException());
@@ -59,7 +59,7 @@ public class UrlListCrawlingIterator implements Iterator<String> {
         if (documentResponse.isFailed()) {
             throw new DocumentConnectException(documentResponse.getException());
         }
-        final DocumentCrawler documentCrawler = documentResponse.get();
+        DocumentCrawler documentCrawler = documentResponse.get();
         return documentCrawler.getUrlList(listCrawling.crawling()).stream()
                 .filter(listCrawling::isContentUrl)
                 .toList();

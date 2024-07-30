@@ -11,11 +11,7 @@ public class ClientResponse<T> {
 
     private final ClientException exception;
 
-    private ClientResponse(
-            final ClientResponseType type,
-            final T data,
-            final ClientException exception
-    ) {
+    private ClientResponse(ClientResponseType type, T data, ClientException exception) {
         this.type = type;
         this.data = data;
         this.exception = exception;
@@ -25,26 +21,26 @@ public class ClientResponse<T> {
         return new ClientResponse<>(ClientResponseType.SUCCESS, null, null);
     }
 
-    public static <T> ClientResponse<T> success(final T data) {
+    public static <T> ClientResponse<T> success(T data) {
         return new ClientResponse<>(ClientResponseType.SUCCESS, data, null);
     }
 
-    public static <T> ClientResponse<T> notFound(final Exception exception) {
+    public static <T> ClientResponse<T> notFound(Exception exception) {
         return new ClientResponse<>(ClientResponseType.NOT_FOUND, null, new ClientException(exception));
     }
 
-    public static <T> ClientResponse<T> failed(final ClientException ex) {
+    public static <T> ClientResponse<T> failed(ClientException ex) {
         return new ClientResponse<>(ClientResponseType.FAILED, null, ex);
     }
 
-    public static <T> ClientResponse<T> failed(final HttpClientErrorException ex) {
+    public static <T> ClientResponse<T> failed(HttpClientErrorException ex) {
         if (HttpStatus.NOT_FOUND ==  ex.getStatusCode()) {
             return new ClientResponse<>(ClientResponseType.NOT_FOUND, null, new ClientException(ex));
         }
         return new ClientResponse<>(ClientResponseType.FAILED, null, new ClientException(ex));
     }
 
-    public static <T> ClientResponse<T> failed(final Exception ex) {
+    public static <T> ClientResponse<T> failed(Exception ex) {
         if (ex instanceof HttpClientErrorException httpClientErrorException) {
             return failed(httpClientErrorException);
         } else if (ex instanceof ClientException clientException) {

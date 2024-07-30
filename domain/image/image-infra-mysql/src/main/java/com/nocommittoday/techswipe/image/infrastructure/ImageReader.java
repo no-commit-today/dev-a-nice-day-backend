@@ -17,14 +17,14 @@ public class ImageReader {
 
     private final ImageJpaRepository imageRepository;
 
-    public Image get(final ImageId id) {
+    public Image get(ImageId id) {
         return imageRepository.findById(id.value())
                 .filter(ImageEntity::isUsed)
                 .map(ImageEntity::toDomain)
                 .orElseThrow(() -> new ImageNotFoundException(id));
     }
 
-    public List<Image> getAll(final Collection<ImageId> ids) {
+    public List<Image> getAll(Collection<ImageId> ids) {
         return imageRepository.findAllById(ids.stream().map(ImageId::value).toList()).stream()
                 .filter(ImageEntity::isUsed)
                 .map(ImageEntity::toDomain)

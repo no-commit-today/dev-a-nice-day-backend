@@ -24,12 +24,12 @@ class ImageEntityMapperTest {
     @Test
     void 도메인_엔티티_ID로부터_생성할_수_있다() {
         // given
-        final ImageEntity imageEntity = mock(ImageEntity.class);
+        ImageEntity imageEntity = mock(ImageEntity.class);
         given(imageJpaRepository.getReferenceById(1L)).willReturn(imageEntity);
-        final ImageId id = new ImageId(1);
+        ImageId id = new ImageId(1);
 
         // when
-        final ImageEntity result = imageEntityMapper.from(id);
+        ImageEntity result = imageEntityMapper.from(id);
 
         // then
         assertThat(result).isEqualTo(imageEntity);
@@ -38,10 +38,10 @@ class ImageEntityMapperTest {
     @Test
     void 도메인_엔티티가_null일_경우_null을_리턴한다() {
         // given
-        final ImageId id = null;
+        ImageId id = null;
 
         // when
-        final ImageEntity result = imageEntityMapper.from(id);
+        ImageEntity result = imageEntityMapper.from(id);
 
         // then
         assertThat(result).isNull();

@@ -38,19 +38,19 @@ public class IdGenerator {
     private volatile long sequence = 0L;
 
     @Autowired
-    public IdGenerator(final SystemClockHolder systemClockHolder) {
+    public IdGenerator(SystemClockHolder systemClockHolder) {
         this(systemClockHolder, NodeIdUtils.create(), systemClockHolder.millis(), 0L);
     }
 
-    public IdGenerator(final SystemClockHolder systemClockHolder, final long nodeId) {
+    public IdGenerator(SystemClockHolder systemClockHolder, long nodeId) {
         this(systemClockHolder, nodeId, systemClockHolder.millis(), 0L);
     }
 
     public IdGenerator(
-            final SystemClockHolder systemClockHolder,
-            final long nodeId,
-            final long lastTimestamp,
-            final long sequence
+            SystemClockHolder systemClockHolder,
+            long nodeId,
+            long lastTimestamp,
+            long sequence
     ) {
         if (systemClockHolder == null) {
             throw new IllegalArgumentException("systemClockHolder 는 null 이 될 수 없습니다.");
@@ -66,7 +66,7 @@ public class IdGenerator {
         this.sequence = sequence;
 
         if (nodeId < 0 || nodeId > MAX_NODE_ID) {
-            final long newNodeId = nodeId & MAX_NODE_ID;
+            long newNodeId = nodeId & MAX_NODE_ID;
             log.debug("nodeId[{}] 가 범위를 벗어났습니다. 새로운 nodeId[{}] 로 대체합니다.", nodeId, newNodeId);
             this.nodeId = newNodeId;
         } else {
@@ -94,7 +94,7 @@ public class IdGenerator {
 
         lastTimestamp = currentTimestamp;
 
-        final long epoch = currentTimestamp - EPOCH_OFFSET;
+        long epoch = currentTimestamp - EPOCH_OFFSET;
         if (epoch > MAX_EPOCH) {
             throw new IllegalStateException("시간 값이 범위를 벗어났습니다.");
         }
@@ -111,26 +111,26 @@ public class IdGenerator {
         return currentTimestamp;
     }
 
-    public long[] parse(final long id) {
-        final long maskNodeId = ((1L << NODE_ID_BITS) - 1) << SEQUENCE_BITS;
-        final long maskSequence = (1L << SEQUENCE_BITS) - 1;
+    public long[] parse(long id) {
+        long maskNodeId = ((1L << NODE_ID_BITS) - 1) << SEQUENCE_BITS;
+        long maskSequence = (1L << SEQUENCE_BITS) - 1;
 
-        final long timestamp = (id >> (NODE_ID_BITS + SEQUENCE_BITS)) + EPOCH_OFFSET;
-        final long nodeId = (id & maskNodeId) >> SEQUENCE_BITS;
-        final long sequence = id & maskSequence;
+        long timestamp = (id >> (NODE_ID_BITS + SEQUENCE_BITS)) + EPOCH_OFFSET;
+        long nodeId = (id & maskNodeId) >> SEQUENCE_BITS;
+        long sequence = id & maskSequence;
 
         return new long[]{timestamp, nodeId, sequence};
     }
 
-    public long firstId(final long millis) {
+    public long firstId(long millis) {
         return (millis - EPOCH_OFFSET) << (NODE_ID_BITS + SEQUENCE_BITS);
     }
 
-    public long firstId(final LocalDateTime dateTime) {
+    public long firstId(LocalDateTime dateTime) {
         return firstId(dateTime.atZone(ZoneOffset.UTC).toInstant().toEpochMilli());
     }
 
-    public long firstId(final LocalDate date) {
+    public long firstId(LocalDate date) {
         return firstId(date.atStartOfDay());
     }
 }

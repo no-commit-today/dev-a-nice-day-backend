@@ -15,7 +15,7 @@ public class ListCrawlingListData {
 
     private List<ListCrawlingData> content;
 
-    public static ListCrawlingListData from(final List<ListCrawling> listCrawling) {
+    public static ListCrawlingListData from(List<ListCrawling> listCrawling) {
         return new ListCrawlingListData(
                 listCrawling.stream()
                         .map(ListCrawlingData::from)

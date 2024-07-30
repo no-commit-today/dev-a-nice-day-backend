@@ -17,7 +17,7 @@ public class CollectedContentAppender {
 
     private final CollectedContentEntityMapper mapper;
 
-    public CollectedContentId save(final ContentCollect contentCollect) {
+    public CollectedContentId save(ContentCollect contentCollect) {
         return new CollectedContentId(Objects.requireNonNull(
                 repository.save(mapper.from(contentCollect)).getId()
         ));

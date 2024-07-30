@@ -30,13 +30,13 @@ class CollectedContentReaderTest {
     @Test
     void 수집된_컨텐츠를_조회할_수_있다() {
         // given
-        final CollectedContentEntity entity = mock(CollectedContentEntity.class);
+        CollectedContentEntity entity = mock(CollectedContentEntity.class);
         given(entity.isUsed()).willReturn(true);
         given(entity.toDomain()).willReturn(mock(CollectedContent.class));
         given(collectedContentJpaRepository.findById(1L)).willReturn(Optional.of(entity));
 
         // when
-        final CollectedContent result = reader.get(new CollectedContentId(1L));
+        CollectedContent result = reader.get(new CollectedContentId(1L));
 
         // then
         assertThat(result).isNotNull();
@@ -45,7 +45,7 @@ class CollectedContentReaderTest {
     @Test
     void 삭제된_엔티티는_조회할_수_없다() {
         // given
-        final CollectedContentEntity entity = mock(CollectedContentEntity.class);
+        CollectedContentEntity entity = mock(CollectedContentEntity.class);
         given(entity.isUsed()).willReturn(false);
         given(collectedContentJpaRepository.findById(1L)).willReturn(Optional.of(entity));
 

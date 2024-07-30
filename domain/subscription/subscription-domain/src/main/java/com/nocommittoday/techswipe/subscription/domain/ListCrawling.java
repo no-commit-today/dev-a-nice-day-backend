@@ -10,31 +10,31 @@ public record ListCrawling(
         @Nullable String contentUrlFormat
 ) {
 
-    public ListCrawling(final String url, final Crawling crawling) {
+    public ListCrawling(String url, Crawling crawling) {
         this(url, crawling, null, null);
     }
 
     public ListCrawling(
-            final String url,
-            final Crawling crawling,
-            @Nullable final String pageUrlFormat
+            String url,
+            Crawling crawling,
+            @Nullable String pageUrlFormat
     ) {
         this(url, crawling, pageUrlFormat, null);
     }
 
-    public static final String PAGE_URL_PAGE_PLACEHOLDER = "{page}";
+    public static String PAGE_URL_PAGE_PLACEHOLDER = "{page}";
 
-    public static final String CONTENT_URL_ID_PLACEHOLDER = "{contentId}";
+    public static String CONTENT_URL_ID_PLACEHOLDER = "{contentId}";
 
     public boolean isPaginated() {
         return pageUrlFormat != null;
     }
 
-    public String getPageUrl(final int page) {
+    public String getPageUrl(int page) {
         return Objects.requireNonNull(pageUrlFormat).replace(PAGE_URL_PAGE_PLACEHOLDER, String.valueOf(page));
     }
 
-    public boolean isContentUrl(@Nullable final String url) {
+    public boolean isContentUrl(@Nullable String url) {
         if (url == null) {
             return false;
         }

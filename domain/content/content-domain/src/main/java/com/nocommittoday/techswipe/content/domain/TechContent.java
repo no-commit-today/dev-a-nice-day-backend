@@ -29,14 +29,14 @@ public class TechContent {
     private final List<TechCategory> categories;
 
     public TechContent(
-            final TechContentId id,
-            final TechContentProvider provider,
-            @Nullable final ImageId imageId,
-            final String url,
-            final String title,
-            final LocalDate publishedDate,
-            final String summary,
-            final List<TechCategory> categories
+            TechContentId id,
+            TechContentProvider provider,
+            @Nullable ImageId imageId,
+            String url,
+            String title,
+            LocalDate publishedDate,
+            String summary,
+            List<TechCategory> categories
     ) {
         this.id = id;
         this.provider = provider;
@@ -48,7 +48,7 @@ public class TechContent {
         this.categories = Collections.unmodifiableList(categories);
     }
 
-    public TechContent edit(final TechContentCategoryEdit categoryEdit) {
+    public TechContent edit(TechContentCategoryEdit categoryEdit) {
         return new TechContent(
                 id,
                 provider,

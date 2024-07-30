@@ -37,13 +37,13 @@ public class CollectedContent {
     private final String imageUrl;
 
     public CollectedContent(
-            final CollectedContentId id,
-            final TechContentProviderId providerId,
-            final String url,
-            final String title,
-            final LocalDate publishedDate,
-            final String content,
-            @Nullable final String imageUrl
+            CollectedContentId id,
+            TechContentProviderId providerId,
+            String url,
+            String title,
+            LocalDate publishedDate,
+            String content,
+            @Nullable String imageUrl
     ) {
         this.id = id;
         this.status = CollectionStatus.INIT;
@@ -59,16 +59,16 @@ public class CollectedContent {
 
     // FIXME 해당 생성자를 사용하지 않는 방법 고민해야 겠음. status 가 도메인 로직에 의해서 변경되어야 함
     public CollectedContent(
-            final CollectedContentId id,
-            final CollectionStatus status,
-            @Nullable final List<CollectionCategory> categories,
-            @Nullable final String summary,
-            final TechContentProviderId providerId,
-            final String url,
-            final String title,
-            final LocalDate publishedDate,
-            final String content,
-            @Nullable final String imageUrl
+            CollectedContentId id,
+            CollectionStatus status,
+            @Nullable List<CollectionCategory> categories,
+            @Nullable String summary,
+            TechContentProviderId providerId,
+            String url,
+            String title,
+            LocalDate publishedDate,
+            String content,
+            @Nullable String imageUrl
     ) {
         this.id = id;
         this.status = status;
@@ -82,11 +82,11 @@ public class CollectedContent {
         this.imageUrl = imageUrl;
     }
 
-    public CollectedContent categorize(final List<CollectionCategory> categories) {
+    public CollectedContent categorize(List<CollectionCategory> categories) {
         if (!status.categorizable()) {
             throw new CollectionCategorizeUnableException(id, status);
         }
-        final CollectionStatus nextStatus = categories.stream()
+        CollectionStatus nextStatus = categories.stream()
                 .anyMatch(category -> !category.isUsed())
                 ? CollectionStatus.FILTERED : CollectionStatus.CATEGORIZED;
 
@@ -123,7 +123,7 @@ public class CollectedContent {
         );
     }
 
-    public CollectedContent summarize(final String summary) {
+    public CollectedContent summarize(String summary) {
         if (!status.summarizable()) {
             throw new CollectionSummarizeUnableException(id, status);
         }
@@ -178,12 +178,12 @@ public class CollectedContent {
         );
     }
 
-    public CollectedContent editCategory(final ContentCategoryEdit categoryEdit) {
+    public CollectedContent editCategory(ContentCategoryEdit categoryEdit) {
         if (!categoryEdit.isEditable(status)) {
             throw new CollectionCategoryNotEditableException(id);
         }
 
-        final CollectionStatus nextStatus = categoryEdit.nextContentStatus(this);
+        CollectionStatus nextStatus = categoryEdit.nextContentStatus(this);
 
         return new CollectedContent(
                 id,

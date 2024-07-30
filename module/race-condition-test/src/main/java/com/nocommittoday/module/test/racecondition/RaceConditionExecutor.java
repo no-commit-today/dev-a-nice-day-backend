@@ -13,26 +13,26 @@ public class RaceConditionExecutor<T> {
 
     private final List<T> items;
 
-    public static RaceConditionExecutor<Integer> count(final int count, final Consumer<Integer> consumer) {
+    public static RaceConditionExecutor<Integer> count(int count, Consumer<Integer> consumer) {
         return new RaceConditionExecutor<>(
                 IntStream.range(0, count).boxed().toList(),
                 consumer
         );
     }
 
-    public static <T> RaceConditionExecutor<T> list(final List<T> items, final Consumer<T> consumer) {
+    public static <T> RaceConditionExecutor<T> list(List<T> items, Consumer<T> consumer) {
         return new RaceConditionExecutor<>(items, consumer);
     }
 
-    public RaceConditionExecutor(final List<T> items, final Consumer<T> consumer) {
+    public RaceConditionExecutor(List<T> items, Consumer<T> consumer) {
         this.consumer = consumer;
         this.items = items;
     }
 
     public void execute() throws InterruptedException {
-        final int threadCount = items.size();
-        final ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
-        final CountDownLatch latch = new CountDownLatch(threadCount);
+        int threadCount = items.size();
+        ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
+        CountDownLatch latch = new CountDownLatch(threadCount);
 
         for (T item : items) {
             executorService.submit(() -> {

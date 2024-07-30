@@ -12,12 +12,12 @@ import java.io.UncheckedIOException;
 
 public class SyndFeedBuilder {
 
-    public SyndFeed build(final String xml) {
-        try (final InputStream is = new ByteArrayInputStream(xml.getBytes())) {
+    public SyndFeed build(String xml) {
+        try (InputStream is = new ByteArrayInputStream(xml.getBytes())) {
             return new SyndFeedInput().build(new XmlReader(is));
-        } catch (final IOException e) {
+        } catch (IOException e) {
             throw new UncheckedIOException(e);
-        } catch (final FeedException e) {
+        } catch (FeedException e) {
             throw new UncheckedFeedException(e);
         }
     }

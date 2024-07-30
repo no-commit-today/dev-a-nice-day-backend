@@ -56,11 +56,11 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
     private ImageEntity icon;
 
     public TechContentProviderEntity(
-            final Long id,
-            final TechContentProviderType type,
-            final String title,
-            final String url,
-            @Nullable final ImageEntity icon
+            Long id,
+            TechContentProviderType type,
+            String title,
+            String url,
+            @Nullable ImageEntity icon
     ) {
         this.id = id;
         this.type = type;
@@ -69,7 +69,7 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
         this.icon = icon;
     }
 
-    public static TechContentProviderEntity from(final TechContentProviderId id) {
+    public static TechContentProviderEntity from(TechContentProviderId id) {
         return new TechContentProviderEntity(
                 id.value(),
                 null,

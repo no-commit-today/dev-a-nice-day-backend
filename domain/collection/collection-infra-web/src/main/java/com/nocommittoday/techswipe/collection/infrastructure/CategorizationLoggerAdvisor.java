@@ -20,8 +20,8 @@ class CategorizationLoggerAdvisor implements RequestResponseAdvisor {
     private long startTime;
 
     @Override
-    public AdvisedRequest adviseRequest(final AdvisedRequest request, final Map<String, Object> context) {
-        final OpenAiChatOptions openAiChatOptions = (OpenAiChatOptions) request.chatOptions();
+    public AdvisedRequest adviseRequest(AdvisedRequest request, Map<String, Object> context) {
+        OpenAiChatOptions openAiChatOptions = (OpenAiChatOptions) request.chatOptions();
         log.trace("분류 요청 전체 내용[{}]: {}", collectedContent.getId(), request);
         log.info("분류 요청 id={}, model={}", collectedContent.getId(), openAiChatOptions.getModel());
         startTime = System.currentTimeMillis();
@@ -29,7 +29,7 @@ class CategorizationLoggerAdvisor implements RequestResponseAdvisor {
     }
 
     @Override
-    public Flux<ChatResponse> adviseResponse(final Flux<ChatResponse> fluxResponse, final Map<String, Object> context) {
+    public Flux<ChatResponse> adviseResponse(Flux<ChatResponse> fluxResponse, Map<String, Object> context) {
         return fluxResponse.map(response -> {
             responseLog(response);
             return response;
@@ -37,12 +37,12 @@ class CategorizationLoggerAdvisor implements RequestResponseAdvisor {
     }
 
     @Override
-    public ChatResponse adviseResponse(final ChatResponse response, final Map<String, Object> context) {
+    public ChatResponse adviseResponse(ChatResponse response, Map<String, Object> context) {
         responseLog(response);
         return response;
     }
 
-    private void responseLog(final ChatResponse response) {
+    private void responseLog(ChatResponse response) {
         log.trace("분류 응답 전체 내용[{}]: {}", collectedContent.getId(), response);
         log.info("분류 응답 [{}]: promptToken={}, generationToken={}, totalToken={}, 소요시간={}s",
                 collectedContent.getId(),

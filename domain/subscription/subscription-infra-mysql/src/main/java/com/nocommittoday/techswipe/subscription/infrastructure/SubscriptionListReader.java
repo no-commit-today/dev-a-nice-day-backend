@@ -16,7 +16,7 @@ public class SubscriptionListReader {
 
     private final SubscriptionJpaRepository subscriptionJpaRepository;
 
-    public List<Subscription> getList(final int page, final int size) {
+    public List<Subscription> getList(int page, int size) {
         return subscriptionJpaRepository.findAllByDeletedIsFalse(
                 PageRequest.of(page - 1, size, Sort.by("id"))
         ).stream().map(SubscriptionEntity::toDomain).toList();

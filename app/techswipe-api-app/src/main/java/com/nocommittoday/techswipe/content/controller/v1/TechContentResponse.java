@@ -20,7 +20,7 @@ public record TechContentResponse(
         @Nullable String providerIconUrl
 ) {
 
-    public static TechContentResponse from(final TechContentQueryResult content) {
+    public static TechContentResponse from(TechContentQueryResult content) {
         return new TechContentResponse(
                 content.id().value(),
                 content.title(),

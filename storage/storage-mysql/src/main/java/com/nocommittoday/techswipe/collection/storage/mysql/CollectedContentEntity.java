@@ -95,7 +95,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
         );
     }
 
-    public void update(final CollectedContent collectedContent) {
+    public void update(CollectedContent collectedContent) {
         this.status = collectedContent.getStatus();
         this.provider = TechContentProviderEntity.from(collectedContent.getProviderId());
         this.url = collectedContent.getUrl();

@@ -15,7 +15,7 @@ public class CategoryListConverter implements AttributeConverter<List<Collection
 
     @Nullable
     @Override
-    public String convertToDatabaseColumn(@Nullable final List<CollectionCategory> attribute) {
+    public String convertToDatabaseColumn(@Nullable List<CollectionCategory> attribute) {
         if (attribute == null || attribute.isEmpty()) {
             return null;
         }
@@ -27,7 +27,7 @@ public class CategoryListConverter implements AttributeConverter<List<Collection
 
     @Nullable
     @Override
-    public List<CollectionCategory> convertToEntityAttribute(@Nullable final String dbData) {
+    public List<CollectionCategory> convertToEntityAttribute(@Nullable String dbData) {
         if (dbData == null || dbData.isEmpty()) {
             return List.of();
         }

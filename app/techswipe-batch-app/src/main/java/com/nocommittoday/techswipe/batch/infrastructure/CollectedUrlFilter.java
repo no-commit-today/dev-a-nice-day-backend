@@ -11,8 +11,8 @@ public class CollectedUrlFilter {
 
     private final Set<String> urlSet;
 
-    public boolean doFilter(final String url) {
-        final boolean filtered = !urlSet.contains(url);
+    public boolean doFilter(String url) {
+        boolean filtered = !urlSet.contains(url);
         if (!filtered) {
             log.info("url[{}] 이 존재합니다.", url);
         }

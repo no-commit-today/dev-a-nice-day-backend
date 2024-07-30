@@ -8,12 +8,12 @@ public class XmlClient {
 
     private final RestTemplate restTemplate;
 
-    public XmlClient(final RestTemplateBuilder restTemplateBuilder) {
+    public XmlClient(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 
     @ClientLog
-    public String get(final String url) {
+    public String get(String url) {
         return restTemplate.getForObject(url, String.class);
     }
 }

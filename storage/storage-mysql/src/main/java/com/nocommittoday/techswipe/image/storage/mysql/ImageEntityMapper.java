@@ -14,11 +14,11 @@ public class ImageEntityMapper {
     private final ImageJpaRepository imageJpaRepository;
 
     @Nullable
-    public ImageEntity from(@Nullable final ImageId id) {
+    public ImageEntity from(@Nullable ImageId id) {
         return id == null ? null : imageJpaRepository.getReferenceById(id.value());
     }
 
-    public ImageEntity from(final ImageSave imageSave) {
+    public ImageEntity from(ImageSave imageSave) {
         return new ImageEntity(
                 null,
                 imageSave.url(),

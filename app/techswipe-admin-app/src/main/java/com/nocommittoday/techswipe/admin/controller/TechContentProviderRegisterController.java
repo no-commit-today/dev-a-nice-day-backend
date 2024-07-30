@@ -25,12 +25,12 @@ public class TechContentProviderRegisterController {
 
     @PostMapping("/api/content/admin/providers")
     ResponseEntity<TechContentProviderRegisterResponse> register(
-            @RequestBody @Valid final TechContentProviderRegisterRequest request
+            @RequestBody @Valid TechContentProviderRegisterRequest request
     ) {
-        final ImageId iconId = Optional.ofNullable(request.iconUrl())
+        ImageId iconId = Optional.ofNullable(request.iconUrl())
                 .map(url -> imageStoreService.store(url, "provider").get())
                 .orElse(null);
-        final TechContentProviderId providerId = techContentProviderRegisterService.register(
+        TechContentProviderId providerId = techContentProviderRegisterService.register(
                 new TechContentProviderRegisterCommand(
                         request.type(),
                         request.title(),

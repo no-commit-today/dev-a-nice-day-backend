@@ -47,7 +47,7 @@ class SubscriptionUpdaterTest {
                 providerCaptor.capture()
         )).willReturn(Optional.empty());
 
-        final SubscriptionEntity subscriptionEntity = mock(SubscriptionEntity.class);
+        SubscriptionEntity subscriptionEntity = mock(SubscriptionEntity.class);
         given(subscriptionEntity.getId()).willReturn(10L);
         given(subscriptionJpaRepository.save(captor.capture()))
                 .willReturn(subscriptionEntity);
@@ -69,14 +69,14 @@ class SubscriptionUpdaterTest {
         // then
         assertThat(captor.getValue().getProvider().getId()).isEqualTo(1);
 
-        final SubscriptionEntity entity = captor.getValue();
+        SubscriptionEntity entity = captor.getValue();
         assertThat(entity.getId()).isNull();
     }
 
     @Test
     void 컨텐츠_제공자에_등록된_구독이_있으면_삭제됐다면_복구_후_업데이트한다() {
         // given
-        final SubscriptionEntity subscriptionEntity = mock(SubscriptionEntity.class);
+        SubscriptionEntity subscriptionEntity = mock(SubscriptionEntity.class);
         given(subscriptionEntity.getId()).willReturn(10L);
         given(subscriptionJpaRepository.findByProvider(
                 providerCaptor.capture()
@@ -86,7 +86,7 @@ class SubscriptionUpdaterTest {
                 .willReturn(subscriptionEntity);
 
         // when
-        final SubscriptionRegister subscriptionRegister = new SubscriptionRegister(
+        SubscriptionRegister subscriptionRegister = new SubscriptionRegister(
                 new TechContentProviderId(1),
                 SubscriptionType.FEED,
                 SubscriptionType.NONE,

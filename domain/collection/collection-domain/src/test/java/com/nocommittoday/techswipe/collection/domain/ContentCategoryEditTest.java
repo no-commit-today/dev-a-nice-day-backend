@@ -33,7 +33,7 @@ class ContentCategoryEditTest {
     @Test
     void 카테고리_변경_가능한_상태() {
         // given
-        final ContentCategoryEdit contentCategoryEdit = new ContentCategoryEdit(
+        ContentCategoryEdit contentCategoryEdit = new ContentCategoryEdit(
                 List.of(CollectionCategory.DEVOPS));
 
         // when
@@ -50,14 +50,14 @@ class ContentCategoryEditTest {
     @Test
     void 사용되지않는_카테고리가_있을경우_FILTERED_상태로_변경된다() {
         // given
-        final ContentCategoryEdit contentCategoryEdit = new ContentCategoryEdit(
+        ContentCategoryEdit contentCategoryEdit = new ContentCategoryEdit(
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.NON_DEV));
 
         // when
 
-        final CollectedContent collectedContent = mock(CollectedContent.class);
+        CollectedContent collectedContent = mock(CollectedContent.class);
         given(collectedContent.getStatus()).willReturn(CollectionStatus.PUBLISHED);
-        final CollectionStatus result = contentCategoryEdit.nextContentStatus(
+        CollectionStatus result = contentCategoryEdit.nextContentStatus(
                 collectedContent
         );
 
@@ -68,13 +68,13 @@ class ContentCategoryEditTest {
     @Test
     void PUBLISHED_상태인_경우_사용되지않는_카테고리가_없으면_PUBLISHED_상태가_유지된다() {
         // given
-        final ContentCategoryEdit contentCategoryEdit = new ContentCategoryEdit(
+        ContentCategoryEdit contentCategoryEdit = new ContentCategoryEdit(
                 List.of(CollectionCategory.DEVOPS));
 
         // when
-        final CollectedContent collectedContent = mock(CollectedContent.class);
+        CollectedContent collectedContent = mock(CollectedContent.class);
         given(collectedContent.getStatus()).willReturn(CollectionStatus.PUBLISHED);
-        final CollectionStatus result = contentCategoryEdit.nextContentStatus(
+        CollectionStatus result = contentCategoryEdit.nextContentStatus(
                 collectedContent
         );
 
@@ -85,13 +85,13 @@ class ContentCategoryEditTest {
     @Test
     void FILTERED_상태인_경우_사용되지않는_카테고리가_없으면_CATEGORIZED_상태가_된다() {
         // given
-        final ContentCategoryEdit contentCategoryEdit = new ContentCategoryEdit(
+        ContentCategoryEdit contentCategoryEdit = new ContentCategoryEdit(
                 List.of(CollectionCategory.DEVOPS));
 
         // when
-        final CollectedContent collectedContent = mock(CollectedContent.class);
+        CollectedContent collectedContent = mock(CollectedContent.class);
         given(collectedContent.getStatus()).willReturn(CollectionStatus.FILTERED);
-        final CollectionStatus result = contentCategoryEdit.nextContentStatus(
+        CollectionStatus result = contentCategoryEdit.nextContentStatus(
                 collectedContent
         );
 

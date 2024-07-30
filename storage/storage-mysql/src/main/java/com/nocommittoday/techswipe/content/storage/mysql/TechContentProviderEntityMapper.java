@@ -15,11 +15,11 @@ public class TechContentProviderEntityMapper {
 
     private final ImageEntityMapper imageEntityMapper;
 
-    public TechContentProviderEntity from(final TechContentProviderId id) {
+    public TechContentProviderEntity from(TechContentProviderId id) {
         return techContentProviderJpaRepository.getReferenceById(id.value());
     }
 
-    public TechContentProviderEntity from(final TechContentProvider domain) {
+    public TechContentProviderEntity from(TechContentProvider domain) {
         return new TechContentProviderEntity(
                 domain.getId().value(),
                 domain.getType(),
@@ -29,7 +29,7 @@ public class TechContentProviderEntityMapper {
         );
     }
 
-    public TechContentProviderEntity from(final TechContentProviderCreate command) {
+    public TechContentProviderEntity from(TechContentProviderCreate command) {
         return new TechContentProviderEntity(
                 command.id().value(),
                 command.type(),

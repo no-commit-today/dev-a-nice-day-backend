@@ -12,13 +12,13 @@ public class JpaItemTupleWriter<T extends Tuple> extends JpaItemWriter<T> {
 
     private final JpaItemWriter<Object> jpaItemWriter;
 
-    public JpaItemTupleWriter(final JpaItemWriter<Object> jpaItemWriter) {
+    public JpaItemTupleWriter(JpaItemWriter<Object> jpaItemWriter) {
         this.jpaItemWriter = jpaItemWriter;
     }
 
     @Override
-    public void write(final Chunk<? extends T> items) {
-        final List<Object> totalList = new ArrayList<>();
+    public void write(Chunk<? extends T> items) {
+        List<Object> totalList = new ArrayList<>();
 
         for (Tuple item : items) {
             totalList.addAll(item.toList());
@@ -28,17 +28,17 @@ public class JpaItemTupleWriter<T extends Tuple> extends JpaItemWriter<T> {
     }
 
     @Override
-    public void setEntityManagerFactory(final EntityManagerFactory entityManagerFactory) {
+    public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
         jpaItemWriter.setEntityManagerFactory(entityManagerFactory);
     }
 
     @Override
-    public void setClearPersistenceContext(final boolean clearPersistenceContext) {
+    public void setClearPersistenceContext(boolean clearPersistenceContext) {
         jpaItemWriter.setClearPersistenceContext(clearPersistenceContext);
     }
 
     @Override
-    public void setUsePersist(final boolean usePersist) {
+    public void setUsePersist(boolean usePersist) {
         jpaItemWriter.setUsePersist(usePersist);
     }
 

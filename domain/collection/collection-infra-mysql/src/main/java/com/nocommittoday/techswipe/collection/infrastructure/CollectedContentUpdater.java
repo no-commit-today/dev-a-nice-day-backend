@@ -15,8 +15,8 @@ public class CollectedContentUpdater {
     private final CollectedContentJpaRepository collectedContentJpaRepository;
 
     @Transactional
-    public void update(final CollectedContent collectedContent) {
-        final CollectedContentEntity entity = collectedContentJpaRepository.findById(collectedContent.getId().value())
+    public void update(CollectedContent collectedContent) {
+        CollectedContentEntity entity = collectedContentJpaRepository.findById(collectedContent.getId().value())
                 .orElseThrow(() -> new CollectionNotFoundException(collectedContent.getId()));
         entity.update(collectedContent);
     }

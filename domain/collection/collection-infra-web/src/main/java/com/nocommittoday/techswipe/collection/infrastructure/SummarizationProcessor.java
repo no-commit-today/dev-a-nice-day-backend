@@ -12,9 +12,9 @@ public class SummarizationProcessor {
 
     private final SummarizationValidator summarizationValidator;
 
-    public SummarizationResult summarize(final CollectedContent collectedContent) {
+    public SummarizationResult summarize(CollectedContent collectedContent) {
         try {
-            final String responseContent = summarizationClient.summarize(collectedContent);
+            String responseContent = summarizationClient.summarize(collectedContent);
 
             if (!summarizationValidator.check(responseContent)) {
                 throw new SummarizationResponseInvalidException(
@@ -23,7 +23,7 @@ public class SummarizationProcessor {
             }
 
             return SummarizationResult.success(responseContent);
-        } catch (final Exception ex) {
+        } catch (Exception ex) {
             return SummarizationResult.failure(ex);
         }
     }

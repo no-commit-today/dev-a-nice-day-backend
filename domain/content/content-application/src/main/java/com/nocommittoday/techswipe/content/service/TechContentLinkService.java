@@ -11,7 +11,7 @@ public class TechContentLinkService {
 
     private final TechContentUrlReader techContentUrlReader;
 
-    public String link(final TechContentId id) {
+    public String link(TechContentId id) {
         return techContentUrlReader.get(id);
     }
 }

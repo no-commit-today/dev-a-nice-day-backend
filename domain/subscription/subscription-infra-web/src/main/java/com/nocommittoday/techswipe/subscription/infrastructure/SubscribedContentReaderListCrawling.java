@@ -24,7 +24,7 @@ public class SubscribedContentReaderListCrawling implements SubscribedContentRea
     private final HtmlTagCleaner htmlTagCleaner;
 
     @Override
-    public List<SubscribedContent> getList(final Subscription subscription, final LocalDate date) {
+    public List<SubscribedContent> getList(Subscription subscription, LocalDate date) {
         return subscription.toListCrawlings().stream()
                 .map(listCrawling -> getList(listCrawling, date))
                 .flatMap(List::stream)
@@ -32,34 +32,34 @@ public class SubscribedContentReaderListCrawling implements SubscribedContentRea
     }
 
     @Override
-    public boolean supports(final Subscription subscription) {
+    public boolean supports(Subscription subscription) {
         return SubscriptionType.LIST_CRAWLING == subscription.getType();
     }
 
     @Override
-    public boolean supportsInit(final Subscription subscription) {
+    public boolean supportsInit(Subscription subscription) {
         return SubscriptionType.LIST_CRAWLING == subscription.getInitType();
     }
 
     public List<SubscribedContent> getList(
-            final ListCrawlingSubscription subscription, final LocalDate date) {
-        final ListCrawling listCrawling = subscription.listCrawling();
-        final ContentCrawling contentCrawling = subscription.contentCrawling();
-        final UrlListCrawlingIterator iterator = urlListCrawlingIteratorCreator.create(listCrawling);
-        final List<SubscribedContent> result = new ArrayList<>();
+            ListCrawlingSubscription subscription, LocalDate date) {
+        ListCrawling listCrawling = subscription.listCrawling();
+        ContentCrawling contentCrawling = subscription.contentCrawling();
+        UrlListCrawlingIterator iterator = urlListCrawlingIteratorCreator.create(listCrawling);
+        List<SubscribedContent> result = new ArrayList<>();
 
         while (iterator.hasNext()) {
-            final String url = iterator.next();
-            final DocumentCrawler documentCrawler = documentConnector.connect(url).get();
-            final LocalDate publishedDate = localDateParser.parse(
+            String url = iterator.next();
+            DocumentCrawler documentCrawler = documentConnector.connect(url).get();
+            LocalDate publishedDate = localDateParser.parse(
                     documentCrawler.getText(contentCrawling.date()));
             if (date.isAfter(publishedDate)) {
                 break;
             }
 
-            final String title = documentCrawler.getText(contentCrawling.title());
-            final String imageUrl = documentCrawler.getImageUrl();
-            final String content = htmlTagCleaner.clean(documentCrawler.get(contentCrawling.content()));
+            String title = documentCrawler.getText(contentCrawling.title());
+            String imageUrl = documentCrawler.getImageUrl();
+            String content = htmlTagCleaner.clean(documentCrawler.get(contentCrawling.content()));
             result.add(new SubscribedContent(
                     url,
                     title,

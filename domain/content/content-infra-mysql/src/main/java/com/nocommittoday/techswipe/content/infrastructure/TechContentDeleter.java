@@ -14,7 +14,7 @@ public class TechContentDeleter {
     private final TechContentJpaRepository techContentJpaRepository;
 
     @Transactional
-    public void delete(final TechContentId id) {
+    public void delete(TechContentId id) {
         techContentJpaRepository.findById(id.value())
                 .ifPresent(TechContentEntity::delete);
     }

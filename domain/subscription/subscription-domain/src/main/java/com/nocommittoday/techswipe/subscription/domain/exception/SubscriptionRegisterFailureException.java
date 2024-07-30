@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.core.domain.AbstractDomainException;
 
 public class SubscriptionRegisterFailureException extends AbstractDomainException {
 
-    public SubscriptionRegisterFailureException(final String message) {
+    public SubscriptionRegisterFailureException(String message) {
         super(SubscriptionErrorCode.REGISTER_FAILURE, message);
     }
 }

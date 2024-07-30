@@ -12,7 +12,7 @@ public class SummarizationValidator {
             2\\. [^\\n]*[가-힣][^\\n]*
             3\\. [^\\n]*[가-힣][^\\n]*$""");
 
-    public boolean check(final String responseContent) {
+    public boolean check(String responseContent) {
         return SUMMARIZATION_RESULT_FORMAT_PATTERN.matcher(responseContent).matches();
     }
 }

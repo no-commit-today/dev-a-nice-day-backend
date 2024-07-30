@@ -6,7 +6,7 @@ public record EnumMapperValue(
         String title
 ) {
 
-    public EnumMapperValue(final EnumMapperType enumMapperType) {
+    public EnumMapperValue(EnumMapperType enumMapperType) {
         this(enumMapperType.getCode(), enumMapperType.getTitle());
     }
 }

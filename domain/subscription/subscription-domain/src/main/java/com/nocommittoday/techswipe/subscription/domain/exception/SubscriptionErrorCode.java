@@ -18,7 +18,7 @@ public enum SubscriptionErrorCode implements ErrorCodeType {
     private final String message;
     private final int status;
 
-    SubscriptionErrorCode(final String code, final String message, final int status) {
+    SubscriptionErrorCode(String code, String message, int status) {
         this.code = "SUBSCRIPTION-" + code;
         this.message = message;
         this.status = status;

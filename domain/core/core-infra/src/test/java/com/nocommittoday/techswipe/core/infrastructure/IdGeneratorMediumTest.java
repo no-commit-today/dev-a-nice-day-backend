@@ -23,10 +23,10 @@ class IdGeneratorMediumTest {
     @Test
     void 유니크한_아이디를_생성한다() {
         // given
-        final int iterations = 10_000;
+        int iterations = 10_000;
 
         // when
-        final Set<Long> idSet = new HashSet<>();
+        Set<Long> idSet = new HashSet<>();
         for (int i = 0; i < iterations; i++) {
             idSet.add(idGenerator.nextId());
         }
@@ -38,16 +38,16 @@ class IdGeneratorMediumTest {
     @Test
     void 멀티스레드_환경에서도_유니크한_아이디를_생성한다() throws InterruptedException, ExecutionException {
         // given
-        final int numThreads = 50;
-        final ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
-        final CountDownLatch latch = new CountDownLatch(numThreads);
+        int numThreads = 50;
+        ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
+        CountDownLatch latch = new CountDownLatch(numThreads);
 
-        final int iterations = 10_000;
+        int iterations = 10_000;
 
         // when
-        final List<Future<Long>> futures = new ArrayList<>();
+        List<Future<Long>> futures = new ArrayList<>();
         for (int i = 0; i < iterations; i++) {
-            final Future<Long> future = executorService.submit(() -> {
+            Future<Long> future = executorService.submit(() -> {
                 try {
                     return idGenerator.nextId();
                 } finally {
@@ -59,7 +59,7 @@ class IdGeneratorMediumTest {
 
         latch.await();
 
-        final List<Long> idList = new ArrayList<>();
+        List<Long> idList = new ArrayList<>();
         for (Future<Long> future : futures) {
             idList.add(future.get());
         }

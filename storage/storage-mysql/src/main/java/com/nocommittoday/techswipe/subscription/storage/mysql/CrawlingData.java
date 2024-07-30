@@ -23,7 +23,7 @@ public class CrawlingData {
     @Nullable
     private List<Integer> indexes;
 
-    public static CrawlingData from(final Crawling crawling) {
+    public static CrawlingData from(Crawling crawling) {
         return new CrawlingData(
                 crawling.type(),
                 crawling.selector(),

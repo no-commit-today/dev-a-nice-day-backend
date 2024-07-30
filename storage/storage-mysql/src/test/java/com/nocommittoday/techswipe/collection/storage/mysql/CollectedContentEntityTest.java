@@ -18,7 +18,7 @@ class CollectedContentEntityTest {
     @Test
     void 도메인_엔티티로_전환할_수_있다() {
         // given
-        final CollectedContentEntity entity = new CollectedContentEntity(
+        CollectedContentEntity entity = new CollectedContentEntity(
                 1L,
                 CollectionStatus.CATEGORIZED,
                 TechContentProviderEntity.from(new TechContentProviderId(2L)),
@@ -32,7 +32,7 @@ class CollectedContentEntityTest {
         );
 
         // when
-        final CollectedContent result = entity.toDomain();
+        CollectedContent result = entity.toDomain();
 
         // then
         assertThat(result.getId()).isEqualTo(new CollectedContentId(1L));
@@ -59,7 +59,7 @@ class CollectedContentEntityTest {
                 null
         );
 
-        final CollectedContent domain = new CollectedContent(
+        CollectedContent domain = new CollectedContent(
                 new CollectedContentId(1L),
                 CollectionStatus.CATEGORIZED,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),

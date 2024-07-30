@@ -5,15 +5,15 @@ public class ImageApplicationException extends RuntimeException {
     public ImageApplicationException() {
     }
 
-    public ImageApplicationException(final Exception cause) {
+    public ImageApplicationException(Exception cause) {
         super(cause);
     }
 
-    public ImageApplicationException(final String message) {
+    public ImageApplicationException(String message) {
         super(message);
     }
 
-    public ImageApplicationException(final String message, final Exception cause) {
+    public ImageApplicationException(String message, Exception cause) {
         super(message, cause);
     }
 }
