@@ -28,6 +28,8 @@ dependencies {
     implementation(project(":storage:storage-mysql"))
     implementation(project(":app:batch-app-core"))
 
+    implementation(project(":support:logging"))
+
     // Spring
     implementation("org.springframework.boot:spring-boot-starter-batch")
 
