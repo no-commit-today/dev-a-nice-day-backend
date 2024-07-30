@@ -8,13 +8,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record TechContentResponse(
-        long id,
+        String id,
         String title,
         LocalDate publishedDate,
         String summary,
         @Nullable String imageUrl,
         List<TechCategory> categories,
-        long providerId,
+        String providerId,
         String providerTitle,
         String providerUrl,
         @Nullable String providerIconUrl
@@ -22,13 +22,13 @@ public record TechContentResponse(
 
     public static TechContentResponse from(TechContentQueryResult content) {
         return new TechContentResponse(
-                content.id().value(),
+                String.valueOf(content.id().value()),
                 content.title(),
                 content.publishedDate(),
                 content.summary(),
                 content.imageUrl(),
                 content.categories(),
-                content.provider().id().value(),
+                String.valueOf(content.provider().id().value()),
                 content.provider().title(),
                 content.provider().url(),
                 content.provider().iconUrl()

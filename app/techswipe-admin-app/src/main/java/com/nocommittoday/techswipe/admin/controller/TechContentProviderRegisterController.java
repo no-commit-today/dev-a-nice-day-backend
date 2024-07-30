@@ -40,6 +40,6 @@ public class TechContentProviderRegisterController {
         );
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new TechContentProviderRegisterResponse(providerId.value()));
+                .body(TechContentProviderRegisterResponse.from(providerId));
     }
 }
