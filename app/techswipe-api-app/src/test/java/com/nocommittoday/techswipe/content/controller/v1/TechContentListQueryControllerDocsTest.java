@@ -33,9 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(TechContentListQueryController.class)
 class TechContentListQueryControllerDocsTest extends AbstractDocsTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
     @MockBean
     private TechContentListQueryService techContentListQueryService;
 
