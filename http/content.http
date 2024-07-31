@@ -5,7 +5,10 @@ GET {{baseUrl}}/api/content/v1/contents-count
 ### GET 컨텐츠 리스트 조회
 GET {{baseUrl}}/api/content/v1/contents
 
+### GET 컨텐츠 상세 조회
+GET {{baseUrl}}/api/content/v1/contents/{{contentId}}
+
 
 ### GET 컨텐츠 링크 조회
-GET {{baseUrl}}/content/1/link
+GET {{baseUrl}}/contents/{{contentId}}/link
 

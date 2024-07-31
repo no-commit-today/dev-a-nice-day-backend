@@ -4,12 +4,10 @@ import com.nocommittoday.techswipe.content.domain.TechContentId;
 import com.nocommittoday.techswipe.content.service.TechContentLinkService;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
@@ -21,9 +19,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(ContentLinkController.class)
 class ContentLinkControllerDocsTest extends AbstractDocsTest {
-
-    @Autowired
-    private MockMvc mockMvc;
 
     @MockBean
     private TechContentLinkService techContentLinkService;
