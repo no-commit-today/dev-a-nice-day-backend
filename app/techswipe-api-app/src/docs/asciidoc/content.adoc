@@ -12,6 +12,11 @@
 
 operation::content/get-content-list[snippets='http-request,query-parameters,http-response,response-fields']
 
+[[get-content-detail]]
+== 컨텐츠 상세 조회
+
+operation::content/get-content-detail[snippets='http-request,path-parameters,http-response,response-fields']
+
 [[get-content-count]]
 == 컨텐츠 개수 조회
 

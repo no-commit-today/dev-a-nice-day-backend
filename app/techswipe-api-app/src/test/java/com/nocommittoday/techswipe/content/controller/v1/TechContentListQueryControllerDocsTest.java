@@ -12,10 +12,8 @@ import com.nocommittoday.techswipe.core.domain.PageParam;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import com.nocommittoday.techswipe.docs.restdocs.RestDocsAttribute;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDate;
@@ -89,13 +87,13 @@ class TechContentListQueryControllerDocsTest extends AbstractDocsTest {
                                 fieldWithPath("content[].title").description("컨텐츠 제목"),
                                 fieldWithPath("content[].publishedDate").description("컨텐츠 발행일"),
                                 fieldWithPath("content[].summary").description("컨텐츠 요약"),
-                                fieldWithPath("content[].imageUrl").description("컨텐츠 이미지 URL"),
+                                fieldWithPath("content[].imageUrl").description("컨텐츠 이미지 URL").optional(),
                                 fieldWithPath("content[].categories").description("카테고리 목록")
                                         .attributes(RestDocsAttribute.type(TechCategory.class)),
                                 fieldWithPath("content[].providerId").description("제공자 ID"),
                                 fieldWithPath("content[].providerTitle").description("제공자 제목"),
                                 fieldWithPath("content[].providerUrl").description("제공자 URL"),
-                                fieldWithPath("content[].providerIconUrl").description("제공자 아이콘 URL")
+                                fieldWithPath("content[].providerIconUrl").description("제공자 아이콘 URL").optional()
                         )
                 ));
     }
