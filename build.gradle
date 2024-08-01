@@ -10,7 +10,12 @@ plugins {
 allprojects {
 	group = "${projectGroup}"
 	version = "${applicationVersion}"
-	sourceCompatibility = project.javaVersion
+
+	java {
+		toolchain {
+			languageVersion = JavaLanguageVersion.of(project.javaVersion)
+		}
+	}
 
 	repositories {
 		mavenCentral()
