@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.storage.mysql.subscription;
 
-import com.nocommittoday.techswipe.subscription.domain.Crawling;
-import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
+import com.nocommittoday.techswipe.domain.subscription.Crawling;
+import com.nocommittoday.techswipe.domain.subscription.CrawlingType;
 
 import javax.annotation.Nullable;
 import java.util.List;

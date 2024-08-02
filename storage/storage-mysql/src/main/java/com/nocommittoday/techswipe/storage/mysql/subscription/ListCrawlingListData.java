@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.storage.mysql.subscription;
 
-import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
+import com.nocommittoday.techswipe.domain.subscription.ListCrawling;
 
 import java.util.List;
 

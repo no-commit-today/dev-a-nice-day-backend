@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.storage.mysql.subscription;
 
-import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
+import com.nocommittoday.techswipe.domain.subscription.ContentCrawling;
 
 public class ContentCrawlingData {
 

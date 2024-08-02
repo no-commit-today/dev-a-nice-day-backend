@@ -2,14 +2,14 @@ package com.nocommittoday.techswipe.storage.mysql.subscription;
 
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
-import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
-import com.nocommittoday.techswipe.subscription.domain.Crawling;
-import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
-import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
-import com.nocommittoday.techswipe.subscription.domain.Subscription;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionId;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
+import com.nocommittoday.techswipe.domain.subscription.ContentCrawling;
+import com.nocommittoday.techswipe.domain.subscription.Crawling;
+import com.nocommittoday.techswipe.domain.subscription.CrawlingType;
+import com.nocommittoday.techswipe.domain.subscription.ListCrawling;
+import com.nocommittoday.techswipe.domain.subscription.Subscription;
+import com.nocommittoday.techswipe.domain.subscription.SubscriptionId;
+import com.nocommittoday.techswipe.domain.subscription.SubscriptionRegister;
+import com.nocommittoday.techswipe.domain.subscription.SubscriptionType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.admin.controller;
 
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
-import com.nocommittoday.techswipe.subscription.service.SubscriptionRegisterService;
+import com.nocommittoday.techswipe.domain.subscription.SubscriptionRegisterService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;

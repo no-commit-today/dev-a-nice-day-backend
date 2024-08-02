@@ -10,8 +10,8 @@ import com.nocommittoday.techswipe.domain.collection.CollectedContentIdGenerator
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.subscription.SubscriptionEntity;
-import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionSubscribeFailureException;
-import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
+import com.nocommittoday.techswipe.domain.subscription.exception.SubscriptionSubscribeFailureException;
+import com.nocommittoday.techswipe.domain.subscription.SubscribedContentListQueryService;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersValidator;
