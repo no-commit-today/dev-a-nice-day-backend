@@ -6,14 +6,16 @@ import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionNotFoundException;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionJpaRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@RequiredArgsConstructor
 public class SubscriptionReader {
 
     private final SubscriptionJpaRepository subscriptionRepository;
+
+    public SubscriptionReader(SubscriptionJpaRepository subscriptionRepository) {
+        this.subscriptionRepository = subscriptionRepository;
+    }
 
     public Subscription getByProviderId(TechContentProviderId providerId) {
         SubscriptionEntity subscriptionEntity = subscriptionRepository.findByProvider(

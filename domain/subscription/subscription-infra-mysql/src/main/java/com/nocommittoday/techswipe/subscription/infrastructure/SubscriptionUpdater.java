@@ -5,14 +5,16 @@ import com.nocommittoday.techswipe.subscription.domain.SubscriptionId;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionJpaRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@RequiredArgsConstructor
 public class SubscriptionUpdater {
 
     private final SubscriptionJpaRepository subscriptionJpaRepository;
+
+    public SubscriptionUpdater(SubscriptionJpaRepository subscriptionJpaRepository) {
+        this.subscriptionJpaRepository = subscriptionJpaRepository;
+    }
 
     public SubscriptionId update(SubscriptionRegister register) {
         return new SubscriptionId(

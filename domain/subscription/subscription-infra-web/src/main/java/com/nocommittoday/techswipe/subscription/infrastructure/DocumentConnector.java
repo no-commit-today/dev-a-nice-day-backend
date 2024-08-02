@@ -1,7 +1,6 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
 import com.nocommittoday.techswipe.client.core.ClientResponse;
-import lombok.RequiredArgsConstructor;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-@RequiredArgsConstructor
 public class DocumentConnector {
 
     public ClientResponse<DocumentCrawler> connect(String url) {

@@ -1,11 +1,9 @@
 package com.nocommittoday.techswipe.subscription.domain.exception;
 
 import com.nocommittoday.techswipe.core.domain.ErrorCodeType;
-import lombok.Getter;
 
 import java.net.HttpURLConnection;
 
-@Getter
 public enum SubscriptionErrorCode implements ErrorCodeType {
 
 
@@ -22,5 +20,20 @@ public enum SubscriptionErrorCode implements ErrorCodeType {
         this.code = "SUBSCRIPTION-" + code;
         this.message = message;
         this.status = status;
+    }
+
+    @Override
+    public String getCode() {
+        return code;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public int getStatus() {
+        return status;
     }
 }

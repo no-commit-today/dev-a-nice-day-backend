@@ -7,17 +7,19 @@ import com.nocommittoday.techswipe.subscription.infrastructure.SubscribedContent
 import com.nocommittoday.techswipe.subscription.infrastructure.exception.CollectionInfrastructureWebException;
 import com.nocommittoday.techswipe.subscription.service.exception.NotSupportedSubscriptionInitTypeException;
 import com.nocommittoday.techswipe.subscription.service.exception.NotSupportedSubscriptionTypeException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class SubscribedContentListQueryService {
 
     private final List<SubscribedContentReader> subscribedContentReaders;
+
+    public SubscribedContentListQueryService(List<SubscribedContentReader> subscribedContentReaders) {
+        this.subscribedContentReaders = subscribedContentReaders;
+    }
 
     public List<SubscribedContent> getList(Subscription subscription, LocalDate date) {
         try {
