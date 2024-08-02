@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.content.controller.v1;
+package com.nocommittoday.techswipe.controller.content.v1;
 
 public record TechContentCountResponse(
         long count

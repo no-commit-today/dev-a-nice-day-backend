@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.content.controller.v1;
+package com.nocommittoday.techswipe.controller.content.v1;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.service.TechContentQueryResult;
