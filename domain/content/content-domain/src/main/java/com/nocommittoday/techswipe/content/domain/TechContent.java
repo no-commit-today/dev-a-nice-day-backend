@@ -1,14 +1,12 @@
 package com.nocommittoday.techswipe.content.domain;
 
 import com.nocommittoday.techswipe.image.domain.ImageId;
-import lombok.Getter;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
-@Getter
 public class TechContent {
 
     private final TechContentId id;
@@ -59,5 +57,38 @@ public class TechContent {
                 summary,
                 categoryEdit.categories()
         );
+    }
+
+    public List<TechCategory> getCategories() {
+        return categories;
+    }
+
+    public TechContentId getId() {
+        return id;
+    }
+
+    @Nullable
+    public ImageId getImageId() {
+        return imageId;
+    }
+
+    public TechContentProvider getProvider() {
+        return provider;
+    }
+
+    public LocalDate getPublishedDate() {
+        return publishedDate;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }
