@@ -1,11 +1,10 @@
 package com.nocommittoday.techswipe.content.domain;
 
-import lombok.NonNull;
 
 import java.util.List;
 
 public record TechContentCategoryEdit(
-        @NonNull List<TechCategory> categories
+        List<TechCategory> categories
 ) {
 
     public TechContentCategoryEdit {

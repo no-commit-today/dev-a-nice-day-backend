@@ -1,11 +1,9 @@
 package com.nocommittoday.techswipe.content.domain;
 
 import com.nocommittoday.techswipe.core.domain.EnumMapperType;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 public enum TechCategory implements EnumMapperType {
 
     SERVER("서버 개발"),
@@ -25,6 +23,10 @@ public enum TechCategory implements EnumMapperType {
     }
 
     private final String title;
+
+    TechCategory(String title) {
+        this.title = title;
+    }
 
     @Override
     public String getCode() {

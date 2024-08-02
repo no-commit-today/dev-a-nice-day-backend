@@ -1,11 +1,9 @@
 package com.nocommittoday.techswipe.content.domain.exception;
 
 import com.nocommittoday.techswipe.core.domain.ErrorCodeType;
-import lombok.Getter;
 
 import java.net.HttpURLConnection;
 
-@Getter
 public enum TechContentErrorCode implements ErrorCodeType {
     PROVIDER_NOT_FOUND("001", "Provider 가 존재하지 않습니다.",
             HttpURLConnection.HTTP_BAD_REQUEST),
@@ -22,5 +20,20 @@ public enum TechContentErrorCode implements ErrorCodeType {
         this.code = "CONTENT-" + code;
         this.message = message;
         this.status = status;
+    }
+
+    @Override
+    public String getCode() {
+        return this.code;
+    }
+
+    @Override
+    public String getMessage() {
+        return this.message;
+    }
+
+    @Override
+    public int getStatus() {
+        return this.status;
     }
 }
