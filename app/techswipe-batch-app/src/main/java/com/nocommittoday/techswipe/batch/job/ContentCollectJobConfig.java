@@ -7,11 +7,11 @@ import com.nocommittoday.techswipe.batch.processor.ContentCollectJobItemProcesso
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
-import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
-import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntityMapper;
+import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
+import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
+import com.nocommittoday.techswipe.storage.mysql.subscription.SubscriptionEntity;
 import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionSubscribeFailureException;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
-import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersValidator;
@@ -32,7 +32,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.List;
 
-import static com.nocommittoday.techswipe.subscription.storage.mysql.QSubscriptionEntity.subscriptionEntity;
+import static com.nocommittoday.techswipe.storage.mysql.subscription.QSubscriptionEntity.subscriptionEntity;
 
 @Configuration
 public class ContentCollectJobConfig {

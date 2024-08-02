@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.content.infrastructure;
 
-import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderJpaRepository;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderJpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -3,8 +3,8 @@ package com.nocommittoday.techswipe.content.infrastructure;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.exception.TechContentProviderNotFoundException;
-import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
-import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderJpaRepository;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderJpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

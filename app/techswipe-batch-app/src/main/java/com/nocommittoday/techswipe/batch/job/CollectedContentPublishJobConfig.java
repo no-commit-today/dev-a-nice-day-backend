@@ -6,12 +6,12 @@ import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriter;
 import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriterBuilder;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
-import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
-import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntityMapper;
-import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
-import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntityMapper;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import com.nocommittoday.techswipe.image.service.exception.ImageApplicationException;
+import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
+import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntityMapper;
 import jakarta.persistence.EntityManagerFactory;
 import org.javatuples.Pair;
 import org.springframework.batch.core.Job;
@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import static com.nocommittoday.techswipe.collection.storage.mysql.QCollectedContentEntity.collectedContentEntity;
+import static com.nocommittoday.techswipe.storage.mysql.collection.QCollectedContentEntity.collectedContentEntity;
 
 @Configuration
 public class CollectedContentPublishJobConfig {

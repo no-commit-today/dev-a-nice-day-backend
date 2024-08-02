@@ -4,8 +4,8 @@ import com.nocommittoday.techswipe.batch.processor.CollectedContentSummarizeProc
 import com.nocommittoday.techswipe.batch.reader.QuerydslZeroPagingItemReader;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.infrastructure.SummarizationProcessor;
-import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
-import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntityMapper;
+import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
+import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import static com.nocommittoday.techswipe.collection.storage.mysql.QCollectedContentEntity.collectedContentEntity;
+import static com.nocommittoday.techswipe.storage.mysql.collection.QCollectedContentEntity.collectedContentEntity;
 
 @Configuration
 public class CollectedContentSummarizeJobConfig {

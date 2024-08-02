@@ -2,8 +2,8 @@ package com.nocommittoday.techswipe.content.infrastructure;
 
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.exception.TechContentNotFoundException;
-import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntityMapper;
-import com.nocommittoday.techswipe.content.storage.mysql.TechContentJpaRepository;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntityMapper;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentJpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

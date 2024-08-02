@@ -2,8 +2,8 @@ package com.nocommittoday.techswipe.collection.infrastructure;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
-import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntityMapper;
-import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentJpaRepository;
+import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
+import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentJpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Objects;

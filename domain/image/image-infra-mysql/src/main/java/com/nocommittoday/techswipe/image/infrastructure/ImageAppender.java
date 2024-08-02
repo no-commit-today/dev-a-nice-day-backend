@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.image.infrastructure;
 
 import com.nocommittoday.techswipe.image.domain.ImageSave;
-import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
-import com.nocommittoday.techswipe.image.storage.mysql.ImageJpaRepository;
+import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;
+import com.nocommittoday.techswipe.storage.mysql.image.ImageJpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
