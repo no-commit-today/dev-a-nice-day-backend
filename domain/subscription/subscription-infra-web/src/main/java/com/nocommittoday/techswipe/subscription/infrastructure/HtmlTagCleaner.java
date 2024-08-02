@@ -1,6 +1,5 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,10 +30,13 @@ public class HtmlTagCleaner {
         return sb.toString();
     }
 
-    @RequiredArgsConstructor
     private static class TagCleanVisitor implements NodeVisitor {
 
         private final StringBuilder text;
+
+        public TagCleanVisitor(StringBuilder text) {
+            this.text = text;
+        }
 
         public void head(Node node, int depth) {
             if (node instanceof Element element) {

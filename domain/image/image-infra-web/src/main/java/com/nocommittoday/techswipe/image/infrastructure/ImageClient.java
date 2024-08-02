@@ -4,9 +4,10 @@ import com.nocommittoday.techswipe.client.core.ClientResponse;
 import com.nocommittoday.techswipe.core.infrastructure.UuidHolder;
 import com.nocommittoday.techswipe.image.domain.ImageContentType;
 import com.nocommittoday.techswipe.image.domain.ImageFile;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.impl.DefaultRedirectStrategy;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -35,9 +36,10 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-@Slf4j
 @Component
 public class ImageClient {
+
+    private static final Logger log = LoggerFactory.getLogger(ImageClient.class);
 
     private static final File TMP_DIR = Paths.get(System.getProperty("user.dir"), "tmp", "image").toFile();
 

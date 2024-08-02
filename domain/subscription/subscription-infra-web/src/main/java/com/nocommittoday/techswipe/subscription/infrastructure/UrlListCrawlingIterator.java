@@ -3,7 +3,8 @@ package com.nocommittoday.techswipe.subscription.infrastructure;
 import com.nocommittoday.techswipe.client.core.ClientResponse;
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
 import com.nocommittoday.techswipe.subscription.infrastructure.exception.DocumentConnectException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -12,8 +13,9 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Queue;
 
-@Slf4j
 public class UrlListCrawlingIterator implements Iterator<String> {
+
+    private static final Logger log = LoggerFactory.getLogger(UrlListCrawlingIterator.class);
 
     private final DocumentConnector documentConnector;
     private final ListCrawling listCrawling;

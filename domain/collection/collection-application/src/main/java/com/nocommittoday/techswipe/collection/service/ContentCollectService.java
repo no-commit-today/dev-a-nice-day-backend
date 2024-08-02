@@ -7,20 +7,27 @@ import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentApp
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrlExistsReader;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderExistsReader;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class ContentCollectService {
 
     private final CollectedContentIdGenerator idGenerator;
-
     private final TechContentProviderExistsReader techContentProviderExistsReader;
-
     private final CollectedContentUrlExistsReader collectedContentUrlExistsReader;
-
     private final CollectedContentAppender collectedContentAppender;
+
+    public ContentCollectService(
+            CollectedContentIdGenerator idGenerator,
+            TechContentProviderExistsReader techContentProviderExistsReader,
+            CollectedContentUrlExistsReader collectedContentUrlExistsReader,
+            CollectedContentAppender collectedContentAppender
+    ) {
+        this.idGenerator = idGenerator;
+        this.techContentProviderExistsReader = techContentProviderExistsReader;
+        this.collectedContentUrlExistsReader = collectedContentUrlExistsReader;
+        this.collectedContentAppender = collectedContentAppender;
+    }
 
     public CollectedContentId collect(ContentCollectCommand command) {
         if (!techContentProviderExistsReader.exists(command.providerId())) {

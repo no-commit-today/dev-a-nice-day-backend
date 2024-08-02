@@ -13,7 +13,6 @@ import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionSub
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
 import jakarta.persistence.EntityManagerFactory;
-import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersValidator;
 import org.springframework.batch.core.Step;
@@ -36,7 +35,6 @@ import java.util.List;
 import static com.nocommittoday.techswipe.subscription.storage.mysql.QSubscriptionEntity.subscriptionEntity;
 
 @Configuration
-@RequiredArgsConstructor
 public class ContentCollectJobConfig {
 
     private static final String JOB_NAME = "contentCollectJob";
@@ -51,6 +49,24 @@ public class ContentCollectJobConfig {
     private final CollectedContentIdGenerator collectedContentIdGenerator;
     private final CollectedUrlFilterCreator collectedUrlFilterCreator;
     private final CollectedContentEntityMapper collectedContentEntityMapper;
+
+    public ContentCollectJobConfig(
+            JobRepository jobRepository,
+            PlatformTransactionManager txManager,
+            EntityManagerFactory emf,
+            SubscribedContentListQueryService subscribedContentListQueryService,
+            CollectedContentIdGenerator collectedContentIdGenerator,
+            CollectedUrlFilterCreator collectedUrlFilterCreator,
+            CollectedContentEntityMapper collectedContentEntityMapper
+    ) {
+        this.jobRepository = jobRepository;
+        this.txManager = txManager;
+        this.emf = emf;
+        this.subscribedContentListQueryService = subscribedContentListQueryService;
+        this.collectedContentIdGenerator = collectedContentIdGenerator;
+        this.collectedUrlFilterCreator = collectedUrlFilterCreator;
+        this.collectedContentEntityMapper = collectedContentEntityMapper;
+    }
 
     @Bean(JOB_NAME)
     public Job job() {

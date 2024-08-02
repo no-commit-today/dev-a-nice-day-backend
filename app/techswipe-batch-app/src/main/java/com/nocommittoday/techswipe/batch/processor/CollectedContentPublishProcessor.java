@@ -10,22 +10,28 @@ import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntityMapper;
 import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
-import lombok.RequiredArgsConstructor;
 import org.javatuples.Pair;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.util.Objects;
 import java.util.Optional;
 
-@RequiredArgsConstructor
 public class CollectedContentPublishProcessor
         implements ItemProcessor<CollectedContentEntity, Pair<CollectedContentEntity, TechContentEntity>> {
 
     private final ImageStoreService imageStoreService;
-
     private final CollectedContentEntityMapper collectedContentEntityMapper;
-
     private final TechContentEntityMapper techContentEntityMapper;
+
+    public CollectedContentPublishProcessor(
+            ImageStoreService imageStoreService,
+            CollectedContentEntityMapper collectedContentEntityMapper,
+            TechContentEntityMapper techContentEntityMapper
+    ) {
+        this.imageStoreService = imageStoreService;
+        this.collectedContentEntityMapper = collectedContentEntityMapper;
+        this.techContentEntityMapper = techContentEntityMapper;
+    }
 
     @Override
     public Pair<CollectedContentEntity, TechContentEntity> process(CollectedContentEntity item) throws Exception {

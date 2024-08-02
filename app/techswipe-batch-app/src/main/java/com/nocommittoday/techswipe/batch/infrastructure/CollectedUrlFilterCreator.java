@@ -2,17 +2,19 @@ package com.nocommittoday.techswipe.batch.infrastructure;
 
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedUrlSetReader;
 import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
 public class CollectedUrlFilterCreator {
 
     private final CollectedUrlSetReader collectedUrlSetReader;
+
+    public CollectedUrlFilterCreator(CollectedUrlSetReader collectedUrlSetReader) {
+        this.collectedUrlSetReader = collectedUrlSetReader;
+    }
 
     public CollectedUrlFilter createFromContents(Collection<SubscribedContent> contents) {
         List<String> urls = contents.stream()

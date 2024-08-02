@@ -14,8 +14,8 @@ import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionSub
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
 import jakarta.persistence.EntityManagerFactory;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersValidator;
 import org.springframework.batch.core.Step;
@@ -36,10 +36,10 @@ import java.util.List;
 
 import static com.nocommittoday.techswipe.subscription.storage.mysql.QSubscriptionEntity.subscriptionEntity;
 
-@Slf4j
 @Configuration
-@RequiredArgsConstructor
 public class ContentCollectProviderJobConfig {
+
+    private static final Logger log = LoggerFactory.getLogger(ContentCollectProviderJobConfig.class);
 
     private static final String JOB_NAME = "contentCollectProviderJob";
     private static final String STEP_NAME = "contentCollectProviderStep";
@@ -53,6 +53,24 @@ public class ContentCollectProviderJobConfig {
     private final CollectedContentIdGenerator collectedContentIdGenerator;
     private final CollectedUrlFilterCreator collectedUrlFilterCreator;
     private final CollectedContentEntityMapper collectedContentEntityMapper;
+
+    public ContentCollectProviderJobConfig(
+            JobRepository jobRepository,
+            PlatformTransactionManager txManager,
+            EntityManagerFactory emf,
+            SubscribedContentListQueryService subscribedContentListQueryService,
+            CollectedContentIdGenerator collectedContentIdGenerator,
+            CollectedUrlFilterCreator collectedUrlFilterCreator,
+            CollectedContentEntityMapper collectedContentEntityMapper
+    ) {
+        this.jobRepository = jobRepository;
+        this.txManager = txManager;
+        this.emf = emf;
+        this.subscribedContentListQueryService = subscribedContentListQueryService;
+        this.collectedContentIdGenerator = collectedContentIdGenerator;
+        this.collectedUrlFilterCreator = collectedUrlFilterCreator;
+        this.collectedContentEntityMapper = collectedContentEntityMapper;
+    }
 
     @Bean(JOB_NAME)
     public Job job() {

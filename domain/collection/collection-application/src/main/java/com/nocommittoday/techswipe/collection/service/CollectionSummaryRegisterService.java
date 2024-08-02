@@ -7,20 +7,27 @@ import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentRea
 import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUpdater;
 import com.nocommittoday.techswipe.collection.infrastructure.SummarizationPromptCreator;
 import com.nocommittoday.techswipe.collection.infrastructure.SummarizationValidator;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class CollectionSummaryRegisterService {
 
     private final CollectedContentReader collectedContentReader;
-
     private final SummarizationPromptCreator summarizationPromptCreator;
-
     private final SummarizationValidator summarizationValidator;
-
     private final CollectedContentUpdater collectedContentUpdater;
+
+    public CollectionSummaryRegisterService(
+            CollectedContentReader collectedContentReader,
+            SummarizationPromptCreator summarizationPromptCreator,
+            SummarizationValidator summarizationValidator,
+            CollectedContentUpdater collectedContentUpdater
+    ) {
+        this.collectedContentReader = collectedContentReader;
+        this.summarizationPromptCreator = summarizationPromptCreator;
+        this.summarizationValidator = summarizationValidator;
+        this.collectedContentUpdater = collectedContentUpdater;
+    }
 
     public CollectionSummarizationPromptResult getPrompt(CollectedContentId id) {
         CollectedContent collectedContent = collectedContentReader.get(id);

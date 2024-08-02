@@ -16,14 +16,12 @@ import com.nocommittoday.techswipe.content.infrastructure.TechContentDeleter;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentReader;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentUpdater;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentUrlExistsReader;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ContentCategoryEditService {
 
     private final CollectedContentReader collectedContentReader;
@@ -32,6 +30,22 @@ public class ContentCategoryEditService {
     private final TechContentReader techContentReader;
     private final TechContentUpdater techContentUpdater;
     private final TechContentDeleter techContentDeleter;
+
+    public ContentCategoryEditService(
+            CollectedContentReader collectedContentReader,
+            CollectedContentUpdater collectedContentUpdater,
+            TechContentUrlExistsReader techContentUrlExistsReader,
+            TechContentReader techContentReader,
+            TechContentUpdater techContentUpdater,
+            TechContentDeleter techContentDeleter
+    ) {
+        this.collectedContentReader = collectedContentReader;
+        this.collectedContentUpdater = collectedContentUpdater;
+        this.techContentUrlExistsReader = techContentUrlExistsReader;
+        this.techContentReader = techContentReader;
+        this.techContentUpdater = techContentUpdater;
+        this.techContentDeleter = techContentDeleter;
+    }
 
     public void editCategory(CollectedContentId id, ContentCategoryEdit categoryEdit) {
         CollectedContent oldCollectedContent = collectedContentReader.get(id);

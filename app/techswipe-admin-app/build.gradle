@@ -1,5 +1,4 @@
 bootJar.enabled = true
-jar.enabled = false
 
 dependencies {
     implementation(project(":app:servlet-api-app-core"))

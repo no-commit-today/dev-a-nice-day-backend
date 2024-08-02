@@ -21,16 +21,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Persistable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Table(
@@ -46,8 +42,6 @@ import static lombok.AccessLevel.PROTECTED;
                 @Index(name = "ix_tech_content__published_date", columnList = "published_date desc")
         }
 )
-@Getter
-@NoArgsConstructor(access = PROTECTED)
 public class TechContentEntity extends BaseSoftDeleteEntity implements Persistable<Long> {
 
     @Id
@@ -76,6 +70,9 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
 
     @OneToMany(mappedBy = "content", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<TechContentCategoryEntity> categories = new ArrayList<>();
+
+    protected TechContentEntity() {
+    }
 
     public TechContentEntity(
             Long id,
@@ -128,5 +125,35 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
     @Override
     public boolean isNew() {
         return getCreatedAt() == null;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Nullable
+    public ImageEntity getImage() {
+        return image;
+    }
+
+    public TechContentProviderEntity getProvider() {
+        return provider;
+    }
+
+    public LocalDate getPublishedDate() {
+        return publishedDate;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

@@ -1,16 +1,9 @@
 package com.nocommittoday.techswipe.subscription.storage.mysql;
 
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.annotation.Nullable;
 
-@AllArgsConstructor
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ListCrawlingData {
 
     private String url;
@@ -19,6 +12,15 @@ public class ListCrawlingData {
 
     @Nullable
     private String pageUrlFormat;
+
+    protected ListCrawlingData() {
+    }
+
+    public ListCrawlingData(String url, CrawlingData crawling, String pageUrlFormat) {
+        this.url = url;
+        this.crawling = crawling;
+        this.pageUrlFormat = pageUrlFormat;
+    }
 
     public static ListCrawlingData from(ListCrawling listCrawling) {
         return new ListCrawlingData(
@@ -34,5 +36,18 @@ public class ListCrawlingData {
                 crawling.toDomain(),
                 pageUrlFormat
         );
+    }
+
+    public CrawlingData getCrawling() {
+        return crawling;
+    }
+
+    @Nullable
+    public String getPageUrlFormat() {
+        return pageUrlFormat;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

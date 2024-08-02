@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.batch.job;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
@@ -15,17 +15,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-@Slf4j
 @Configuration
-@RequiredArgsConstructor
 public class HealthCheckJobConfig {
+
+    private static final Logger log = LoggerFactory.getLogger(HealthCheckJobConfig.class);
 
     private static final String JOB_NAME = "healthCheckJob";
     private static final String STEP_NAME = "healthCheckStep";
 
     private final JobRepository jobRepository;
-
     private final PlatformTransactionManager txManager;
+
+    public HealthCheckJobConfig(JobRepository jobRepository, PlatformTransactionManager txManager) {
+        this.jobRepository = jobRepository;
+        this.txManager = txManager;
+    }
 
     @Bean(JOB_NAME)
     public Job job() {

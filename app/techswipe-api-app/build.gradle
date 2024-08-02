@@ -1,5 +1,4 @@
 bootJar.enabled = true
-jar.enabled = false
 
 ext {
     snippetsDir = file('build/generated-snippets')

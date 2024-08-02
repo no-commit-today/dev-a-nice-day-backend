@@ -2,11 +2,9 @@ package com.nocommittoday.techswipe.collection.domain;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.core.domain.EnumMapperType;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
-@Getter
-@RequiredArgsConstructor
+import javax.annotation.Nullable;
+
 public enum CollectionCategory implements EnumMapperType {
 
     SERVER("서버 개발", TechCategory.SERVER),
@@ -25,9 +23,23 @@ public enum CollectionCategory implements EnumMapperType {
     private final String title;
     private final TechCategory techCategory;
 
+    CollectionCategory(String title, @Nullable TechCategory techCategory) {
+        this.title = title;
+        this.techCategory = techCategory;
+    }
+
     @Override
     public String getCode() {
         return name();
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    public TechCategory getTechCategory() {
+        return techCategory;
     }
 
     public boolean isUsed() {

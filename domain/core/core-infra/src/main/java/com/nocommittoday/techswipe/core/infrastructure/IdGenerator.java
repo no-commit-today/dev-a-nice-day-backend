@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.core.infrastructure;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -15,10 +16,11 @@ import java.time.ZoneOffset;
  * 참고2: https://github.com/callicoder/java-snowflake/blob/master/src/main/java/com/callicoder/snowflake/Snowflake.java
  * 참고3: https://www.slideshare.net/slideshow/twitter-snowflake/80830757
  */
-@Slf4j
 @Scope("prototype")
 @Component
 public class IdGenerator {
+
+    private static final Logger log = LoggerFactory.getLogger(IdGenerator.class);
 
     private static final int UNUSED_BITS = 1; // Sign bit, Unused (always set to 0)
     private static final int EPOCH_BITS = 41;

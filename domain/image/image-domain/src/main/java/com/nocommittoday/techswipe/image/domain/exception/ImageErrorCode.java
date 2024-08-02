@@ -1,11 +1,9 @@
 package com.nocommittoday.techswipe.image.domain.exception;
 
 import com.nocommittoday.techswipe.core.domain.ErrorCodeType;
-import lombok.Getter;
 
 import java.net.HttpURLConnection;
 
-@Getter
 public enum ImageErrorCode implements ErrorCodeType {
     NOT_SUPPORTED_IMAGE("001", "지원하지 않는 이미지입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
     IMAGE_NOT_FOUND("002", "이미지를 찾을 수 없습니다.", HttpURLConnection.HTTP_NOT_FOUND),
@@ -20,5 +18,21 @@ public enum ImageErrorCode implements ErrorCodeType {
         this.code = "IMAGE-" + code;
         this.message = message;
         this.status = status;
+    }
+
+
+    @Override
+    public String getCode() {
+        return this.code;
+    }
+
+    @Override
+    public String getMessage() {
+        return this.message;
+    }
+
+    @Override
+    public int getStatus() {
+        return this.status;
     }
 }

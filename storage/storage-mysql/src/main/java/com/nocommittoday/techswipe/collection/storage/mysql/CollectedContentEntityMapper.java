@@ -4,14 +4,16 @@ import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderJpaRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class CollectedContentEntityMapper {
 
     private final TechContentProviderJpaRepository techContentProviderJpaRepository;
+
+    public CollectedContentEntityMapper(TechContentProviderJpaRepository techContentProviderJpaRepository) {
+        this.techContentProviderJpaRepository = techContentProviderJpaRepository;
+    }
 
     public CollectedContentEntity from(ContentCollect contentCollect) {
         return new CollectedContentEntity(

@@ -10,26 +10,36 @@ import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.service.SubscribedContentListQueryService;
 import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Slf4j
-@RequiredArgsConstructor
 public class ContentCollectJobItemProcessor implements ItemProcessor<SubscriptionEntity, List<CollectedContentEntity>> {
 
+    private static final Logger log = LoggerFactory.getLogger(ContentCollectJobItemProcessor.class);
+
     private final SubscribedContentListQueryService subscribedContentListQueryService;
-
     private final CollectedUrlFilterCreator collectedUrlFilterCreator;
-
     private final CollectedContentIdGenerator collectedContentIdGenerator;
-
     private final CollectedContentEntityMapper collectedContentEntityMapper;
-
     private final LocalDate date;
+
+    public ContentCollectJobItemProcessor(
+            SubscribedContentListQueryService subscribedContentListQueryService,
+            CollectedUrlFilterCreator collectedUrlFilterCreator,
+            CollectedContentIdGenerator collectedContentIdGenerator,
+            CollectedContentEntityMapper collectedContentEntityMapper,
+            LocalDate date
+    ) {
+        this.subscribedContentListQueryService = subscribedContentListQueryService;
+        this.collectedUrlFilterCreator = collectedUrlFilterCreator;
+        this.collectedContentIdGenerator = collectedContentIdGenerator;
+        this.collectedContentEntityMapper = collectedContentEntityMapper;
+        this.date = date;
+    }
 
     @Override
     public List<CollectedContentEntity> process(SubscriptionEntity item) throws Exception {

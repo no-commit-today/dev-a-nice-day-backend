@@ -1,11 +1,9 @@
 package com.nocommittoday.techswipe.content.domain;
 
 import com.nocommittoday.techswipe.image.domain.ImageId;
-import lombok.Getter;
 
 import javax.annotation.Nullable;
 
-@Getter
 public class TechContentProvider {
 
     private final TechContentProviderId id;
@@ -43,4 +41,24 @@ public class TechContentProvider {
         );
     }
 
+    @Nullable
+    public ImageId getIconId() {
+        return iconId;
+    }
+
+    public TechContentProviderId getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public TechContentProviderType getType() {
+        return type;
+    }
+
+    public String getUrl() {
+        return url;
+    }
 }

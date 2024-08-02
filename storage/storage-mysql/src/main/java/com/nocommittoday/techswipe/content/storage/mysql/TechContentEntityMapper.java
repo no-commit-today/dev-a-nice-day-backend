@@ -4,18 +4,24 @@ import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentId;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntityMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class TechContentEntityMapper {
 
     private final TechContentJpaRepository techContentJpaRepository;
-
     private final TechContentProviderEntityMapper techContentProviderEntityMapper;
-
     private final ImageEntityMapper imageEntityMapper;
+
+    public TechContentEntityMapper(
+            TechContentJpaRepository techContentJpaRepository,
+            TechContentProviderEntityMapper techContentProviderEntityMapper,
+            ImageEntityMapper imageEntityMapper
+    ) {
+        this.techContentJpaRepository = techContentJpaRepository;
+        this.techContentProviderEntityMapper = techContentProviderEntityMapper;
+        this.imageEntityMapper = imageEntityMapper;
+    }
 
     public TechContentEntity from(TechContentId id) {
         return techContentJpaRepository.getReferenceById(id.value());

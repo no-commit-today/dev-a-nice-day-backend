@@ -2,8 +2,8 @@ package com.nocommittoday.techswipe.collection.infrastructure;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
 import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -12,9 +12,9 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Component
-@Slf4j
-@RequiredArgsConstructor
 public class CategorizationProcessor {
+
+    private static final Logger log = LoggerFactory.getLogger(CategorizationProcessor.class);
 
     public static final int MIN_CATEGORY_NUM = 1;
     public static final int MAX_CATEGORY_NUM = 3;
@@ -26,6 +26,10 @@ public class CategorizationProcessor {
             + ")$");
 
     private final CategorizationClient categorizationClient;
+
+    public CategorizationProcessor(CategorizationClient categorizationClient) {
+        this.categorizationClient = categorizationClient;
+    }
 
     public CategorizationResult categorize(CollectedContent collectedContent) {
         try {

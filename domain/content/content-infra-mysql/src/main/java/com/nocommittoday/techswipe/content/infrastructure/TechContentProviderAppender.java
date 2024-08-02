@@ -4,18 +4,22 @@ import com.nocommittoday.techswipe.content.domain.TechContentProviderCreate;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntityMapper;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderJpaRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.Objects;
 
 @Repository
-@RequiredArgsConstructor
 public class TechContentProviderAppender {
 
     private final TechContentProviderJpaRepository repository;
-
     private final TechContentProviderEntityMapper mapper;
+
+    public TechContentProviderAppender(
+            TechContentProviderJpaRepository repository, TechContentProviderEntityMapper mapper
+    ) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     public TechContentProviderId save(TechContentProviderCreate command) {
         return new TechContentProviderId(

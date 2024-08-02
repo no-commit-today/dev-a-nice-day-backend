@@ -8,6 +8,7 @@ spring:
   config:
     import:
       - monitoring.yml
+      - logging.yml
       - storage-mysql.yml
 
 server:

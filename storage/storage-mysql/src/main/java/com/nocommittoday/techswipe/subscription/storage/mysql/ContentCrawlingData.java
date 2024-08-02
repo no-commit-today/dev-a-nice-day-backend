@@ -1,14 +1,7 @@
 package com.nocommittoday.techswipe.subscription.storage.mysql;
 
 import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ContentCrawlingData {
 
     private CrawlingData title;
@@ -16,6 +9,15 @@ public class ContentCrawlingData {
     private CrawlingData date;
 
     private CrawlingData content;
+
+    protected ContentCrawlingData() {
+    }
+
+    public ContentCrawlingData(CrawlingData title, CrawlingData date, CrawlingData content) {
+        this.title = title;
+        this.date = date;
+        this.content = content;
+    }
 
     public static ContentCrawlingData from(ContentCrawling contentCrawling) {
         return new ContentCrawlingData(
@@ -31,5 +33,17 @@ public class ContentCrawlingData {
                 date.toDomain(),
                 content.toDomain()
         );
+    }
+
+    public CrawlingData getContent() {
+        return content;
+    }
+
+    public CrawlingData getDate() {
+        return date;
+    }
+
+    public CrawlingData getTitle() {
+        return title;
     }
 }

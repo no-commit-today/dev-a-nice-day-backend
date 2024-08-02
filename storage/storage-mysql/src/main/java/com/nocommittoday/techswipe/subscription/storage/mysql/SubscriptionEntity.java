@@ -19,15 +19,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Table(
@@ -36,9 +32,6 @@ import static lombok.AccessLevel.PROTECTED;
                 @UniqueConstraint(name = "uk_subscription__provider_id", columnNames = {"provider_id"})
         }
 )
-@Getter
-@NoArgsConstructor(access = PROTECTED)
-@AllArgsConstructor
 public class SubscriptionEntity extends BaseSoftDeleteEntity {
 
     @Id
@@ -60,6 +53,23 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "data", columnDefinition = "json", nullable = false)
     private SubscriptionData data;
+
+    protected SubscriptionEntity() {
+    }
+
+    public SubscriptionEntity(
+            Long id,
+            TechContentProviderEntity provider,
+            SubscriptionType type,
+            SubscriptionType initType,
+            SubscriptionData data
+    ) {
+        this.id = id;
+        this.provider = provider;
+        this.type = type;
+        this.initType = initType;
+        this.data = data;
+    }
 
     public static SubscriptionEntity from(SubscriptionRegister register) {
         return new SubscriptionEntity(
@@ -94,5 +104,25 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
                 data.getContentCrawling().toDomain(),
                 data.getListCrawlings().toDomain()
         );
+    }
+
+    public SubscriptionData getData() {
+        return data;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public SubscriptionType getInitType() {
+        return initType;
+    }
+
+    public TechContentProviderEntity getProvider() {
+        return provider;
+    }
+
+    public SubscriptionType getType() {
+        return type;
     }
 }

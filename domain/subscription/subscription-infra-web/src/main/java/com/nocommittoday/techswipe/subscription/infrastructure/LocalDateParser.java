@@ -2,7 +2,6 @@ package com.nocommittoday.techswipe.subscription.infrastructure;
 
 import com.nocommittoday.techswipe.core.infrastructure.LocalDateHolder;
 import com.nocommittoday.techswipe.subscription.infrastructure.exception.LocalDateParseException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -14,10 +13,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-@RequiredArgsConstructor
 public class LocalDateParser {
 
     private final LocalDateHolder localDateHolder;
+
+    public LocalDateParser(LocalDateHolder localDateHolder) {
+        this.localDateHolder = localDateHolder;
+    }
 
     private static final List<DateTimeFormatter> FORMATTERS = List.of(
             DateTimeFormatter.ofPattern("yyyy-MM-dd"),

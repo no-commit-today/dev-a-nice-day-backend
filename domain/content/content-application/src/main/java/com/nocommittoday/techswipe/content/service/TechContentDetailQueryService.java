@@ -4,16 +4,21 @@ import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentId;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentReader;
 import com.nocommittoday.techswipe.image.infrastructure.ImageUrlReader;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class TechContentDetailQueryService {
 
     private final TechContentReader techContentReader;
-
     private final ImageUrlReader imageUrlReader;
+
+    public TechContentDetailQueryService(
+            TechContentReader techContentReader,
+            ImageUrlReader imageUrlReader
+    ) {
+        this.techContentReader = techContentReader;
+        this.imageUrlReader = imageUrlReader;
+    }
 
     public TechContentDetailQueryResult get(TechContentId id) {
         TechContent techContent = techContentReader.get(id);

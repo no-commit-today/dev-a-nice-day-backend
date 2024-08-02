@@ -1,12 +1,14 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatOptions;
 
-@Slf4j
 class CategorizationClientOpenAi implements CategorizationClient {
+
+    private static final Logger log = LoggerFactory.getLogger(CategorizationClientOpenAi.class);
 
     private final ChatClient chatClient;
 

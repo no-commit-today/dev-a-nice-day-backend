@@ -6,7 +6,6 @@ import com.nocommittoday.techswipe.subscription.domain.ListCrawlingSubscription;
 import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -15,13 +14,24 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
 public class SubscribedContentReaderListCrawling implements SubscribedContentReader {
 
     private final UrlListCrawlingIteratorCreator urlListCrawlingIteratorCreator;
     private final DocumentConnector documentConnector;
     private final LocalDateParser localDateParser;
     private final HtmlTagCleaner htmlTagCleaner;
+
+    public SubscribedContentReaderListCrawling(
+            UrlListCrawlingIteratorCreator urlListCrawlingIteratorCreator,
+            DocumentConnector documentConnector,
+            LocalDateParser localDateParser,
+            HtmlTagCleaner htmlTagCleaner
+    ) {
+        this.urlListCrawlingIteratorCreator = urlListCrawlingIteratorCreator;
+        this.documentConnector = documentConnector;
+        this.localDateParser = localDateParser;
+        this.htmlTagCleaner = htmlTagCleaner;
+    }
 
     @Override
     public List<SubscribedContent> getList(Subscription subscription, LocalDate date) {

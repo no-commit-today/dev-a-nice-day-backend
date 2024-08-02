@@ -1,5 +1,4 @@
 bootJar.enabled = true
-jar.enabled = false
 
 dependencies {
     implementation(project(":domain:core:core-domain"))
@@ -50,3 +49,4 @@ dependencies {
 clean {
     delete file("src/main/generated")
 }
+

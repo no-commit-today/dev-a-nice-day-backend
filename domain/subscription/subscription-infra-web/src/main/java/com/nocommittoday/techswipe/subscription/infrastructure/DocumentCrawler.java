@@ -4,11 +4,11 @@ import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.infrastructure.exception.CrawlingException;
 import com.nocommittoday.techswipe.subscription.infrastructure.exception.UnsupportedCrawlingTypeException;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import java.util.LinkedHashSet;
@@ -16,11 +16,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@Slf4j
-@RequiredArgsConstructor
 public class DocumentCrawler {
 
+    private static final Logger log = LoggerFactory.getLogger(DocumentCrawler.class);
+
     private final Document document;
+
+    public DocumentCrawler(Document document) {
+        this.document = document;
+    }
 
     @Nullable
     public String getImageUrl() {

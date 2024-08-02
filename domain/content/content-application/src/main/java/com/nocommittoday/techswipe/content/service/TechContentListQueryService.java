@@ -7,7 +7,6 @@ import com.nocommittoday.techswipe.core.domain.PageParam;
 import com.nocommittoday.techswipe.image.domain.Image;
 import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.infrastructure.ImageReader;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -18,11 +17,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class TechContentListQueryService {
 
     private final TechContentCategorizedListReader techContentCategorizedListReader;
     private final ImageReader imageReader;
+
+    public TechContentListQueryService(
+            TechContentCategorizedListReader techContentCategorizedListReader, ImageReader imageReader
+    ) {
+        this.techContentCategorizedListReader = techContentCategorizedListReader;
+        this.imageReader = imageReader;
+    }
 
     public List<TechContentQueryResult> getList(PageParam pageParam, TechContentListQueryParam queryParam) {
         List<TechContent> contents = techContentCategorizedListReader.getList(pageParam, queryParam.categories());

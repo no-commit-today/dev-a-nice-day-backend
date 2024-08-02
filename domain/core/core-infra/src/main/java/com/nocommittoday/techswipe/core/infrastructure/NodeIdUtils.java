@@ -1,12 +1,15 @@
 package com.nocommittoday.techswipe.core.infrastructure;
 
-import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.InetAddress;
 import java.security.SecureRandom;
 
-@Slf4j
 final class NodeIdUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(NodeIdUtils.class);
     
     static long create() {
         long nodeId;

@@ -7,7 +7,6 @@ import com.nocommittoday.techswipe.collection.infrastructure.SummarizationProces
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntityMapper;
 import jakarta.persistence.EntityManagerFactory;
-import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
@@ -25,7 +24,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import static com.nocommittoday.techswipe.collection.storage.mysql.QCollectedContentEntity.collectedContentEntity;
 
 @Configuration
-@RequiredArgsConstructor
 public class CollectedContentSummarizeJobConfig {
 
     private static final String JOB_NAME = "collectedContentSummarizeJob";
@@ -38,6 +36,20 @@ public class CollectedContentSummarizeJobConfig {
 
     private final SummarizationProcessor summarizationProcessor;
     private final CollectedContentEntityMapper collectedContentEntityMapper;
+
+    public CollectedContentSummarizeJobConfig(
+            JobRepository jobRepository,
+            PlatformTransactionManager txManager,
+            EntityManagerFactory emf,
+            SummarizationProcessor summarizationProcessor,
+            CollectedContentEntityMapper collectedContentEntityMapper
+    ) {
+        this.jobRepository = jobRepository;
+        this.txManager = txManager;
+        this.emf = emf;
+        this.summarizationProcessor = summarizationProcessor;
+        this.collectedContentEntityMapper = collectedContentEntityMapper;
+    }
 
     @Bean(JOB_NAME)
     public Job job() {

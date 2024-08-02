@@ -2,17 +2,10 @@ package com.nocommittoday.techswipe.subscription.storage.mysql;
 
 import com.nocommittoday.techswipe.subscription.domain.Crawling;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-@AllArgsConstructor
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CrawlingData {
 
     private CrawlingType type;
@@ -22,6 +15,15 @@ public class CrawlingData {
 
     @Nullable
     private List<Integer> indexes;
+
+    protected CrawlingData() {
+    }
+
+    public CrawlingData(CrawlingType type, String selector, List<Integer> indexes) {
+        this.type = type;
+        this.selector = selector;
+        this.indexes = indexes;
+    }
 
     public static CrawlingData from(Crawling crawling) {
         return new CrawlingData(
@@ -37,5 +39,19 @@ public class CrawlingData {
                 selector,
                 indexes
         );
+    }
+
+    @Nullable
+    public List<Integer> getIndexes() {
+        return indexes;
+    }
+
+    @Nullable
+    public String getSelector() {
+        return selector;
+    }
+
+    public CrawlingType getType() {
+        return type;
     }
 }

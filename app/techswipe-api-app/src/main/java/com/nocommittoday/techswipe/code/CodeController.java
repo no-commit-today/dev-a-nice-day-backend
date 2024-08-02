@@ -2,7 +2,6 @@ package com.nocommittoday.techswipe.code;
 
 import com.nocommittoday.techswipe.core.domain.EnumMapperFactory;
 import com.nocommittoday.techswipe.core.domain.EnumMapperValue;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,10 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequiredArgsConstructor
 public class CodeController {
 
     private final EnumMapperFactory enumMapperFactory;
+
+    public CodeController(EnumMapperFactory enumMapperFactory) {
+        this.enumMapperFactory = enumMapperFactory;
+    }
 
     @GetMapping("/api/code/v1/codes")
     public ResponseEntity<Map<String, List<EnumMapperValue>>> codeList(

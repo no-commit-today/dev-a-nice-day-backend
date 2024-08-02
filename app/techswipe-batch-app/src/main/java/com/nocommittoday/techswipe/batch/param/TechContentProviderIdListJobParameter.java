@@ -1,7 +1,6 @@
 package com.nocommittoday.techswipe.batch.param;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.annotation.Nullable;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Getter
 public class TechContentProviderIdListJobParameter {
 
     public static final String NAME = "TechContentProviderIdListJobParameter";
@@ -42,5 +40,9 @@ public class TechContentProviderIdListJobParameter {
                 .map(Long::valueOf)
                 .map(TechContentProviderId::new)
                 .toList();
+    }
+
+    public List<TechContentProviderId> getProviderIdList() {
+        return providerIdList;
     }
 }

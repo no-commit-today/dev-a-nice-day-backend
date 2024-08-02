@@ -19,11 +19,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Persistable;
-
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Table(
@@ -32,8 +28,6 @@ import static lombok.AccessLevel.PROTECTED;
                 @UniqueConstraint(name = "uk_tech_content_provider__url", columnNames = {"url"})
         }
 )
-@Getter
-@NoArgsConstructor(access = PROTECTED)
 public class TechContentProviderEntity extends BaseSoftDeleteEntity implements Persistable<Long> {
 
     @Id
@@ -54,6 +48,9 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "icon_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ImageEntity icon;
+
+    protected TechContentProviderEntity() {
+    }
 
     public TechContentProviderEntity(
             Long id,
@@ -92,5 +89,27 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
     @Override
     public boolean isNew() {
         return getCreatedAt() == null;
+    }
+
+    @Nullable
+    public ImageEntity getIcon() {
+        return icon;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public TechContentProviderType getType() {
+        return type;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

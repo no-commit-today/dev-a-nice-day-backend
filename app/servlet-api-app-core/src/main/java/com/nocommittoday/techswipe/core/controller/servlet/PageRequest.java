@@ -3,15 +3,10 @@ package com.nocommittoday.techswipe.core.controller.servlet;
 import com.nocommittoday.techswipe.core.domain.PageParam;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
-@Getter
-@ToString
-@EqualsAndHashCode
 public class PageRequest {
     public static final int DEFAULT_PAGE = 1;
     public static final int DEFAULT_SIZE = 20;
@@ -45,5 +40,31 @@ public class PageRequest {
 
     public final PageParam toPageParam() {
         return new PageParam(page, size);
+    }
+
+    @Positive
+    public int getPage() {
+        return page;
+    }
+
+    @Override
+    public String toString() {
+        return "PageRequest{" +
+                "page=" + page +
+                ", size=" + size +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PageRequest that = (PageRequest) o;
+        return page == that.page && size == that.size;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(page, size);
     }
 }

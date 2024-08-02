@@ -7,7 +7,6 @@ import com.nocommittoday.techswipe.subscription.domain.FeedSubscription;
 import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -17,13 +16,24 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-@RequiredArgsConstructor
 public class SubscribedContentReaderFeed implements SubscribedContentReader {
 
     private final FeedClient feedClient;
     private final DocumentConnector documentConnector;
     private final LocalDateParser localDateParser;
     private final HtmlTagCleaner htmlTagCleaner;
+
+    public SubscribedContentReaderFeed(
+            FeedClient feedClient,
+            DocumentConnector documentConnector,
+            LocalDateParser localDateParser,
+            HtmlTagCleaner htmlTagCleaner
+    ) {
+        this.feedClient = feedClient;
+        this.documentConnector = documentConnector;
+        this.localDateParser = localDateParser;
+        this.htmlTagCleaner = htmlTagCleaner;
+    }
 
     @Override
     public List<SubscribedContent> getList(Subscription subscription, LocalDate date) {
