@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.core.storage.mysql;
+package com.nocommittoday.techswipe.storage.mysql.core;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

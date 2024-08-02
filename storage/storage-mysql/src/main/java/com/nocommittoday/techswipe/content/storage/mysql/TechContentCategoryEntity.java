@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.content.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.core.storage.mysql.BaseTimeEntity;
+import com.nocommittoday.techswipe.storage.mysql.core.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;

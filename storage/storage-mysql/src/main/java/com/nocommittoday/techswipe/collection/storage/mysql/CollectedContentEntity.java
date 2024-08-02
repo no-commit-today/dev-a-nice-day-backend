@@ -6,7 +6,7 @@ import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
 import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
-import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
+import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Convert;

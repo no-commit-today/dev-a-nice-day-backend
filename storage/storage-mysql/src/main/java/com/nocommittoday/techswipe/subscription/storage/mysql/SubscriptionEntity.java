@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.subscription.storage.mysql;
 
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentProviderEntity;
-import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
+import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.subscription.domain.Subscription;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionId;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;

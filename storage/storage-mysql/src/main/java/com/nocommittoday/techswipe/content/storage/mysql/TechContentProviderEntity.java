@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.content.storage.mysql;
 import com.nocommittoday.techswipe.content.domain.TechContentProvider;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
-import com.nocommittoday.techswipe.core.storage.mysql.BaseSoftDeleteEntity;
+import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
 import jakarta.annotation.Nullable;

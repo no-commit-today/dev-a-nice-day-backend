@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.core.storage.mysql;
+package com.nocommittoday.techswipe.storage.mysql.core;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
