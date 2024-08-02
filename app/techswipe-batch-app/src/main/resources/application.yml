@@ -8,6 +8,7 @@ spring:
   config:
     import:
       - storage-mysql.yml
+      - logging.yml
 
   batch:
     job:
