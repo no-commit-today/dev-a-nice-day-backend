@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.content;
 
-import com.nocommittoday.techswipe.image.domain.ImageId;
+import com.nocommittoday.techswipe.domain.image.ImageId;
 
 import javax.annotation.Nullable;
 

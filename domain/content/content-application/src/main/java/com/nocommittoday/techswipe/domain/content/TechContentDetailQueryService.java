@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.content;
 
-import com.nocommittoday.techswipe.image.infrastructure.ImageUrlReader;
+import com.nocommittoday.techswipe.domain.image.ImageUrlReader;
 import org.springframework.stereotype.Service;
 
 @Service

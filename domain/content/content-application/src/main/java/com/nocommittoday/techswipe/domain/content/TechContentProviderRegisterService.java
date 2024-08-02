@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.domain.content;
 
 import com.nocommittoday.techswipe.domain.content.exception.TechContentProviderUrlExistsException;
-import com.nocommittoday.techswipe.image.infrastructure.ImageIdValidator;
+import com.nocommittoday.techswipe.domain.image.ImageIdValidator;
 import org.springframework.stereotype.Service;
 
 @Service

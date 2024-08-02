@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.domain.content.TechCategory;
 import com.nocommittoday.techswipe.domain.content.TechContentCreate;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
-import com.nocommittoday.techswipe.image.domain.ImageId;
+import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;
 import com.nocommittoday.techswipe.storage.mysql.image.ImageEntityMapper;
 import org.junit.jupiter.api.Test;

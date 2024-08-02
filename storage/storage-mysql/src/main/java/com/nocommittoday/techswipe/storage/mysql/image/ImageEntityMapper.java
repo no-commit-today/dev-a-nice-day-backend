@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.storage.mysql.image;
 
-import com.nocommittoday.techswipe.image.domain.ImageId;
-import com.nocommittoday.techswipe.image.domain.ImageSave;
+import com.nocommittoday.techswipe.domain.image.ImageId;
+import com.nocommittoday.techswipe.domain.image.ImageSave;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nullable;

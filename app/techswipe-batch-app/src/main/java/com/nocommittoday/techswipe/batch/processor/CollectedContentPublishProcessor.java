@@ -8,8 +8,8 @@ import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEnti
 import com.nocommittoday.techswipe.domain.content.TechContentCreate;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntityMapper;
-import com.nocommittoday.techswipe.image.domain.ImageId;
-import com.nocommittoday.techswipe.image.service.ImageStoreService;
+import com.nocommittoday.techswipe.domain.image.ImageId;
+import com.nocommittoday.techswipe.domain.image.ImageStoreService;
 import org.javatuples.Pair;
 import org.springframework.batch.item.ItemProcessor;
 

@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.storage.mysql.image;
 
 
-import com.nocommittoday.techswipe.image.domain.ImageId;
+import com.nocommittoday.techswipe.domain.image.ImageId;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

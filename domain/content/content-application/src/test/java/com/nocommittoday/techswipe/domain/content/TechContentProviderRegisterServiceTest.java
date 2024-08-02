@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.domain.content;
 
 import com.nocommittoday.techswipe.domain.content.exception.TechContentProviderUrlExistsException;
-import com.nocommittoday.techswipe.image.domain.ImageId;
-import com.nocommittoday.techswipe.image.infrastructure.ImageIdValidator;
+import com.nocommittoday.techswipe.domain.image.ImageId;
+import com.nocommittoday.techswipe.domain.image.ImageIdValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
