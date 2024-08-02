@@ -28,7 +28,7 @@ public class TechContentProviderRegisterController {
         this.imageStoreService = imageStoreService;
     }
 
-    @PostMapping("/api/content/admin/providers")
+    @PostMapping("/admin/api/providers")
     ResponseEntity<TechContentProviderRegisterResponse> register(
             @RequestBody @Valid TechContentProviderRegisterRequest request
     ) {

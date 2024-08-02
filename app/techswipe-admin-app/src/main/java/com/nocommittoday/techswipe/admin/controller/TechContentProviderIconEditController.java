@@ -26,7 +26,7 @@ public class TechContentProviderIconEditController {
         this.techContentProviderIconEditService = techContentProviderIconEditService;
     }
 
-    @PatchMapping("/api/content/admin/providers/{providerId}/icon")
+    @PatchMapping("/admin/api/providers/{providerId}/icon")
     void edit(@PathVariable Long providerId, @RequestBody @Validated TechContentProviderIconEditRequest request) {
         ImageId iconId = Optional.ofNullable(request.iconUrl())
                 .map(url -> imageStoreService.store(url, "provider").get())

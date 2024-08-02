@@ -19,7 +19,7 @@ public class ContentCategoryEditController {
         this.categoryEditService = categoryEditService;
     }
 
-    @PatchMapping("/api/collection/admin/collections/{collectionId}/categories")
+    @PatchMapping("/admin/api/collections/{collectionId}/categories")
     public void edit(
             @PathVariable Long collectionId,
             @RequestBody @Validated ContentCategoryEditRequest request
@@ -30,7 +30,7 @@ public class ContentCategoryEditController {
         );
     }
 
-    @PostMapping("/api/collection/admin/collections/{collectionId}/apply-categories")
+    @PostMapping("/admin/api/collections/{collectionId}/apply-categories")
     public void apply(@PathVariable Long collectionId) {
         categoryEditService.applyCategoryEdited(new CollectedContentId(collectionId));
     }

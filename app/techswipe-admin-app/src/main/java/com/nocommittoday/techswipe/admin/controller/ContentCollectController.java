@@ -15,7 +15,7 @@ public class ContentCollectController {
         this.contentCollectService = contentCollectService;
     }
 
-    @PostMapping("/api/collection/admin/collections")
+    @PostMapping("/admin/api/collections")
     public ContentCollectResponse collect(
             @RequestBody @Validated ContentCollectRequest request
     ) {

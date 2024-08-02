@@ -20,7 +20,7 @@ public class SubscriptionRegisterController {
         this.subscriptionRegisterService = subscriptionRegisterService;
     }
 
-    @PutMapping("/api/subscription/admin/providers/{providerId}/subscription")
+    @PutMapping("/admin/api/providers/{providerId}/subscription")
     public ResponseEntity<Void> register(
             @PathVariable Long providerId,
             @Validated @RequestBody SubscriptionRegisterRequest request

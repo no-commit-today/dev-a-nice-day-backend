@@ -21,7 +21,7 @@ public class CollectionSummaryRegisterController {
         this.summaryRegisterService = summaryRegisterService;
     }
 
-    @GetMapping("/api/collection/admin/collections/{collectionId}/summarization-prompt")
+    @GetMapping("/admin/api/collections/{collectionId}/summarization-prompt")
     public ResponseEntity<String> getPrompt(@PathVariable Long collectionId) {
         return ResponseEntity
                 .ok()
@@ -29,7 +29,7 @@ public class CollectionSummaryRegisterController {
                 .body(summaryRegisterService.getPrompt(new CollectedContentId(collectionId)).content());
     }
 
-    @PostMapping("/api/collection/admin/collections/{collectionId}/summary")
+    @PostMapping("/admin/api/collections/{collectionId}/summary")
     public void register(
             @PathVariable Long collectionId,
             @RequestBody @Validated CollectionSummaryRegisterRequest registerRequest
