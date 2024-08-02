@@ -8,21 +8,30 @@ import com.nocommittoday.techswipe.image.domain.ImageSave;
 import com.nocommittoday.techswipe.image.infrastructure.FileStore;
 import com.nocommittoday.techswipe.image.infrastructure.ImageAppender;
 import com.nocommittoday.techswipe.image.infrastructure.ImageClient;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Paths;
 
 @Service
-@Slf4j
-@RequiredArgsConstructor
 public class ImageStoreService {
+
+    private static final Logger log = LoggerFactory.getLogger(ImageStoreService.class);
 
     private final FileStore fileStore;
     private final ImageAppender imageAppender;
     private final UuidHolder uuidHolder;
     private final ImageClient imageClient;
+
+    public ImageStoreService(
+            FileStore fileStore, ImageAppender imageAppender, UuidHolder uuidHolder, ImageClient imageClient
+    ) {
+        this.fileStore = fileStore;
+        this.imageAppender = imageAppender;
+        this.uuidHolder = uuidHolder;
+        this.imageClient = imageClient;
+    }
 
     public ImageStoreResult store(String originUrl, String dirToStore) {
         log.info("이미지 저장 요청: originUrl={}, dirToStore={}", originUrl, dirToStore);
