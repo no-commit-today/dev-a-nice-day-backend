@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.storage.mysql.content;
 
-import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
+import com.nocommittoday.techswipe.domain.content.TechCategory;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
 import com.nocommittoday.techswipe.core.domain.PageParam;
 import com.nocommittoday.techswipe.storage.mysql.test.AbstractDataJpaTest;
 import org.junit.jupiter.api.Test;

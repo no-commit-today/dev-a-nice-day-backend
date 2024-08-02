@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.service;
 
-import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderIdValidator;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderIdValidator;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionId;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
 import com.nocommittoday.techswipe.subscription.infrastructure.SubscriptionUpdater;

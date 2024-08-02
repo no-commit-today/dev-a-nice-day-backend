@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.URL;

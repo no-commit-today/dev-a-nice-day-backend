@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
-import com.nocommittoday.techswipe.content.domain.TechContentCreate;
+import com.nocommittoday.techswipe.domain.content.TechContentCreate;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntityMapper;
 import com.nocommittoday.techswipe.image.domain.ImageId;

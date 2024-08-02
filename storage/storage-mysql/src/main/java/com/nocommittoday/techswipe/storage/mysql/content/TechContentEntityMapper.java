@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.storage.mysql.content;
 
-import com.nocommittoday.techswipe.content.domain.TechContent;
-import com.nocommittoday.techswipe.content.domain.TechContentCreate;
-import com.nocommittoday.techswipe.content.domain.TechContentId;
+import com.nocommittoday.techswipe.domain.content.TechContent;
+import com.nocommittoday.techswipe.domain.content.TechContentCreate;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.storage.mysql.image.ImageEntityMapper;
 import org.springframework.stereotype.Component;
 

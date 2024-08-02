@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.controller.content;
 
-import com.nocommittoday.techswipe.content.domain.TechContentId;
-import com.nocommittoday.techswipe.content.service.TechContentLinkService;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
+import com.nocommittoday.techswipe.domain.content.TechContentLinkService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

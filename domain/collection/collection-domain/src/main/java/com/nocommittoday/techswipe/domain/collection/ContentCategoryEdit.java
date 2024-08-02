@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.domain.collection;
 
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategoryNotEditableException;
-import com.nocommittoday.techswipe.content.domain.TechContentCategoryEdit;
+import com.nocommittoday.techswipe.domain.content.TechContentCategoryEdit;
 
 import java.util.List;
 import java.util.Set;

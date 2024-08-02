@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.controller.content;
 
-import com.nocommittoday.techswipe.content.domain.TechContentId;
-import com.nocommittoday.techswipe.content.service.TechContentLinkService;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
+import com.nocommittoday.techswipe.domain.content.TechContentLinkService;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

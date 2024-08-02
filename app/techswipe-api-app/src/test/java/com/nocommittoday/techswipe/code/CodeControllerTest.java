@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.code;
 
-import com.nocommittoday.techswipe.content.domain.TechCategory;
+import com.nocommittoday.techswipe.domain.content.TechCategory;
 import com.nocommittoday.techswipe.core.domain.EnumMapperFactory;
 import com.nocommittoday.techswipe.core.domain.EnumMapperType;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;

@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.collection;
 
-import com.nocommittoday.techswipe.content.domain.TechContentId;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
 
 public record CollectedContentId(long value) {
 

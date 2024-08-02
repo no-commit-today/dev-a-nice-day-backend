@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
 import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;

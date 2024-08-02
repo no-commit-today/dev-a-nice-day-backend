@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.storage.mysql.content;
 
-import com.nocommittoday.techswipe.content.domain.TechCategory;
+import com.nocommittoday.techswipe.domain.content.TechCategory;
 import com.nocommittoday.techswipe.core.domain.PageParam;
 
 import java.util.List;

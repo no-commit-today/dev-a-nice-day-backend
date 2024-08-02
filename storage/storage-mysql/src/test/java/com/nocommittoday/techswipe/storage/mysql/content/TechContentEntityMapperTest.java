@@ -1,9 +1,9 @@
 package com.nocommittoday.techswipe.storage.mysql.content;
 
-import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.content.domain.TechContentCreate;
-import com.nocommittoday.techswipe.content.domain.TechContentId;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechCategory;
+import com.nocommittoday.techswipe.domain.content.TechContentCreate;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;
 import com.nocommittoday.techswipe.storage.mysql.image.ImageEntityMapper;

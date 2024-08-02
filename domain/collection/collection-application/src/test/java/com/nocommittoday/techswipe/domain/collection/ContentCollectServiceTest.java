@@ -2,8 +2,8 @@ package com.nocommittoday.techswipe.domain.collection;
 
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionAlreadyCollectedException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionIllegalProviderIdException;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
-import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderExistsReader;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderExistsReader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.domain;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.subscription.domain.exception.SubscriptionRegisterFailureException;
 
 import javax.annotation.Nullable;

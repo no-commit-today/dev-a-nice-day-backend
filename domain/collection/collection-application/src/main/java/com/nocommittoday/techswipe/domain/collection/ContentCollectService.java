@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.domain.collection;
 
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionAlreadyCollectedException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionIllegalProviderIdException;
-import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderExistsReader;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderExistsReader;
 import org.springframework.stereotype.Service;
 
 @Service

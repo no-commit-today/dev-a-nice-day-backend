@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.subscription.infrastructure;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
 import com.nocommittoday.techswipe.subscription.domain.ContentCrawling;
 import com.nocommittoday.techswipe.subscription.domain.Crawling;

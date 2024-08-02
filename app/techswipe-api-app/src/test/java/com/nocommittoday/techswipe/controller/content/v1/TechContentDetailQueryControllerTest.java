@@ -1,11 +1,11 @@
 package com.nocommittoday.techswipe.controller.content.v1;
 
-import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.content.domain.TechContentId;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
-import com.nocommittoday.techswipe.content.service.TechContentDetailQueryResult;
-import com.nocommittoday.techswipe.content.service.TechContentDetailQueryService;
+import com.nocommittoday.techswipe.domain.content.TechCategory;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
+import com.nocommittoday.techswipe.domain.content.TechContentDetailQueryResult;
+import com.nocommittoday.techswipe.domain.content.TechContentDetailQueryService;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

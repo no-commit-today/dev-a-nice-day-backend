@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.storage.mysql.content;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProvider;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderType;
+import com.nocommittoday.techswipe.domain.content.TechContentProvider;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;

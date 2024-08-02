@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
-import com.nocommittoday.techswipe.content.service.TechContentProviderRegisterCommand;
-import com.nocommittoday.techswipe.content.service.TechContentProviderRegisterService;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderRegisterCommand;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderRegisterService;
 import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import jakarta.validation.Valid;

@@ -1,14 +1,14 @@
 package com.nocommittoday.techswipe.domain.collection;
 
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategoryNotApplicableException;
-import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.content.domain.TechContent;
-import com.nocommittoday.techswipe.content.domain.TechContentCategoryEdit;
-import com.nocommittoday.techswipe.content.domain.TechContentId;
-import com.nocommittoday.techswipe.content.infrastructure.TechContentDeleter;
-import com.nocommittoday.techswipe.content.infrastructure.TechContentReader;
-import com.nocommittoday.techswipe.content.infrastructure.TechContentUpdater;
-import com.nocommittoday.techswipe.content.infrastructure.TechContentUrlExistsReader;
+import com.nocommittoday.techswipe.domain.content.TechCategory;
+import com.nocommittoday.techswipe.domain.content.TechContent;
+import com.nocommittoday.techswipe.domain.content.TechContentCategoryEdit;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
+import com.nocommittoday.techswipe.domain.content.TechContentDeleter;
+import com.nocommittoday.techswipe.domain.content.TechContentReader;
+import com.nocommittoday.techswipe.domain.content.TechContentUpdater;
+import com.nocommittoday.techswipe.domain.content.TechContentUrlExistsReader;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 

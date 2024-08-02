@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategor
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategoryNotEditableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionSummarizeUnableException;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;

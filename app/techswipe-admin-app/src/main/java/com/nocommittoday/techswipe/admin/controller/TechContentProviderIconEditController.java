@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
-import com.nocommittoday.techswipe.content.service.TechContentProviderIconEditService;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderIconEditService;
 import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import org.springframework.validation.annotation.Validated;

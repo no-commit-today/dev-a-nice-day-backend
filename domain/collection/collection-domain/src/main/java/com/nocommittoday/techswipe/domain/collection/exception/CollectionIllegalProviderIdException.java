@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.collection.exception;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.core.domain.AbstractDomainException;
 
 public class CollectionIllegalProviderIdException extends AbstractDomainException {

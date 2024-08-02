@@ -1,12 +1,12 @@
 package com.nocommittoday.techswipe.controller.content.v1;
 
-import com.nocommittoday.techswipe.content.domain.TechCategory;
-import com.nocommittoday.techswipe.content.domain.TechContentId;
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
-import com.nocommittoday.techswipe.content.service.TechContentListQueryParam;
-import com.nocommittoday.techswipe.content.service.TechContentListQueryService;
-import com.nocommittoday.techswipe.content.service.TechContentProviderQueryResult;
-import com.nocommittoday.techswipe.content.service.TechContentQueryResult;
+import com.nocommittoday.techswipe.domain.content.TechCategory;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentListQueryParam;
+import com.nocommittoday.techswipe.domain.content.TechContentListQueryService;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderQueryResult;
+import com.nocommittoday.techswipe.domain.content.TechContentQueryResult;
 import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
 import com.nocommittoday.techswipe.core.domain.PageParam;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;

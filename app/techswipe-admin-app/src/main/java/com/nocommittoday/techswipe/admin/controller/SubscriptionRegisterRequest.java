@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
 import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
