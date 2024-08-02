@@ -2,13 +2,12 @@ package com.nocommittoday.techswipe.collection.domain;
 
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategoryNotEditableException;
 import com.nocommittoday.techswipe.content.domain.TechContentCategoryEdit;
-import lombok.NonNull;
 
 import java.util.List;
 import java.util.Set;
 
 public record ContentCategoryEdit(
-        @NonNull List<CollectionCategory> categories
+        List<CollectionCategory> categories
 ) {
 
     public ContentCategoryEdit {

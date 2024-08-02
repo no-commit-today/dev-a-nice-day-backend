@@ -3,17 +3,16 @@ package com.nocommittoday.techswipe.collection.service;
 import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.ContentCollect;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
-import lombok.NonNull;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 
 public record ContentCollectCommand(
-        @NonNull TechContentProviderId providerId,
-        @NonNull String url,
-        @NonNull String title,
-        @NonNull LocalDate publishedDate,
-        @NonNull String content,
+        TechContentProviderId providerId,
+        String url,
+        String title,
+        LocalDate publishedDate,
+        String content,
         @Nullable String imageUrl
 ) {
 

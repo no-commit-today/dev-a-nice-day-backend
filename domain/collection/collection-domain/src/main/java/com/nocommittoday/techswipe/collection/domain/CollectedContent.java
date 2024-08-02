@@ -5,13 +5,11 @@ import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategor
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.collection.domain.exception.CollectionSummarizeUnableException;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
-import lombok.Getter;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter
 public class CollectedContent {
 
     private final CollectedContentId id;
@@ -197,5 +195,47 @@ public class CollectedContent {
                 content,
                 imageUrl
         );
+    }
+
+    @Nullable
+    public List<CollectionCategory> getCategories() {
+        return categories;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public CollectedContentId getId() {
+        return id;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public TechContentProviderId getProviderId() {
+        return providerId;
+    }
+
+    public LocalDate getPublishedDate() {
+        return publishedDate;
+    }
+
+    public CollectionStatus getStatus() {
+        return status;
+    }
+
+    @Nullable
+    public String getSummary() {
+        return summary;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

@@ -1,11 +1,9 @@
 package com.nocommittoday.techswipe.collection.domain.exception;
 
 import com.nocommittoday.techswipe.core.domain.ErrorCodeType;
-import lombok.Getter;
 
 import java.net.HttpURLConnection;
 
-@Getter
 public enum CollectionErrorCode implements ErrorCodeType {
     CATEGORIZE_UNABLE("001", "카테고리화 할 수 없습니다.", HttpURLConnection.HTTP_BAD_REQUEST),
     SUMMARIZE_UNABLE("002", "요약할 수 없습니다.", HttpURLConnection.HTTP_BAD_REQUEST),
@@ -26,5 +24,20 @@ public enum CollectionErrorCode implements ErrorCodeType {
         this.code = "COLLECTION-" + code;
         this.message = message;
         this.status = status;
+    }
+
+    @Override
+    public String getCode() {
+        return code;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public int getStatus() {
+        return status;
     }
 }

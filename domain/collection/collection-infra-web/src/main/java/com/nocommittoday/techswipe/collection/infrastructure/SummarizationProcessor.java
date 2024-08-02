@@ -1,16 +1,21 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class SummarizationProcessor {
 
     private final SummarizationClient summarizationClient;
-
     private final SummarizationValidator summarizationValidator;
+
+    public SummarizationProcessor(
+            SummarizationClient summarizationClient,
+            SummarizationValidator summarizationValidator
+    ) {
+        this.summarizationClient = summarizationClient;
+        this.summarizationValidator = summarizationValidator;
+    }
 
     public SummarizationResult summarize(CollectedContent collectedContent) {
         try {

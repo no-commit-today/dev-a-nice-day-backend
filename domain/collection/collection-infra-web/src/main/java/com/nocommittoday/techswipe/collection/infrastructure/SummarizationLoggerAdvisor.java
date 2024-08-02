@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.collection.infrastructure;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.AdvisedRequest;
 import org.springframework.ai.chat.client.RequestResponseAdvisor;
 import org.springframework.ai.chat.model.ChatResponse;
@@ -11,11 +11,15 @@ import reactor.core.publisher.Flux;
 
 import java.util.Map;
 
-@Slf4j
-@RequiredArgsConstructor
 class SummarizationLoggerAdvisor implements RequestResponseAdvisor {
 
+    private static final Logger log = LoggerFactory.getLogger(SummarizationLoggerAdvisor.class);
+
     private final CollectedContent collectedContent;
+
+    public SummarizationLoggerAdvisor(CollectedContent collectedContent) {
+        this.collectedContent = collectedContent;
+    }
 
     private long startTime;
 
