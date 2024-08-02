@@ -1,13 +1,12 @@
 package com.nocommittoday.techswipe.image.domain;
 
 import com.nocommittoday.techswipe.image.domain.exception.NotSupportedImageException;
-import lombok.NonNull;
 
 import javax.annotation.Nullable;
 import java.util.Map;
 
 public record ImageContentType(
-        @NonNull String value
+        String value
 ) {
 
     private static final Map<String, String> TYPE_TO_EXT = Map.of(
