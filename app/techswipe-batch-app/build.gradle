@@ -1,5 +1,4 @@
 bootJar.enabled = true
-jar.enabled = false
 
 dependencies {
     implementation(project(":domain:core:core-domain"))
@@ -44,9 +43,17 @@ dependencies {
 
     testRuntimeOnly("com.h2database:h2")
     testImplementation("org.springframework.batch:spring-batch-test")
+    testRuntimeOnly(gradleApi())
 }
 
 //Querydsl 추가, 자동 생성된 Q클래스 gradle clean으로 제거
 clean {
     delete file("src/main/generated")
 }
+
+//configurations {
+//    all {
+//        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+//        exclude group: 'ch.qos.logback', module: 'logback-classic'
+//    }
+//}
