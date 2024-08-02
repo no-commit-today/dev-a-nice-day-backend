@@ -5,8 +5,8 @@ import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndImage;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -14,12 +14,17 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Optional;
 
-@Slf4j
-@RequiredArgsConstructor
 public class FeedClient {
+
+    private static final Logger log = LoggerFactory.getLogger(FeedClient.class);
 
     private final XmlClient xmlClient;
     private final SyndFeedBuilder syndFeedBuilder;
+
+    public FeedClient(XmlClient xmlClient, SyndFeedBuilder syndFeedBuilder) {
+        this.xmlClient = xmlClient;
+        this.syndFeedBuilder = syndFeedBuilder;
+    }
 
     public ClientResponse<FeedResponse> get(String url) {
         try {
