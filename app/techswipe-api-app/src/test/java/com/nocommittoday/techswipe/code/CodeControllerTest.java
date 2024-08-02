@@ -4,7 +4,6 @@ import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.core.domain.EnumMapperFactory;
 import com.nocommittoday.techswipe.core.domain.EnumMapperType;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -75,12 +74,15 @@ class CodeControllerTest extends AbstractDocsTest {
                 ));
     }
 
-    @RequiredArgsConstructor
     enum CodeEnum implements EnumMapperType {
         CODE("코드 이름")
         ;
 
         private final String title;
+
+        CodeEnum(String title) {
+            this.title = title;
+        }
 
         @Override
         public String getCode() {

@@ -13,7 +13,6 @@ import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntityMapper
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import com.nocommittoday.techswipe.image.service.exception.ImageApplicationException;
 import jakarta.persistence.EntityManagerFactory;
-import lombok.RequiredArgsConstructor;
 import org.javatuples.Pair;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -30,7 +29,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import static com.nocommittoday.techswipe.collection.storage.mysql.QCollectedContentEntity.collectedContentEntity;
 
 @Configuration
-@RequiredArgsConstructor
 public class CollectedContentPublishJobConfig {
 
     private static final String JOB_NAME = "collectedContentPublishJob";
@@ -44,6 +42,22 @@ public class CollectedContentPublishJobConfig {
     private final ImageStoreService imageStoreService;
     private final CollectedContentEntityMapper collectedContentEntityMapper;
     private final TechContentEntityMapper techContentEntityMapper;
+
+    public CollectedContentPublishJobConfig(
+            JobRepository jobRepository,
+            PlatformTransactionManager txManager,
+            EntityManagerFactory emf,
+            ImageStoreService imageStoreService,
+            CollectedContentEntityMapper collectedContentEntityMapper,
+            TechContentEntityMapper techContentEntityMapper
+    ) {
+        this.jobRepository = jobRepository;
+        this.txManager = txManager;
+        this.emf = emf;
+        this.imageStoreService = imageStoreService;
+        this.collectedContentEntityMapper = collectedContentEntityMapper;
+        this.techContentEntityMapper = techContentEntityMapper;
+    }
 
     @Bean(JOB_NAME)
     public Job job() {

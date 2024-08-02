@@ -6,7 +6,6 @@ import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
 import com.nocommittoday.techswipe.collection.infrastructure.CategorizationConst;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import jakarta.persistence.EntityManagerFactory;
-import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
@@ -29,7 +28,6 @@ import java.util.stream.Collectors;
 import static com.nocommittoday.techswipe.collection.storage.mysql.QCollectedContentEntity.collectedContentEntity;
 
 @Configuration
-@RequiredArgsConstructor
 public class OpenAiFineTuningDataCreateJobConfig {
 
     private static final String JOB_NAME = "openAiFineTuningDataCreateJob";
@@ -39,6 +37,16 @@ public class OpenAiFineTuningDataCreateJobConfig {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
+
+    public OpenAiFineTuningDataCreateJobConfig(
+            JobRepository jobRepository,
+            PlatformTransactionManager txManager,
+            EntityManagerFactory emf
+    ) {
+        this.jobRepository = jobRepository;
+        this.txManager = txManager;
+        this.emf = emf;
+    }
 
     @Bean(JOB_NAME)
     public Job job() {

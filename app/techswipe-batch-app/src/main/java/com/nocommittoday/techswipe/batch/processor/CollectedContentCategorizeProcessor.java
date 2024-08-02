@@ -5,17 +5,25 @@ import com.nocommittoday.techswipe.collection.infrastructure.CategorizationProce
 import com.nocommittoday.techswipe.collection.infrastructure.CategorizationResult;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntityMapper;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 
-@Slf4j
-@RequiredArgsConstructor
-public class CollectedContentCategorizeProcessor implements ItemProcessor<CollectedContentEntity, CollectedContentEntity> {
+public class CollectedContentCategorizeProcessor implements
+        ItemProcessor<CollectedContentEntity, CollectedContentEntity> {
+
+    private static final Logger log = LoggerFactory.getLogger(CollectedContentCategorizeProcessor.class);
 
     private final CategorizationProcessor categorizationProcessor;
-
     private final CollectedContentEntityMapper collectedContentEntityMapper;
+
+    public CollectedContentCategorizeProcessor(
+            CategorizationProcessor categorizationProcessor,
+            CollectedContentEntityMapper collectedContentEntityMapper
+    ) {
+        this.categorizationProcessor = categorizationProcessor;
+        this.collectedContentEntityMapper = collectedContentEntityMapper;
+    }
 
     @Override
     public CollectedContentEntity process(CollectedContentEntity item) throws Exception {

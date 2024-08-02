@@ -3,7 +3,6 @@ package com.nocommittoday.techswipe.admin.controller;
 import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.service.CollectionSummaryRegisterCommand;
 import com.nocommittoday.techswipe.collection.service.CollectionSummaryRegisterService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -14,10 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequiredArgsConstructor
 public class CollectionSummaryRegisterController {
 
     private final CollectionSummaryRegisterService summaryRegisterService;
+
+    public CollectionSummaryRegisterController(CollectionSummaryRegisterService summaryRegisterService) {
+        this.summaryRegisterService = summaryRegisterService;
+    }
 
     @GetMapping("/api/collection/admin/collections/{collectionId}/summarization-prompt")
     public ResponseEntity<String> getPrompt(@PathVariable Long collectionId) {

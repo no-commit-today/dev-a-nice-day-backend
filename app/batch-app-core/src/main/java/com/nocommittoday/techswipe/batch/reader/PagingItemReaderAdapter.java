@@ -1,15 +1,17 @@
 package com.nocommittoday.techswipe.batch.reader;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.database.AbstractPagingItemReader;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-@RequiredArgsConstructor
 public class PagingItemReaderAdapter<T> extends AbstractPagingItemReader<T> {
 
     private final PagingItemReadStrategy<T> readStrategy;
+
+    public PagingItemReaderAdapter(PagingItemReadStrategy<T> readStrategy) {
+        this.readStrategy = readStrategy;
+    }
 
     private int pageOffset = 0;
 

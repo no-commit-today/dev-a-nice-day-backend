@@ -6,7 +6,6 @@ import com.nocommittoday.techswipe.content.service.TechContentProviderRegisterSe
 import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.service.ImageStoreService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,12 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequiredArgsConstructor
 public class TechContentProviderRegisterController {
 
     private final TechContentProviderRegisterService techContentProviderRegisterService;
-
     private final ImageStoreService imageStoreService;
+
+    public TechContentProviderRegisterController(
+            TechContentProviderRegisterService techContentProviderRegisterService,
+            ImageStoreService imageStoreService
+    ) {
+        this.techContentProviderRegisterService = techContentProviderRegisterService;
+        this.imageStoreService = imageStoreService;
+    }
 
     @PostMapping("/api/content/admin/providers")
     ResponseEntity<TechContentProviderRegisterResponse> register(

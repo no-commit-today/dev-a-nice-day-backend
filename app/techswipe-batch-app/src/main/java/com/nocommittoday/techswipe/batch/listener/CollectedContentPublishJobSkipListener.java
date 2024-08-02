@@ -2,13 +2,15 @@ package com.nocommittoday.techswipe.batch.listener;
 
 import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
-import lombok.extern.slf4j.Slf4j;
 import org.javatuples.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.SkipListener;
 
-@Slf4j
 public class CollectedContentPublishJobSkipListener
         implements SkipListener<CollectedContentEntity, Pair<CollectedContentEntity, TechContentEntity>> {
+
+    private static final Logger log = LoggerFactory.getLogger(CollectedContentPublishJobSkipListener.class);
 
     @Override
     public void onSkipInProcess(CollectedContentEntity item, Throwable t) {
