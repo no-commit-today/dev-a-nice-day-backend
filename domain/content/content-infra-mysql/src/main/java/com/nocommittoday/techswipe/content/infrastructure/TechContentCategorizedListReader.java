@@ -5,17 +5,19 @@ import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentJpaRepository;
 import com.nocommittoday.techswipe.core.domain.PageParam;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
 public class TechContentCategorizedListReader {
 
     private final TechContentJpaRepository techContentJpaRepository;
+
+    public TechContentCategorizedListReader(TechContentJpaRepository techContentJpaRepository) {
+        this.techContentJpaRepository = techContentJpaRepository;
+    }
 
     @Transactional(readOnly = true)
     public List<TechContent> getList(

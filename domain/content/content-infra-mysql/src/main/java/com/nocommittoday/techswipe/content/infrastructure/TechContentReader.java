@@ -5,15 +5,17 @@ import com.nocommittoday.techswipe.content.domain.TechContentId;
 import com.nocommittoday.techswipe.content.domain.exception.TechContentNotFoundException;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
 import com.nocommittoday.techswipe.content.storage.mysql.TechContentJpaRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-@RequiredArgsConstructor
 public class TechContentReader {
 
     private final TechContentJpaRepository techContentJpaRepository;
+
+    public TechContentReader(TechContentJpaRepository techContentJpaRepository) {
+        this.techContentJpaRepository = techContentJpaRepository;
+    }
 
     @Transactional(readOnly = true)
     public TechContent getIncludingDeleted(TechContentId id) {
