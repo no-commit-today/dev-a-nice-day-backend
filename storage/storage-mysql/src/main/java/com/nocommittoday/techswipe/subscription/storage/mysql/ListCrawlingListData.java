@@ -1,19 +1,19 @@
 package com.nocommittoday.techswipe.subscription.storage.mysql;
 
 import com.nocommittoday.techswipe.subscription.domain.ListCrawling;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@AllArgsConstructor
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ListCrawlingListData {
 
     private List<ListCrawlingData> content;
+
+    protected ListCrawlingListData() {
+    }
+
+    public ListCrawlingListData(List<ListCrawlingData> content) {
+        this.content = content;
+    }
 
     public static ListCrawlingListData from(List<ListCrawling> listCrawling) {
         return new ListCrawlingListData(
@@ -27,5 +27,9 @@ public class ListCrawlingListData {
         return content.stream()
                 .map(ListCrawlingData::toDomain)
                 .toList();
+    }
+
+    public List<ListCrawlingData> getContent() {
+        return content;
     }
 }

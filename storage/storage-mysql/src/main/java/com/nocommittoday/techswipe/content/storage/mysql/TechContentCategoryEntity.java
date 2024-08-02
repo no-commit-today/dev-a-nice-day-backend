@@ -14,12 +14,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Table(
@@ -31,8 +28,6 @@ import static lombok.AccessLevel.PROTECTED;
                 )
         }
 )
-@NoArgsConstructor(access = PROTECTED)
-@Getter
 public class TechContentCategoryEntity extends BaseTimeEntity {
 
     @Id
@@ -47,8 +42,23 @@ public class TechContentCategoryEntity extends BaseTimeEntity {
     @Column(name = "category", columnDefinition = "varchar(45)", nullable = false)
     private TechCategory category;
 
+    protected TechContentCategoryEntity() {
+    }
+
     public TechContentCategoryEntity(TechContentEntity content, TechCategory category) {
         this.content = content;
         this.category = category;
+    }
+
+    public TechCategory getCategory() {
+        return category;
+    }
+
+    public TechContentEntity getContent() {
+        return content;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

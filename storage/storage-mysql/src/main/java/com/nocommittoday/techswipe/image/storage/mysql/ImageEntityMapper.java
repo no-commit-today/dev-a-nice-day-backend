@@ -2,16 +2,18 @@ package com.nocommittoday.techswipe.image.storage.mysql;
 
 import com.nocommittoday.techswipe.image.domain.ImageId;
 import com.nocommittoday.techswipe.image.domain.ImageSave;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nullable;
 
 @Component
-@RequiredArgsConstructor
 public class ImageEntityMapper {
 
     private final ImageJpaRepository imageJpaRepository;
+
+    public ImageEntityMapper(ImageJpaRepository imageJpaRepository) {
+        this.imageJpaRepository = imageJpaRepository;
+    }
 
     @Nullable
     public ImageEntity from(@Nullable ImageId id) {

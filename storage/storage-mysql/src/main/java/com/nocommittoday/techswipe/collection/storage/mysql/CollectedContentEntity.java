@@ -21,9 +21,6 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Persistable;
 
 import javax.annotation.Nullable;
@@ -37,9 +34,6 @@ import java.util.List;
                 @UniqueConstraint(name = "uk_collected_content__url", columnNames = {"url"})
         }
 )
-@Getter
-@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class CollectedContentEntity extends BaseSoftDeleteEntity implements Persistable<Long> {
 
     @Id
@@ -80,6 +74,33 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
     @Column(name = "summary", length = 2_000)
     private String summary;
 
+    protected CollectedContentEntity() {
+    }
+
+    public CollectedContentEntity(
+            Long id,
+            CollectionStatus status,
+            TechContentProviderEntity provider,
+            String url,
+            String title,
+            LocalDate publishedDate,
+            String content,
+            @Nullable String imageUrl,
+            @Nullable List<CollectionCategory> categories,
+            @Nullable String summary
+    ) {
+        this.id = id;
+        this.status = status;
+        this.provider = provider;
+        this.url = url;
+        this.title = title;
+        this.publishedDate = publishedDate;
+        this.content = content;
+        this.imageUrl = imageUrl;
+        this.categories = categories;
+        this.summary = summary;
+    }
+
     public CollectedContent toDomain() {
         return new CollectedContent(
                 new CollectedContentId(id),
@@ -110,5 +131,49 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
     @Override
     public boolean isNew() {
         return getCreatedAt() == null;
+    }
+
+    @Nullable
+    public List<CollectionCategory> getCategories() {
+        return categories;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Nullable
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public TechContentProviderEntity getProvider() {
+        return provider;
+    }
+
+    public LocalDate getPublishedDate() {
+        return publishedDate;
+    }
+
+    public CollectionStatus getStatus() {
+        return status;
+    }
+
+    @Nullable
+    public String getSummary() {
+        return summary;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }
