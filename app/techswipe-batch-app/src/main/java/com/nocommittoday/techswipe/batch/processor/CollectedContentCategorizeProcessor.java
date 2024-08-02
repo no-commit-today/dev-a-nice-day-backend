@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.batch.processor;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.infrastructure.CategorizationProcessor;
-import com.nocommittoday.techswipe.collection.infrastructure.CategorizationResult;
+import com.nocommittoday.techswipe.domain.collection.CategorizationProcessor;
+import com.nocommittoday.techswipe.domain.collection.CategorizationResult;
+import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
 import org.slf4j.Logger;

@@ -7,7 +7,7 @@ import com.nocommittoday.techswipe.batch.param.TechContentProviderIdJobParameter
 import com.nocommittoday.techswipe.batch.processor.ContentCollectJobItemProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
-import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
+import com.nocommittoday.techswipe.domain.collection.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.subscription.SubscriptionEntity;

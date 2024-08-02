@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.batch.processor;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
-import com.nocommittoday.techswipe.collection.domain.exception.CollectionPublishUnableException;
+import com.nocommittoday.techswipe.domain.collection.CollectedContent;
+import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
+import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
 import com.nocommittoday.techswipe.content.domain.TechContentCreate;

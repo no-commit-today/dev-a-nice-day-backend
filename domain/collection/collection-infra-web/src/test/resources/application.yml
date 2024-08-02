@@ -1,5 +1,0 @@
-spring:
-  ai:
-    openai:
-      api-key: test-openai-api-key
-

@@ -1,11 +1,7 @@
 package com.nocommittoday.techswipe.domain.collection;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
-import com.nocommittoday.techswipe.collection.domain.exception.CollectionAlreadyCollectedException;
-import com.nocommittoday.techswipe.collection.domain.exception.CollectionIllegalProviderIdException;
-import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentAppender;
-import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
-import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUrlExistsReader;
+import com.nocommittoday.techswipe.domain.collection.exception.CollectionAlreadyCollectedException;
+import com.nocommittoday.techswipe.domain.collection.exception.CollectionIllegalProviderIdException;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.content.infrastructure.TechContentProviderExistsReader;
 import org.junit.jupiter.api.Test;

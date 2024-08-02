@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.storage.mysql.collection;
 
-import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
+import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderJpaRepository;
 import com.nocommittoday.techswipe.storage.mysql.test.AbstractDataJpaTest;
 import org.junit.jupiter.api.Test;

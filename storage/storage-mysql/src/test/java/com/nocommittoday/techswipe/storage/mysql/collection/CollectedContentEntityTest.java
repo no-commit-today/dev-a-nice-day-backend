@@ -1,9 +1,9 @@
 package com.nocommittoday.techswipe.storage.mysql.collection;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
-import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
-import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
+import com.nocommittoday.techswipe.domain.collection.CollectedContent;
+import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
+import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
+import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
 import org.junit.jupiter.api.Test;

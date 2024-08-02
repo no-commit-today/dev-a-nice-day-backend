@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.storage.mysql.collection;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
-import com.nocommittoday.techswipe.collection.domain.ContentCollect;
+import com.nocommittoday.techswipe.domain.collection.CollectedContent;
+import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
+import com.nocommittoday.techswipe.domain.collection.ContentCollect;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderJpaRepository;
 import org.springframework.stereotype.Component;
 

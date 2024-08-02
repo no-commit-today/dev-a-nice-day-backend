@@ -1,13 +1,6 @@
 package com.nocommittoday.techswipe.domain.collection;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
-import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
-import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
-import com.nocommittoday.techswipe.collection.domain.ContentCategoryEdit;
-import com.nocommittoday.techswipe.collection.domain.exception.CollectionCategoryNotApplicableException;
-import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentReader;
-import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentUpdater;
+import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategoryNotApplicableException;
 import com.nocommittoday.techswipe.content.domain.TechCategory;
 import com.nocommittoday.techswipe.content.domain.TechContent;
 import com.nocommittoday.techswipe.content.domain.TechContentCategoryEdit;

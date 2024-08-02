@@ -2,8 +2,8 @@ package com.nocommittoday.techswipe.batch.processor;
 
 import com.nocommittoday.techswipe.batch.infrastructure.CollectedUrlFilter;
 import com.nocommittoday.techswipe.batch.infrastructure.CollectedUrlFilterCreator;
-import com.nocommittoday.techswipe.collection.domain.ContentCollect;
-import com.nocommittoday.techswipe.collection.infrastructure.CollectedContentIdGenerator;
+import com.nocommittoday.techswipe.domain.collection.ContentCollect;
+import com.nocommittoday.techswipe.domain.collection.CollectedContentIdGenerator;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
 import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;

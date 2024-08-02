@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.batch.infrastructure;
 
-import com.nocommittoday.techswipe.collection.infrastructure.CollectedUrlSetReader;
+import com.nocommittoday.techswipe.domain.collection.CollectedUrlSetReader;
 import com.nocommittoday.techswipe.subscription.domain.SubscribedContent;
 import org.springframework.stereotype.Component;
 
