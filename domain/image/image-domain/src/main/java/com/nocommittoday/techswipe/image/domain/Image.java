@@ -1,22 +1,40 @@
 package com.nocommittoday.techswipe.image.domain;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-
-@Getter
-@RequiredArgsConstructor
 public class Image {
 
-    @NonNull
     private final ImageId id;
 
-    @NonNull
     private final String url;
 
-    @NonNull
     private final String originalUrl;
 
-    @NonNull
     private final String storedName;
+
+    public Image(
+            ImageId id,
+            String url,
+            String originalUrl,
+            String storedName
+    ) {
+        this.id = id;
+        this.url = url;
+        this.originalUrl = originalUrl;
+        this.storedName = storedName;
+    }
+
+    public ImageId getId() {
+        return id;
+    }
+
+    public String getOriginalUrl() {
+        return originalUrl;
+    }
+
+    public String getStoredName() {
+        return storedName;
+    }
+
+    public String getUrl() {
+        return url;
+    }
 }
