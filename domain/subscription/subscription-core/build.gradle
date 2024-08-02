@@ -1,4 +1,4 @@
 dependencies {
     implementation(project(":domain:core:core-domain"))
-    implementation(project(":domain:content:content-domain"))
+    implementation(project(":domain:content:content-core"))
 }
