@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.admin.controller;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
-import com.nocommittoday.techswipe.collection.service.CollectionSummaryRegisterCommand;
-import com.nocommittoday.techswipe.collection.service.CollectionSummaryRegisterService;
+import com.nocommittoday.techswipe.domain.collection.CollectionSummaryRegisterCommand;
+import com.nocommittoday.techswipe.domain.collection.CollectionSummaryRegisterService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.admin.controller;
 
 import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
 import com.nocommittoday.techswipe.collection.domain.ContentCategoryEdit;
-import com.nocommittoday.techswipe.collection.service.ContentCategoryEditService;
+import com.nocommittoday.techswipe.domain.collection.ContentCategoryEditService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;

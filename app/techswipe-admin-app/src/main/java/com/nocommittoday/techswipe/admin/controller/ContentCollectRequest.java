@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.collection.service.ContentCollectCommand;
+import com.nocommittoday.techswipe.domain.collection.ContentCollectCommand;
 import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

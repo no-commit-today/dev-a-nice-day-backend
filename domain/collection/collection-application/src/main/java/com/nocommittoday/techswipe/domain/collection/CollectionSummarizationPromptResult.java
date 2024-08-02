@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.collection.service;
+package com.nocommittoday.techswipe.domain.collection;
 
 public record CollectionSummarizationPromptResult(
         String content
