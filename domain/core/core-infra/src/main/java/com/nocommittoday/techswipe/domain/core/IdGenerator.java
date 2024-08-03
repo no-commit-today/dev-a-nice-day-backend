@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.net.InetAddress;
+import java.security.SecureRandom;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
  * 참고1: https://github.com/twitter-archive/snowflake/tree/snowflake-2010
- *   - https://github.com/twitter-archive/snowflake/blob/snowflake-2010/src/main/scala/com/twitter/service/snowflake/IdWorker.scala
+ * - https://github.com/twitter-archive/snowflake/blob/snowflake-2010/src/main/scala/com/twitter/service/snowflake/IdWorker.scala
  * 참고2: https://github.com/callicoder/java-snowflake/blob/master/src/main/java/com/callicoder/snowflake/Snowflake.java
  * 참고3: https://www.slideshare.net/slideshow/twitter-snowflake/80830757
  */
@@ -41,7 +43,7 @@ public class IdGenerator {
 
     @Autowired
     public IdGenerator(Clock clock) {
-        this(clock, NodeIdUtils.create(), clock.millis(), 0L);
+        this(clock, createNodeId(), clock.millis(), 0L);
     }
 
     public IdGenerator(Clock clock, long nodeId) {
@@ -76,6 +78,20 @@ public class IdGenerator {
         } else {
             this.nodeId = nodeId;
         }
+    }
+
+    private static long createNodeId() {
+        long nodeId;
+        try {
+            final InetAddress localHost = InetAddress.getLocalHost();
+            final String hostName = localHost.getHostName();
+            log.info("hostName[{}] 을 통해서 nodeId 를 생성합니다.", hostName);
+            nodeId = hostName.hashCode();
+        } catch (Exception ex) {
+            log.warn("NodeId 생성 중 에러가 발생했습니다. 랜덤 값으로 대체합니다.", ex);
+            nodeId = (new SecureRandom().nextInt());
+        }
+        return nodeId;
     }
 
     public synchronized long nextId() {
