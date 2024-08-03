@@ -12,7 +12,7 @@ dependencies {
     runtimeOnly(project(":app:techswipe-admin-app"))
 
     implementation(project(":app:servlet-api-app-core"))
-    implementation(project(":domain:core:core-domain"))
+    implementation(project(":domain:core:domain-core"))
 
     implementation(project(":domain:content:content-application"))
 

@@ -15,7 +15,7 @@ include 'app:techswipe-batch-app'
 include 'app:batch-app-core'
 include 'app:servlet-api-app-core'
 
-include 'domain:core:core-domain'
+include 'domain:core:domain-core'
 include 'domain:core:core-infra'
 
 include 'domain:image:image-core'

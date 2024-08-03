@@ -1,7 +1,7 @@
 bootJar.enabled = true
 
 dependencies {
-    implementation(project(":domain:core:core-domain"))
+    implementation(project(":domain:core:domain-core"))
     implementation(project(":domain:core:core-infra"))
 
     implementation(project(":domain:content:content-infra-mysql"))
