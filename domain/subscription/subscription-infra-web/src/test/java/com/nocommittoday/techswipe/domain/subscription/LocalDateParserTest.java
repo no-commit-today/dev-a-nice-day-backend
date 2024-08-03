@@ -1,32 +1,32 @@
 package com.nocommittoday.techswipe.domain.subscription;
 
-import com.nocommittoday.techswipe.domain.core.LocalDateHolder;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Clock;
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.mockito.BDDMockito.given;
 
-@ExtendWith(MockitoExtension.class)
 class LocalDateParserTest {
 
-    @InjectMocks
     private LocalDateParser localDateParser;
 
-    @Mock
-    private LocalDateHolder localDateHolder;
+    @BeforeEach
+    void setUp() {
+        ZoneId zoneId = ZoneId.systemDefault();
+        Clock clock = Clock.fixed(
+                LocalDate.of(2024, 6, 17)
+                        .atStartOfDay(zoneId).toInstant(),
+                zoneId);
+        localDateParser = new LocalDateParser(clock);
+    }
 
     @Test
     void 변환_가능한_형식() {
         // given
-        given(localDateHolder.now()).willReturn(LocalDate.of(2024, 6, 17));
-
         // when
         // then
         assertAll(

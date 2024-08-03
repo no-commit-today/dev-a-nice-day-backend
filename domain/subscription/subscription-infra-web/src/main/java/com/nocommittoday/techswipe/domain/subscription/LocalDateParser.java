@@ -1,9 +1,9 @@
 package com.nocommittoday.techswipe.domain.subscription;
 
-import com.nocommittoday.techswipe.domain.core.LocalDateHolder;
 import com.nocommittoday.techswipe.domain.subscription.exception.LocalDateParseException;
 import org.springframework.stereotype.Component;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,10 +15,10 @@ import java.util.regex.Pattern;
 @Component
 public class LocalDateParser {
 
-    private final LocalDateHolder localDateHolder;
+    private final Clock clock;
 
-    public LocalDateParser(LocalDateHolder localDateHolder) {
-        this.localDateHolder = localDateHolder;
+    public LocalDateParser(Clock clock) {
+        this.clock = clock;
     }
 
     private static final List<DateTimeFormatter> FORMATTERS = List.of(
@@ -50,7 +50,7 @@ public class LocalDateParser {
         Matcher daysAgoMatcher = DAYS_AGO_PATTERN.matcher(text);
         if (daysAgoMatcher.matches()) {
             int daysAgo = Integer.parseInt(daysAgoMatcher.group(DAYS_AGO_PARAM));
-            return localDateHolder.now().minusDays(daysAgo);
+            return LocalDate.now(clock).minusDays(daysAgo);
         }
 
         throw new LocalDateParseException(text);
