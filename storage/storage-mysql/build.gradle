@@ -25,6 +25,13 @@ dependencies {
     // DB
     runtimeOnly("com.mysql:mysql-connector-j")
     testRuntimeOnly("com.h2database:h2")
+
+    // Test Fixtures
+    testFixturesImplementation(project(":domain:core:domain-core"))
+    testFixturesImplementation(project(":domain:content:content-core"))
+    testFixturesImplementation(project(":domain:image:image-core"))
+    testFixturesImplementation(project(":domain:subscription:subscription-core"))
+    testFixturesImplementation(project(":domain:collection:collection-core"))
 }
 
 //Querydsl 추가, 자동 생성된 Q클래스 gradle clean으로 제거

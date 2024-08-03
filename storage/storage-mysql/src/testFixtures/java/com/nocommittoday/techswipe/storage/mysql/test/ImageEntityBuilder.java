@@ -42,7 +42,7 @@ public class ImageEntityBuilder {
     }
 
     public ImageEntity build(boolean idRequired) {
-        fillNullFields(idRequired);
+        fillRequiredFields(idRequired);
         return new ImageEntity(
             id,
             url,
@@ -53,7 +53,7 @@ public class ImageEntityBuilder {
 
 
 
-    private void fillNullFields(boolean idRequired) {
+    private void fillRequiredFields(boolean idRequired) {
         if (idRequired && id == null) {
             id = LocalAutoIncrementIdUtils.nextId();
         }
