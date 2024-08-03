@@ -17,7 +17,7 @@ public class SecurityConfig {
         return http
                 .securityMatcher("/admin/**")
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
                 .csrf(csrf -> csrf.disable())
