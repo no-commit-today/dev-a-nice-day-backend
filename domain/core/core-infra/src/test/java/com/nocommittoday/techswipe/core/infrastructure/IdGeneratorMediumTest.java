@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.core.infrastructure;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Tag("context")
 class IdGeneratorMediumTest {
 
-    private IdGenerator idGenerator = new IdGenerator(new SystemClockHolder());
+    private IdGenerator idGenerator = new IdGenerator(Clock.systemDefaultZone());
 
     @Test
     void 유니크한_아이디를_생성한다() {

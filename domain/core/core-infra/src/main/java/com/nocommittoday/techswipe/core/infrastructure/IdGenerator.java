@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 /**
  * 참고1: https://github.com/twitter-archive/snowflake/tree/snowflake-2010
@@ -31,39 +31,41 @@ public class IdGenerator {
     private static final long MAX_NODE_ID = (1L << NODE_ID_BITS) - 1;
     private static final long MAX_SEQUENCE = (1L << SEQUENCE_BITS) - 1;
 
-    private static final long EPOCH_OFFSET = LocalDateTime.of(2024, 1, 1, 0, 0, 0)
-            .atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
+    private static final LocalDateTime EPOCH_OFFSET_DT = LocalDateTime.of(2024, 1, 1, 0, 0, 0);
 
-    private final SystemClockHolder systemClockHolder;
+    private final Clock clock;
     private final long nodeId;
+    private final long epochOffset;
     private volatile long lastTimestamp;
     private volatile long sequence = 0L;
 
     @Autowired
-    public IdGenerator(SystemClockHolder systemClockHolder) {
-        this(systemClockHolder, NodeIdUtils.create(), systemClockHolder.millis(), 0L);
+    public IdGenerator(Clock clock) {
+        this(clock, NodeIdUtils.create(), clock.millis(), 0L);
     }
 
-    public IdGenerator(SystemClockHolder systemClockHolder, long nodeId) {
-        this(systemClockHolder, nodeId, systemClockHolder.millis(), 0L);
+    public IdGenerator(Clock clock, long nodeId) {
+        this(clock, nodeId, clock.millis(), 0L);
     }
 
     public IdGenerator(
-            SystemClockHolder systemClockHolder,
+            Clock clock,
             long nodeId,
             long lastTimestamp,
             long sequence
     ) {
-        if (systemClockHolder == null) {
-            throw new IllegalArgumentException("systemClockHolder 는 null 이 될 수 없습니다.");
+        if (clock == null) {
+            throw new IllegalArgumentException("clock 은 null 이 될 수 없습니다.");
         }
-        if (lastTimestamp < EPOCH_OFFSET) {
-            throw new IllegalArgumentException(String.format("lastTimestamp 는 %d 이상의 값이어야 합니다.", EPOCH_OFFSET));
+        this.clock = clock;
+        this.epochOffset = EPOCH_OFFSET_DT.atZone(clock.getZone()).toInstant().toEpochMilli();
+
+        if (lastTimestamp < epochOffset) {
+            throw new IllegalArgumentException(String.format("lastTimestamp 는 %d 이상의 값이어야 합니다.", epochOffset));
         }
         if (sequence < 0 || sequence > MAX_SEQUENCE) {
             throw new IllegalArgumentException(String.format("sequence 는 %d 이상 %d 이하의 값이어야 합니다.", 0, MAX_SEQUENCE));
         }
-        this.systemClockHolder = systemClockHolder;
         this.lastTimestamp = lastTimestamp;
         this.sequence = sequence;
 
@@ -77,7 +79,7 @@ public class IdGenerator {
     }
 
     public synchronized long nextId() {
-        long currentTimestamp = systemClockHolder.millis();
+        long currentTimestamp = clock.millis();
 
         if (currentTimestamp < lastTimestamp) {
             throw new IllegalStateException(
@@ -96,7 +98,7 @@ public class IdGenerator {
 
         lastTimestamp = currentTimestamp;
 
-        long epoch = currentTimestamp - EPOCH_OFFSET;
+        long epoch = currentTimestamp - epochOffset;
         if (epoch > MAX_EPOCH) {
             throw new IllegalStateException("시간 값이 범위를 벗어났습니다.");
         }
@@ -108,7 +110,7 @@ public class IdGenerator {
 
     private long waitNextMillis(long currentTimestamp) {
         while (currentTimestamp == lastTimestamp) {
-            currentTimestamp = systemClockHolder.millis();
+            currentTimestamp = clock.millis();
         }
         return currentTimestamp;
     }
@@ -117,7 +119,7 @@ public class IdGenerator {
         long maskNodeId = ((1L << NODE_ID_BITS) - 1) << SEQUENCE_BITS;
         long maskSequence = (1L << SEQUENCE_BITS) - 1;
 
-        long timestamp = (id >> (NODE_ID_BITS + SEQUENCE_BITS)) + EPOCH_OFFSET;
+        long timestamp = (id >> (NODE_ID_BITS + SEQUENCE_BITS)) + epochOffset;
         long nodeId = (id & maskNodeId) >> SEQUENCE_BITS;
         long sequence = id & maskSequence;
 
@@ -125,11 +127,11 @@ public class IdGenerator {
     }
 
     public long firstId(long millis) {
-        return (millis - EPOCH_OFFSET) << (NODE_ID_BITS + SEQUENCE_BITS);
+        return (millis - epochOffset) << (NODE_ID_BITS + SEQUENCE_BITS);
     }
 
     public long firstId(LocalDateTime dateTime) {
-        return firstId(dateTime.atZone(ZoneOffset.UTC).toInstant().toEpochMilli());
+        return firstId(dateTime.atZone(this.clock.getZone()).toInstant().toEpochMilli());
     }
 
     public long firstId(LocalDate date) {
