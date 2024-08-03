@@ -1,16 +1,16 @@
 dependencies {
-    implementation project(":domain:core:core-infra")
+    implementation(project(":domain:core:infra-core"))
 
-    implementation project(":domain:subscription:subscription-domain")
+    api(project(":domain:subscription:subscription-core"))
 
-    implementation(project(":client:feed-client"))
+    api(project(":client:feed-client"))
 
-    implementation 'org.springframework:spring-web'
-    implementation 'org.springframework.boot:spring-boot'
-    implementation 'com.fasterxml.jackson.core:jackson-databind'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation("org.springframework:spring-web")
+    implementation("org.springframework.boot:spring-boot")
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 
-    implementation "org.jsoup:jsoup:${jsoupVersion}"
-    implementation "net.htmlparser.jericho:jericho-html:${jerichoHtmlVersion}"
-    implementation "com.rometools:rome:${romeVersion}"
+    implementation("org.jsoup:jsoup:${jsoupVersion}")
+    implementation("net.htmlparser.jericho:jericho-html:${jerichoHtmlVersion}")
+    implementation("com.rometools:rome:${romeVersion}")
 }

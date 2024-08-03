@@ -1,9 +1,9 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
-import com.nocommittoday.techswipe.subscription.domain.CrawlingType;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionRegister;
-import com.nocommittoday.techswipe.subscription.domain.SubscriptionType;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.subscription.CrawlingType;
+import com.nocommittoday.techswipe.domain.subscription.SubscriptionRegister;
+import com.nocommittoday.techswipe.domain.subscription.SubscriptionType;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.URL;
 
@@ -44,26 +44,26 @@ public record SubscriptionRegisterRequest(
                 type,
                 initType,
                 feedUrl,
-                new com.nocommittoday.techswipe.subscription.domain.ContentCrawling(
-                        new com.nocommittoday.techswipe.subscription.domain.Crawling(
+                new com.nocommittoday.techswipe.domain.subscription.ContentCrawling(
+                        new com.nocommittoday.techswipe.domain.subscription.Crawling(
                                 contentCrawling.title().type(),
                                 contentCrawling.title().selector(),
                                 contentCrawling.title().indexes()
                         ),
-                        new com.nocommittoday.techswipe.subscription.domain.Crawling(
+                        new com.nocommittoday.techswipe.domain.subscription.Crawling(
                                 contentCrawling.date().type(),
                                 contentCrawling.date().selector(),
                                 contentCrawling.date().indexes()
                         ),
-                        new com.nocommittoday.techswipe.subscription.domain.Crawling(
+                        new com.nocommittoday.techswipe.domain.subscription.Crawling(
                                 contentCrawling.content().type(),
                                 contentCrawling.content().selector(),
                                 contentCrawling.content().indexes()
                         )
                 ),
-                listCrawlings.stream().map(item -> new com.nocommittoday.techswipe.subscription.domain.ListCrawling(
+                listCrawlings.stream().map(item -> new com.nocommittoday.techswipe.domain.subscription.ListCrawling(
                         item.url(),
-                        new com.nocommittoday.techswipe.subscription.domain.Crawling(
+                        new com.nocommittoday.techswipe.domain.subscription.Crawling(
                                 item.crawling().type(),
                                 item.crawling().selector(),
                                 item.crawling().indexes()

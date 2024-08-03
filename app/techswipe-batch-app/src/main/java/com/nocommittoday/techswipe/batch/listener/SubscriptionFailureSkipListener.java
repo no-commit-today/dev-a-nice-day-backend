@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.batch.listener;
 
-import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
-import com.nocommittoday.techswipe.subscription.storage.mysql.SubscriptionEntity;
+import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
+import com.nocommittoday.techswipe.storage.mysql.subscription.SubscriptionEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.SkipListener;

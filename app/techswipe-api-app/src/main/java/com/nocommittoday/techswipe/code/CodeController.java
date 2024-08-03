@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.code;
 
-import com.nocommittoday.techswipe.core.domain.EnumMapperFactory;
-import com.nocommittoday.techswipe.core.domain.EnumMapperValue;
+import com.nocommittoday.techswipe.domain.core.EnumMapperFactory;
+import com.nocommittoday.techswipe.domain.core.EnumMapperValue;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

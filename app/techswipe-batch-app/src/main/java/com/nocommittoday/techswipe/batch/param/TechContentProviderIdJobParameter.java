@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.batch.param;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import org.springframework.beans.factory.annotation.Value;
 
 public class TechContentProviderIdJobParameter {

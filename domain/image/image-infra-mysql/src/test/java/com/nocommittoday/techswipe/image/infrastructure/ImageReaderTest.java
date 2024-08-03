@@ -1,10 +1,11 @@
 package com.nocommittoday.techswipe.image.infrastructure;
 
-import com.nocommittoday.techswipe.image.domain.Image;
-import com.nocommittoday.techswipe.image.domain.ImageId;
-import com.nocommittoday.techswipe.image.domain.exception.ImageNotFoundException;
-import com.nocommittoday.techswipe.image.storage.mysql.ImageEntity;
-import com.nocommittoday.techswipe.image.storage.mysql.ImageJpaRepository;
+import com.nocommittoday.techswipe.domain.image.Image;
+import com.nocommittoday.techswipe.domain.image.ImageId;
+import com.nocommittoday.techswipe.domain.image.ImageReader;
+import com.nocommittoday.techswipe.domain.image.exception.ImageNotFoundException;
+import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;
+import com.nocommittoday.techswipe.storage.mysql.image.ImageJpaRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

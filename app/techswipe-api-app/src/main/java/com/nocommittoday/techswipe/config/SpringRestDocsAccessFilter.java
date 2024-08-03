@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.config;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -7,6 +8,8 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +22,13 @@ import java.io.IOException;
 @Component
 @WebFilter(urlPatterns = "/docs/**")
 public class SpringRestDocsAccessFilter implements Filter {
+
+    private static final Logger log = LoggerFactory.getLogger(SpringRestDocsAccessFilter.class);
+
+    @PostConstruct
+    public void init() {
+        log.info("SpringRestDocsAccessFilter initialized");
+    }
 
     @Override
     public void doFilter(

@@ -1,0 +1,80 @@
+spring:
+
+  security:
+    user:
+      name: ${ADMIN_USERNAME}
+      password: ${ADMIN_PASSWORD}
+
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:not-used}
+
+app:
+  image:
+    s3:
+      bucket-name: ${AWS_S3_BUCKET}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  security:
+    user:
+      name: admin
+      password: 1234
+
+logging:
+  level:
+    org.apache.coyote.http11: trace
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local-dev
+
+logging:
+  level:
+    org.apache.coyote.http11: trace
+
+app:
+  image:
+    s3:
+      enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+
+logging:
+  level:
+    org.apache.coyote.http11: trace
+
+app:
+  image:
+    s3:
+      enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+app:
+  image:
+    s3:
+      enabled: true

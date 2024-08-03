@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContentId;
-import com.nocommittoday.techswipe.collection.domain.ContentCategoryEdit;
-import com.nocommittoday.techswipe.collection.service.ContentCategoryEditService;
+import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
+import com.nocommittoday.techswipe.domain.collection.ContentCategoryEdit;
+import com.nocommittoday.techswipe.domain.collection.ContentCategoryEditService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +19,7 @@ public class ContentCategoryEditController {
         this.categoryEditService = categoryEditService;
     }
 
-    @PatchMapping("/api/collection/admin/collections/{collectionId}/categories")
+    @PatchMapping("/admin/api/collections/{collectionId}/categories")
     public void edit(
             @PathVariable Long collectionId,
             @RequestBody @Validated ContentCategoryEditRequest request
@@ -30,7 +30,7 @@ public class ContentCategoryEditController {
         );
     }
 
-    @PostMapping("/api/collection/admin/collections/{collectionId}/apply-categories")
+    @PostMapping("/admin/api/collections/{collectionId}/apply-categories")
     public void apply(@PathVariable Long collectionId) {
         categoryEditService.applyCategoryEdited(new CollectedContentId(collectionId));
     }

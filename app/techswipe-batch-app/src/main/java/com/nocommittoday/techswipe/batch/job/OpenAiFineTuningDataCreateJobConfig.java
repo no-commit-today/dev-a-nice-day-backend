@@ -2,9 +2,9 @@ package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JsonlFileItemWriter;
-import com.nocommittoday.techswipe.collection.domain.CollectionStatus;
-import com.nocommittoday.techswipe.collection.infrastructure.CategorizationConst;
-import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
+import com.nocommittoday.techswipe.domain.collection.CategorizationConst;
+import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
+import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.nocommittoday.techswipe.collection.storage.mysql.QCollectedContentEntity.collectedContentEntity;
+import static com.nocommittoday.techswipe.storage.mysql.collection.QCollectedContentEntity.collectedContentEntity;
 
 @Configuration
 public class OpenAiFineTuningDataCreateJobConfig {

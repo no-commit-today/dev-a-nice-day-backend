@@ -1,0 +1,4 @@
+dependencies {
+    api(project(":domain:core:domain-core"))
+    api(project(":domain:image:image-core"))
+}

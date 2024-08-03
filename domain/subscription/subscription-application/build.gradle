@@ -1,10 +1,10 @@
 dependencies {
-    implementation(project(":domain:core:core-domain"))
+    api(project(":domain:core:domain-core"))
 
-    implementation(project(":domain:content:content-domain"))
+    api(project(":domain:content:content-core"))
     implementation(project(":domain:content:content-infra-mysql"))
 
-    implementation(project(":domain:subscription:subscription-domain"))
+    api(project(":domain:subscription:subscription-core"))
     implementation(project(":domain:subscription:subscription-infra-web"))
     implementation(project(":domain:subscription:subscription-infra-mysql"))
 

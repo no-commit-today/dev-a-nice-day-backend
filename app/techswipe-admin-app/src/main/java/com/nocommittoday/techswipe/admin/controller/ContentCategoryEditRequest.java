@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
+import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 

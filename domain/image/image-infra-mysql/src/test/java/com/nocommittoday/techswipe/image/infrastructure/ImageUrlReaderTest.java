@@ -1,7 +1,9 @@
 package com.nocommittoday.techswipe.image.infrastructure;
 
-import com.nocommittoday.techswipe.image.domain.Image;
-import com.nocommittoday.techswipe.image.domain.ImageId;
+import com.nocommittoday.techswipe.domain.image.Image;
+import com.nocommittoday.techswipe.domain.image.ImageId;
+import com.nocommittoday.techswipe.domain.image.ImageReader;
+import com.nocommittoday.techswipe.domain.image.ImageUrlReader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

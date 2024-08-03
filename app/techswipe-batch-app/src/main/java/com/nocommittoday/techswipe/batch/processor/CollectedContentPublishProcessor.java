@@ -1,15 +1,15 @@
 package com.nocommittoday.techswipe.batch.processor;
 
-import com.nocommittoday.techswipe.collection.domain.CollectedContent;
-import com.nocommittoday.techswipe.collection.domain.CollectionCategory;
-import com.nocommittoday.techswipe.collection.domain.exception.CollectionPublishUnableException;
-import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntity;
-import com.nocommittoday.techswipe.collection.storage.mysql.CollectedContentEntityMapper;
-import com.nocommittoday.techswipe.content.domain.TechContentCreate;
-import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntity;
-import com.nocommittoday.techswipe.content.storage.mysql.TechContentEntityMapper;
-import com.nocommittoday.techswipe.image.domain.ImageId;
-import com.nocommittoday.techswipe.image.service.ImageStoreService;
+import com.nocommittoday.techswipe.domain.collection.CollectedContent;
+import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
+import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
+import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
+import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
+import com.nocommittoday.techswipe.domain.content.TechContentCreate;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntityMapper;
+import com.nocommittoday.techswipe.domain.image.ImageId;
+import com.nocommittoday.techswipe.domain.image.ImageStoreService;
 import org.javatuples.Pair;
 import org.springframework.batch.item.ItemProcessor;
 

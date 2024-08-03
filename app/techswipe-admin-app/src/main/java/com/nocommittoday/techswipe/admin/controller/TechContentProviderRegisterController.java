@@ -1,10 +1,10 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.content.domain.TechContentProviderId;
-import com.nocommittoday.techswipe.content.service.TechContentProviderRegisterCommand;
-import com.nocommittoday.techswipe.content.service.TechContentProviderRegisterService;
-import com.nocommittoday.techswipe.image.domain.ImageId;
-import com.nocommittoday.techswipe.image.service.ImageStoreService;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderRegisterCommand;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderRegisterService;
+import com.nocommittoday.techswipe.domain.image.ImageId;
+import com.nocommittoday.techswipe.domain.image.ImageStoreService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class TechContentProviderRegisterController {
         this.imageStoreService = imageStoreService;
     }
 
-    @PostMapping("/api/content/admin/providers")
+    @PostMapping("/admin/api/providers")
     ResponseEntity<TechContentProviderRegisterResponse> register(
             @RequestBody @Valid TechContentProviderRegisterRequest request
     ) {
