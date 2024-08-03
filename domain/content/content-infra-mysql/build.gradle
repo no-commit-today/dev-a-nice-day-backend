@@ -4,4 +4,6 @@ dependencies {
     api(project(":domain:content:content-core"))
 
     implementation(project(":storage:storage-mysql"))
+
+    testImplementation(testFixtures(project(":storage:storage-mysql")))
 }

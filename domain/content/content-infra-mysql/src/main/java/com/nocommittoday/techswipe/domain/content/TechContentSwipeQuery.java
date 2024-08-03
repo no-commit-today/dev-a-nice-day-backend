@@ -1,26 +1,22 @@
 package com.nocommittoday.techswipe.domain.content;
 
-import com.nocommittoday.techswipe.domain.core.PageParam;
-import com.nocommittoday.techswipe.storage.mysql.content.TechContentJpaQueryRepository;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import jakarta.annotation.Nullable;
 
+import java.time.LocalDate;
 import java.util.List;
 
-@Repository
-public class TechContentSwipeQuery {
-
-    private final TechContentJpaQueryRepository techContentJpaRepository;
-
-    public TechContentSwipeQuery(TechContentJpaQueryRepository techContentJpaRepository) {
-        this.techContentJpaRepository = techContentJpaRepository;
-    }
-
-    @Transactional(readOnly = true)
-    public List<TechContent> getList(
-            PageParam pageParam,
-            List<TechCategory> categories
-    ) {
-        return null;
-    }
+public record TechContentSwipeQuery(
+        TechContentId id,
+        String url,
+        String title,
+        LocalDate publishedDate,
+        @Nullable String imageUrl,
+        String summary,
+        List<TechCategory> categories,
+        TechContentProviderId providerId,
+        TechContentProviderType providerType,
+        String providerTitle,
+        String providerUrl,
+        @Nullable String providerIconUrl
+) {
 }
