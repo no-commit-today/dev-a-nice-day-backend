@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.subscription;
 
-import com.nocommittoday.techswipe.core.infrastructure.LocalDateHolder;
+import com.nocommittoday.techswipe.domain.core.LocalDateHolder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

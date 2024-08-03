@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.domain.collection;
 
 import com.nocommittoday.techswipe.domain.content.TechCategory;
-import com.nocommittoday.techswipe.core.domain.EnumMapperType;
+import com.nocommittoday.techswipe.domain.core.EnumMapperType;
 
 import javax.annotation.Nullable;
 

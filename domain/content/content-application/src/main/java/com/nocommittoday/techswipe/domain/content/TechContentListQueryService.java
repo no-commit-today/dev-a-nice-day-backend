@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.content;
 
-import com.nocommittoday.techswipe.core.domain.PageParam;
+import com.nocommittoday.techswipe.domain.core.PageParam;
 import com.nocommittoday.techswipe.domain.image.Image;
 import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.domain.image.ImageReader;

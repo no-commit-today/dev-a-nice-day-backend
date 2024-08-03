@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.content;
 
-import com.nocommittoday.techswipe.core.domain.EnumMapperType;
+import com.nocommittoday.techswipe.domain.core.EnumMapperType;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.image.exception;
 
-import com.nocommittoday.techswipe.core.domain.AbstractDomainException;
+import com.nocommittoday.techswipe.domain.core.AbstractDomainException;
 
 public class NotSupportedImageException extends AbstractDomainException {
 

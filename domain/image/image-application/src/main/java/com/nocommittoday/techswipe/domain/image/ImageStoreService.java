@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.domain.image;
 
 import com.nocommittoday.techswipe.client.core.ClientResponse;
-import com.nocommittoday.techswipe.core.infrastructure.UuidHolder;
+import com.nocommittoday.techswipe.domain.core.UuidHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

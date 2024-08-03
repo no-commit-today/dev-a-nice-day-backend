@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.collection.exception;
 
-import com.nocommittoday.techswipe.core.domain.AbstractDomainException;
+import com.nocommittoday.techswipe.domain.core.AbstractDomainException;
 
 public class CollectionAlreadyCollectedException extends AbstractDomainException {
 

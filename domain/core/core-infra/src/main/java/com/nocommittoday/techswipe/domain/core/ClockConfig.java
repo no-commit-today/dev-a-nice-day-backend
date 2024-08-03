@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.core.infrastructure;
+package com.nocommittoday.techswipe.domain.core;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

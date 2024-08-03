@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.subscription;
 
-import com.nocommittoday.techswipe.core.infrastructure.LocalDateHolder;
+import com.nocommittoday.techswipe.domain.core.LocalDateHolder;
 import com.nocommittoday.techswipe.domain.subscription.exception.LocalDateParseException;
 import org.springframework.stereotype.Component;
 

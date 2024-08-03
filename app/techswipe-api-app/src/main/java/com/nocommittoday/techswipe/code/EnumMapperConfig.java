@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.code;
 
 import com.nocommittoday.techswipe.domain.content.TechCategory;
-import com.nocommittoday.techswipe.core.domain.EnumMapperFactory;
+import com.nocommittoday.techswipe.domain.core.EnumMapperFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

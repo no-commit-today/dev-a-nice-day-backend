@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.core.domain;
+package com.nocommittoday.techswipe.domain.core;
 
 public abstract class AbstractDomainException extends RuntimeException {
 

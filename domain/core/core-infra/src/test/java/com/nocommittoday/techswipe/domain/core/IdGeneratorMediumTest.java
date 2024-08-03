@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.core.infrastructure;
+package com.nocommittoday.techswipe.domain.core;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

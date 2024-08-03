@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.storage.mysql.content;
 
 import com.nocommittoday.techswipe.domain.content.TechCategory;
-import com.nocommittoday.techswipe.core.domain.PageParam;
+import com.nocommittoday.techswipe.domain.core.PageParam;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;

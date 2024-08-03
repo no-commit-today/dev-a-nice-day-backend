@@ -8,7 +8,7 @@ import com.nocommittoday.techswipe.domain.content.TechContentListQueryService;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderQueryResult;
 import com.nocommittoday.techswipe.domain.content.TechContentQueryResult;
 import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
-import com.nocommittoday.techswipe.core.domain.PageParam;
+import com.nocommittoday.techswipe.domain.core.PageParam;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import com.nocommittoday.techswipe.docs.restdocs.RestDocsAttribute;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.core.domain;
+package com.nocommittoday.techswipe.domain.core;
 
 public record PageParam(
         int page,

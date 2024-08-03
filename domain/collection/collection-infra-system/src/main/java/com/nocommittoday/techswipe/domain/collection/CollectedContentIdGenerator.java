@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.collection;
 
-import com.nocommittoday.techswipe.core.infrastructure.IdGenerator;
+import com.nocommittoday.techswipe.domain.core.IdGenerator;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.image.exception;
 
-import com.nocommittoday.techswipe.core.domain.ErrorCodeType;
+import com.nocommittoday.techswipe.domain.core.ErrorCodeType;
 
 import java.net.HttpURLConnection;
 

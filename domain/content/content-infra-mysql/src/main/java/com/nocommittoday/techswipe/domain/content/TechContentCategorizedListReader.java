@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.domain.content;
 
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentJpaRepository;
-import com.nocommittoday.techswipe.core.domain.PageParam;
+import com.nocommittoday.techswipe.domain.core.PageParam;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
