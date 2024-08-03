@@ -16,7 +16,7 @@ include 'app:batch-app-core'
 include 'app:servlet-api-app-core'
 
 include 'domain:core:domain-core'
-include 'domain:core:core-infra'
+include 'domain:core:infra-core'
 
 include 'domain:image:image-core'
 include 'domain:image:image-application'

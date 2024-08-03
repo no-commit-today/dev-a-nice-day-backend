@@ -1,5 +1,5 @@
 dependencies {
-    implementation(project(":domain:core:core-infra"))
+    implementation(project(":domain:core:infra-core"))
 
     api(project(":domain:collection:collection-core"))
 

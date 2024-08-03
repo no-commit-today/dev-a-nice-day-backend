@@ -42,12 +42,12 @@ subprojects {
 	}
 
 	dependencies {
-		implementation platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
-		implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:${springCloudAwsVersion}")
+		implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
+		implementation(platform("io.awspring.cloud:spring-cloud-aws-dependencies:${springCloudAwsVersion}"))
 
-		implementation 'com.google.code.findbugs:jsr305:3.0.2'
+		implementation("com.google.code.findbugs:jsr305:3.0.2")
 
-		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation("org.springframework.boot:spring-boot-starter-test")
 	}
 
 	test {

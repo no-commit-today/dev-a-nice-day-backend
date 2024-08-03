@@ -1,6 +1,6 @@
 dependencies {
     implementation(project(":app:servlet-api-app-core"))
-    implementation(project(":domain:core:core-infra"))
+    implementation(project(":domain:core:infra-core"))
     implementation(project(":domain:core:domain-core"))
 
     implementation(project(":domain:content:content-application"))
