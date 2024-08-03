@@ -6,16 +6,12 @@ dependencies {
     implementation(project(":domain:core:core-domain"))
 
     implementation(project(":domain:content:content-application"))
-    implementation(project(":domain:content:content-core"))
 
     implementation(project(":domain:image:image-application"))
-    implementation(project(":domain:image:image-core"))
 
     implementation(project(":domain:subscription:subscription-application"))
-    implementation(project(":domain:subscription:subscription-core"))
 
     implementation(project(":domain:collection:collection-application"))
-    implementation(project(":domain:collection:collection-core"))
 
     implementation(project(":support:monitoring"))
     implementation(project(":support:logging"))

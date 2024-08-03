@@ -1,9 +1,9 @@
 dependencies {
-    implementation(project(":domain:core:core-domain"))
+    api(project(":domain:core:core-domain"))
 
-    implementation(project(":domain:content:content-core"))
+    api(project(":domain:content:content-core"))
 
-    implementation(project(":domain:collection:collection-core"))
+    api(project(":domain:collection:collection-core"))
 
     implementation(project(":storage:storage-mysql"))
 }

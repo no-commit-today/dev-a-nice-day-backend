@@ -1,9 +1,9 @@
 dependencies {
     implementation project(":domain:core:core-infra")
 
-    implementation project(":domain:subscription:subscription-core")
+    api project(":domain:subscription:subscription-core")
 
-    implementation(project(":client:feed-client"))
+    api(project(":client:feed-client"))
 
     implementation 'org.springframework:spring-web'
     implementation 'org.springframework.boot:spring-boot'
