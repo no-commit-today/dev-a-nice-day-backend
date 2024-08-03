@@ -28,6 +28,10 @@ public class TechContentEntityBuilder {
     @Nullable
     private List<TechCategory> categories;
 
+    public static TechContentEntity create() {
+        return new TechContentEntityBuilder().build();
+    }
+
     public TechContentEntityBuilder() {
     }
 
@@ -64,6 +68,10 @@ public class TechContentEntityBuilder {
     public TechContentEntityBuilder publishedDate(LocalDate publishedDate) {
         this.publishedDate = publishedDate;
         return this;
+    }
+
+    public TechContentEntityBuilder categories(TechCategory... categories) {
+        return categories(List.of(categories));
     }
 
     public TechContentEntityBuilder categories(List<TechCategory> categories) {

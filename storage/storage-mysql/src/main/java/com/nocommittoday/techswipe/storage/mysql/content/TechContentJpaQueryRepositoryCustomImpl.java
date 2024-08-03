@@ -10,7 +10,6 @@ import java.util.List;
 
 import static com.nocommittoday.techswipe.storage.mysql.content.QTechContentCategoryEntity.techContentCategoryEntity;
 import static com.nocommittoday.techswipe.storage.mysql.content.QTechContentEntity.techContentEntity;
-import static com.nocommittoday.techswipe.storage.mysql.content.QTechContentProviderEntity.techContentProviderEntity;
 
 
 @Repository
@@ -33,7 +32,7 @@ class TechContentJpaQueryRepositoryCustomImpl implements TechContentJpaQueryRepo
                 .where(
                         techContentCategoryEntity.category.in(categories),
                         techContentEntity.deleted.isFalse(),
-                        techContentProviderEntity.deleted.isFalse()
+                        techContentEntity.provider.deleted.isFalse()
                 )
                 .groupBy(techContentEntity.publishedDate, techContentEntity.id)
                 .orderBy(techContentEntity.publishedDate.desc())
