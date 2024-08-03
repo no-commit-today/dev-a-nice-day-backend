@@ -10,6 +10,7 @@ spring:
       - monitoring.yml
       - logging.yml
       - storage-mysql.yml
+      - admin.yml
 
 server:
   servlet:

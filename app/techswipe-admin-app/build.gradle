@@ -1,5 +1,3 @@
-bootJar.enabled = true
-
 dependencies {
     implementation(project(":app:servlet-api-app-core"))
     implementation(project(":domain:core:core-infra"))

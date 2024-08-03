@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.admin.auth;
+package com.nocommittoday.techswipe.admin.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,22 +7,24 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
-public class SecurityConfig {
+public class AdminSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .securityMatcher("/admin/**")
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .anyRequest().authenticated()
+                        .requestMatchers("/admin/**").authenticated()
+                        .anyRequest().permitAll()
                 )
-                .httpBasic(withDefaults())
+                .httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.disable())
                 .logout(logout -> logout.disable())
+                .formLogin(formLogin -> formLogin.disable())
+                .rememberMe(rememberMe -> rememberMe.disable())
+                .requestCache(requestCache -> requestCache.disable())
                 .sessionManagement(sessionManagement -> sessionManagement.disable())
                 .exceptionHandling(config -> config
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
