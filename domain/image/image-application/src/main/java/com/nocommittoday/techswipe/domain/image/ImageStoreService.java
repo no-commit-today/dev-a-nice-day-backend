@@ -45,7 +45,7 @@ public class ImageStoreService {
     }
 
     private String createStoredName(String ext, String dirToStore) {
-        String uuid = uuidHolder.random();
+        String uuid = uuidHolder.random().toString();
         return Paths.get(dirToStore, (uuid + "." + ext)).toString();
     }
 }

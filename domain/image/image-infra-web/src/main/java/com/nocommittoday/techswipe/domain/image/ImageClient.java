@@ -143,7 +143,7 @@ public class ImageClient {
     private File downloadFile(Resource resource) {
         createTmpDirIfAbsent();
 
-        File imageFile = new File(TMP_DIR, uuidHolder.random());
+        File imageFile = new File(TMP_DIR, uuidHolder.random().toString());
         try (
                 InputStream in = resource.getInputStream();
                 OutputStream out = new FileOutputStream(imageFile);

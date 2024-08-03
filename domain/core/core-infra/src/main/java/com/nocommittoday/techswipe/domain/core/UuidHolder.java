@@ -7,7 +7,7 @@ import java.util.UUID;
 @Component
 public class UuidHolder {
 
-    public String random() {
-        return UUID.randomUUID().toString();
+    public UUID random() {
+        return UUID.randomUUID();
     }
 }
