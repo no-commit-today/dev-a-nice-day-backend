@@ -14,6 +14,14 @@ public class ImageEntityBuilder {
     @Nullable
     private String storedName;
 
+    public static ImageEntity create() {
+        return create(false);
+    }
+
+    public static ImageEntity create(boolean withId) {
+        return new ImageEntityBuilder().build(withId);
+    }
+
     public ImageEntityBuilder() {
     }
 
@@ -41,8 +49,8 @@ public class ImageEntityBuilder {
         return build(false);
     }
 
-    public ImageEntity build(boolean idRequired) {
-        fillRequiredFields(idRequired);
+    public ImageEntity build(boolean withId) {
+        fillRequiredFields(withId);
         return new ImageEntity(
             id,
             url,
@@ -53,8 +61,8 @@ public class ImageEntityBuilder {
 
 
 
-    private void fillRequiredFields(boolean idRequired) {
-        if (idRequired && id == null) {
+    private void fillRequiredFields(boolean withId) {
+        if (withId && id == null) {
             id = LocalAutoIncrementIdUtils.nextId();
         }
         long fieldId = id != null ? id : LocalAutoIncrementIdUtils.nextId();

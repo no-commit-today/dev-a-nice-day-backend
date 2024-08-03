@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEnti
 import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;
 import jakarta.annotation.Nullable;
 
-public class TechContentProviderBuilder {
+public class TechContentProviderEntityBuilder {
 
     @Nullable
     private Long id;
@@ -18,30 +18,34 @@ public class TechContentProviderBuilder {
     @Nullable
     private ImageEntity icon;
 
-    public TechContentProviderBuilder() {
+    public static TechContentProviderEntity create() {
+        return new TechContentProviderEntityBuilder().build();
     }
 
-    public TechContentProviderBuilder id(Long id) {
+    public TechContentProviderEntityBuilder() {
+    }
+
+    public TechContentProviderEntityBuilder id(Long id) {
         this.id = id;
         return this;
     }
 
-    public TechContentProviderBuilder type(TechContentProviderType type) {
+    public TechContentProviderEntityBuilder type(TechContentProviderType type) {
         this.type = type;
         return this;
     }
 
-    public TechContentProviderBuilder title(String title) {
+    public TechContentProviderEntityBuilder title(String title) {
         this.title = title;
         return this;
     }
 
-    public TechContentProviderBuilder url(String url) {
+    public TechContentProviderEntityBuilder url(String url) {
         this.url = url;
         return this;
     }
 
-    public TechContentProviderBuilder icon(ImageEntity icon) {
+    public TechContentProviderEntityBuilder icon(ImageEntity icon) {
         this.icon = icon;
         return this;
     }
