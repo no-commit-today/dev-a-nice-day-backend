@@ -1,32 +1,30 @@
 package com.nocommittoday.techswipe.domain.collection;
 
+import com.nocommittoday.techswipe.domain.content.Summary;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SummarizationProcessor {
 
     private final SummarizationClient summarizationClient;
-    private final SummarizationValidator summarizationValidator;
 
     public SummarizationProcessor(
-            SummarizationClient summarizationClient,
-            SummarizationValidator summarizationValidator
+            SummarizationClient summarizationClient
     ) {
         this.summarizationClient = summarizationClient;
-        this.summarizationValidator = summarizationValidator;
     }
 
     public SummarizationResult summarize(CollectedContent collectedContent) {
         try {
             String responseContent = summarizationClient.summarize(collectedContent);
-
-            if (!summarizationValidator.check(responseContent)) {
+            Summary summary = new Summary(responseContent);
+            if (!summary.isValid()) {
                 throw new SummarizationResponseInvalidException(
                         "요약 결과가 올바르지 않습니다. ", collectedContent.getId(), responseContent
                 );
             }
 
-            return SummarizationResult.success(responseContent);
+            return SummarizationResult.success(summary.getContent());
         } catch (Exception ex) {
             return SummarizationResult.failure(ex);
         }

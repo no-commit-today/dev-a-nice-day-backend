@@ -19,9 +19,6 @@ class SummarizationProcessorTest {
     @Mock
     private SummarizationClient summarizationClient;
 
-    @Mock
-    private SummarizationValidator summarizationValidator;
-
     @Test
     void 내용을_형식에_맞게_반환한다() {
         // given
@@ -32,7 +29,6 @@ class SummarizationProcessorTest {
                 3. 요약 3
                 """.trim();
         given(summarizationClient.summarize(collectedContent)).willReturn(responseContent);
-        given(summarizationValidator.check(responseContent)).willReturn(true);
 
 
         // when
@@ -56,7 +52,6 @@ class SummarizationProcessorTest {
                 2. 요약 2
                 """.trim();
         given(summarizationClient.summarize(collectedContent)).willReturn(responseContent);
-        given(summarizationValidator.check(responseContent)).willReturn(false);
 
         // when
         final SummarizationResult result = summarizationProcessor.summarize(collectedContent);

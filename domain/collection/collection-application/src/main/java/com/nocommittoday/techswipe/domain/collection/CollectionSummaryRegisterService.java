@@ -1,22 +1,20 @@
 package com.nocommittoday.techswipe.domain.collection;
 
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionSummaryFormatNotRegistrableException;
+import com.nocommittoday.techswipe.domain.content.Summary;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CollectionSummaryRegisterService {
 
     private final CollectedContentReader collectedContentReader;
-    private final SummarizationValidator summarizationValidator;
     private final CollectedContentUpdater collectedContentUpdater;
 
     public CollectionSummaryRegisterService(
             CollectedContentReader collectedContentReader,
-            SummarizationValidator summarizationValidator,
             CollectedContentUpdater collectedContentUpdater
     ) {
         this.collectedContentReader = collectedContentReader;
-        this.summarizationValidator = summarizationValidator;
         this.collectedContentUpdater = collectedContentUpdater;
     }
 
@@ -27,10 +25,11 @@ public class CollectionSummaryRegisterService {
     }
 
     public void register(CollectionSummaryRegisterCommand command) {
-        if (!summarizationValidator.check(command.summary())) {
+        Summary summary = new Summary(command.summary());
+        if (!summary.isValid()) {
             throw new CollectionSummaryFormatNotRegistrableException(command.id(), command.summary());
         }
         CollectedContent collectedContent = collectedContentReader.get(command.id());
-        collectedContentUpdater.update(collectedContent.summarize(command.summary()));
+        collectedContentUpdater.update(collectedContent.summarize(summary.getContent()));
     }
 }
