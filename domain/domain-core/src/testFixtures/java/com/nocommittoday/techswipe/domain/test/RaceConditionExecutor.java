@@ -1,4 +1,4 @@
-package com.nocommittoday.module.test.racecondition;
+package com.nocommittoday.techswipe.domain.test;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
