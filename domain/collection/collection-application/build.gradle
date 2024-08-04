@@ -9,7 +9,6 @@ dependencies {
 
     api(project(":domain:collection:collection-core"))
     implementation(project(":domain:collection:collection-infra-mysql"))
-    implementation(project(":domain:collection:collection-infra-web"))
     implementation(project(":domain:collection:collection-infra-system"))
 
     implementation("org.springframework:spring-context")

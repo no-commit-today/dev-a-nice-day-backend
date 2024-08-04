@@ -34,10 +34,10 @@ include 'domain:subscription:subscription-infra-web'
 include 'domain:collection:collection-core'
 include 'domain:collection:collection-application'
 include 'domain:collection:collection-infra-mysql'
-include 'domain:collection:collection-infra-web'
 include 'domain:collection:collection-infra-system'
 
 include 'infrastructure:infrastructure-aws'
+include 'infrastructure:infrastructure-openai'
 
 include 'storage:storage-mysql'
 
