@@ -1,5 +1,0 @@
-dependencies {
-    api(project(":domain:domain-core"))
-
-    implementation(project(":storage:storage-mysql"))
-}

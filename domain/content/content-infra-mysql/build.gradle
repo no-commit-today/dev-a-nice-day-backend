@@ -1,7 +1,0 @@
-dependencies {
-    api(project(":domain:domain-core"))
-
-    implementation(project(":storage:storage-mysql"))
-
-    testImplementation(testFixtures(project(":storage:storage-mysql")))
-}

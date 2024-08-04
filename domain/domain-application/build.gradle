@@ -1,0 +1,22 @@
+dependencies {
+    api(project(":domain:domain-core"))
+    implementation(project(":client:client-core"))
+    implementation(project(":storage:storage-mysql"))
+
+    // Subscription
+    implementation(project(":client:feed-client"))
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    implementation("org.jsoup:jsoup:${jsoupVersion}")
+    implementation("net.htmlparser.jericho:jericho-html:${jerichoHtmlVersion}")
+    implementation("com.rometools:rome:${romeVersion}")
+
+    implementation("org.springframework.boot:spring-boot")
+    implementation("org.springframework:spring-web")
+
+    // Service
+    implementation("org.springframework:spring-context")
+    implementation("org.springframework.boot:spring-boot-starter-logging")
+
+    testImplementation(testFixtures(project(":storage:storage-mysql")))
+}

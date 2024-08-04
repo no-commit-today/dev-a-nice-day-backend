@@ -2,20 +2,7 @@ bootJar.enabled = true
 
 dependencies {
     implementation(project(":domain:domain-core"))
-    implementation(project(":domain:core:infra-core"))
-
-    implementation(project(":domain:content:content-infra-mysql"))
-    implementation(project(":domain:content:content-application"))
-
-    implementation(project(":domain:subscription:subscription-infra-mysql"))
-    implementation(project(":domain:subscription:subscription-infra-web"))
-    implementation(project(":domain:subscription:subscription-application"))
-
-    implementation(project(":domain:collection:collection-infra-mysql"))
-    implementation(project(":domain:collection:collection-infra-system"))
-    implementation(project(":domain:collection:collection-application"))
-
-    implementation(project(":domain:image:image-infra-mysql"))
+    implementation(project(":domain:domain-application"))
 
     implementation(project(":infrastructure:infrastructure-aws"))
     implementation(project(":infrastructure:infrastructure-openai"))

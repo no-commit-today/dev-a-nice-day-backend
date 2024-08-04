@@ -16,22 +16,7 @@ include("app:batch-app-core")
 include("app:servlet-api-app-core")
 
 include("domain:domain-core")
-
-include("domain:core:infra-core")
-
-include("domain:image:image-infra-mysql")
-
-include("domain:content:content-application")
-include("domain:content:content-infra-mysql")
-include("domain:content:content-infra-system")
-
-include("domain:subscription:subscription-application")
-include("domain:subscription:subscription-infra-mysql")
-include("domain:subscription:subscription-infra-web")
-
-include("domain:collection:collection-application")
-include("domain:collection:collection-infra-mysql")
-include("domain:collection:collection-infra-system")
+include("domain:domain-application")
 
 include("infrastructure:infrastructure-aws")
 include("infrastructure:infrastructure-openai")
