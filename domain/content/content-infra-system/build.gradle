@@ -1,7 +1,7 @@
 dependencies {
-    implementation(project(":domain:core:infra-core"))
+    api(project(":domain:domain-core"))
 
-    api(project(":domain:content:content-core"))
+    implementation(project(":domain:core:infra-core"))
 
     implementation("org.springframework:spring-context")
 }

@@ -1,7 +1,7 @@
 dependencies {
-    implementation(project(":domain:core:infra-core"))
+    api(project(":domain:domain-core"))
 
-    api(project(":domain:subscription:subscription-core"))
+    implementation(project(":domain:core:infra-core"))
 
     api(project(":client:feed-client"))
 

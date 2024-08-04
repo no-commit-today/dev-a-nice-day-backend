@@ -9,43 +9,40 @@ pluginManagement {
 
 rootProject.name = 'tech-swipe-backend'
 
-include 'app:techswipe-api-app'
-include 'app:techswipe-admin-app'
-include 'app:techswipe-batch-app'
-include 'app:batch-app-core'
-include 'app:servlet-api-app-core'
+include("app:techswipe-api-app")
+include("app:techswipe-admin-app")
+include("app:techswipe-batch-app")
+include("app:batch-app-core")
+include("app:servlet-api-app-core")
 
-include 'domain:core:domain-core'
-include 'domain:core:infra-core'
+include("domain:domain-core")
 
-include 'domain:image:image-core'
-include 'domain:image:image-infra-mysql'
+include("domain:core:infra-core")
 
-include 'domain:content:content-core'
-include 'domain:content:content-application'
-include 'domain:content:content-infra-mysql'
-include 'domain:content:content-infra-system'
+include("domain:image:image-infra-mysql")
 
-include 'domain:subscription:subscription-core'
-include 'domain:subscription:subscription-application'
-include 'domain:subscription:subscription-infra-mysql'
-include 'domain:subscription:subscription-infra-web'
+include("domain:content:content-application")
+include("domain:content:content-infra-mysql")
+include("domain:content:content-infra-system")
 
-include 'domain:collection:collection-core'
-include 'domain:collection:collection-application'
-include 'domain:collection:collection-infra-mysql'
-include 'domain:collection:collection-infra-system'
+include("domain:subscription:subscription-application")
+include("domain:subscription:subscription-infra-mysql")
+include("domain:subscription:subscription-infra-web")
 
-include 'infrastructure:infrastructure-aws'
-include 'infrastructure:infrastructure-openai'
+include("domain:collection:collection-application")
+include("domain:collection:collection-infra-mysql")
+include("domain:collection:collection-infra-system")
 
-include 'storage:storage-mysql'
+include("infrastructure:infrastructure-aws")
+include("infrastructure:infrastructure-openai")
 
-include 'module:jpa-test'
-include 'module:race-condition-test'
+include("storage:storage-mysql")
 
-include 'client:client-core'
-include 'client:feed-client'
+include("module:jpa-test")
+include("module:race-condition-test")
 
-include 'support:monitoring'
-include 'support:logging'
+include("client:client-core")
+include("client:feed-client")
+
+include("support:monitoring")
+include("support:logging")

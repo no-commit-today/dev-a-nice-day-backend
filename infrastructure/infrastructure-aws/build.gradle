@@ -1,9 +1,8 @@
 dependencies {
-    api(project(":domain:core:domain-core"))
+    api(project(":domain:domain-core"))
     api(project(":domain:core:infra-core"))
-    api(project(":domain:image:image-core"))
 
     implementation(project(":client:client-core"))
-    implementation("io.awspring.cloud:spring-cloud-aws-starter-s3")
     implementation(project(":storage:storage-mysql"))
+    implementation("io.awspring.cloud:spring-cloud-aws-starter-s3")
 }
