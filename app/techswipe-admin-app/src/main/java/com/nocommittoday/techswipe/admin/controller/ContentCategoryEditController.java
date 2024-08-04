@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
+import com.nocommittoday.techswipe.admin.controller.request.ContentCategoryEditRequest;
 import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
 import com.nocommittoday.techswipe.domain.collection.ContentCategoryEdit;
 import com.nocommittoday.techswipe.domain.collection.ContentCategoryEditService;

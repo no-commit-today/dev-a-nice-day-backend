@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.controller.content.v1;
 
+import com.nocommittoday.techswipe.controller.content.v1.response.TechContentDetailQueryResponse;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.content.TechContentDetailQueryService;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,5 +1,7 @@
 package com.nocommittoday.techswipe.admin.controller;
 
+import com.nocommittoday.techswipe.admin.controller.request.TechContentProviderRegisterRequest;
+import com.nocommittoday.techswipe.admin.controller.response.TechContentProviderRegisterResponse;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderRegisterCommand;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderRegisterService;

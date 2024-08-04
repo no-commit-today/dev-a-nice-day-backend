@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
+import com.nocommittoday.techswipe.admin.controller.request.TechContentProviderIconEditRequest;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderIconEditService;
 import com.nocommittoday.techswipe.domain.image.ImageId;

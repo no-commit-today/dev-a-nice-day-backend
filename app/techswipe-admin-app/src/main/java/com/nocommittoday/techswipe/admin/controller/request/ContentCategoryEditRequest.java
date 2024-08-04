@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.admin.controller;
+package com.nocommittoday.techswipe.admin.controller.request;
 
 import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
 import jakarta.validation.constraints.NotNull;
