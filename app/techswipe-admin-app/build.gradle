@@ -5,8 +5,6 @@ dependencies {
 
     implementation(project(":domain:content:content-application"))
 
-    implementation(project(":domain:image:image-application"))
-
     implementation(project(":domain:subscription:subscription-application"))
 
     implementation(project(":domain:collection:collection-application"))

@@ -16,9 +16,7 @@ dependencies {
     implementation(project(":domain:collection:collection-infra-system"))
     implementation(project(":domain:collection:collection-application"))
 
-    implementation(project(":domain:image:image-infra-aws"))
     implementation(project(":domain:image:image-infra-mysql"))
-    implementation(project(":domain:image:image-application"))
 
     implementation(project(":infrastructure:infrastructure-aws"))
 
