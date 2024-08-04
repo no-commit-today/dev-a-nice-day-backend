@@ -23,7 +23,6 @@ include("infrastructure:infrastructure-openai")
 
 include("storage:storage-mysql")
 
-include("module:jpa-test")
 include("module:race-condition-test")
 
 include("client:client-core")

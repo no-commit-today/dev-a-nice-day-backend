@@ -1,4 +1,4 @@
-package com.nocommittoday.module.test.jpa;
+package com.nocommittoday.techswipe.storage.mysql.test;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Table;
