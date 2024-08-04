@@ -20,6 +20,8 @@ dependencies {
     implementation(project(":domain:image:image-infra-mysql"))
     implementation(project(":domain:image:image-application"))
 
+    implementation(project(":infrastructure:infrastructure-aws"))
+
     implementation(project(":storage:storage-mysql"))
     implementation(project(":app:batch-app-core"))
 

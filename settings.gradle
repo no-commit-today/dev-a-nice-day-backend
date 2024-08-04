@@ -40,6 +40,8 @@ include 'domain:collection:collection-infra-mysql'
 include 'domain:collection:collection-infra-web'
 include 'domain:collection:collection-infra-system'
 
+include 'infrastructure:infrastructure-aws'
+
 include 'storage:storage-mysql'
 
 include 'module:jpa-test'

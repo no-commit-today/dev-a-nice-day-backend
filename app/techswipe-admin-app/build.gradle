@@ -11,6 +11,8 @@ dependencies {
 
     implementation(project(":domain:collection:collection-application"))
 
+    implementation(project(":infrastructure:infrastructure-aws"))
+
     implementation(project(":support:monitoring"))
     implementation(project(":support:logging"))
 
