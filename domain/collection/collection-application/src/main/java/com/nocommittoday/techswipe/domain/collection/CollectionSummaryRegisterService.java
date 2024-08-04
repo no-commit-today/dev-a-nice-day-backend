@@ -7,26 +7,23 @@ import org.springframework.stereotype.Service;
 public class CollectionSummaryRegisterService {
 
     private final CollectedContentReader collectedContentReader;
-    private final SummarizationPromptCreator summarizationPromptCreator;
     private final SummarizationValidator summarizationValidator;
     private final CollectedContentUpdater collectedContentUpdater;
 
     public CollectionSummaryRegisterService(
             CollectedContentReader collectedContentReader,
-            SummarizationPromptCreator summarizationPromptCreator,
             SummarizationValidator summarizationValidator,
             CollectedContentUpdater collectedContentUpdater
     ) {
         this.collectedContentReader = collectedContentReader;
-        this.summarizationPromptCreator = summarizationPromptCreator;
         this.summarizationValidator = summarizationValidator;
         this.collectedContentUpdater = collectedContentUpdater;
     }
 
     public CollectionSummarizationPromptResult getPrompt(CollectedContentId id) {
         CollectedContent collectedContent = collectedContentReader.get(id);
-        String prompt = summarizationPromptCreator.create(collectedContent);
-        return new CollectionSummarizationPromptResult(prompt);
+        SummarizationPrompt prompt = SummarizationPrompt.of(collectedContent);
+        return new CollectionSummarizationPromptResult(prompt.getContent());
     }
 
     public void register(CollectionSummaryRegisterCommand command) {

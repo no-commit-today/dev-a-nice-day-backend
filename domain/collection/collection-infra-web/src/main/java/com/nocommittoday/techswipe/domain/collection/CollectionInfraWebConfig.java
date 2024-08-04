@@ -15,15 +15,14 @@ class CollectionInfraWebConfig {
 
         @Bean
         SummarizationClient summarizationClientOpenAi(
-                final ChatClient.Builder chatClientBuilder,
-                final SummarizationPromptCreator promptCreator
+                ChatClient.Builder chatClientBuilder
         ) {
-            return new SummarizationClientOpenAi(chatClientBuilder, promptCreator);
+            return new SummarizationClientOpenAi(chatClientBuilder);
         }
 
         @Bean
         CategorizationClient categorizationClientOpenAi(
-                final ChatClient.Builder chatClientBuilder,
+                ChatClient.Builder chatClientBuilder,
                 @Value("${app.collection.openai.categorization-model}") final String model
         ) {
             return new CategorizationClientOpenAi(chatClientBuilder, model);

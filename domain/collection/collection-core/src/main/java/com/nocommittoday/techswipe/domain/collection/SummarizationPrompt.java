@@ -1,9 +1,6 @@
 package com.nocommittoday.techswipe.domain.collection;
 
-import org.springframework.stereotype.Component;
-
-@Component
-public class SummarizationPromptCreator {
+public class SummarizationPrompt {
 
     private static final String PROMPT_FORMAT = """
             <목표>
@@ -40,10 +37,21 @@ public class SummarizationPromptCreator {
             </내용>
             """.trim();
 
-    public String create(CollectedContent collectedContent) {
-        return String.format(
+    private final String content;
+
+    private SummarizationPrompt(String content) {
+        this.content = content;
+    }
+
+    public static SummarizationPrompt of(CollectedContent collectedContent) {
+        String content = String.format(
                 PROMPT_FORMAT,
                 collectedContent.getTitle() + "\n\n" + collectedContent.getContent()
         );
+        return new SummarizationPrompt(content);
+    }
+
+    public String getContent() {
+        return content;
     }
 }

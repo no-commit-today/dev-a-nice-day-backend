@@ -6,21 +6,17 @@ class SummarizationClientOpenAi implements SummarizationClient {
 
     private final ChatClient chatClient;
 
-    private final SummarizationPromptCreator promptCreator;
-
     public SummarizationClientOpenAi(
-            final ChatClient.Builder chatClientBuilder,
-            final SummarizationPromptCreator promptCreator
+            ChatClient.Builder chatClientBuilder
     ) {
         this.chatClient = chatClientBuilder.build();
-        this.promptCreator = promptCreator;
     }
 
     @Override
     public String summarize(CollectedContent collectedContent) {
         return chatClient.prompt()
                 .advisors(new SummarizationLoggerAdvisor(collectedContent))
-                .user(promptCreator.create(collectedContent))
+                .user(SummarizationPrompt.of(collectedContent).getContent())
                 .call()
                 .content()
                 .trim();
