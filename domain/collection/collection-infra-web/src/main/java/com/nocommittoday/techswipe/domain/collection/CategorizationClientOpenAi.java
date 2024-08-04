@@ -24,10 +24,11 @@ class CategorizationClientOpenAi implements CategorizationClient {
 
     @Override
     public String categorize(CollectedContent collectedContent) {
+        CategorizationPrompt prompt = CategorizationPrompt.of(collectedContent);
         return chatClient.prompt()
                 .advisors(new CategorizationLoggerAdvisor(collectedContent))
-                .system(CategorizationConst.PROMPT)
-                .user(collectedContent.getTitle() + "\n\n" + collectedContent.getContent())
+                .system(prompt.getSystem())
+                .user(prompt.getUser())
                 .call()
                 .content()
                 .trim();

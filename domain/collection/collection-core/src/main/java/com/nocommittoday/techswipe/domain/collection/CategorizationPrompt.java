@@ -3,13 +3,9 @@ package com.nocommittoday.techswipe.domain.collection;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public final class CategorizationConst {
+public class CategorizationPrompt {
 
-    private CategorizationConst() {
-        throw new UnsupportedOperationException();
-    }
-
-    public static final String PROMPT = String.format("""
+    private static final String SYSTEM_PROMPT = String.format("""
                     - 당신은 분류를 정말 잘 하는 봇입니다.
                     - 카테고리는 [%s] 중 선택합니다.
                     - 카테고리는 최소 1개에서 최대 3개입니다.
@@ -24,4 +20,24 @@ public final class CategorizationConst {
                     .map(CollectionCategory::name)
                     .collect(Collectors.joining(","))
     );
+
+    private final String user;
+
+    private CategorizationPrompt(String user) {
+        this.user = user;
+    }
+
+    public static CategorizationPrompt of(CollectedContent collectedContent) {
+        return new CategorizationPrompt(
+                collectedContent.getTitle() + "\n\n" + collectedContent.getContent()
+        );
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getSystem() {
+        return SYSTEM_PROMPT;
+    }
 }

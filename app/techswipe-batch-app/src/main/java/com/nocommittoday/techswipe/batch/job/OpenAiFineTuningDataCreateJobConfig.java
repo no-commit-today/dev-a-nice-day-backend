@@ -2,7 +2,8 @@ package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JsonlFileItemWriter;
-import com.nocommittoday.techswipe.domain.collection.CategorizationConst;
+import com.nocommittoday.techswipe.domain.collection.CategorizationPrompt;
+import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import jakarta.persistence.EntityManagerFactory;
@@ -94,13 +95,17 @@ public class OpenAiFineTuningDataCreateJobConfig {
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
     public ItemProcessor<CollectedContentEntity, OpenAiFindTuningData> processor() {
-        return item -> new OpenAiFindTuningData(
-                CategorizationConst.PROMPT,
-                item.getTitle() + "\n\n" + item.getContent(),
-                item.getCategories().stream()
-                        .map(category -> "- " + category.name())
-                        .collect(Collectors.joining("\n"))
-        );
+        return item -> {
+            CollectedContent collectedContent = item.toDomain();
+            CategorizationPrompt prompt = CategorizationPrompt.of(collectedContent);
+            return new OpenAiFindTuningData(
+                    prompt.getSystem(),
+                    prompt.getUser(),
+                    item.getCategories().stream()
+                            .map(category -> "- " + category.name())
+                            .collect(Collectors.joining("\n"))
+            );
+        };
     }
 
     @Bean(STEP_NAME + "ItemWriter")
