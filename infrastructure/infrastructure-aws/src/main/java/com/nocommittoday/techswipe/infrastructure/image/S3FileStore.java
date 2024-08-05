@@ -1,5 +1,6 @@
-package com.nocommittoday.techswipe.domain.image;
+package com.nocommittoday.techswipe.infrastructure.image;
 
+import com.nocommittoday.techswipe.domain.image.ImageFile;
 import io.awspring.cloud.s3.ObjectMetadata;
 import io.awspring.cloud.s3.S3Resource;
 import io.awspring.cloud.s3.S3Template;

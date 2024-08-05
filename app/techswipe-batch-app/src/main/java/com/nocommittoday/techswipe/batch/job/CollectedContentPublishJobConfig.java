@@ -6,7 +6,7 @@ import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriter;
 import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriterBuilder;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
-import com.nocommittoday.techswipe.domain.image.ImageStoreService;
+import com.nocommittoday.techswipe.infrastructure.image.ImageStoreService;
 import com.nocommittoday.techswipe.domain.image.exception.ImageApplicationException;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;

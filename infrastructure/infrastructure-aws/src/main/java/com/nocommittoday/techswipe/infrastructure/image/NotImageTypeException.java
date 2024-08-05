@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.domain.image;
+package com.nocommittoday.techswipe.infrastructure.image;
 
 import com.nocommittoday.techswipe.client.core.ClientException;
 

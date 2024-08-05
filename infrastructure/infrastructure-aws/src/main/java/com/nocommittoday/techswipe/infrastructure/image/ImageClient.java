@@ -1,7 +1,9 @@
-package com.nocommittoday.techswipe.domain.image;
+package com.nocommittoday.techswipe.infrastructure.image;
 
 import com.nocommittoday.techswipe.client.core.ClientResponse;
 import com.nocommittoday.techswipe.domain.core.UuidHolder;
+import com.nocommittoday.techswipe.domain.image.ImageContentType;
+import com.nocommittoday.techswipe.domain.image.ImageFile;
 import org.apache.hc.client5.http.impl.DefaultRedirectStrategy;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.slf4j.Logger;

@@ -1,5 +1,6 @@
-package com.nocommittoday.techswipe.domain.image;
+package com.nocommittoday.techswipe.infrastructure.image;
 
+import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.domain.image.exception.ImageApplicationException;
 
 import javax.annotation.Nullable;
