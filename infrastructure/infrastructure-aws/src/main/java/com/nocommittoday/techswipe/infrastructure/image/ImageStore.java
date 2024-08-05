@@ -12,16 +12,16 @@ import org.springframework.stereotype.Service;
 import java.nio.file.Paths;
 
 @Service
-public class ImageStoreService {
+public class ImageStore {
 
-    private static final Logger log = LoggerFactory.getLogger(ImageStoreService.class);
+    private static final Logger log = LoggerFactory.getLogger(ImageStore.class);
 
     private final FileStore fileStore;
     private final ImageAppender imageAppender;
     private final UuidHolder uuidHolder;
     private final ImageClient imageClient;
 
-    public ImageStoreService(
+    public ImageStore(
             FileStore fileStore, ImageAppender imageAppender, UuidHolder uuidHolder, ImageClient imageClient
     ) {
         this.fileStore = fileStore;

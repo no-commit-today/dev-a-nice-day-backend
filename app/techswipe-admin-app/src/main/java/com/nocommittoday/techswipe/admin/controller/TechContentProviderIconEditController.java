@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.admin.controller.request.TechContentProviderI
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderIconEditService;
 import com.nocommittoday.techswipe.domain.image.ImageId;
-import com.nocommittoday.techswipe.infrastructure.image.ImageStoreService;
+import com.nocommittoday.techswipe.infrastructure.image.ImageStore;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,21 +16,21 @@ import java.util.Optional;
 @RestController
 public class TechContentProviderIconEditController {
 
-    private final ImageStoreService imageStoreService;
+    private final ImageStore imageStore;
     private final TechContentProviderIconEditService techContentProviderIconEditService;
 
     public TechContentProviderIconEditController(
-            ImageStoreService imageStoreService,
+            ImageStore imageStore,
             TechContentProviderIconEditService techContentProviderIconEditService
     ) {
-        this.imageStoreService = imageStoreService;
+        this.imageStore = imageStore;
         this.techContentProviderIconEditService = techContentProviderIconEditService;
     }
 
     @PatchMapping("/admin/api/providers/{providerId}/icon")
     void edit(@PathVariable Long providerId, @RequestBody @Validated TechContentProviderIconEditRequest request) {
         ImageId iconId = Optional.ofNullable(request.iconUrl())
-                .map(url -> imageStoreService.store(url, "provider").get())
+                .map(url -> imageStore.store(url, "provider").get())
                 .orElse(null);
         techContentProviderIconEditService.edit(new TechContentProviderId(providerId), iconId);
     }
