@@ -1,5 +1,8 @@
-package com.nocommittoday.techswipe.domain.content;
+package com.nocommittoday.techswipe.domain.content.provider;
 
+import com.nocommittoday.techswipe.domain.content.TechContentProviderCreate;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
 import com.nocommittoday.techswipe.domain.content.exception.TechContentProviderUrlExistsException;
 import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.domain.image.ImageIdValidator;

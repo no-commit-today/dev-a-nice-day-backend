@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.subscription;
 
-import com.nocommittoday.techswipe.domain.content.TechContentProviderIdValidator;
+import com.nocommittoday.techswipe.domain.content.provider.TechContentProviderIdValidator;
 import org.springframework.stereotype.Service;
 
 @Service

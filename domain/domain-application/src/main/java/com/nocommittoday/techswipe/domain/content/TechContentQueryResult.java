@@ -1,5 +1,7 @@
 package com.nocommittoday.techswipe.domain.content;
 
+import com.nocommittoday.techswipe.domain.content.provider.TechContentProviderQueryResult;
+
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.List;

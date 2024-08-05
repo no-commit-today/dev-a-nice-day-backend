@@ -1,5 +1,6 @@
-package com.nocommittoday.techswipe.domain.content;
+package com.nocommittoday.techswipe.domain.content.provider;
 
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.content.exception.TechContentProviderNotFoundException;
 import org.springframework.stereotype.Repository;
 

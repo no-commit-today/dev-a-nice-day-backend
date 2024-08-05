@@ -1,4 +1,6 @@
-package com.nocommittoday.techswipe.domain.content;
+package com.nocommittoday.techswipe.domain.content.provider;
+
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 
 import javax.annotation.Nullable;
 

@@ -1,5 +1,6 @@
-package com.nocommittoday.techswipe.domain.content;
+package com.nocommittoday.techswipe.domain.content.provider;
 
+import com.nocommittoday.techswipe.domain.content.TechContentProvider;
 import com.nocommittoday.techswipe.domain.content.exception.TechContentProviderNotFoundException;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderJpaRepository;
