@@ -19,7 +19,7 @@ public class TechContentSwipeQueryReader {
     }
 
     @Transactional(readOnly = true)
-    public List<TechContentSwipeQuery> getList(
+    public List<TechContentSwipeQueryResult> getList(
             PageParam pageParam,
             List<TechCategory> categories
     ) {
@@ -27,7 +27,7 @@ public class TechContentSwipeQueryReader {
                         pageParam,
                         categories
                 ).stream()
-                .map(entity -> new TechContentSwipeQuery(
+                .map(entity -> new TechContentSwipeQueryResult(
                                 new TechContentId(Objects.requireNonNull(entity.getId())),
                                 entity.getUrl(),
                                 entity.getTitle(),
@@ -36,7 +36,6 @@ public class TechContentSwipeQueryReader {
                                 entity.getSummary(),
                                 entity.getCategories(),
                                 new TechContentProviderId(Objects.requireNonNull(entity.getProvider().getId())),
-                                entity.getProvider().getType(),
                                 entity.getProvider().getTitle(),
                                 entity.getProvider().getUrl(),
                                 ImageEntity.url(entity.getProvider().getIcon())

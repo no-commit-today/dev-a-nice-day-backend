@@ -36,7 +36,7 @@ class TechContentSwipeQueryReaderTest {
         )).willReturn(List.of(techContentEntity));
 
         // when
-        List<TechContentSwipeQuery> result = techContentSwipeQueryReader.getList(pageParam, categories);
+        List<TechContentSwipeQueryResult> result = techContentSwipeQueryReader.getList(pageParam, categories);
 
         // then
         Assertions.assertThat(result).hasSize(1);
@@ -48,7 +48,6 @@ class TechContentSwipeQueryReaderTest {
         assertThat(result.get(0).summary()).isEqualTo(techContentEntity.getSummary());
         assertThat(result.get(0).categories()).isEqualTo(techContentEntity.getCategories());
         assertThat(result.get(0).providerId().value()).isEqualTo(techContentEntity.getProvider().getId());
-        assertThat(result.get(0).providerType()).isEqualTo(techContentEntity.getProvider().getType());
         assertThat(result.get(0).providerTitle()).isEqualTo(techContentEntity.getProvider().getTitle());
         assertThat(result.get(0).providerUrl()).isEqualTo(techContentEntity.getProvider().getUrl());
         assertThat(result.get(0).providerIconUrl()).isNull();

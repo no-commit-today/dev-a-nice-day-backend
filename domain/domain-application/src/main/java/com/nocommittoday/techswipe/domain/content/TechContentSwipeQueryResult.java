@@ -5,7 +5,7 @@ import jakarta.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.List;
 
-public record TechContentSwipeQuery(
+public record TechContentSwipeQueryResult(
         TechContentId id,
         String url,
         String title,
@@ -14,7 +14,6 @@ public record TechContentSwipeQuery(
         String summary,
         List<TechCategory> categories,
         TechContentProviderId providerId,
-        TechContentProviderType providerType,
         String providerTitle,
         String providerUrl,
         @Nullable String providerIconUrl
