@@ -5,6 +5,11 @@ GET {{baseUrl}}/api/content/v1/contents-count
 ### GET 컨텐츠 리스트 조회
 GET {{baseUrl}}/api/content/v1/contents
 
+
+### GET 컨텐츠 스와이프 조회
+GET {{baseUrl}}/api/content/v1/swipes
+
+
 ### GET 컨텐츠 상세 조회
 GET {{baseUrl}}/api/content/v1/contents/{{contentId}}
 
