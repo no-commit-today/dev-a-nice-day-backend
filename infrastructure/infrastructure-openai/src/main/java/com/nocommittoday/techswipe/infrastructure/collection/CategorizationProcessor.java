@@ -1,5 +1,7 @@
-package com.nocommittoday.techswipe.domain.collection;
+package com.nocommittoday.techswipe.infrastructure.collection;
 
+import com.nocommittoday.techswipe.domain.collection.CollectedContent;
+import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

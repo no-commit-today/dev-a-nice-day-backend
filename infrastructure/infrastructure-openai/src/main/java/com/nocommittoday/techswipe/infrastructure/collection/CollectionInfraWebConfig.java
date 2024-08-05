@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.domain.collection;
+package com.nocommittoday.techswipe.infrastructure.collection;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Value;

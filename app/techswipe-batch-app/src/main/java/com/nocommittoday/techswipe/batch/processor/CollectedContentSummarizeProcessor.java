@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.batch.processor;
 
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
-import com.nocommittoday.techswipe.domain.collection.SummarizationProcessor;
-import com.nocommittoday.techswipe.domain.collection.SummarizationResult;
+import com.nocommittoday.techswipe.infrastructure.collection.SummarizationProcessor;
+import com.nocommittoday.techswipe.infrastructure.collection.SummarizationResult;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
 import org.slf4j.Logger;

@@ -1,5 +1,6 @@
-package com.nocommittoday.techswipe.domain.collection;
+package com.nocommittoday.techswipe.infrastructure.collection;
 
+import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.content.Summary;
 import org.springframework.stereotype.Component;
 

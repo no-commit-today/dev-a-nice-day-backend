@@ -1,4 +1,6 @@
-package com.nocommittoday.techswipe.domain.collection;
+package com.nocommittoday.techswipe.infrastructure.collection;
+
+import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

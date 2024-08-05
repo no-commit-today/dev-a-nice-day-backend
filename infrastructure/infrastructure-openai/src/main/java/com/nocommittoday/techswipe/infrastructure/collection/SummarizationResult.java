@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.domain.collection;
+package com.nocommittoday.techswipe.infrastructure.collection;
 
 import javax.annotation.Nullable;
 
