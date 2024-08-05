@@ -1,0 +1,8 @@
+dependencies {
+    api(project(":domain:domain-core"))
+
+    implementation("org.springframework:spring-web")
+    implementation("jakarta.websocket:jakarta.websocket-api:2.0.0")
+    implementation(platform("org.springframework.ai:spring-ai-bom:${springAiVersion}"))
+    implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
+}

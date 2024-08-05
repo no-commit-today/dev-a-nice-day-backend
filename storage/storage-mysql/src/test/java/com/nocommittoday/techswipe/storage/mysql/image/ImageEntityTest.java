@@ -1,7 +1,6 @@
 package com.nocommittoday.techswipe.storage.mysql.image;
 
-import com.nocommittoday.techswipe.domain.image.Image;
-import com.nocommittoday.techswipe.domain.image.ImageId;
+import com.nocommittoday.techswipe.storage.mysql.test.ImageEntityBuilder;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -9,22 +8,52 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ImageEntityTest {
 
     @Test
-    void 도메인_엔티티로_전환할_수_있다() {
+    void url을_추출할_수_있다() {
         // given
-        ImageEntity imageEntity = new ImageEntity(
-                1L,
-                "http://example.com/image.jpg",
-                "http://original.com/image.jpg",
-                "image.jpg"
-        );
+        ImageEntity entity = ImageEntityBuilder.create();
 
         // when
-        Image image = imageEntity.toDomain();
+        String url = ImageEntity.url(entity);
 
         // then
-        assertThat(image.getId()).isEqualTo(new ImageId(1));
-        assertThat(image.getUrl()).isEqualTo("http://example.com/image.jpg");
-        assertThat(image.getOriginalUrl()).isEqualTo("http://original.com/image.jpg");
-        assertThat(image.getStoredName()).isEqualTo("image.jpg");
+        assertThat(url).isEqualTo(entity.getUrl());
+    }
+
+    @Test
+    void 엔티티에_null이_들어왔을_때_url추출_결과는_null이다() {
+        // given
+        ImageEntity entity = null;
+
+        // when
+        String url = ImageEntity.url(entity);
+
+        // then
+        assertThat(url).isNull();
+    }
+
+    @Test
+    void 엔티티가_삭제되었을때_url추출_결과는_null이다() {
+        // given
+        ImageEntity entity = ImageEntityBuilder.create();
+        entity.delete();
+
+        // when
+        String url = ImageEntity.url(entity);
+
+        // then
+        assertThat(url).isNull();
+    }
+
+    @Test
+    void 도메인_엔티티로_전환할_수_있다() {
+        // given
+        ImageEntity entity = ImageEntityBuilder.create();
+        entity.delete();
+
+        // when
+        String url = ImageEntity.url(entity);
+
+        // then
+        assertThat(url).isNull();
     }
 }

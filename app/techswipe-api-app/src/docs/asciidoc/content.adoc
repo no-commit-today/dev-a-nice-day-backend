@@ -7,6 +7,12 @@
 :sectlinks:
 
 
+[[get-content-swipe-list]]
+== 컨텐츠 스와이프 조회
+
+operation::content/get-content-swipe-list[snippets='http-request,query-parameters,http-response,response-fields']
+
+
 [[get-content-list]]
 == 컨텐츠 리스트 조회
 

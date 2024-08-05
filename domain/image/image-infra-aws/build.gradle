@@ -1,5 +1,0 @@
-dependencies {
-    api project(":domain:image:image-core")
-
-    implementation("io.awspring.cloud:spring-cloud-aws-starter-s3")
-}

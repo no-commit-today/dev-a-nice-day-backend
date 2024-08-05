@@ -1,15 +1,9 @@
 dependencies {
     implementation(project(":app:servlet-api-app-core"))
-    implementation(project(":domain:core:infra-core"))
-    implementation(project(":domain:core:domain-core"))
+    implementation(project(":domain:domain-core"))
+    implementation(project(":domain:domain-application"))
 
-    implementation(project(":domain:content:content-application"))
-
-    implementation(project(":domain:image:image-application"))
-
-    implementation(project(":domain:subscription:subscription-application"))
-
-    implementation(project(":domain:collection:collection-application"))
+    implementation(project(":infrastructure:infrastructure-aws"))
 
     implementation(project(":support:monitoring"))
     implementation(project(":support:logging"))

@@ -1,0 +1,7 @@
+dependencies {
+    api(project(":domain:domain-core"))
+
+    implementation(project(":client:client-core"))
+    implementation(project(":storage:storage-mysql"))
+    implementation("io.awspring.cloud:spring-cloud-aws-starter-s3")
+}

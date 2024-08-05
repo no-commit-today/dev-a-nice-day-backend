@@ -1,5 +1,7 @@
 package com.nocommittoday.techswipe.admin.controller;
 
+import com.nocommittoday.techswipe.admin.controller.request.ContentCollectRequest;
+import com.nocommittoday.techswipe.admin.controller.response.ContentCollectResponse;
 import com.nocommittoday.techswipe.domain.collection.ContentCollectService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;

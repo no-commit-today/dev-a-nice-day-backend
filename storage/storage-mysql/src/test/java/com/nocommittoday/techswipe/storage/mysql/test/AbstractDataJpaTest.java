@@ -5,12 +5,10 @@ import org.junit.jupiter.api.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.transaction.annotation.Transactional;
 
 @Tag("context")
 @DataJpaTest
 @Import(TestJpaConfig.class)
-@Transactional
 public abstract class AbstractDataJpaTest {
 
     @Autowired
@@ -18,4 +16,7 @@ public abstract class AbstractDataJpaTest {
 
     @Autowired
     protected LocalAutoIncrementIdGenerator idGenerator;
+
+    @Autowired
+    protected EntityAppender entityAppender;
 }

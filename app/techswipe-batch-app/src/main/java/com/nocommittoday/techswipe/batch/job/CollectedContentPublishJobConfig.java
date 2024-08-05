@@ -6,7 +6,7 @@ import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriter;
 import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriterBuilder;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
-import com.nocommittoday.techswipe.domain.image.ImageStoreService;
+import com.nocommittoday.techswipe.infrastructure.image.ImageStore;
 import com.nocommittoday.techswipe.domain.image.exception.ImageApplicationException;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
@@ -39,7 +39,7 @@ public class CollectedContentPublishJobConfig {
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
 
-    private final ImageStoreService imageStoreService;
+    private final ImageStore imageStore;
     private final CollectedContentEntityMapper collectedContentEntityMapper;
     private final TechContentEntityMapper techContentEntityMapper;
 
@@ -47,14 +47,14 @@ public class CollectedContentPublishJobConfig {
             JobRepository jobRepository,
             PlatformTransactionManager txManager,
             EntityManagerFactory emf,
-            ImageStoreService imageStoreService,
+            ImageStore imageStore,
             CollectedContentEntityMapper collectedContentEntityMapper,
             TechContentEntityMapper techContentEntityMapper
     ) {
         this.jobRepository = jobRepository;
         this.txManager = txManager;
         this.emf = emf;
-        this.imageStoreService = imageStoreService;
+        this.imageStore = imageStore;
         this.collectedContentEntityMapper = collectedContentEntityMapper;
         this.techContentEntityMapper = techContentEntityMapper;
     }
@@ -106,7 +106,7 @@ public class CollectedContentPublishJobConfig {
     @StepScope
     public CollectedContentPublishProcessor processor() {
         return new CollectedContentPublishProcessor(
-                imageStoreService,
+                imageStore,
                 collectedContentEntityMapper,
                 techContentEntityMapper
         );

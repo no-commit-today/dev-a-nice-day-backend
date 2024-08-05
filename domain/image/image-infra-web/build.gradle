@@ -1,7 +1,0 @@
-dependencies {
-    implementation project(":domain:core:infra-core")
-
-    api project(":domain:image:image-core")
-
-    api project(":client:client-core")
-}

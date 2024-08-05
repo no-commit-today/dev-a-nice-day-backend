@@ -1,10 +1,12 @@
 package com.nocommittoday.techswipe.admin.controller;
 
+import com.nocommittoday.techswipe.admin.controller.request.TechContentProviderRegisterRequest;
+import com.nocommittoday.techswipe.admin.controller.response.TechContentProviderRegisterResponse;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
-import com.nocommittoday.techswipe.domain.content.TechContentProviderRegisterCommand;
-import com.nocommittoday.techswipe.domain.content.TechContentProviderRegisterService;
+import com.nocommittoday.techswipe.domain.content.provider.TechContentProviderRegisterCommand;
+import com.nocommittoday.techswipe.domain.content.provider.TechContentProviderRegisterService;
 import com.nocommittoday.techswipe.domain.image.ImageId;
-import com.nocommittoday.techswipe.domain.image.ImageStoreService;
+import com.nocommittoday.techswipe.infrastructure.image.ImageStore;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +20,14 @@ import java.util.Optional;
 public class TechContentProviderRegisterController {
 
     private final TechContentProviderRegisterService techContentProviderRegisterService;
-    private final ImageStoreService imageStoreService;
+    private final ImageStore imageStore;
 
     public TechContentProviderRegisterController(
             TechContentProviderRegisterService techContentProviderRegisterService,
-            ImageStoreService imageStoreService
+            ImageStore imageStore
     ) {
         this.techContentProviderRegisterService = techContentProviderRegisterService;
-        this.imageStoreService = imageStoreService;
+        this.imageStore = imageStore;
     }
 
     @PostMapping("/admin/api/providers")
@@ -33,7 +35,7 @@ public class TechContentProviderRegisterController {
             @RequestBody @Valid TechContentProviderRegisterRequest request
     ) {
         ImageId iconId = Optional.ofNullable(request.iconUrl())
-                .map(url -> imageStoreService.store(url, "provider").get())
+                .map(url -> imageStore.store(url, "provider").get())
                 .orElse(null);
         TechContentProviderId providerId = techContentProviderRegisterService.register(
                 new TechContentProviderRegisterCommand(

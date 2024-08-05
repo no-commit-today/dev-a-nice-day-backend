@@ -45,6 +45,7 @@ import java.util.List;
 public class TechContentEntity extends BaseSoftDeleteEntity implements Persistable<Long> {
 
     @Id
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)

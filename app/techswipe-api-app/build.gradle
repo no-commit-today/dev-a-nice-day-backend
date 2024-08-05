@@ -11,10 +11,10 @@ configurations {
 dependencies {
     runtimeOnly(project(":app:techswipe-admin-app"))
 
-    implementation(project(":app:servlet-api-app-core"))
-    implementation(project(":domain:core:domain-core"))
+    implementation(project(":domain:domain-core"))
+    implementation(project(":domain:domain-application"))
 
-    implementation(project(":domain:content:content-application"))
+    implementation(project(":app:servlet-api-app-core"))
 
     implementation(project(":support:monitoring"))
     implementation(project(":support:logging"))

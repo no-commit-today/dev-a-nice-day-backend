@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 @Entity
 @Table(name = "images")
@@ -28,6 +29,13 @@ public class ImageEntity extends BaseSoftDeleteEntity {
 
     @Column(name = "stored_name", length = 1000, nullable = false)
     private String storedName;
+
+    public static String url(@Nullable ImageEntity entity) {
+        return Optional.ofNullable(entity)
+                .filter(ImageEntity::isUsed)
+                .map(ImageEntity::getUrl)
+                .orElse(null);
+    }
 
     protected ImageEntity() {
     }

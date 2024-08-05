@@ -9,7 +9,7 @@ import com.nocommittoday.techswipe.domain.content.TechContentCreate;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntityMapper;
 import com.nocommittoday.techswipe.domain.image.ImageId;
-import com.nocommittoday.techswipe.domain.image.ImageStoreService;
+import com.nocommittoday.techswipe.infrastructure.image.ImageStore;
 import org.javatuples.Pair;
 import org.springframework.batch.item.ItemProcessor;
 
@@ -19,16 +19,16 @@ import java.util.Optional;
 public class CollectedContentPublishProcessor
         implements ItemProcessor<CollectedContentEntity, Pair<CollectedContentEntity, TechContentEntity>> {
 
-    private final ImageStoreService imageStoreService;
+    private final ImageStore imageStore;
     private final CollectedContentEntityMapper collectedContentEntityMapper;
     private final TechContentEntityMapper techContentEntityMapper;
 
     public CollectedContentPublishProcessor(
-            ImageStoreService imageStoreService,
+            ImageStore imageStore,
             CollectedContentEntityMapper collectedContentEntityMapper,
             TechContentEntityMapper techContentEntityMapper
     ) {
-        this.imageStoreService = imageStoreService;
+        this.imageStore = imageStore;
         this.collectedContentEntityMapper = collectedContentEntityMapper;
         this.techContentEntityMapper = techContentEntityMapper;
     }
@@ -40,7 +40,7 @@ public class CollectedContentPublishProcessor
             throw new CollectionPublishUnableException(collectedContent.getId(), collectedContent.getStatus());
         }
         ImageId imageId = Optional.ofNullable(collectedContent.getImageUrl())
-                .map(imageUrl -> imageStoreService.store(collectedContent.getImageUrl(), "content").get())
+                .map(imageUrl -> imageStore.store(collectedContent.getImageUrl(), "content").get())
                 .orElse(null);
         TechContentCreate content = new TechContentCreate(
                 collectedContent.getId().toTechContentId(),

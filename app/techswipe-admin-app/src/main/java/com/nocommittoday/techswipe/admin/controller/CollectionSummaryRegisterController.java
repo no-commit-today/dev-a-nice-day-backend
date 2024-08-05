@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller;
 
+import com.nocommittoday.techswipe.admin.controller.request.CollectionSummaryRegisterRequest;
 import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
 import com.nocommittoday.techswipe.domain.collection.CollectionSummaryRegisterCommand;
 import com.nocommittoday.techswipe.domain.collection.CollectionSummaryRegisterService;
