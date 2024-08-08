@@ -1,0 +1,7 @@
+dependencies {
+    implementation("io.github.openfeign:feign-hc5")
+    implementation("io.github.openfeign:feign-micrometer")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation("com.fasterxml.jackson.core:jackson-annotations")
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+}
