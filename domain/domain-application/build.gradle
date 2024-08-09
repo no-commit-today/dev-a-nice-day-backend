@@ -1,6 +1,7 @@
 dependencies {
     api(project(":domain:domain-core"))
     implementation(project(":client:client-core"))
+    implementation(project(":client:oauth2-client"))
     implementation(project(":storage:storage-mysql"))
 
     // Subscription

@@ -23,6 +23,10 @@ public record OAuth2ClientResult<T>(
         return response;
     }
 
+    public boolean isUnauthorized() {
+        return type == Type.UNAUTHORIZED;
+    }
+
     public enum Type {
         OK,
         UNAUTHORIZED,
