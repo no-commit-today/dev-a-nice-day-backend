@@ -1,16 +1,16 @@
 package com.nocommittoday.techswipe.domain.user;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 public class LoggedIn {
 
-    private final LoggedInId id;
+    private final UUID uuid;
 
-    private final UserId userId;
+    private final LocalDateTime expiresAt;
 
-    private final RefreshToken refreshToken;
-
-    public LoggedIn(LoggedInId id, UserId userId, RefreshToken refreshToken) {
-        this.id = id;
-        this.userId = userId;
-        this.refreshToken = refreshToken;
+    public LoggedIn(UUID uuid, LocalDateTime expiresAt) {
+        this.uuid = uuid;
+        this.expiresAt = expiresAt;
     }
 }
