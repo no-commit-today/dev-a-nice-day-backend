@@ -9,7 +9,7 @@ public class User {
     }
 
     public LoggedInUser login(RefreshToken refreshToken) {
-        return new LoggedInUser(id, new LoggedIn(refreshToken.getUuid(), refreshToken.getExpiresAt()));
+        return new LoggedInUser(id, new LoggedIn(refreshToken.getId(), refreshToken.getExpiresAt()));
 
     }
 

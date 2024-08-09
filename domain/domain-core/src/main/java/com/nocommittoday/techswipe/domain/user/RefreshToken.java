@@ -1,11 +1,10 @@
 package com.nocommittoday.techswipe.domain.user;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class RefreshToken {
 
-    private final UUID uuid;
+    private final RefreshTokenId id;
 
     private final String value;
 
@@ -13,15 +12,15 @@ public class RefreshToken {
 
     private final LocalDateTime expiresAt;
 
-    public RefreshToken(UUID uuid, String value, LocalDateTime issuedAt, LocalDateTime expiresAt) {
-        this.uuid = uuid;
+    public RefreshToken(RefreshTokenId id, String value, LocalDateTime issuedAt, LocalDateTime expiresAt) {
+        this.id = id;
         this.value = value;
         this.issuedAt = issuedAt;
         this.expiresAt = expiresAt;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public RefreshTokenId getId() {
+        return id;
     }
 
     public String getValue() {
