@@ -9,6 +9,7 @@
 == API Domain
 - xref:code.adoc[코드]
 - xref:content.adoc[컨텐츠]
+- xref:user.adoc[회원]
 
 == 에러 응답
 

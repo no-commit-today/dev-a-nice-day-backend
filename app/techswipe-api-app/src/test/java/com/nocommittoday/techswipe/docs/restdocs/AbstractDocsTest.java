@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.docs.restdocs;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -13,4 +14,7 @@ public abstract class AbstractDocsTest {
 
     @Autowired
     protected MockMvc mockMvc;
+
+    @Autowired
+    protected ObjectMapper objectMapper;
 }
