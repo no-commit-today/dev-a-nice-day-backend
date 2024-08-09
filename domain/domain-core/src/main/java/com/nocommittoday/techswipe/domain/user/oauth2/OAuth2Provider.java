@@ -5,4 +5,7 @@ public enum OAuth2Provider {
     GITHUB
     ;
 
+    public boolean canSignUp() {
+        return this.equals(GITHUB);
+    }
 }
