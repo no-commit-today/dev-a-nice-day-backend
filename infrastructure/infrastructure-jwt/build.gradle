@@ -1,0 +1,7 @@
+dependencies {
+    api(project(":domain:domain-core"))
+
+    implementation("org.springframework.security:spring-security-oauth2-jose")
+
+    implementation("org.springframework:spring-context")
+}

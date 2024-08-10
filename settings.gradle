@@ -19,6 +19,7 @@ include("domain:domain-application")
 
 include("infrastructure:infrastructure-aws")
 include("infrastructure:infrastructure-openai")
+include("infrastructure:infrastructure-jwt")
 
 include("storage:storage-mysql")
 
