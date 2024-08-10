@@ -9,4 +9,7 @@ public class UserAuthenticationFailureException extends AbstractDomainException 
         super(UserErrorCode.AUTHENTICATION_FAILURE, "OAuth2 provider: " + token.getProvider());
     }
 
+    public UserAuthenticationFailureException(Exception exception) {
+        super(UserErrorCode.AUTHENTICATION_FAILURE, exception);
+    }
 }
