@@ -85,7 +85,7 @@ public class TechContentEntityBuilder {
         TechContentEntity entity = new TechContentEntity(
                 id,
                 provider,
-                null,
+                image != null ? image : null,
                 url,
                 title,
                 summary,

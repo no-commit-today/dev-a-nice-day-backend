@@ -46,6 +46,7 @@ subprojects {
 		implementation(platform("io.awspring.cloud:spring-cloud-aws-dependencies:${springCloudAwsVersion}"))
 
 		implementation("com.google.code.findbugs:jsr305:3.0.2")
+		testFixturesImplementation("com.google.code.findbugs:jsr305:3.0.2")
 
 		testImplementation("org.springframework.boot:spring-boot-starter-test")
 	}
