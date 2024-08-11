@@ -1,5 +1,7 @@
 package com.nocommittoday.techswipe.storage.mysql.user;
 
+import com.nocommittoday.techswipe.domain.user.User;
+import com.nocommittoday.techswipe.domain.user.UserId;
 import com.nocommittoday.techswipe.domain.user.oauth2.OAuth2Provider;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;
@@ -61,6 +63,12 @@ public class OAuth2UserEntity extends BaseSoftDeleteEntity {
         this.oAuth2Provider = oAuth2Provider;
         this.oAuth2Id = oAuth2Id;
         this.user = user;
+    }
+
+    public User toUser() {
+        return new User(
+                new UserId(user.getId())
+        );
     }
 
     public Long getId() {
