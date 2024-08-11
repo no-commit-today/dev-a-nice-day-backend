@@ -23,10 +23,10 @@ dependencies {
 
     // Test
     testRuntimeOnly("com.h2database:h2")
-    testImplementation(testFixtures(project(":domain:domain-core")))
 
     // Test Fixtures
     testFixturesImplementation(project(":domain:domain-core"))
+    testFixturesImplementation(testFixtures(project(":domain:domain-core")))
 }
 
 //Querydsl 추가, 자동 생성된 Q클래스 gradle clean으로 제거

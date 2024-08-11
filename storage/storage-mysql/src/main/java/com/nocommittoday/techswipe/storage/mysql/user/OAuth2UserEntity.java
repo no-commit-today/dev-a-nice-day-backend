@@ -39,10 +39,10 @@ public class OAuth2UserEntity extends BaseSoftDeleteEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "oauth2_provider", columnDefinition = "varchar(25)", nullable = false)
-    private OAuth2Provider oAuth2Provider;
+    private OAuth2Provider oauth2Provider;
 
     @Column(name = "oauth2_id", length = 100, nullable = false)
-    private String oAuth2Id;
+    private String oauth2Id;
 
     @ManyToOne(optional = false, fetch = LAZY)
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
@@ -52,12 +52,12 @@ public class OAuth2UserEntity extends BaseSoftDeleteEntity {
     }
 
     public OAuth2UserEntity(
-            OAuth2Provider oAuth2Provider,
-            String oAuth2Id,
+            OAuth2Provider oauth2Provider,
+            String oauth2Id,
             UserEntity user
     ) {
-        this.oAuth2Provider = oAuth2Provider;
-        this.oAuth2Id = oAuth2Id;
+        this.oauth2Provider = oauth2Provider;
+        this.oauth2Id = oauth2Id;
         this.user = user;
     }
 
@@ -71,12 +71,12 @@ public class OAuth2UserEntity extends BaseSoftDeleteEntity {
         return id;
     }
 
-    public String getOAuth2Id() {
-        return oAuth2Id;
+    public OAuth2Provider getOauth2Provider() {
+        return oauth2Provider;
     }
 
-    public OAuth2Provider getOAuth2Provider() {
-        return oAuth2Provider;
+    public String getOauth2Id() {
+        return oauth2Id;
     }
 
     public UserEntity getUser() {

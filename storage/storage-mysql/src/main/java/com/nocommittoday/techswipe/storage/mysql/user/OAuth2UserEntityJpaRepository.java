@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface OAuth2UserEntityJpaRepository extends JpaRepository<OAuth2UserEntity, Long> {
 
-    boolean existsByOAuth2ProviderAndOAuth2Id(OAuth2Provider provider, String id);
+    boolean existsByOauth2ProviderAndOauth2Id(OAuth2Provider oauth2Provider, String oauth2Id);
 
-    Optional<OAuth2UserEntity> findByOAuth2ProviderAndOAuth2Id(OAuth2Provider oAuth2Provider, String oAuth2Id);
+    Optional<OAuth2UserEntity> findByOauth2ProviderAndOauth2Id(OAuth2Provider oauth2Provider, String oauth2Id);
 }

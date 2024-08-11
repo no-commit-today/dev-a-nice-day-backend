@@ -26,7 +26,7 @@ public class UserAppender {
     @Transactional
     public UserId append(OAuth2User oAuth2User) {
         if (oAuth2UserEntityJpaRepository
-                .existsByOAuth2ProviderAndOAuth2Id(oAuth2User.getProvider(), oAuth2User.getId())) {
+                .existsByOauth2ProviderAndOauth2Id(oAuth2User.getProvider(), oAuth2User.getId())) {
             throw new AlreadyExistsException(oAuth2User);
         }
         UserEntity userEntity = userEntityJpaRepository.save(new UserEntity());

@@ -17,7 +17,7 @@ public class UserReader {
 
     public User get(OAuth2User oAuth2User) {
         OAuth2UserEntity oAuth2UserEntity = oAuth2UserEntityJpaRepository
-                .findByOAuth2ProviderAndOAuth2Id(oAuth2User.getProvider(), oAuth2User.getId())
+                .findByOauth2ProviderAndOauth2Id(oAuth2User.getProvider(), oAuth2User.getId())
                 .filter(OAuth2UserEntity::isUsed)
                 .orElseThrow(() -> new UserNotFoundException(oAuth2User));
         return oAuth2UserEntity.toUser();
