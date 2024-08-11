@@ -11,6 +11,10 @@ public class LoggedInUser {
         this.loggedIn = loggedIn;
     }
 
+    public LoggedInUser refresh(RefreshToken refreshToken) {
+        return new LoggedInUser(id, new LoggedIn(refreshToken.getId(), refreshToken.getExpiresAt()));
+    }
+
     public UserId getId() {
         return id;
     }
