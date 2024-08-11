@@ -27,4 +27,8 @@ public class UserEntity extends BaseSoftDeleteEntity {
     public UserEntity(@Nullable Long id) {
         this.id = id;
     }
+
+    public Long getId() {
+        return id;
+    }
 }

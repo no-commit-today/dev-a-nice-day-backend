@@ -25,7 +25,7 @@ import static jakarta.persistence.FetchType.LAZY;
         name = "oauth2_users",
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "uk_userid_oauth2provider_oauth2id",
+                        name = "uk_oauth2provider_oauth2id",
                         columnNames = {"oauth2_provider", "oauth2_id"}
                 )
         }
@@ -42,7 +42,7 @@ public class OAuth2UserEntity extends BaseSoftDeleteEntity {
     private OAuth2Provider oAuth2Provider;
 
     @Column(name = "oauth2_id", length = 100, nullable = false)
-    private String oauth2Id;
+    private String oAuth2Id;
 
     @ManyToOne(optional = false, fetch = LAZY)
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
@@ -54,12 +54,28 @@ public class OAuth2UserEntity extends BaseSoftDeleteEntity {
     public OAuth2UserEntity(
             @Nullable Long id,
             OAuth2Provider oAuth2Provider,
-            String oauth2Id,
+            String oAuth2Id,
             UserEntity user
     ) {
         this.id = id;
         this.oAuth2Provider = oAuth2Provider;
-        this.oauth2Id = oauth2Id;
+        this.oAuth2Id = oAuth2Id;
         this.user = user;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getOAuth2Id() {
+        return oAuth2Id;
+    }
+
+    public OAuth2Provider getOAuth2Provider() {
+        return oAuth2Provider;
+    }
+
+    public UserEntity getUser() {
+        return user;
     }
 }

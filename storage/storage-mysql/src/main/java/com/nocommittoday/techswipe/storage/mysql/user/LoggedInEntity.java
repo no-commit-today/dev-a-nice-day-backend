@@ -60,4 +60,20 @@ public class LoggedInEntity extends BaseSoftDeleteEntity {
         this.refreshTokenId = refreshTokenId;
         this.expiresAt = expiresAt;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public String getRefreshTokenId() {
+        return refreshTokenId;
+    }
+
+    public LocalDateTime getExpiresAt() {
+        return expiresAt;
+    }
 }
