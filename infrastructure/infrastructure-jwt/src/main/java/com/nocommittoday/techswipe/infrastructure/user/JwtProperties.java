@@ -10,6 +10,15 @@ public record JwtProperties(
         RefreshToken refreshToken
 ) {
 
+    public JwtProperties {
+        if (accessToken == null) {
+            accessToken = new AccessToken(null, null);
+        }
+        if (refreshToken == null) {
+            refreshToken = new RefreshToken(null, null);
+        }
+    }
+
     record AccessToken(
             @Nullable String secret,
             @Nullable Long expiration
