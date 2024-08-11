@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.storage.mysql.test;
 
 import com.nocommittoday.techswipe.domain.content.TechCategory;
+import com.nocommittoday.techswipe.domain.test.LocalAutoIncrementIdUtils;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
 import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;

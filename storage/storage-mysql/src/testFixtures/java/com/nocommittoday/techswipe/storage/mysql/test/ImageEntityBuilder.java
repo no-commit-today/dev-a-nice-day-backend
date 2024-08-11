@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.storage.mysql.test;
 
+import com.nocommittoday.techswipe.domain.test.LocalAutoIncrementIdUtils;
 import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;
 import jakarta.annotation.Nullable;
 

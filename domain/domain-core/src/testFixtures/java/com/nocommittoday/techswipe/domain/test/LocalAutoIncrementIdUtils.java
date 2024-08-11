@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.storage.mysql.test;
+package com.nocommittoday.techswipe.domain.test;
 
 public final class LocalAutoIncrementIdUtils {
 
