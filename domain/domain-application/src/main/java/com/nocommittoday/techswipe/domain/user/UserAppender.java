@@ -29,9 +29,8 @@ public class UserAppender {
                 .existsByOAuth2ProviderAndOAuth2Id(oAuth2User.getProvider(), oAuth2User.getId())) {
             throw new AlreadyExistsException(oAuth2User);
         }
-        UserEntity userEntity = userEntityJpaRepository.save(new UserEntity(null));
+        UserEntity userEntity = userEntityJpaRepository.save(new UserEntity());
         oAuth2UserEntityJpaRepository.save(new OAuth2UserEntity(
-                null,
                 oAuth2User.getProvider(),
                 oAuth2User.getId(),
                 userEntity

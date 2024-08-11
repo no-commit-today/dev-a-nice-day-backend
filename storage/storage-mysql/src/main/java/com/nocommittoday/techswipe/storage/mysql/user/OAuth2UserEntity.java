@@ -17,8 +17,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
-import javax.annotation.Nullable;
-
 import static jakarta.persistence.ConstraintMode.NO_CONSTRAINT;
 import static jakarta.persistence.FetchType.LAZY;
 
@@ -54,12 +52,10 @@ public class OAuth2UserEntity extends BaseSoftDeleteEntity {
     }
 
     public OAuth2UserEntity(
-            @Nullable Long id,
             OAuth2Provider oAuth2Provider,
             String oAuth2Id,
             UserEntity user
     ) {
-        this.id = id;
         this.oAuth2Provider = oAuth2Provider;
         this.oAuth2Id = oAuth2Id;
         this.user = user;

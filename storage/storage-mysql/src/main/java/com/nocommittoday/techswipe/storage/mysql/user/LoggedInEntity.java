@@ -17,7 +17,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
-import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -55,12 +54,10 @@ public class LoggedInEntity extends BaseSoftDeleteEntity {
     }
 
     public LoggedInEntity(
-            @Nullable Long id,
             UserEntity user,
             String refreshTokenId,
             LocalDateTime expiresAt
     ) {
-        this.id = id;
         this.user = user;
         this.refreshTokenId = refreshTokenId;
         this.expiresAt = expiresAt;

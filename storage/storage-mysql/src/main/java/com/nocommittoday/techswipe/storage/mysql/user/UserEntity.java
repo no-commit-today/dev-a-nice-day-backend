@@ -8,8 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import javax.annotation.Nullable;
-
 @Entity
 @Table(
         name = "users"
@@ -21,11 +19,7 @@ public class UserEntity extends BaseSoftDeleteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    protected UserEntity() {
-    }
-
-    public UserEntity(@Nullable Long id) {
-        this.id = id;
+    public UserEntity() {
     }
 
     public Long getId() {
