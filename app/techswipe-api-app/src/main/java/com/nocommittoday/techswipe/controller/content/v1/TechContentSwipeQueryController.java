@@ -2,8 +2,8 @@ package com.nocommittoday.techswipe.controller.content.v1;
 
 import com.nocommittoday.techswipe.controller.content.v1.request.TechContentSwipeQueryRequest;
 import com.nocommittoday.techswipe.controller.content.v1.response.TechContentSwipeQueryResponse;
-import com.nocommittoday.techswipe.core.controller.servlet.ListResponse;
-import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
+import com.nocommittoday.techswipe.controller.core.ListResponse;
+import com.nocommittoday.techswipe.controller.core.PageRequest;
 import com.nocommittoday.techswipe.domain.content.TechContentSwipeQueryParam;
 import com.nocommittoday.techswipe.domain.content.TechContentSwipeQueryService;
 import jakarta.validation.Valid;

@@ -6,8 +6,8 @@ import com.nocommittoday.techswipe.controller.content.v1.response.TechContentRes
 import com.nocommittoday.techswipe.domain.content.TechContentListQueryParam;
 import com.nocommittoday.techswipe.domain.content.TechContentListQueryService;
 import com.nocommittoday.techswipe.domain.content.TechContentQueryResult;
-import com.nocommittoday.techswipe.core.controller.servlet.ListResponse;
-import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
+import com.nocommittoday.techswipe.controller.core.ListResponse;
+import com.nocommittoday.techswipe.controller.core.PageRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

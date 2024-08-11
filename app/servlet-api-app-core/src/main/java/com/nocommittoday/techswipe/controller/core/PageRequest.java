@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.core.controller.servlet;
+package com.nocommittoday.techswipe.controller.core;
 
 import com.nocommittoday.techswipe.domain.core.PageParam;
 import jakarta.validation.constraints.Max;

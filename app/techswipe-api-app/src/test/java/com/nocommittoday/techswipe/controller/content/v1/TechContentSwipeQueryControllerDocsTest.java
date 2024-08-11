@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.controller.content.v1;
 
-import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
+import com.nocommittoday.techswipe.controller.core.PageRequest;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import com.nocommittoday.techswipe.docs.restdocs.RestDocsAttribute;
 import com.nocommittoday.techswipe.domain.content.TechCategory;

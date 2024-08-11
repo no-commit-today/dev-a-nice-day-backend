@@ -7,7 +7,7 @@ import com.nocommittoday.techswipe.domain.content.TechContentListQueryParam;
 import com.nocommittoday.techswipe.domain.content.TechContentListQueryService;
 import com.nocommittoday.techswipe.domain.content.provider.TechContentProviderQueryResult;
 import com.nocommittoday.techswipe.domain.content.TechContentQueryResult;
-import com.nocommittoday.techswipe.core.controller.servlet.PageRequest;
+import com.nocommittoday.techswipe.controller.core.PageRequest;
 import com.nocommittoday.techswipe.domain.core.PageParam;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import com.nocommittoday.techswipe.docs.restdocs.RestDocsAttribute;
