@@ -33,4 +33,12 @@ public class RefreshTokenDecoded {
         }
         return this.refreshToken;
     }
+
+    public boolean isValid() {
+        return this.exception == null;
+    }
+
+    public Exception getException() {
+        return this.exception;
+    }
 }
