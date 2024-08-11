@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.domain.user;
 
-import com.nocommittoday.techswipe.domain.user.oauth2.OAuth2AccessToken;
-import com.nocommittoday.techswipe.domain.user.oauth2.OAuth2Provider;
+import com.nocommittoday.techswipe.domain.user.exception.SignupUnsupportedProviderException;
+import com.nocommittoday.techswipe.domain.user.oauth2.OAuth2Token;
 import com.nocommittoday.techswipe.domain.user.oauth2.OAuth2User;
 import com.nocommittoday.techswipe.domain.user.oauth2.OAuth2UserReader;
 import org.springframework.stereotype.Service;
@@ -17,8 +17,11 @@ public class UserSignupService {
         this.userAppender = userAppender;
     }
 
-    public UserId signUp(String accessToken) {
-        OAuth2User oAuth2User = oAuth2UserReader.read(new OAuth2AccessToken(OAuth2Provider.GITHUB, accessToken));
+    public UserId signUp(OAuth2Token token) {
+        if (!token.getProvider().canSignUp()) {
+            throw new SignupUnsupportedProviderException(token.getProvider());
+        }
+        OAuth2User oAuth2User = oAuth2UserReader.read(token);
         return userAppender.append(oAuth2User);
     }
 }
