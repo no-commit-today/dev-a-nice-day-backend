@@ -31,7 +31,8 @@ public class UserLoginService {
         User user = userReader.get(oAuth2User);
         RefreshToken refreshToken = refreshTokenIssuer.apply(user.getId());
         AccessToken accessToken = accessTokenIssuer.apply(user.getId());
-        userLoginPostProcessor.process(user, refreshToken);
+        LoggedInUser loggedInUser = user.login(refreshToken);
+        userLoginPostProcessor.process(loggedInUser);
         return new LoginResult(user.getId(), accessToken, refreshToken);
     }
 }
