@@ -21,12 +21,14 @@ public class UserRefreshService {
             RefreshTokenDecoded refreshTokenDecoded,
             Function<UserId, AccessToken> accessTokenIssuer,
             Function<UserId, RefreshToken> refreshTokenIssuer
-            ) {
+    ) {
         RefreshToken refreshToken = refreshTokenDecoded.verify();
         LoggedInUser loggedInUser = loggedInUserReader.get(refreshToken.getId());
+
         RefreshToken newRefreshToken = refreshTokenIssuer.apply(loggedInUser.getId());
         AccessToken newAccessToken = accessTokenIssuer.apply(loggedInUser.getId());
         userRefreshPostProcessor.process(loggedInUser, newRefreshToken);
+
         return new LoginResult(loggedInUser.getId(), newAccessToken, newRefreshToken);
     }
 }

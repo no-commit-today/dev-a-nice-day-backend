@@ -1,5 +1,9 @@
 package com.nocommittoday.techswipe.storage.mysql.user;
 
+import com.nocommittoday.techswipe.domain.user.LoggedIn;
+import com.nocommittoday.techswipe.domain.user.LoggedInUser;
+import com.nocommittoday.techswipe.domain.user.RefreshTokenId;
+import com.nocommittoday.techswipe.domain.user.UserId;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +19,7 @@ import jakarta.persistence.UniqueConstraint;
 
 import javax.annotation.Nullable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static jakarta.persistence.ConstraintMode.NO_CONSTRAINT;
 import static jakarta.persistence.FetchType.LAZY;
@@ -59,6 +64,16 @@ public class LoggedInEntity extends BaseSoftDeleteEntity {
         this.user = user;
         this.refreshTokenId = refreshTokenId;
         this.expiresAt = expiresAt;
+    }
+
+    public LoggedInUser toDomain() {
+        return new LoggedInUser(
+                new UserId(user.getId()),
+                new LoggedIn(
+                        new RefreshTokenId(UUID.fromString(refreshTokenId)),
+                        expiresAt
+                )
+        );
     }
 
     public Long getId() {
