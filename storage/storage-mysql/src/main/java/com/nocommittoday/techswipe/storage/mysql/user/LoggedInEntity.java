@@ -41,7 +41,7 @@ public class LoggedInEntity extends BaseSoftDeleteEntity {
     private Long id;
 
     @ManyToOne(optional = false, fetch = LAZY)
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(NO_CONSTRAINT))
+    @JoinColumn(name = "user_id", updatable = false, foreignKey = @ForeignKey(NO_CONSTRAINT))
     private UserEntity user;
 
     @Column(name = "refresh_token_id", length = 65, nullable = false)
@@ -71,6 +71,11 @@ public class LoggedInEntity extends BaseSoftDeleteEntity {
                         expiresAt
                 )
         );
+    }
+
+    public void update(LoggedIn loggedIn) {
+        this.refreshTokenId = loggedIn.getRefreshTokenId().value().toString();
+        this.expiresAt = loggedIn.getExpiresAt();
     }
 
     public Long getId() {
