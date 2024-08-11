@@ -17,6 +17,10 @@ public class AccessTokenBuilder {
     @Nullable
     private LocalDateTime expiresAt;
 
+    public static AccessToken create() {
+        return new AccessTokenBuilder().build();
+    }
+
     public AccessTokenBuilder() {
     }
 
@@ -53,10 +57,10 @@ public class AccessTokenBuilder {
             userId = new UserId(LocalAutoIncrementIdUtils.nextId());
         }
         if (issuedAt == null) {
-            issuedAt = LocalDateTime.now();
+            issuedAt = LocalDateTime.of(2021, 1, 1, 12, 30);
         }
         if (expiresAt == null) {
-            expiresAt = LocalDateTime.now().plusDays(1);
+            expiresAt = issuedAt.plusDays(1);
         }
     }
 }

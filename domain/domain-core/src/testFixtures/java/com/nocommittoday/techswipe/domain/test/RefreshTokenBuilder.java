@@ -21,6 +21,10 @@ public class RefreshTokenBuilder {
     @Nullable
     private LocalDateTime expiresAt;
 
+    public static RefreshToken create() {
+        return new RefreshTokenBuilder().build();
+    }
+
     public RefreshTokenBuilder() {
     }
 

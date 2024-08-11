@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.controller.user.v1.request.UserSignupRequest;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import com.nocommittoday.techswipe.domain.user.UserId;
 import com.nocommittoday.techswipe.domain.user.UserSignupService;
+import com.nocommittoday.techswipe.domain.user.oauth2.OAuth2AccessToken;
 import com.nocommittoday.techswipe.domain.user.oauth2.OAuth2Provider;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -29,7 +30,7 @@ class UserSignupControllerTest extends AbstractDocsTest {
     void 회원가입_Docs() throws Exception {
         // given
         UserSignupRequest request = new UserSignupRequest("github-access-token");
-        given(userSignUpService.signUp(request.accessToken()))
+        given(userSignUpService.signUp(new OAuth2AccessToken(OAuth2Provider.GITHUB, request.accessToken())))
                 .willReturn(new UserId(1L));
 
         // when
