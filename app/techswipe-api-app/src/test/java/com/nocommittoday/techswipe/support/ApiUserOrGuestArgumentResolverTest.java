@@ -2,8 +2,7 @@ package com.nocommittoday.techswipe.support;
 
 import com.nocommittoday.techswipe.domain.test.AccessTokenDecodedBuilder;
 import com.nocommittoday.techswipe.domain.user.AccessTokenDecoded;
-import com.nocommittoday.techswipe.domain.user.ApiUser;
-import com.nocommittoday.techswipe.domain.user.exception.AuthenticationRequiredException;
+import com.nocommittoday.techswipe.domain.user.ApiUserOrGuest;
 import com.nocommittoday.techswipe.domain.user.exception.UserAuthenticationFailureException;
 import com.nocommittoday.techswipe.infrastructure.user.JwtAccessTokenDecoder;
 import org.assertj.core.api.Assertions;
@@ -18,16 +17,16 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
-class ApiUserArgumentResolverTest {
+class ApiUserOrGuestArgumentResolverTest {
 
     @InjectMocks
-    private ApiUserArgumentResolver apiUserArgumentResolver;
+    private ApiUserOrGuestArgumentResolver apiUserOrGuestArgumentResolver;
 
     @Mock
     private JwtAccessTokenDecoder jwtAccessTokenDecoder;
 
     @Test
-    void 인증된_사용자의_ApiUser_객체를_반환한다() throws Exception {
+    void 인증된_사용자의_ApiUserOrGuest_객체를_반환한다() throws Exception {
         // given
         AccessTokenDecoded accessTokenDecoded = AccessTokenDecodedBuilder.valid();
         given(jwtAccessTokenDecoder.decode("access-token"))
@@ -36,24 +35,27 @@ class ApiUserArgumentResolverTest {
         given(webRequest.getHeader("Authorization")).willReturn("Bearer access-token");
 
         // when
-        ApiUser apiUser = (ApiUser) apiUserArgumentResolver
+        ApiUserOrGuest apiUserOrGuest = (ApiUserOrGuest) apiUserOrGuestArgumentResolver
                 .resolveArgument(null, null, webRequest, null);
 
         // then
-        Assertions.assertThat(apiUser.getUserId())
+        Assertions.assertThat(apiUserOrGuest.getUserId())
                 .isEqualTo(accessTokenDecoded.verify().getUserId());
     }
 
     @Test
-    void 인증되지_않은_사용자의_요청은_AuthenticationRequiredException을_던진다() {
+    void 인증되지_않은_사용자_요청의_경우_ApiUserOrGuest_guest_객체를_반환한다() throws Exception {
         // given
         NativeWebRequest webRequest = mock(NativeWebRequest.class);
         given(webRequest.getHeader("Authorization")).willReturn(null);
 
         // when
-        Assertions.assertThatThrownBy(() -> apiUserArgumentResolver
-                .resolveArgument(null, null, webRequest, null))
-                .isInstanceOf(AuthenticationRequiredException.class);
+        ApiUserOrGuest apiUserOrGuest = (ApiUserOrGuest) apiUserOrGuestArgumentResolver
+                .resolveArgument(null, null, webRequest, null);
+
+        // then
+        Assertions.assertThat(apiUserOrGuest.isGuest())
+                .isTrue();
     }
 
     @Test
@@ -66,7 +68,7 @@ class ApiUserArgumentResolverTest {
         given(webRequest.getHeader("Authorization")).willReturn("Bearer access-token");
 
         // when
-        Assertions.assertThatThrownBy(() -> apiUserArgumentResolver
+        Assertions.assertThatThrownBy(() -> apiUserOrGuestArgumentResolver
                 .resolveArgument(null, null, webRequest, null))
                 .isInstanceOf(UserAuthenticationFailureException.class);
     }
