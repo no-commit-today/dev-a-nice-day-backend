@@ -10,6 +10,7 @@ public enum UserErrorCode  implements ErrorCodeType {
     SIGNUP_UNSUPPORTED_PROVIDER("002", "지원하지 않는 OAuth2 제공자입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
     ALREADY_EXISTS("003", "이미 존재하는 사용자입니다.", HttpURLConnection.HTTP_CONFLICT),
     NOT_FOUND("004", "사용자를 찾을 수 없습니다.", HttpURLConnection.HTTP_NOT_FOUND),
+    AUTHENTICATION_REQUIRED("005", "인증이 필요합니다.", HttpURLConnection.HTTP_UNAUTHORIZED),
     ;
 
     private final String code;
