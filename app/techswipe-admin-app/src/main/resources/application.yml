@@ -11,11 +11,6 @@ spring:
       - logging.yml
       - storage-mysql.yml
 
-  security:
-    user:
-      name: ${ADMIN_USERNAME}
-      password: ${ADMIN_PASSWORD}
-
   cloud:
     aws:
       region:
@@ -43,11 +38,6 @@ spring:
   config:
     activate:
       on-profile: local
-
-  security:
-    user:
-      name: admin
-      password: 1234
 
 logging:
   level:
