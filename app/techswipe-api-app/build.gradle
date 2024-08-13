@@ -9,8 +9,6 @@ configurations {
 }
 
 dependencies {
-    runtimeOnly(project(":app:techswipe-admin-app"))
-
     implementation(project(":domain:domain-core"))
     implementation(project(":domain:domain-application"))
 

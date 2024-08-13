@@ -1,17 +1,17 @@
 spring:
+  application:
+    name: techswipe-admin-app
 
-  cloud:
-    aws:
-      region:
-        static: ap-northeast-2
-      credentials:
-        access-key: ${AWS_ACCESS_KEY}
-        secret-key: ${AWS_SECRET_KEY}
+  profiles:
+    active: local
 
-app:
-  image:
-    s3:
-      bucket-name: ${AWS_S3_BUCKET}
+  config:
+    import:
+      - monitoring.yml
+      - logging.yml
+      - storage-mysql.yml
+      - jwt.yml
+      - aws.yml
 
 ---
 spring:
@@ -33,11 +33,6 @@ logging:
   level:
     org.apache.coyote.http11: trace
 
-app:
-  image:
-    s3:
-      enabled: true
-
 ---
 spring:
   config:
@@ -48,19 +43,8 @@ spring:
 logging:
   level:
     org.apache.coyote.http11: trace
-
-app:
-  image:
-    s3:
-      enabled: true
-
 ---
 spring:
   config:
     activate:
       on-profile: prod
-
-app:
-  image:
-    s3:
-      enabled: true

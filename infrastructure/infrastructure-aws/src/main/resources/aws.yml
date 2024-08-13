@@ -1,7 +1,18 @@
 spring:
-  config:
-    activate:
-      on-profile: prod
+  config.activate.on-profile:
+    - local
+
+app:
+  image:
+    s3:
+      enabled: false
+
+---
+spring:
+  config.activate.on-profile:
+    - local-dev
+    - dev
+    - prod
 
   cloud:
     aws:
