@@ -9,10 +9,10 @@ configurations {
 }
 
 dependencies {
-    runtimeOnly(project(":app:techswipe-admin-app"))
-
     implementation(project(":domain:domain-core"))
     implementation(project(":domain:domain-application"))
+
+    implementation(project(":infrastructure:infrastructure-jwt"))
 
     implementation(project(":app:servlet-api-app-core"))
 
@@ -21,11 +21,12 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-security")
+
+    // Test
+    testImplementation(testFixtures(project(":domain:domain-core")))
 
     asciidoctorExt("org.springframework.restdocs:spring-restdocs-asciidoctor")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
-    testImplementation("org.springframework.security:spring-security-test")
 }
 
 test {
@@ -44,4 +45,5 @@ bootJar {
     from ("${asciidoctor.outputDir}") {
         into 'static/docs'
     }
+    archiveFileName = 'application.jar'
 }

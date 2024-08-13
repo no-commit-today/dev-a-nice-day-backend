@@ -4,14 +4,19 @@ dependencies {
     implementation(project(":domain:domain-application"))
 
     implementation(project(":infrastructure:infrastructure-aws"))
+    implementation(project(":infrastructure:infrastructure-jwt"))
 
     implementation(project(":support:monitoring"))
     implementation(project(":support:logging"))
 
+    implementation(project(":storage:storage-mysql"))
+
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-security")
 
     testRuntimeOnly("com.h2database:h2")
-    testImplementation("org.springframework.security:spring-security-test")
+}
+
+bootJar {
+    archiveFileName = 'application.jar'
 }

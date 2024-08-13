@@ -1,6 +1,7 @@
 dependencies {
     api(project(":domain:domain-core"))
     implementation(project(":client:client-core"))
+    implementation(project(":client:oauth2-client"))
     implementation(project(":storage:storage-mysql"))
 
     // Subscription
@@ -19,4 +20,5 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-logging")
 
     testImplementation(testFixtures(project(":storage:storage-mysql")))
+    testImplementation(testFixtures(project(":domain:domain-core")))
 }

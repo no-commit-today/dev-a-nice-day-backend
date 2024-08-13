@@ -1,0 +1,8 @@
+dependencies {
+    api(project(":domain:domain-core"))
+
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    implementation("org.springframework.boot:spring-boot")
+    implementation("org.springframework.security:spring-security-oauth2-jose")
+    implementation("org.springframework:spring-context")
+}

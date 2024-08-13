@@ -1,0 +1,31 @@
+### 회원가입
+POST {{baseUrl}}/api/user/v1/signup
+Content-Type: application/json
+
+{
+  "accessToken": "<OAUTH2_ACCESS_TOKEN>"
+}
+
+### 로그인
+POST {{baseUrl}}/api/user/v1/login
+Content-Type: application/json
+
+{
+  "accessToken": "<OAUTH2_ACCESS_TOKEN>"
+}
+
+### 리프레시
+POST {{baseUrl}}/api/user/v1/refresh
+Content-Type: application/json
+
+{
+  "refreshToken" : "<REFRESH_TOKEN>"
+}
+
+### 로그아웃
+POST {{baseUrl}}/api/user/v1/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "<REFRESH_TOKEN>"
+}

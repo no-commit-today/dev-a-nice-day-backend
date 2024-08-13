@@ -19,11 +19,13 @@ include("domain:domain-application")
 
 include("infrastructure:infrastructure-aws")
 include("infrastructure:infrastructure-openai")
+include("infrastructure:infrastructure-jwt")
 
 include("storage:storage-mysql")
 
 include("client:client-core")
 include("client:feed-client")
+include("client:oauth2-client")
 
 include("support:monitoring")
 include("support:logging")
