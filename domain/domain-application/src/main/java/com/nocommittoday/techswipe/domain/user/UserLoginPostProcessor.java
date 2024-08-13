@@ -28,6 +28,7 @@ public class UserLoginPostProcessor {
                 .filter(UserEntity::isUsed)
                 .orElseThrow(() -> new UserAuthenticationFailureException(loggedInUser.getId()));
         loggedInEntityJpaRepository.save(new LoggedInEntity(
+                null,
                 userEntity,
                 loggedInUser.getLoggedIn().getRefreshTokenId().value().toString(),
                 loggedInUser.getLoggedIn().getExpiresAt()
