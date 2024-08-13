@@ -74,7 +74,7 @@ public class LoggedInEntityBuilder {
         long fieldId = id != null ? id : LocalAutoIncrementIdUtils.nextId();
 
         if (user == null) {
-            user = UserEntityBuilder.create();
+            user = UserEntityBuilder.create(withId);
         }
 
         if (refreshTokenId == null) {
