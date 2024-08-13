@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.storage.mysql.user;
 import com.nocommittoday.techswipe.domain.user.User;
 import com.nocommittoday.techswipe.domain.user.UserId;
 import com.nocommittoday.techswipe.domain.user.oauth2.OAuth2Provider;
+import com.nocommittoday.techswipe.domain.user.oauth2.OAuth2User;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +13,7 @@ import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -28,6 +30,9 @@ import static jakarta.persistence.FetchType.LAZY;
                         name = "uk_oauth2provider_oauth2id",
                         columnNames = {"oauth2_provider", "oauth2_id"}
                 )
+        },
+        indexes = {
+                @Index(name = "ix_userid", columnList = "user_id")
         }
 )
 public class OAuth2UserEntity extends BaseSoftDeleteEntity {
@@ -64,6 +69,13 @@ public class OAuth2UserEntity extends BaseSoftDeleteEntity {
     public User toUser() {
         return new User(
                 new UserId(user.getId())
+        );
+    }
+
+    public OAuth2User toOAuth2User() {
+        return new OAuth2User(
+                oauth2Provider,
+                oauth2Id
         );
     }
 
