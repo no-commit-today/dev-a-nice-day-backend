@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.storage.mysql.test;
 
 import com.nocommittoday.techswipe.domain.test.LocalAutoIncrementIdUtils;
+import com.nocommittoday.techswipe.domain.user.LoggedInUser;
 import com.nocommittoday.techswipe.storage.mysql.user.LoggedInEntity;
 import com.nocommittoday.techswipe.storage.mysql.user.UserEntity;
 
@@ -30,6 +31,14 @@ public class LoggedInEntityBuilder {
 
     public static LoggedInEntity create(boolean withId) {
         return new LoggedInEntityBuilder().build(withId);
+    }
+
+    public static LoggedInEntity from(LoggedInUser loggedInUser) {
+        return new LoggedInEntityBuilder()
+            .user(new UserEntityBuilder().id(loggedInUser.getId().value()).build())
+            .refreshTokenId(loggedInUser.getLoggedIn().getRefreshTokenId().value().toString())
+            .expiresAt(loggedInUser.getLoggedIn().getExpiresAt())
+            .build();
     }
 
     public LoggedInEntityBuilder id(Long id) {
