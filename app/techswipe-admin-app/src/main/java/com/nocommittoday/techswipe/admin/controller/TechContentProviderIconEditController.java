@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.admin.controller.request.TechContentProviderI
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.content.provider.TechContentProviderIconEditService;
 import com.nocommittoday.techswipe.domain.image.ImageId;
+import com.nocommittoday.techswipe.domain.user.AdminApiUser;
 import com.nocommittoday.techswipe.infrastructure.image.ImageStore;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -28,7 +29,11 @@ public class TechContentProviderIconEditController {
     }
 
     @PatchMapping("/admin/api/providers/{providerId}/icon")
-    void edit(@PathVariable Long providerId, @RequestBody @Validated TechContentProviderIconEditRequest request) {
+    void edit(
+            AdminApiUser adminApiUser,
+            @PathVariable Long providerId,
+            @RequestBody @Validated TechContentProviderIconEditRequest request
+    ) {
         ImageId iconId = Optional.ofNullable(request.iconUrl())
                 .map(url -> imageStore.store(url, "provider").get())
                 .orElse(null);

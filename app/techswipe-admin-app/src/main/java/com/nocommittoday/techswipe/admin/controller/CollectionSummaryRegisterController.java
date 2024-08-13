@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.admin.controller.request.CollectionSummaryReg
 import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
 import com.nocommittoday.techswipe.domain.collection.CollectionSummaryRegisterCommand;
 import com.nocommittoday.techswipe.domain.collection.CollectionSummaryRegisterService;
+import com.nocommittoday.techswipe.domain.user.AdminApiUser;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,7 +24,7 @@ public class CollectionSummaryRegisterController {
     }
 
     @GetMapping("/admin/api/collections/{collectionId}/summarization-prompt")
-    public ResponseEntity<String> getPrompt(@PathVariable Long collectionId) {
+    public ResponseEntity<String> getPrompt(AdminApiUser adminApiUser, @PathVariable Long collectionId) {
         return ResponseEntity
                 .ok()
                 .contentType(MediaType.TEXT_PLAIN)
@@ -32,6 +33,7 @@ public class CollectionSummaryRegisterController {
 
     @PostMapping("/admin/api/collections/{collectionId}/summary")
     public void register(
+            AdminApiUser adminApiUser,
             @PathVariable Long collectionId,
             @RequestBody @Validated CollectionSummaryRegisterRequest registerRequest
     ) {

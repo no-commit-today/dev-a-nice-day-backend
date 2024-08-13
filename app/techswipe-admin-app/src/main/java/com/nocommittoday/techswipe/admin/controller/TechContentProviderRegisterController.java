@@ -6,6 +6,7 @@ import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.content.provider.TechContentProviderRegisterCommand;
 import com.nocommittoday.techswipe.domain.content.provider.TechContentProviderRegisterService;
 import com.nocommittoday.techswipe.domain.image.ImageId;
+import com.nocommittoday.techswipe.domain.user.AdminApiUser;
 import com.nocommittoday.techswipe.infrastructure.image.ImageStore;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,7 @@ public class TechContentProviderRegisterController {
 
     @PostMapping("/admin/api/providers")
     ResponseEntity<TechContentProviderRegisterResponse> register(
+            AdminApiUser adminApiUser,
             @RequestBody @Valid TechContentProviderRegisterRequest request
     ) {
         ImageId iconId = Optional.ofNullable(request.iconUrl())

@@ -11,6 +11,7 @@ public enum UserErrorCode  implements ErrorCodeType {
     ALREADY_EXISTS("003", "이미 존재하는 사용자입니다.", HttpURLConnection.HTTP_CONFLICT),
     NOT_FOUND("004", "사용자를 찾을 수 없습니다.", HttpURLConnection.HTTP_NOT_FOUND),
     AUTHENTICATION_REQUIRED("005", "인증이 필요합니다.", HttpURLConnection.HTTP_UNAUTHORIZED),
+    NOT_ALLOWED("006", "허용되지 않은 요청입니다.", HttpURLConnection.HTTP_FORBIDDEN),
     ;
 
     private final String code;
