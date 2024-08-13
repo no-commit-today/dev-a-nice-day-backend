@@ -11,4 +11,8 @@ public abstract class OAuth2Token {
     public OAuth2Provider getProvider() {
         return provider;
     }
+
+    public static OAuth2AccessToken accessToken(OAuth2Provider provider, String accessToken) {
+        return new OAuth2AccessToken(provider, accessToken);
+    }
 }
