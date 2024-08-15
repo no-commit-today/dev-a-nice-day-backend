@@ -22,7 +22,7 @@ public class TechContent {
     @Nullable
     private final ImageId imageId;
 
-    private final String summary;
+    private final Summary summary;
 
     private final List<TechCategory> categories;
 
@@ -33,7 +33,7 @@ public class TechContent {
             String url,
             String title,
             LocalDate publishedDate,
-            String summary,
+            Summary summary,
             List<TechCategory> categories
     ) {
         this.id = id;
@@ -80,7 +80,7 @@ public class TechContent {
         return publishedDate;
     }
 
-    public String getSummary() {
+    public Summary getSummary() {
         return summary;
     }
 

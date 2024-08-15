@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.domain.collection;
 
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategoryNotApplicableException;
+import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechCategory;
 import com.nocommittoday.techswipe.domain.content.TechContent;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
@@ -11,6 +12,7 @@ import com.nocommittoday.techswipe.domain.content.TechContentDeleter;
 import com.nocommittoday.techswipe.domain.content.TechContentReader;
 import com.nocommittoday.techswipe.domain.content.TechContentUpdater;
 import com.nocommittoday.techswipe.domain.content.TechContentUrlExistsReader;
+import com.nocommittoday.techswipe.domain.test.SummaryBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -69,6 +71,7 @@ class ContentCategoryEditServiceTest {
         given(collectedContentReader.get(new CollectedContentId(1))).willReturn(collectedContent);
         given(techContentUrlExistsReader.existsIncludingDeleted(new TechContentId(1))).willReturn(true);
 
+        Summary summary = SummaryBuilder.create();
         final TechContent techContent = new TechContent(
                 new TechContentId(1),
                 new TechContentProvider(
@@ -82,7 +85,7 @@ class ContentCategoryEditServiceTest {
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
-                "summary",
+                summary,
                 List.of(TechCategory.APP)
         );
 
@@ -167,7 +170,7 @@ class ContentCategoryEditServiceTest {
                 "url",
                 "title",
                 LocalDate.of(2021, 1, 1),
-                "summary",
+                SummaryBuilder.create(),
                 List.of(TechCategory.APP)
         );
 

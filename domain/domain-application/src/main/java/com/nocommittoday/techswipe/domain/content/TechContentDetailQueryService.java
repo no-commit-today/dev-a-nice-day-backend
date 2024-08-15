@@ -25,7 +25,7 @@ public class TechContentDetailQueryService {
                 techContent.getTitle(),
                 techContent.getPublishedDate(),
                 imageUrlReader.getOrNull(techContent.getImageId()),
-                techContent.getSummary(),
+                techContent.getSummary().getContent(),
                 techContent.getCategories(),
                 techContent.getProvider().getId(),
                 techContent.getProvider().getType(),
