@@ -2,7 +2,11 @@ package com.nocommittoday.techswipe.admin.domain.exception;
 
 import com.nocommittoday.techswipe.domain.core.ErrorCodeType;
 
+import java.net.HttpURLConnection;
+
 public enum AdminErrorCode implements ErrorCodeType {
+
+    COLLECTION_SUMMARY_NOT_REGISTRABLE("001", "등록할 수 없는 요약 형식입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
     ;
 
     private final String code;
