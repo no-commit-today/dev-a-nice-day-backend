@@ -41,7 +41,7 @@ public class CollectedContentEntityMapper {
                 collectedContent.getContent(),
                 collectedContent.getImageUrl(),
                 collectedContent.getCategories(),
-                collectedContent.getSummary()
+                collectedContent.getSummary() != null ? collectedContent.getSummary().getContent() : null
         );
     }
 }

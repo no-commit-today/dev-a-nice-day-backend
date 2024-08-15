@@ -4,7 +4,9 @@ import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
 import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
+import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.test.SummaryBuilder;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
 import org.junit.jupiter.api.Test;
 
@@ -59,11 +61,12 @@ class CollectedContentEntityTest {
                 null
         );
 
+        Summary summary = SummaryBuilder.create();
         CollectedContent domain = new CollectedContent(
                 new CollectedContentId(1L),
                 CollectionStatus.CATEGORIZED,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
-                "summary",
+                summary,
                 new TechContentProviderId(3L),
                 "updated-url",
                 "updated-title",
@@ -78,7 +81,7 @@ class CollectedContentEntityTest {
         // then
         assertThat(entity.getStatus()).isEqualTo(CollectionStatus.CATEGORIZED);
         assertThat(entity.getCategories()).containsExactly(CollectionCategory.DEVOPS, CollectionCategory.SERVER);
-        assertThat(entity.getSummary()).isEqualTo("summary");
+        assertThat(entity.getSummary()).isEqualTo(summary.getContent());
         assertThat(entity.getProvider().getId()).isEqualTo(3L);
         assertThat(entity.getUrl()).isEqualTo("updated-url");
         assertThat(entity.getTitle()).isEqualTo("updated-title");

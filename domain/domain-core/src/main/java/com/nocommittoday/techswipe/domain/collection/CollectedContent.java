@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategor
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategoryNotEditableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionSummarizeUnableException;
+import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 
 import javax.annotation.Nullable;
@@ -20,7 +21,7 @@ public class CollectedContent {
     private final List<CollectionCategory> categories;
 
     @Nullable
-    private final String summary;
+    private final Summary summary;
 
     private final TechContentProviderId providerId;
 
@@ -60,7 +61,7 @@ public class CollectedContent {
             CollectedContentId id,
             CollectionStatus status,
             @Nullable List<CollectionCategory> categories,
-            @Nullable String summary,
+            @Nullable Summary summary,
             TechContentProviderId providerId,
             String url,
             String title,
@@ -121,7 +122,7 @@ public class CollectedContent {
         );
     }
 
-    public CollectedContent summarize(String summary) {
+    public CollectedContent summarize(Summary summary) {
         if (!status.summarizable()) {
             throw new CollectionSummarizeUnableException(id, status);
         }
@@ -227,7 +228,7 @@ public class CollectedContent {
     }
 
     @Nullable
-    public String getSummary() {
+    public Summary getSummary() {
         return summary;
     }
 

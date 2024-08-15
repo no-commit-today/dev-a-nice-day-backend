@@ -3,7 +3,9 @@ package com.nocommittoday.techswipe.domain.collection;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategorizeUnableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionSummarizeUnableException;
+import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.test.SummaryBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -96,10 +98,11 @@ class CollectedContentTest {
         );
 
         // when
-        CollectedContent result = categorized.summarize("summary");
+        Summary summary = SummaryBuilder.create();
+        CollectedContent result = categorized.summarize(summary);
 
         // then
-        assertThat(result.getSummary()).isEqualTo("summary");
+        assertThat(result.getSummary()).isEqualTo(summary);
         assertThat(result.getStatus()).isEqualTo(CollectionStatus.SUMMARIZED);
     }
 
@@ -118,7 +121,7 @@ class CollectedContentTest {
 
         // when
         // then
-        assertThatThrownBy(() -> collectedContent.summarize("summary"))
+        assertThatThrownBy(() -> collectedContent.summarize(SummaryBuilder.create()))
                 .isInstanceOf(CollectionSummarizeUnableException.class);
     }
 
@@ -141,7 +144,7 @@ class CollectedContentTest {
 
         // when
         // then
-        assertThatThrownBy(() -> filtered.summarize("summary"))
+        assertThatThrownBy(() -> filtered.summarize(SummaryBuilder.create()))
                 .isInstanceOf(CollectionSummarizeUnableException.class);
     }
 
@@ -162,7 +165,8 @@ class CollectedContentTest {
                 List.of(CollectionCategory.DEVOPS)
         );
 
-        CollectedContent summarized = categorized.summarize("summary");
+        Summary summary = SummaryBuilder.create();
+        CollectedContent summarized = categorized.summarize(summary);
 
         // when
         CollectedContent result = summarized.published();
@@ -178,7 +182,7 @@ class CollectedContentTest {
         assertThat(result.getContent()).isEqualTo("content");
         assertThat(result.getImageUrl()).isEqualTo("imageUrl");
         assertThat(result.getCategories()).containsExactly(CollectionCategory.DEVOPS);
-        assertThat(result.getSummary()).isEqualTo("summary");
+        assertThat(result.getSummary()).isEqualTo(summary);
     }
 
     @Test

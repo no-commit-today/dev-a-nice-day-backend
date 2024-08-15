@@ -30,6 +30,6 @@ public class CollectionSummaryRegisterService {
             throw new CollectionSummaryFormatNotRegistrableException(command.id(), command.summary());
         }
         CollectedContent collectedContent = collectedContentReader.get(command.id());
-        collectedContentUpdater.update(collectedContent.summarize(summary.getContent()));
+        collectedContentUpdater.update(collectedContent.summarize(summary));
     }
 }

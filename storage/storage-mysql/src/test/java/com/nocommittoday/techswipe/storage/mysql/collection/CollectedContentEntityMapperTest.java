@@ -5,7 +5,9 @@ import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
 import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.domain.collection.ContentCollect;
+import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.test.SummaryBuilder;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderJpaRepository;
 import org.junit.jupiter.api.Test;
@@ -33,11 +35,12 @@ class CollectedContentEntityMapperTest {
     @Test
     void 도메인_엔티티로부터_생성할_수_있다() {
         // given
+        Summary summary = SummaryBuilder.create();
         CollectedContent content = new CollectedContent(
                 new CollectedContentId(1L),
                 CollectionStatus.INIT,
                 List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
-                "summary",
+                summary,
                 new TechContentProviderId(2L),
                 "url",
                 "title",
@@ -55,7 +58,7 @@ class CollectedContentEntityMapperTest {
         assertThat(entity.getId()).isEqualTo(1L);
         assertThat(entity.getStatus()).isEqualTo(CollectionStatus.INIT);
         assertThat(entity.getCategories()).isEqualTo(List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER));
-        assertThat(entity.getSummary()).isEqualTo("summary");
+        assertThat(entity.getSummary()).isEqualTo(summary.getContent());
         assertThat(entity.getProvider()).isEqualTo(techContentProviderEntity);
         assertThat(entity.getUrl()).isEqualTo("url");
         assertThat(entity.getTitle()).isEqualTo("title");
