@@ -37,7 +37,7 @@ class SummarizationProcessorTest {
 
         // then
         assertThat(result.success()).isTrue();
-        assertThat(result.summary()).isEqualTo("""
+        assertThat(result.summary().getContent()).isEqualTo("""
                 1. 요약 1
                 2. 요약 2
                 3. 요약 3

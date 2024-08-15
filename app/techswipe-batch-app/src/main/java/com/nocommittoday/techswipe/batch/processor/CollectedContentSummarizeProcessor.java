@@ -36,7 +36,7 @@ public class CollectedContentSummarizeProcessor
             return collectedContentEntityMapper.from(summarizationFailed);
         }
 
-        CollectedContent summarized = collectedContent.summarize(summarizationResult.summary());
+        CollectedContent summarized = collectedContent.summarize(summarizationResult.summary().getContent());
         return collectedContentEntityMapper.from(summarized);
     }
 }
