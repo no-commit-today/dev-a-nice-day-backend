@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.admin.controller;
 
-import com.nocommittoday.techswipe.admin.controller.request.TechContentProviderIconEditRequest;
+import com.nocommittoday.techswipe.admin.controller.request.AdminTechContentProviderIconEditRequest;
+import com.nocommittoday.techswipe.admin.domain.AdminTechContentProviderIconEditService;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
-import com.nocommittoday.techswipe.domain.content.provider.TechContentProviderIconEditService;
 import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.domain.user.AdminApiUser;
 import com.nocommittoday.techswipe.infrastructure.image.ImageStore;
@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-public class TechContentProviderIconEditController {
+public class AdminTechContentProviderIconEditController {
 
     private final ImageStore imageStore;
-    private final TechContentProviderIconEditService techContentProviderIconEditService;
+    private final AdminTechContentProviderIconEditService techContentProviderIconEditService;
 
-    public TechContentProviderIconEditController(
+    public AdminTechContentProviderIconEditController(
             ImageStore imageStore,
-            TechContentProviderIconEditService techContentProviderIconEditService
+            AdminTechContentProviderIconEditService techContentProviderIconEditService
     ) {
         this.imageStore = imageStore;
         this.techContentProviderIconEditService = techContentProviderIconEditService;
@@ -32,7 +32,7 @@ public class TechContentProviderIconEditController {
     void edit(
             AdminApiUser adminApiUser,
             @PathVariable Long providerId,
-            @RequestBody @Validated TechContentProviderIconEditRequest request
+            @RequestBody @Validated AdminTechContentProviderIconEditRequest request
     ) {
         ImageId iconId = Optional.ofNullable(request.iconUrl())
                 .map(url -> imageStore.store(url, "provider").get())

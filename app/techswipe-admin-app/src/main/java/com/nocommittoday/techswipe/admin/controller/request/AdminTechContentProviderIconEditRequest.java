@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.admin.controller.request;
 
 import org.hibernate.validator.constraints.URL;
 
-public record TechContentProviderIconEditRequest(
+public record AdminTechContentProviderIconEditRequest(
         @URL String iconUrl
 ) {
 }

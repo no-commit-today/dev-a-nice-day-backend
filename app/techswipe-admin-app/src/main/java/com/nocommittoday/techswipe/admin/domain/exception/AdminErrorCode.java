@@ -6,7 +6,10 @@ import java.net.HttpURLConnection;
 
 public enum AdminErrorCode implements ErrorCodeType {
 
-    COLLECTION_SUMMARY_NOT_REGISTRABLE("001", "등록할 수 없는 요약 형식입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
+    COLLECTION_SUMMARY_NOT_REGISTRABLE("COLLECTION-001", "등록할 수 없는 요약 형식입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
+
+
+    TECH_CONTENT_PROVIDER_ICON_EDIT_FAILURE("CONTENT-001", "컨텐츠 제공자 아이콘 수정에 실패하였습니다.", HttpURLConnection.HTTP_INTERNAL_ERROR),
     ;
 
     private final String code;
