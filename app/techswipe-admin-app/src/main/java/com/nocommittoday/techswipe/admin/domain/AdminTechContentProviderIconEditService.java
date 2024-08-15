@@ -1,6 +1,5 @@
 package com.nocommittoday.techswipe.admin.domain;
 
-import com.nocommittoday.techswipe.admin.domain.exception.AdminTechContentProviderIconEditFailure;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.content.exception.TechContentProviderNotFoundException;
 import com.nocommittoday.techswipe.domain.image.ImageId;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 @Service
 public class AdminTechContentProviderIconEditService {
@@ -37,14 +37,12 @@ public class AdminTechContentProviderIconEditService {
             providerEntity.getIcon().delete();
         }
 
-        if (iconId == null) {
-            adminTechContentProviderEntityJpaRepository.updateIconById(id.value(), null);
-        } else {
-            ImageEntity imageEntity = adminImageEntityJpaRepository.findById(iconId.value())
-                    .filter(ImageEntity::isUsed)
-                    .orElseThrow(() -> new AdminTechContentProviderIconEditFailure(id, iconId));
+        ImageEntity imageEntity = Optional.ofNullable(iconId)
+                .map(ImageId::value)
+                .flatMap(adminImageEntityJpaRepository::findById)
+                .filter(ImageEntity::isUsed)
+                .orElse(null);
 
-            adminTechContentProviderEntityJpaRepository.updateIconById(id.value(), imageEntity);
-        }
+        adminTechContentProviderEntityJpaRepository.updateIconById(id.value(), imageEntity);
     }
 }

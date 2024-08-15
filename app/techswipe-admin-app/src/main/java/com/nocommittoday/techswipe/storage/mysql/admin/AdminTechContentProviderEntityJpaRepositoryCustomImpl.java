@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static com.nocommittoday.techswipe.storage.mysql.content.QTechContentProviderEntity.techContentProviderEntity;
 
-public class AdminTechContentProviderEntityJpaRepositoryCustomImpl implements AdminTechContentProviderEntityJpaRepositoryCustom {
+class AdminTechContentProviderEntityJpaRepositoryCustomImpl implements AdminTechContentProviderEntityJpaRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 

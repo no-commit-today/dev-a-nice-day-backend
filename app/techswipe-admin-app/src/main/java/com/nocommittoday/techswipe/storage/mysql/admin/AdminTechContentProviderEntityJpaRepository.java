@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AdminTechContentProviderEntityJpaRepository
         extends JpaRepository<TechContentProviderEntity, Long>, AdminTechContentProviderEntityJpaRepositoryCustom {
+
+    boolean existsByUrl(String url);
 }

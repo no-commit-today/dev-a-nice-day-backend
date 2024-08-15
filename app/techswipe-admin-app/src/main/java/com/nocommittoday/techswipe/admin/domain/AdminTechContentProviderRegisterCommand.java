@@ -1,11 +1,11 @@
-package com.nocommittoday.techswipe.domain.content.provider;
+package com.nocommittoday.techswipe.admin.domain;
 
 import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
 import com.nocommittoday.techswipe.domain.image.ImageId;
 
 import javax.annotation.Nullable;
 
-public record TechContentProviderRegisterCommand(
+public record AdminTechContentProviderRegisterCommand(
         TechContentProviderType type,
         String title,
         String url,

@@ -5,7 +5,7 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.URL;
 
-public record TechContentProviderRegisterRequest(
+public record AdminTechContentProviderRegisterRequest(
         @NotNull TechContentProviderType type,
         @NotNull String title,
         @NotNull String url,

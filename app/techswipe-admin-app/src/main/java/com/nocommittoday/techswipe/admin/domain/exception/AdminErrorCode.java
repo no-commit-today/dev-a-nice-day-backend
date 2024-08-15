@@ -10,6 +10,7 @@ public enum AdminErrorCode implements ErrorCodeType {
 
 
     TECH_CONTENT_PROVIDER_ICON_EDIT_FAILURE("CONTENT-001", "컨텐츠 제공자 아이콘 수정에 실패하였습니다.", HttpURLConnection.HTTP_INTERNAL_ERROR),
+    TECH_CONTENT_PROVIDER_ALREADY_EXISTS("CONTENT-002", "이미 존재하는 컨텐츠 제공자입니다.", HttpURLConnection.HTTP_CONFLICT),
     ;
 
     private final String code;
