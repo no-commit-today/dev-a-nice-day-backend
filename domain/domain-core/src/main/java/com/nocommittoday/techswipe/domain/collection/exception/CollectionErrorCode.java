@@ -13,6 +13,7 @@ public enum CollectionErrorCode implements ErrorCodeType {
     CATEGORY_NOT_APPLICABLE("카테고리를 컨텐츠에 반영할 수 없습니다.", HttpURLConnection.HTTP_BAD_REQUEST),
     ILLEGAL_PROVIDER_ID("잘못된 컨텐츠 제공자 아이디입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
     ALREADY_COLLECTED("이미 수집된 컨텐츠입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
+    ILLEGAL_CATEGORY("잘못된 카테고리입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
     ;
 
     private final String message;

@@ -38,6 +38,7 @@ public enum CollectionCategory implements EnumMapperType {
         return title;
     }
 
+    @Nullable
     public TechCategory getTechCategory() {
         return techCategory;
     }
