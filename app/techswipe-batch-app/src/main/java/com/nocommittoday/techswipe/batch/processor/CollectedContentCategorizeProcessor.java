@@ -35,7 +35,7 @@ public class CollectedContentCategorizeProcessor implements
             CollectedContent categorizationFailed = collectedContent.failCategorization();
             return collectedContentEntityMapper.from(categorizationFailed);
         }
-        CollectedContent categorized = collectedContent.categorize(categorizationResult.categories());
+        CollectedContent categorized = collectedContent.categorize(categorizationResult.categoryList().getContent());
         return collectedContentEntityMapper.from(categorized);
     }
 }

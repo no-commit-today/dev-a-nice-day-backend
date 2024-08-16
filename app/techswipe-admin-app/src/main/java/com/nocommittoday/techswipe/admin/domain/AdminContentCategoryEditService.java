@@ -36,7 +36,7 @@ public class AdminContentCategoryEditService {
         CollectedContentEntity collectedContentEntity = adminCollectedContentEntityJpaRepository.findById(id.value())
                 .orElseThrow(() -> new CollectionNotFoundException(id));
         CollectionStatus nextStatus = getNextStatus(collectedContentEntity.getStatus(), categoryList);
-        adminCollectedContentEntityJpaRepository.updateStatusAndCategoriesById(id.value(), nextStatus, categoryList.getCategories());
+        adminCollectedContentEntityJpaRepository.updateStatusAndCategoriesById(id.value(), nextStatus, categoryList.getContent());
 
         TechContentId techContentId = id.toTechContentId();
         if (CollectionStatus.FILTERED == nextStatus) {

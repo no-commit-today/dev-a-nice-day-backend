@@ -22,7 +22,7 @@ class CollectionCategoryListTest {
         ));
 
         // then
-        assertThat(collectionCategoryList.getCategories()).containsOnly(
+        assertThat(collectionCategoryList.getContent()).containsOnly(
                 CollectionCategory.SERVER,
                 CollectionCategory.DATA_ENGINEERING
         );
@@ -39,7 +39,7 @@ class CollectionCategoryListTest {
         ));
 
         // then
-        assertThat(collectionCategoryList.getCategories()).containsExactly(
+        assertThat(collectionCategoryList.getContent()).containsExactly(
                 CollectionCategory.AI,
                 CollectionCategory.DATA_ENGINEERING,
                 CollectionCategory.SERVER

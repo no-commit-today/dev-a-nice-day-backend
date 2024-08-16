@@ -14,10 +14,10 @@ public class CollectionCategoryList {
     public static final int MIN_SIZE = 1;
     public static final int MAX_SIZE = 3;
 
-    private final List<CollectionCategory> categories;
+    private final List<CollectionCategory> content;
 
-    public CollectionCategoryList(List<CollectionCategory> categories) {
-        this.categories = Collections.unmodifiableList(categories);
+    public CollectionCategoryList(List<CollectionCategory> content) {
+        this.content = Collections.unmodifiableList(content);
     }
 
     public static CollectionCategoryList create(Collection<CollectionCategory> categories) {
@@ -35,17 +35,17 @@ public class CollectionCategoryList {
     }
 
     public boolean containsUnused() {
-        return categories.stream()
+        return content.stream()
                 .anyMatch(category -> !category.isUsed());
     }
 
     public List<TechCategory> toTechCategories() {
-        return categories.stream()
+        return content.stream()
                 .map(category -> Objects.requireNonNull(category.getTechCategory()))
                 .toList();
     }
 
-    public List<CollectionCategory> getCategories() {
-        return categories;
+    public List<CollectionCategory> getContent() {
+        return content;
     }
 }
