@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.admin.controller.request;
 
-import com.nocommittoday.techswipe.domain.collection.ContentCollectCommand;
+import com.nocommittoday.techswipe.admin.domain.AdminContentCollectCommand;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.URL;
 
 import java.time.LocalDate;
 
-public record ContentCollectRequest(
+public record AdminContentCollectRequest(
         @NotNull @Positive Long providerId,
         @NotNull @URL String url,
         @NotNull @NotBlank String title,
@@ -19,8 +19,8 @@ public record ContentCollectRequest(
         @URL String imageUrl
 ) {
 
-    public ContentCollectCommand toCommand() {
-        return new ContentCollectCommand(
+    public AdminContentCollectCommand toCommand() {
+        return new AdminContentCollectCommand(
                 new TechContentProviderId(providerId),
                 url,
                 title,

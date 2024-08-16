@@ -1,11 +1,13 @@
-package com.nocommittoday.techswipe.domain.collection;
+package com.nocommittoday.techswipe.admin.domain;
 
+import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
+import com.nocommittoday.techswipe.domain.collection.ContentCollect;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 
-public record ContentCollectCommand(
+public record AdminContentCollectCommand(
         TechContentProviderId providerId,
         String url,
         String title,

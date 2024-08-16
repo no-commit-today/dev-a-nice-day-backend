@@ -81,6 +81,23 @@ public class CollectedContent {
         this.imageUrl = imageUrl;
     }
 
+    public static CollectedContent collect(
+            ContentCollect contentCollect
+    ) {
+        return new CollectedContent(
+                contentCollect.id(),
+                CollectionStatus.INIT,
+                null,
+                null,
+                contentCollect.providerId(),
+                contentCollect.url(),
+                contentCollect.title(),
+                contentCollect.publishedDate(),
+                contentCollect.content(),
+                contentCollect.imageUrl()
+        );
+    }
+
     public CollectedContent categorize(List<CollectionCategory> categories) {
         if (!status.categorizable()) {
             throw new CollectionCategorizeUnableException(id, status);
