@@ -1,7 +1,6 @@
 package com.nocommittoday.techswipe.domain.collection;
 
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategorizeUnableException;
-import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategoryNotEditableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionSummarizeUnableException;
 import com.nocommittoday.techswipe.domain.content.Summary;
@@ -184,27 +183,6 @@ public class CollectedContent {
                 id,
                 CollectionStatus.PUBLISHED,
                 categories,
-                summary,
-                providerId,
-                url,
-                title,
-                publishedDate,
-                content,
-                imageUrl
-        );
-    }
-
-    public CollectedContent editCategory(ContentCategoryEdit categoryEdit) {
-        if (!categoryEdit.isEditable(status)) {
-            throw new CollectionCategoryNotEditableException(id);
-        }
-
-        CollectionStatus nextStatus = categoryEdit.nextContentStatus(this);
-
-        return new CollectedContent(
-                id,
-                nextStatus,
-                categoryEdit.categories(),
                 summary,
                 providerId,
                 url,
