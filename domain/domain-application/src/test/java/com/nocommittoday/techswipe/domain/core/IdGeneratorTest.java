@@ -92,11 +92,10 @@ class IdGeneratorTest {
     @Test
     void 시퀀스가_최대값에_도달하면_다음_millis로_넘어간다() {
         // given
-        ZoneId zoneId = ZoneId.systemDefault();
-        Instant instant = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
-                .atZone(zoneId).toInstant();
-        long timestamp = instant.toEpochMilli();
         Clock baseClock = Clock.systemDefaultZone();
+        Instant instant = LocalDateTime.of(2024, 7, 10, 0, 0, 0)
+                .atZone(baseClock.getZone()).toInstant();
+        long timestamp = instant.toEpochMilli();
         Clock clock = Clock.offset(baseClock, Duration.between(baseClock.instant(), instant));
 
         IdGenerator idGenerator = new IdGenerator(
