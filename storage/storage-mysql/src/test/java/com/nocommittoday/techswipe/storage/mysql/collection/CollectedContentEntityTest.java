@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.storage.mysql.collection;
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
 import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
+import com.nocommittoday.techswipe.domain.collection.CollectionCategoryList;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,7 +45,7 @@ class CollectedContentEntityTest {
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getContent()).isEqualTo("content");
         assertThat(result.getImageUrl()).isEqualTo("imageUrl");
-        assertThat(result.getCategories()).containsExactly(CollectionCategory.DEVOPS, CollectionCategory.SERVER);
+        assertThat(Objects.requireNonNull(result.getCategoryList()).getContent()).containsExactly(CollectionCategory.DEVOPS, CollectionCategory.SERVER);
     }
 
     @Test
@@ -65,7 +67,7 @@ class CollectedContentEntityTest {
         CollectedContent domain = new CollectedContent(
                 new CollectedContentId(1L),
                 CollectionStatus.CATEGORIZED,
-                List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
+                CollectionCategoryList.create(List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER)),
                 summary,
                 new TechContentProviderId(3L),
                 "updated-url",

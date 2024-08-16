@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -31,10 +32,12 @@ class CollectedContentTest {
         );
 
         // when
-        CollectedContent result = collectedContent.categorize(List.of(CollectionCategory.DEVOPS));
+        CollectedContent result = collectedContent.categorize(
+                CollectionCategoryList.create(List.of(CollectionCategory.DEVOPS)));
 
         // then
-        assertThat(result.getCategories()).containsExactly(CollectionCategory.DEVOPS);
+        assertThat(Objects.requireNonNull(result.getCategoryList()).getContent())
+                .containsExactly(CollectionCategory.DEVOPS);
         assertThat(result.getStatus()).isEqualTo(CollectionStatus.CATEGORIZED);
     }
 
@@ -53,11 +56,11 @@ class CollectedContentTest {
 
         // when
         CollectedContent result = collectedContent.categorize(
-                List.of(CollectionCategory.DEVOPS, CollectionCategory.NON_DEV)
+                CollectionCategoryList.create(List.of(CollectionCategory.DEVOPS, CollectionCategory.NON_DEV))
         );
 
         // then
-        assertThat(result.getCategories()).containsExactly(CollectionCategory.DEVOPS, CollectionCategory.NON_DEV);
+        assertThat(Objects.requireNonNull(result.getCategoryList()).getContent()).containsExactly(CollectionCategory.DEVOPS, CollectionCategory.NON_DEV);
         assertThat(result.getStatus()).isEqualTo(CollectionStatus.FILTERED);
     }
 
@@ -72,12 +75,13 @@ class CollectedContentTest {
                 LocalDate.of(2021, 1, 1),
                 "content",
                 "imageUrl"
-        ).categorize(List.of(CollectionCategory.DEVOPS));
+        ).categorize(CollectionCategoryList.create(List.of(CollectionCategory.DEVOPS)));
 
         // when
         // then
-        assertThatThrownBy(() -> collectedContent.categorize(List.of(CollectionCategory.SERVER)))
-                .isInstanceOf(CollectionCategorizeUnableException.class);
+        assertThatThrownBy(() -> collectedContent.categorize(
+                CollectionCategoryList.create(List.of(CollectionCategory.SERVER)))
+        ).isInstanceOf(CollectionCategorizeUnableException.class);
     }
 
     @Test
@@ -94,7 +98,7 @@ class CollectedContentTest {
         );
 
         CollectedContent categorized = collectedContent.categorize(
-                List.of(CollectionCategory.DEVOPS)
+                CollectionCategoryList.create(List.of(CollectionCategory.DEVOPS))
         );
 
         // when
@@ -139,7 +143,7 @@ class CollectedContentTest {
         );
 
         CollectedContent filtered = collectedContent.categorize(
-                List.of(CollectionCategory.NON_DEV)
+                CollectionCategoryList.create(List.of(CollectionCategory.NON_DEV))
         );
 
         // when
@@ -162,7 +166,7 @@ class CollectedContentTest {
         );
 
         CollectedContent categorized = collectedContent.categorize(
-                List.of(CollectionCategory.DEVOPS)
+                CollectionCategoryList.create(List.of(CollectionCategory.DEVOPS))
         );
 
         Summary summary = SummaryBuilder.create();
@@ -181,7 +185,7 @@ class CollectedContentTest {
         assertThat(result.getPublishedDate()).isEqualTo(LocalDate.of(2021, 1, 1));
         assertThat(result.getContent()).isEqualTo("content");
         assertThat(result.getImageUrl()).isEqualTo("imageUrl");
-        assertThat(result.getCategories()).containsExactly(CollectionCategory.DEVOPS);
+        assertThat(Objects.requireNonNull(result.getCategoryList()).getContent()).containsExactly(CollectionCategory.DEVOPS);
         assertThat(result.getSummary()).isEqualTo(summary);
     }
 
@@ -199,7 +203,7 @@ class CollectedContentTest {
         );
 
         CollectedContent categorized = none.categorize(
-                List.of(CollectionCategory.DEVOPS)
+                CollectionCategoryList.create(List.of(CollectionCategory.DEVOPS))
         );
 
         // when

@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.storage.mysql.collection;
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
 import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
+import com.nocommittoday.techswipe.domain.collection.CollectionCategoryList;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
@@ -106,7 +107,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
         return new CollectedContent(
                 new CollectedContentId(id),
                 status,
-                categories,
+                categories != null ? new CollectionCategoryList(categories) : null,
                 new Summary(summary),
                 provider.getId() != null ? new TechContentProviderId(provider.getId()) : null,
                 url,
@@ -125,7 +126,8 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
         this.publishedDate = collectedContent.getPublishedDate();
         this.content = collectedContent.getContent();
         this.imageUrl = collectedContent.getImageUrl();
-        this.categories = collectedContent.getCategories();
+        this.categories = collectedContent.getCategoryList() != null
+                ? collectedContent.getCategoryList().getContent() : null;
         this.summary = collectedContent.getSummary() != null ? collectedContent.getSummary().getContent() : null;
     }
 

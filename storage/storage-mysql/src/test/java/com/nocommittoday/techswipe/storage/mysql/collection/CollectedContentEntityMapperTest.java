@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.storage.mysql.collection;
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
 import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
+import com.nocommittoday.techswipe.domain.collection.CollectionCategoryList;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.domain.collection.ContentCollect;
 import com.nocommittoday.techswipe.domain.content.Summary;
@@ -39,7 +40,7 @@ class CollectedContentEntityMapperTest {
         CollectedContent content = new CollectedContent(
                 new CollectedContentId(1L),
                 CollectionStatus.INIT,
-                List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
+                CollectionCategoryList.create(List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER)),
                 summary,
                 new TechContentProviderId(2L),
                 "url",
