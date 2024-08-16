@@ -40,8 +40,8 @@ public class CollectedContentEntityMapper {
                 collectedContent.getPublishedDate(),
                 collectedContent.getContent(),
                 collectedContent.getImageUrl(),
-                collectedContent.getCategories(),
-                collectedContent.getSummary()
+                collectedContent.getCategoryList() != null ? collectedContent.getCategoryList().getContent() : null,
+                collectedContent.getSummary() != null ? collectedContent.getSummary().getContent() : null
         );
     }
 }

@@ -25,7 +25,7 @@ public class SummarizationProcessor {
                 );
             }
 
-            return SummarizationResult.success(summary.getContent());
+            return SummarizationResult.success(summary);
         } catch (Exception ex) {
             return SummarizationResult.failure(ex);
         }

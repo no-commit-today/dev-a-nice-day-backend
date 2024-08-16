@@ -1,14 +1,13 @@
 package com.nocommittoday.techswipe.domain.collection;
 
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategorizeUnableException;
-import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategoryNotEditableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionSummarizeUnableException;
+import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
-import java.util.List;
 
 public class CollectedContent {
 
@@ -17,10 +16,10 @@ public class CollectedContent {
     private final CollectionStatus status;
 
     @Nullable
-    private final List<CollectionCategory> categories;
+    private final CollectionCategoryList categoryList;
 
     @Nullable
-    private final String summary;
+    private final Summary summary;
 
     private final TechContentProviderId providerId;
 
@@ -45,7 +44,7 @@ public class CollectedContent {
     ) {
         this.id = id;
         this.status = CollectionStatus.INIT;
-        this.categories = null;
+        this.categoryList = null;
         this.summary = null;
         this.providerId = providerId;
         this.url = url;
@@ -59,8 +58,8 @@ public class CollectedContent {
     public CollectedContent(
             CollectedContentId id,
             CollectionStatus status,
-            @Nullable List<CollectionCategory> categories,
-            @Nullable String summary,
+            @Nullable CollectionCategoryList categoryList,
+            @Nullable Summary summary,
             TechContentProviderId providerId,
             String url,
             String title,
@@ -70,7 +69,7 @@ public class CollectedContent {
     ) {
         this.id = id;
         this.status = status;
-        this.categories = categories;
+        this.categoryList = categoryList;
         this.summary = summary;
         this.providerId = providerId;
         this.url = url;
@@ -80,18 +79,34 @@ public class CollectedContent {
         this.imageUrl = imageUrl;
     }
 
-    public CollectedContent categorize(List<CollectionCategory> categories) {
+    public static CollectedContent collect(
+            ContentCollect contentCollect
+    ) {
+        return new CollectedContent(
+                contentCollect.id(),
+                CollectionStatus.INIT,
+                null,
+                null,
+                contentCollect.providerId(),
+                contentCollect.url(),
+                contentCollect.title(),
+                contentCollect.publishedDate(),
+                contentCollect.content(),
+                contentCollect.imageUrl()
+        );
+    }
+
+    public CollectedContent categorize(CollectionCategoryList categoryList) {
         if (!status.categorizable()) {
             throw new CollectionCategorizeUnableException(id, status);
         }
-        CollectionStatus nextStatus = categories.stream()
-                .anyMatch(category -> !category.isUsed())
+        CollectionStatus nextStatus = categoryList.containsUnused()
                 ? CollectionStatus.FILTERED : CollectionStatus.CATEGORIZED;
 
         return new CollectedContent(
                 id,
                 nextStatus,
-                categories,
+                categoryList,
                 summary,
                 providerId,
                 url,
@@ -110,7 +125,7 @@ public class CollectedContent {
         return new CollectedContent(
                 id,
                 CollectionStatus.CATEGORIZATION_FAILED,
-                categories,
+                categoryList,
                 summary,
                 providerId,
                 url,
@@ -121,14 +136,14 @@ public class CollectedContent {
         );
     }
 
-    public CollectedContent summarize(String summary) {
+    public CollectedContent summarize(Summary summary) {
         if (!status.summarizable()) {
             throw new CollectionSummarizeUnableException(id, status);
         }
         return new CollectedContent(
                 id,
                 CollectionStatus.SUMMARIZED,
-                categories,
+                categoryList,
                 summary,
                 providerId,
                 url,
@@ -147,7 +162,7 @@ public class CollectedContent {
         return new CollectedContent(
                 id,
                 CollectionStatus.SUMMARIZATION_FAILED,
-                categories,
+                categoryList,
                 summary,
                 providerId,
                 url,
@@ -165,28 +180,7 @@ public class CollectedContent {
         return new CollectedContent(
                 id,
                 CollectionStatus.PUBLISHED,
-                categories,
-                summary,
-                providerId,
-                url,
-                title,
-                publishedDate,
-                content,
-                imageUrl
-        );
-    }
-
-    public CollectedContent editCategory(ContentCategoryEdit categoryEdit) {
-        if (!categoryEdit.isEditable(status)) {
-            throw new CollectionCategoryNotEditableException(id);
-        }
-
-        CollectionStatus nextStatus = categoryEdit.nextContentStatus(this);
-
-        return new CollectedContent(
-                id,
-                nextStatus,
-                categoryEdit.categories(),
+                categoryList,
                 summary,
                 providerId,
                 url,
@@ -198,8 +192,8 @@ public class CollectedContent {
     }
 
     @Nullable
-    public List<CollectionCategory> getCategories() {
-        return categories;
+    public CollectionCategoryList getCategoryList() {
+        return categoryList;
     }
 
     public String getContent() {
@@ -227,7 +221,7 @@ public class CollectedContent {
     }
 
     @Nullable
-    public String getSummary() {
+    public Summary getSummary() {
         return summary;
     }
 

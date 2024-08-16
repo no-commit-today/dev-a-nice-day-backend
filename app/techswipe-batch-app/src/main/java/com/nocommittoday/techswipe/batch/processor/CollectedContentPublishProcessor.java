@@ -49,8 +49,8 @@ public class CollectedContentPublishProcessor
                 collectedContent.getTitle(),
                 collectedContent.getPublishedDate(),
                 imageId,
-                Objects.requireNonNull(collectedContent.getSummary()),
-                Objects.requireNonNull(collectedContent.getCategories()).stream()
+                Objects.requireNonNull(collectedContent.getSummary()).getContent(),
+                Objects.requireNonNull(collectedContent.getCategoryList()).getContent().stream()
                         .map(CollectionCategory::getTechCategory)
                         .toList()
         );

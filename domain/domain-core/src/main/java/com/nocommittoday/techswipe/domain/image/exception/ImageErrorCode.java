@@ -5,17 +5,15 @@ import com.nocommittoday.techswipe.domain.core.ErrorCodeType;
 import java.net.HttpURLConnection;
 
 public enum ImageErrorCode implements ErrorCodeType {
-    NOT_SUPPORTED_IMAGE("001", "지원하지 않는 이미지입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
-    IMAGE_NOT_FOUND("002", "이미지를 찾을 수 없습니다.", HttpURLConnection.HTTP_NOT_FOUND),
-    IMAGE_ILLEGAL_URL("003", "잘못된 이미지 URL입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
+    NOT_SUPPORTED_IMAGE("지원하지 않는 이미지입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
+    IMAGE_NOT_FOUND("이미지를 찾을 수 없습니다.", HttpURLConnection.HTTP_NOT_FOUND),
+    IMAGE_ILLEGAL_URL("잘못된 이미지 URL입니다.", HttpURLConnection.HTTP_BAD_REQUEST),
     ;
 
-    private final String code;
     private final String message;
     private final int status;
 
-    ImageErrorCode(String code, String message, int status) {
-        this.code = "IMAGE-" + code;
+    ImageErrorCode(String message, int status) {
         this.message = message;
         this.status = status;
     }
@@ -23,7 +21,7 @@ public enum ImageErrorCode implements ErrorCodeType {
 
     @Override
     public String getCode() {
-        return this.code;
+        return "IMAGE-" + name();
     }
 
     @Override

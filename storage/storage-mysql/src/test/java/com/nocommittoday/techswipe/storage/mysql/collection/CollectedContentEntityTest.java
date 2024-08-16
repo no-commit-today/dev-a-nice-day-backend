@@ -3,13 +3,17 @@ package com.nocommittoday.techswipe.storage.mysql.collection;
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
 import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
+import com.nocommittoday.techswipe.domain.collection.CollectionCategoryList;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
+import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.test.SummaryBuilder;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -41,7 +45,7 @@ class CollectedContentEntityTest {
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getContent()).isEqualTo("content");
         assertThat(result.getImageUrl()).isEqualTo("imageUrl");
-        assertThat(result.getCategories()).containsExactly(CollectionCategory.DEVOPS, CollectionCategory.SERVER);
+        assertThat(Objects.requireNonNull(result.getCategoryList()).getContent()).containsExactly(CollectionCategory.DEVOPS, CollectionCategory.SERVER);
     }
 
     @Test
@@ -59,11 +63,12 @@ class CollectedContentEntityTest {
                 null
         );
 
+        Summary summary = SummaryBuilder.create();
         CollectedContent domain = new CollectedContent(
                 new CollectedContentId(1L),
                 CollectionStatus.CATEGORIZED,
-                List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER),
-                "summary",
+                CollectionCategoryList.create(List.of(CollectionCategory.DEVOPS, CollectionCategory.SERVER)),
+                summary,
                 new TechContentProviderId(3L),
                 "updated-url",
                 "updated-title",
@@ -78,7 +83,7 @@ class CollectedContentEntityTest {
         // then
         assertThat(entity.getStatus()).isEqualTo(CollectionStatus.CATEGORIZED);
         assertThat(entity.getCategories()).containsExactly(CollectionCategory.DEVOPS, CollectionCategory.SERVER);
-        assertThat(entity.getSummary()).isEqualTo("summary");
+        assertThat(entity.getSummary()).isEqualTo(summary.getContent());
         assertThat(entity.getProvider().getId()).isEqualTo(3L);
         assertThat(entity.getUrl()).isEqualTo("updated-url");
         assertThat(entity.getTitle()).isEqualTo("updated-title");

@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.domain.core.PageParam;
 import com.nocommittoday.techswipe.domain.image.Image;
 import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.domain.image.ImageReader;
+import com.nocommittoday.techswipe.domain.test.SummaryBuilder;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,6 +42,12 @@ class TechContentListQueryServiceTest {
                 "provider-url",
                 new ImageId(21L)
         );
+        Summary summary1 = new SummaryBuilder()
+                .content("summary-1")
+                .build();
+        Summary summary2 = new SummaryBuilder()
+                .content("summary-2")
+                .build();
         given(techContentCategorizedListReader.getList(pageParam, List.of(TechCategory.SERVER)))
                 .willReturn(List.of(
                         new TechContent(
@@ -50,7 +57,7 @@ class TechContentListQueryServiceTest {
                                 "url-1",
                                 "title-1",
                                 LocalDate.of(2021, 1, 1),
-                                "summary-1",
+                                summary1,
                                 List.of(TechCategory.SERVER)
                         ),
                         new TechContent(
@@ -60,7 +67,7 @@ class TechContentListQueryServiceTest {
                                 "url-2",
                                 "title-2",
                                 LocalDate.of(2021, 1, 1),
-                                "summary-2",
+                                summary2,
                                 List.of(TechCategory.SERVER)
                         )
                 ));
@@ -87,7 +94,7 @@ class TechContentListQueryServiceTest {
         assertThat(techContentQueryResults.get(0).imageUrl())
                 .describedAs("이미지 ID 가 없을 경우 null 을 반환한다.")
                 .isNull();
-        assertThat(techContentQueryResults.get(0).summary()).isEqualTo("summary-1");
+        assertThat(techContentQueryResults.get(0).summary()).isEqualTo(summary1.getContent());
         assertThat(techContentQueryResults.get(0).categories()).containsExactly(TechCategory.SERVER);
         assertThat(techContentQueryResults.get(1).id()).isEqualTo(new TechContentId(2L));
         assertThat(techContentQueryResults.get(1).provider().id()).isEqualTo(new TechContentProviderId(11L));
@@ -102,7 +109,7 @@ class TechContentListQueryServiceTest {
         assertThat(techContentQueryResults.get(1).imageUrl())
                 .describedAs("이미지 ID 가 있더라도 이미지가 없을 경우 null 을 반환한다.")
                 .isNull();
-        assertThat(techContentQueryResults.get(1).summary()).isEqualTo("summary-2");
+        assertThat(techContentQueryResults.get(1).summary()).isEqualTo(summary2.getContent());
         assertThat(techContentQueryResults.get(1).categories()).containsExactly(TechCategory.SERVER);
     }
 

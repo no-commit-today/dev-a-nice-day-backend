@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.storage.mysql.content;
 
+import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechCategory;
 import com.nocommittoday.techswipe.domain.content.TechContent;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
@@ -118,7 +119,7 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
                 url,
                 title,
                 publishedDate,
-                summary,
+                new Summary(summary),
                 categories.stream().map(TechContentCategoryEntity::getCategory).toList()
         );
     }

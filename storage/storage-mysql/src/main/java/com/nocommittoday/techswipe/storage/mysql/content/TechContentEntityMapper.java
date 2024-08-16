@@ -34,7 +34,7 @@ public class TechContentEntityMapper {
                 imageEntityMapper.from(domain.getImageId()),
                 domain.getUrl(),
                 domain.getTitle(),
-                domain.getSummary(),
+                domain.getSummary().getContent(),
                 domain.getPublishedDate()
         );
         domain.getCategories().forEach(entity::addCategory);

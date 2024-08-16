@@ -43,7 +43,7 @@ public class TechContentListQueryService {
                                 content.getTitle(),
                                 content.getPublishedDate(),
                                 imageIdToUrl.getOrDefault(content.getImageId(), null),
-                                content.getSummary(),
+                                content.getSummary().getContent(),
                                 content.getCategories()
                         )
                 ).toList();
