@@ -5,6 +5,7 @@ import com.nocommittoday.techswipe.domain.content.TechCategory;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,11 +21,16 @@ public class CollectionCategoryList {
     }
 
     public static CollectionCategoryList create(Collection<CollectionCategory> categories) {
-        if (categories.size() < MIN_SIZE || categories.size() > MAX_SIZE) {
-            throw new CollectionIllegalCategoryException(categories);
+        List<CollectionCategory> list = categories.stream()
+                .distinct()
+                .sorted(Comparator.comparing(Enum::name))
+                .toList();
+
+        if (!(MIN_SIZE <= list.size() && list.size() <= MAX_SIZE)) {
+            throw new CollectionIllegalCategoryException(list);
         }
         return new CollectionCategoryList(
-                categories.stream().distinct().sorted().toList()
+                list
         );
     }
 
