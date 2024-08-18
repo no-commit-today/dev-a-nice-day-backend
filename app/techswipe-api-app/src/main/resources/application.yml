@@ -45,10 +45,6 @@ spring:
     activate:
       on-profile: dev
 
-app:
-  cors:
-    allowed-origins: ${CORS_ALLOWED_ORIGINS}
-
 logging:
   level:
     org.apache.coyote.http11: trace

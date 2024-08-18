@@ -3,8 +3,8 @@ package com.nocommittoday.techswipe.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -12,8 +12,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 
-@Profile("dev")
 @Configuration
+@ConditionalOnProperty(value = "app.cors.enabled", havingValue = "true")
 public class CorsConfig implements WebMvcConfigurer {
 
     private static final Logger log = LoggerFactory.getLogger(CorsConfig.class);
