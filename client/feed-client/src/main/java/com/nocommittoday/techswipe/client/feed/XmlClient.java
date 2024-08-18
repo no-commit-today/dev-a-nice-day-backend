@@ -1,19 +1,21 @@
 package com.nocommittoday.techswipe.client.feed;
 
-import com.nocommittoday.techswipe.client.core.ClientLog;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.web.client.RestTemplate;
+import com.nocommittoday.techswipe.client.core.ClientLoggingInterceptor;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClient;
 
+@Component
 public class XmlClient {
 
-    private final RestTemplate restTemplate;
+    private final RestClient restClient;
 
-    public XmlClient(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
+    public XmlClient(RestClient.Builder restClientBuilder) {
+        this.restClient = restClientBuilder
+                .requestInterceptor(new ClientLoggingInterceptor(this))
+                .build();
     }
 
-    @ClientLog
     public String get(String url) {
-        return restTemplate.getForObject(url, String.class);
+        return restClient.get().uri(url).retrieve().body(String.class);
     }
 }

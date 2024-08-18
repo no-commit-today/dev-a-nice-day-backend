@@ -2,18 +2,15 @@ package com.nocommittoday.techswipe.client.feed.dev;
 
 import com.nocommittoday.techswipe.client.core.ClientResponse;
 import com.nocommittoday.techswipe.client.feed.FeedClient;
-import com.nocommittoday.techswipe.client.feed.FeedClientConfig;
 import com.nocommittoday.techswipe.client.feed.FeedResponse;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Import(FeedClientConfig.class)
 @Tag("develop")
 class FeedClientDevTest {
 
