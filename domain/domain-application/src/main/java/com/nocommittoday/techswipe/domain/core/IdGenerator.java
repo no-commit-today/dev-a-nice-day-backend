@@ -85,7 +85,7 @@ public class IdGenerator {
             final InetAddress localHost = InetAddress.getLocalHost();
             final String hostName = localHost.getHostName();
             nodeId = hostName.hashCode();
-            log.info("hostName[{}] 을 통해서 nodeId 를 생성합니다. nodeId={}", hostName, nodeId);
+            log.debug("hostName[{}] 을 통해서 nodeId 를 생성합니다. nodeId={}", hostName, nodeId);
         } catch (Exception ex) {
             log.warn("NodeId 생성 중 에러가 발생했습니다. 랜덤 값으로 대체합니다.", ex);
             nodeId = (new SecureRandom().nextInt());
