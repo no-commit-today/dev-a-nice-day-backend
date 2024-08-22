@@ -1,5 +1,7 @@
 package com.nocommittoday.techswipe.domain.subscription;
 
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+
 public class ListScrappingSubscription extends Subscription {
 
     private final ListScrapping listScrapping;
@@ -8,10 +10,11 @@ public class ListScrappingSubscription extends Subscription {
 
     ListScrappingSubscription(
             SubscriptionId id,
+            TechContentProviderId providerId,
             ListScrapping listScrapping,
             ContentScrapping contentScrapping
     ) {
-        super(id, SubscriptionType.LIST_SCRAPPING);
+        super(id, SubscriptionType.LIST_SCRAPPING, providerId);
         this.listScrapping = listScrapping;
         this.contentScrapping = contentScrapping;
     }

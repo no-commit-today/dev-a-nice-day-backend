@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.storage.mysql.subscription;
 
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.subscription.Subscription;
 import com.nocommittoday.techswipe.domain.subscription.SubscriptionId;
 import com.nocommittoday.techswipe.domain.subscription.SubscriptionType;
@@ -22,6 +23,7 @@ import org.hibernate.type.SqlTypes;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
+import java.util.Optional;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -76,11 +78,17 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
         return switch (type) {
             case FEED -> Subscription.createFeed(
                     new SubscriptionId(id),
+                    Optional.ofNullable(provider)
+                            .map(TechContentProviderEntity::getId)
+                            .map(TechContentProviderId::new).orElseThrow(),
                     Objects.requireNonNull(feed).getUrl(),
                     feed.getContentScrapping().toDomain()
             );
             case LIST_SCRAPPING -> Subscription.createListScrapping(
                     new SubscriptionId(id),
+                    Optional.ofNullable(provider)
+                            .map(TechContentProviderEntity::getId)
+                            .map(TechContentProviderId::new).orElseThrow(),
                     Objects.requireNonNull(listScrapping).getListScrapping().toDomain(),
                     listScrapping.getContentScrapping().toDomain()
             );

@@ -1,5 +1,7 @@
 package com.nocommittoday.techswipe.domain.subscription;
 
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+
 public class FeedSubscription extends Subscription {
 
     private final String url;
@@ -8,10 +10,11 @@ public class FeedSubscription extends Subscription {
 
     FeedSubscription(
             SubscriptionId id,
+            TechContentProviderId providerId,
             String url,
             ContentScrapping contentScrapping
     ) {
-        super(id, SubscriptionType.FEED);
+        super(id, SubscriptionType.FEED, providerId);
         this.url = url;
         this.contentScrapping = contentScrapping;
     }

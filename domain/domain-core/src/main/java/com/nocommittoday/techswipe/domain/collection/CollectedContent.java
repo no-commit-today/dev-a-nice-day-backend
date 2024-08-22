@@ -246,6 +246,10 @@ public class CollectedContent {
         return providerId;
     }
 
+    public SubscriptionId getSubscriptionId() {
+        return subscriptionId;
+    }
+
     public LocalDate getPublishedDate() {
         return publishedDate;
     }
