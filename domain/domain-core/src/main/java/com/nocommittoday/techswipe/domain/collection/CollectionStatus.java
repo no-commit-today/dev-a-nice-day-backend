@@ -1,6 +1,8 @@
 package com.nocommittoday.techswipe.domain.collection;
 
 /**
+ * COLLECTED
+ * │
  * INIT
  * ├── CATEGORIZATION_FAILED
  * │   │
@@ -10,7 +12,8 @@ package com.nocommittoday.techswipe.domain.collection;
  * └── FILTERED
  */
 public enum CollectionStatus {
-    INIT, // 처음 수집된 상태
+    COLLECTED, // 수집된 상태
+    INIT, // 수집 후 초기화 완료된 상태
     CATEGORIZED, // 카테고리 분류된 상태
     CATEGORIZATION_FAILED, // 카테고리 분류에 실패한 상태
     FILTERED, // 카테고리 분류되었으나, 다루지 않는 주제인 상태

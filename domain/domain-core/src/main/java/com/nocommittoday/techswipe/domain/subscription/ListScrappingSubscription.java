@@ -1,32 +1,31 @@
 package com.nocommittoday.techswipe.domain.subscription;
 
-public class FeedSubscription extends Subscription {
+public class ListScrappingSubscription extends Subscription {
 
-    private final String url;
+    private final ListScrapping listScrapping;
 
     private final ContentScrapping contentScrapping;
 
-    FeedSubscription(
+    ListScrappingSubscription(
             SubscriptionId id,
-            String url,
+            ListScrapping listScrapping,
             ContentScrapping contentScrapping
     ) {
-        super(id, SubscriptionType.FEED);
-        this.url = url;
+        super(id, SubscriptionType.LIST_SCRAPPING);
+        this.listScrapping = listScrapping;
         this.contentScrapping = contentScrapping;
     }
 
     @Override
     public boolean isInitRequired() {
-        return false;
+        return true;
     }
 
-    public String getUrl() {
-        return url;
+    public ListScrapping getListScrapping() {
+        return listScrapping;
     }
 
     public ContentScrapping getContentScrapping() {
         return contentScrapping;
     }
-
 }

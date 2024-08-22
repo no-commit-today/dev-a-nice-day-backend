@@ -1,10 +1,12 @@
 package com.nocommittoday.techswipe.domain.collection;
 
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategorizeUnableException;
+import com.nocommittoday.techswipe.domain.collection.exception.CollectionInitializationFailureException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionSummarizeUnableException;
 import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.subscription.SubscriptionId;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
@@ -23,6 +25,8 @@ public class CollectedContent {
 
     private final TechContentProviderId providerId;
 
+    private final SubscriptionId subscriptionId;
+
     private final String url;
 
     private final String title;
@@ -35,32 +39,11 @@ public class CollectedContent {
 
     public CollectedContent(
             CollectedContentId id,
-            TechContentProviderId providerId,
-            String url,
-            String title,
-            LocalDate publishedDate,
-            String content,
-            @Nullable String imageUrl
-    ) {
-        this.id = id;
-        this.status = CollectionStatus.INIT;
-        this.categoryList = null;
-        this.summary = null;
-        this.providerId = providerId;
-        this.url = url;
-        this.title = title;
-        this.publishedDate = publishedDate;
-        this.content = content;
-        this.imageUrl = imageUrl;
-    }
-
-    // FIXME 해당 생성자를 사용하지 않는 방법 고민해야 겠음. status 가 도메인 로직에 의해서 변경되어야 함
-    public CollectedContent(
-            CollectedContentId id,
             CollectionStatus status,
             @Nullable CollectionCategoryList categoryList,
             @Nullable Summary summary,
             TechContentProviderId providerId,
+            SubscriptionId subscriptionId,
             String url,
             String title,
             LocalDate publishedDate,
@@ -72,6 +55,7 @@ public class CollectedContent {
         this.categoryList = categoryList;
         this.summary = summary;
         this.providerId = providerId;
+        this.subscriptionId = subscriptionId;
         this.url = url;
         this.title = title;
         this.publishedDate = publishedDate;
@@ -80,20 +64,65 @@ public class CollectedContent {
     }
 
     public static CollectedContent collect(
-            ContentCollect contentCollect
+            CollectedContentId id,
+            boolean initialized,
+            TechContentProviderId providerId,
+            SubscriptionId subscriptionId,
+            String url,
+            @Nullable String title,
+            @Nullable LocalDate publishedDate,
+            @Nullable String content,
+            @Nullable String imageUrl
     ) {
-        return new CollectedContent(
-                contentCollect.id(),
-                CollectionStatus.INIT,
+        CollectedContent collectedContent = new CollectedContent(
+                id,
+                initialized ? CollectionStatus.INIT : CollectionStatus.COLLECTED,
                 null,
                 null,
-                contentCollect.providerId(),
-                contentCollect.url(),
-                contentCollect.title(),
-                contentCollect.publishedDate(),
-                contentCollect.content(),
-                contentCollect.imageUrl()
+                providerId,
+                subscriptionId,
+                url,
+                title,
+                publishedDate,
+                content,
+                imageUrl
         );
+        collectedContent.validateInitialized();
+        return collectedContent;
+    }
+
+    public CollectedContent initialize(
+            @Nullable String title,
+            @Nullable LocalDate publishedDate,
+            @Nullable String content,
+            @Nullable String imageUrl
+    ) {
+        CollectedContent collectedContent = new CollectedContent(
+                this.id,
+                CollectionStatus.INIT,
+                this.categoryList,
+                this.summary,
+                this.providerId,
+                this.subscriptionId,
+                this.url,
+                title != null ? title : this.title,
+                publishedDate != null ? publishedDate : this.publishedDate,
+                content != null ? content : this.content,
+                imageUrl != null ? imageUrl : this.imageUrl
+        );
+
+        collectedContent.validateInitialized();
+        return collectedContent;
+    }
+
+    private void validateInitialized() {
+        if (CollectionStatus.COLLECTED == status) {
+            return;
+        }
+
+        if (title == null || publishedDate == null || content == null) {
+            throw new CollectionInitializationFailureException(id);
+        }
     }
 
     public CollectedContent categorize(CollectionCategoryList categoryList) {
@@ -109,6 +138,7 @@ public class CollectedContent {
                 categoryList,
                 summary,
                 providerId,
+                subscriptionId,
                 url,
                 title,
                 publishedDate,
@@ -128,6 +158,7 @@ public class CollectedContent {
                 categoryList,
                 summary,
                 providerId,
+                subscriptionId,
                 url,
                 title,
                 publishedDate,
@@ -146,6 +177,7 @@ public class CollectedContent {
                 categoryList,
                 summary,
                 providerId,
+                subscriptionId,
                 url,
                 title,
                 publishedDate,
@@ -165,6 +197,7 @@ public class CollectedContent {
                 categoryList,
                 summary,
                 providerId,
+                subscriptionId,
                 url,
                 title,
                 publishedDate,
@@ -183,6 +216,7 @@ public class CollectedContent {
                 categoryList,
                 summary,
                 providerId,
+                subscriptionId,
                 url,
                 title,
                 publishedDate,
