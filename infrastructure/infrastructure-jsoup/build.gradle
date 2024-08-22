@@ -1,0 +1,5 @@
+dependencies {
+    api(project(":infrastructure:infrastructure-web-core"))
+    implementation("org.jsoup:jsoup:${jsoupVersion}")
+
+}

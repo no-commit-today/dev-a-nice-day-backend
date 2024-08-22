@@ -21,6 +21,7 @@ include("infrastructure:infrastructure-aws")
 include("infrastructure:infrastructure-openai")
 include("infrastructure:infrastructure-jwt")
 include("infrastructure:infrastructure-feed")
+include("infrastructure:infrastructure-jsoup")
 include("infrastructure:infrastructure-web-core")
 
 include("storage:storage-mysql")
