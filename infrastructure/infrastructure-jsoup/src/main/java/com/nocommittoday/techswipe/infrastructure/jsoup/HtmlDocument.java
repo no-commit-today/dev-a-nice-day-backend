@@ -62,6 +62,14 @@ public class HtmlDocument {
         return element.select("a").eachAttr("abs:href");
     }
 
+    public String htmlBySelector(String selector) {
+        return elementBySelect(selector).html();
+    }
+
+    public String htmlByIndexes(List<Integer> indexes) {
+        return elementByIndex(indexes).html();
+    }
+
     private Element elementByIndex(List<Integer> indexes) {
         Element element = document.body();
         element.select("style").remove();

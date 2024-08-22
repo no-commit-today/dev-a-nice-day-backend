@@ -6,6 +6,8 @@ dependencies {
 
     implementation(project(":infrastructure:infrastructure-aws"))
     implementation(project(":infrastructure:infrastructure-openai"))
+    implementation(project(":infrastructure:infrastructure-jsoup"))
+    implementation(project(":infrastructure:infrastructure-feed"))
 
     implementation(project(":storage:storage-mysql"))
 
