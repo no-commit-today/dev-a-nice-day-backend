@@ -20,7 +20,11 @@ public class TechContentProviderEntityBuilder {
     private ImageEntity icon;
 
     public static TechContentProviderEntity create() {
-        return new TechContentProviderEntityBuilder().build();
+        return create(false);
+    }
+
+    public static TechContentProviderEntity create(boolean withId) {
+        return new TechContentProviderEntityBuilder().build(withId);
     }
 
     public TechContentProviderEntityBuilder() {
@@ -52,7 +56,11 @@ public class TechContentProviderEntityBuilder {
     }
 
     public TechContentProviderEntity build() {
-        fillRequiredFields();
+        return build(false);
+    }
+
+    public TechContentProviderEntity build(boolean withId) {
+        fillRequiredFields(withId);
         return new TechContentProviderEntity(
             id,
             type,
@@ -62,11 +70,11 @@ public class TechContentProviderEntityBuilder {
         );
     }
 
-    private void fillRequiredFields() {
-        if (id == null) {
+    private void fillRequiredFields(boolean withId) {
+        if (withId && id == null) {
             id = LocalAutoIncrementIdUtils.nextId();
         }
-        long fieldId = id;
+        long fieldId = id != null ? id : LocalAutoIncrementIdUtils.nextId();
 
         if (type == null) {
             type = TechContentProviderType.DOMESTIC_COMPANY_BLOG;

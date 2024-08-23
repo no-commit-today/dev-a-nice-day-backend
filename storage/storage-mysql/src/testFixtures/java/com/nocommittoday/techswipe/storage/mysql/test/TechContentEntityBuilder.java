@@ -30,7 +30,11 @@ public class TechContentEntityBuilder {
     private List<TechCategory> categories;
 
     public static TechContentEntity create() {
-        return new TechContentEntityBuilder().build();
+        return create(false);
+    }
+
+    public static TechContentEntity create(boolean withId) {
+        return new TechContentEntityBuilder().build(withId);
     }
 
     public TechContentEntityBuilder() {
@@ -81,7 +85,11 @@ public class TechContentEntityBuilder {
     }
 
     public TechContentEntity build() {
-        fillRequiredFields();
+        return build(false);
+    }
+
+    public TechContentEntity build(boolean withId) {
+        fillRequiredFields(withId);
         TechContentEntity entity = new TechContentEntity(
                 id,
                 provider,
@@ -95,11 +103,11 @@ public class TechContentEntityBuilder {
         return entity;
     }
 
-    private void fillRequiredFields() {
-        if (id == null) {
+    private void fillRequiredFields(boolean withId) {
+        if (withId && id == null) {
             id = LocalAutoIncrementIdUtils.nextId();
         }
-        long fieldId = id;
+        long fieldId = id != null ? id : LocalAutoIncrementIdUtils.nextId();
 
         if (provider == null) {
             provider = TechContentProviderEntityBuilder.create();

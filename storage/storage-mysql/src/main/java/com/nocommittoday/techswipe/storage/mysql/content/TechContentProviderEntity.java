@@ -66,16 +66,6 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
         this.icon = icon;
     }
 
-    public static TechContentProviderEntity from(TechContentProviderId id) {
-        return new TechContentProviderEntity(
-                id.value(),
-                null,
-                null,
-                null,
-                null
-        );
-    }
-
     public TechContentProvider toDomain() {
         return new TechContentProvider(
                 new TechContentProviderId(id),
