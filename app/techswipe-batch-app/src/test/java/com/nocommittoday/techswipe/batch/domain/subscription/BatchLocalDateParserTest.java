@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class BatchLocalDateParserTest {
 
-    private com.nocommittoday.techswipe.domain.subscription.LocalDateParser localDateParser;
+    private BatchLocalDateParser localDateParser;
 
     @BeforeEach
     void setUp() {
@@ -21,7 +21,7 @@ class BatchLocalDateParserTest {
                 LocalDate.of(2024, 6, 17)
                         .atStartOfDay(zoneId).toInstant(),
                 zoneId);
-        localDateParser = new LocalDateParser(clock);
+        localDateParser = new BatchLocalDateParser(clock);
     }
 
     @Test
