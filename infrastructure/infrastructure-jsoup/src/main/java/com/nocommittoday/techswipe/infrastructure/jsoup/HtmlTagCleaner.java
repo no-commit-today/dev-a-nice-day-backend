@@ -13,15 +13,7 @@ public class HtmlTagCleaner {
 
     public String clean(String html) {
         Document document = Jsoup.parse(html);
-        return clean(document);
-    }
-
-    public String clean(Document document) {
         Element element = document.body();
-        return clean(element);
-    }
-
-    public String clean(Element element) {
         element.select("style").remove();
 
         StringBuilder sb = new StringBuilder();
