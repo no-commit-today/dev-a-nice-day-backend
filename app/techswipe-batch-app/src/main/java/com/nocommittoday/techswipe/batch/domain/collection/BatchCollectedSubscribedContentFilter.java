@@ -38,7 +38,7 @@ public class BatchCollectedSubscribedContentFilter {
     }
 
     public boolean hasNext() {
-        return !contents.isEmpty();
+        return urlSet.isEmpty() && !contents.isEmpty();
     }
 
     public List<SubscribedContent> filter() {
