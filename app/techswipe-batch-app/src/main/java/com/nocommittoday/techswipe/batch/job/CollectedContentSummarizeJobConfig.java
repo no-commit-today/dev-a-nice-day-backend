@@ -3,7 +3,7 @@ package com.nocommittoday.techswipe.batch.job;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentSummarizeProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslZeroPagingItemReader;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
-import com.nocommittoday.techswipe.infrastructure.collection.SummarizationProcessor;
+import com.nocommittoday.techswipe.infrastructure.openai.collection.SummarizationProcessor;
 import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import jakarta.persistence.EntityManagerFactory;

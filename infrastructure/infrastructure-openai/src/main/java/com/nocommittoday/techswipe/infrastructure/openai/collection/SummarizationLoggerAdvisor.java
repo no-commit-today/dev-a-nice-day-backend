@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.infrastructure.collection;
+package com.nocommittoday.techswipe.infrastructure.openai.collection;
 
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import org.slf4j.Logger;
@@ -11,13 +11,13 @@ import reactor.core.publisher.Flux;
 
 import java.util.Map;
 
-class CategorizationLoggerAdvisor implements RequestResponseAdvisor {
+class SummarizationLoggerAdvisor implements RequestResponseAdvisor {
 
-    private static final Logger log = LoggerFactory.getLogger(CategorizationLoggerAdvisor.class);
+    private static final Logger log = LoggerFactory.getLogger(SummarizationLoggerAdvisor.class);
 
     private final CollectedContent collectedContent;
 
-    public CategorizationLoggerAdvisor(CollectedContent collectedContent) {
+    public SummarizationLoggerAdvisor(CollectedContent collectedContent) {
         this.collectedContent = collectedContent;
     }
 
@@ -26,8 +26,8 @@ class CategorizationLoggerAdvisor implements RequestResponseAdvisor {
     @Override
     public AdvisedRequest adviseRequest(AdvisedRequest request, Map<String, Object> context) {
         OpenAiChatOptions openAiChatOptions = (OpenAiChatOptions) request.chatOptions();
-        log.trace("분류 요청 전체 내용[{}]: {}", collectedContent.getId(), request);
-        log.info("분류 요청 id={}, model={}", collectedContent.getId(), openAiChatOptions.getModel());
+        log.trace("요약 요청 전체 내용[{}]: {}", collectedContent.getId(), request);
+        log.info("요약 요청 id={}, model={}", collectedContent.getId(), openAiChatOptions.getModel());
         startTime = System.currentTimeMillis();
         return request;
     }
@@ -47,8 +47,8 @@ class CategorizationLoggerAdvisor implements RequestResponseAdvisor {
     }
 
     private void responseLog(ChatResponse response) {
-        log.trace("분류 응답 전체 내용[{}]: {}", collectedContent.getId(), response);
-        log.info("분류 응답 [{}]: promptToken={}, generationToken={}, totalToken={}, 소요시간={}s",
+        log.trace("요약 응답 전체 내용[{}]: {}", collectedContent.getId(), response);
+        log.info("요약 응답 [{}]: promptToken={}, generationToken={}, totalToken={}, 소요시간={}s",
                 collectedContent.getId(),
                 response.getMetadata().getUsage().getPromptTokens(),
                 response.getMetadata().getUsage().getGenerationTokens(),

@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.infrastructure.collection;
+package com.nocommittoday.techswipe.infrastructure.openai.collection;
 
 import com.nocommittoday.techswipe.domain.collection.CollectionCategoryList;
 
