@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.config;
 
-import com.nocommittoday.techswipe.infrastructure.user.JwtAccessTokenDecoder;
+import com.nocommittoday.techswipe.infrastructure.jwt.user.JwtAccessTokenDecoder;
 import com.nocommittoday.techswipe.support.ApiUserArgumentResolver;
 import com.nocommittoday.techswipe.support.ApiUserOrGuestArgumentResolver;
 import org.springframework.context.annotation.Configuration;

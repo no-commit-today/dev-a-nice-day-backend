@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import com.nocommittoday.techswipe.domain.test.RefreshTokenDecodedBuilder;
 import com.nocommittoday.techswipe.domain.user.RefreshTokenDecoded;
 import com.nocommittoday.techswipe.domain.user.UserLogoutService;
-import com.nocommittoday.techswipe.infrastructure.user.JwtRefreshTokenDecoder;
+import com.nocommittoday.techswipe.infrastructure.jwt.user.JwtRefreshTokenDecoder;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

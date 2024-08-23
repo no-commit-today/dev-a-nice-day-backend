@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.infrastructure.user;
+package com.nocommittoday.techswipe.infrastructure.jwt.user;
 
 import com.nocommittoday.techswipe.domain.user.AccessToken;
 import com.nocommittoday.techswipe.domain.user.AccessTokenDecoded;

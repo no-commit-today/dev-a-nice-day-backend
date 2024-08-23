@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.infrastructure.user;
+package com.nocommittoday.techswipe.infrastructure.jwt.user;
 
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;

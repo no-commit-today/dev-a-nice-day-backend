@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.controller.user.v1;
 
 import com.nocommittoday.techswipe.controller.user.v1.request.LogoutRequest;
 import com.nocommittoday.techswipe.domain.user.UserLogoutService;
-import com.nocommittoday.techswipe.infrastructure.user.JwtRefreshTokenDecoder;
+import com.nocommittoday.techswipe.infrastructure.jwt.user.JwtRefreshTokenDecoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
