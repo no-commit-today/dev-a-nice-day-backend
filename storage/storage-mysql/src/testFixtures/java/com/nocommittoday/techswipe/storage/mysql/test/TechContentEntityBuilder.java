@@ -110,7 +110,7 @@ public class TechContentEntityBuilder {
         long fieldId = id != null ? id : LocalAutoIncrementIdUtils.nextId();
 
         if (provider == null) {
-            provider = TechContentProviderEntityBuilder.create();
+            provider = TechContentProviderEntityBuilder.create(true);
         }
         if (url == null) {
             url = "content-url-" + fieldId;
