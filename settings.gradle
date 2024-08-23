@@ -27,7 +27,6 @@ include("infrastructure:infrastructure-web-core")
 include("storage:storage-mysql")
 
 include("client:client-core")
-include("client:feed-client")
 include("client:oauth2-client")
 
 include("support:monitoring")
