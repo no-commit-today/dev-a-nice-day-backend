@@ -1,7 +1,8 @@
-package com.nocommittoday.techswipe.storage.mysql.image;
-
+package com.nocommittoday.techswipe.storage.mysql.batch;
 
 import com.nocommittoday.techswipe.domain.image.ImageId;
+import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;
+import com.nocommittoday.techswipe.storage.mysql.image.ImageJpaRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,10 +14,10 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
-class ImageEntityMapperTest {
+class BatchImageEntityMapperTest {
 
     @InjectMocks
-    private ImageEntityMapper imageEntityMapper;
+    private BatchImageEntityMapper imageEntityMapper;
 
     @Mock
     private ImageJpaRepository imageJpaRepository;
@@ -46,5 +47,4 @@ class ImageEntityMapperTest {
         // then
         assertThat(result).isNull();
     }
-
 }

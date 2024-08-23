@@ -9,9 +9,9 @@ import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.domain.image.exception.ImageApplicationException;
 import com.nocommittoday.techswipe.infrastructure.aws.image.ImageStore;
 import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
+import com.nocommittoday.techswipe.storage.mysql.batch.BatchTechContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
-import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntityMapper;
 import jakarta.persistence.EntityManagerFactory;
 import org.javatuples.Pair;
 import org.springframework.batch.core.Job;
@@ -41,7 +41,7 @@ public class CollectedContentPublishJobConfig {
 
     private final ImageStore imageStore;
     private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
-    private final TechContentEntityMapper techContentEntityMapper;
+    private final BatchTechContentEntityMapper techContentEntityMapper;
 
     public CollectedContentPublishJobConfig(
             JobRepository jobRepository,
@@ -49,7 +49,7 @@ public class CollectedContentPublishJobConfig {
             EntityManagerFactory emf,
             ImageStore imageStore,
             BatchCollectedContentEntityMapper collectedContentEntityMapper,
-            TechContentEntityMapper techContentEntityMapper
+            BatchTechContentEntityMapper techContentEntityMapper
     ) {
         this.jobRepository = jobRepository;
         this.txManager = txManager;

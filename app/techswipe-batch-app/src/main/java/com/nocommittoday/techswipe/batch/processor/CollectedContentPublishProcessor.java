@@ -7,9 +7,9 @@ import com.nocommittoday.techswipe.domain.content.TechContentCreate;
 import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.infrastructure.aws.image.ImageStore;
 import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
+import com.nocommittoday.techswipe.storage.mysql.batch.BatchTechContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
-import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntityMapper;
 import org.javatuples.Pair;
 import org.springframework.batch.item.ItemProcessor;
 
@@ -21,12 +21,12 @@ public class CollectedContentPublishProcessor
 
     private final ImageStore imageStore;
     private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
-    private final TechContentEntityMapper techContentEntityMapper;
+    private final BatchTechContentEntityMapper techContentEntityMapper;
 
     public CollectedContentPublishProcessor(
             ImageStore imageStore,
             BatchCollectedContentEntityMapper collectedContentEntityMapper,
-            TechContentEntityMapper techContentEntityMapper
+            BatchTechContentEntityMapper techContentEntityMapper
     ) {
         this.imageStore = imageStore;
         this.collectedContentEntityMapper = collectedContentEntityMapper;

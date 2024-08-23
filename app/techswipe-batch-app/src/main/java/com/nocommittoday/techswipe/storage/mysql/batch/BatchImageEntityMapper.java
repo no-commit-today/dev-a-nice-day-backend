@@ -1,17 +1,19 @@
-package com.nocommittoday.techswipe.storage.mysql.image;
+package com.nocommittoday.techswipe.storage.mysql.batch;
 
 import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.domain.image.ImageSave;
+import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;
+import com.nocommittoday.techswipe.storage.mysql.image.ImageJpaRepository;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nullable;
 
 @Component
-public class ImageEntityMapper {
+public class BatchImageEntityMapper {
 
     private final ImageJpaRepository imageJpaRepository;
 
-    public ImageEntityMapper(ImageJpaRepository imageJpaRepository) {
+    public BatchImageEntityMapper(ImageJpaRepository imageJpaRepository) {
         this.imageJpaRepository = imageJpaRepository;
     }
 

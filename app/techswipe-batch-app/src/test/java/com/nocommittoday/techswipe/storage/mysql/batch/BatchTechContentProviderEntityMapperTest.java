@@ -1,11 +1,12 @@
-package com.nocommittoday.techswipe.storage.mysql.content;
+package com.nocommittoday.techswipe.storage.mysql.batch;
 
 import com.nocommittoday.techswipe.domain.content.TechContentProviderCreate;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
 import com.nocommittoday.techswipe.domain.image.ImageId;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderJpaRepository;
 import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;
-import com.nocommittoday.techswipe.storage.mysql.image.ImageEntityMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,18 +17,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
-
 @ExtendWith(MockitoExtension.class)
-class TechContentProviderEntityMapperTest {
+class BatchTechContentProviderEntityMapperTest {
 
     @InjectMocks
-    private TechContentProviderEntityMapper techContentProviderEntityMapper;
+    private BatchTechContentProviderEntityMapper techContentProviderEntityMapper;
 
     @Mock
     private TechContentProviderJpaRepository techContentProviderJpaRepository;
 
     @Mock
-    private ImageEntityMapper imageEntityMapper;
+    private BatchImageEntityMapper imageEntityMapper;
 
     @Test
     void 도메인_엔티티_ID로부터_생성할_수_있다() {

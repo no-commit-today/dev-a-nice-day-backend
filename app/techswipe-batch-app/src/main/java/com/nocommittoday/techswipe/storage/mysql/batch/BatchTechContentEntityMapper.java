@@ -1,22 +1,23 @@
-package com.nocommittoday.techswipe.storage.mysql.content;
+package com.nocommittoday.techswipe.storage.mysql.batch;
 
 import com.nocommittoday.techswipe.domain.content.TechContent;
 import com.nocommittoday.techswipe.domain.content.TechContentCreate;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
-import com.nocommittoday.techswipe.storage.mysql.image.ImageEntityMapper;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentJpaRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TechContentEntityMapper {
+public class BatchTechContentEntityMapper {
 
     private final TechContentJpaRepository techContentJpaRepository;
-    private final TechContentProviderEntityMapper techContentProviderEntityMapper;
-    private final ImageEntityMapper imageEntityMapper;
+    private final BatchTechContentProviderEntityMapper techContentProviderEntityMapper;
+    private final BatchImageEntityMapper imageEntityMapper;
 
-    public TechContentEntityMapper(
+    public BatchTechContentEntityMapper(
             TechContentJpaRepository techContentJpaRepository,
-            TechContentProviderEntityMapper techContentProviderEntityMapper,
-            ImageEntityMapper imageEntityMapper
+            BatchTechContentProviderEntityMapper techContentProviderEntityMapper,
+            BatchImageEntityMapper imageEntityMapper
     ) {
         this.techContentJpaRepository = techContentJpaRepository;
         this.techContentProviderEntityMapper = techContentProviderEntityMapper;
