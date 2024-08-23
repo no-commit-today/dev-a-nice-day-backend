@@ -38,6 +38,7 @@ public class BatchSubscribedContentCollectService {
             }
 
             BatchCollectedSubscribedContentFilter contentFilter = filterCreator.create(currentPageContents);
+            contents.addAll(contentFilter.filter());
 
             if (!contentFilter.hasNext()) {
                 break;
