@@ -30,11 +30,7 @@ public class TechContentEntityBuilder {
     private List<TechCategory> categories;
 
     public static TechContentEntity create() {
-        return create(false);
-    }
-
-    public static TechContentEntity create(boolean withId) {
-        return new TechContentEntityBuilder().build(withId);
+        return new TechContentEntityBuilder().build();
     }
 
     public TechContentEntityBuilder() {
@@ -85,11 +81,7 @@ public class TechContentEntityBuilder {
     }
 
     public TechContentEntity build() {
-        return build(false);
-    }
-
-    public TechContentEntity build(boolean withId) {
-        fillRequiredFields(withId);
+        fillRequiredFields();
         TechContentEntity entity = new TechContentEntity(
                 id,
                 provider,
@@ -103,23 +95,22 @@ public class TechContentEntityBuilder {
         return entity;
     }
 
-    private void fillRequiredFields(boolean withId) {
-        if (withId && id == null) {
+    private void fillRequiredFields() {
+        if (id == null) {
             id = LocalAutoIncrementIdUtils.nextId();
         }
-        long fieldId = id != null ? id : LocalAutoIncrementIdUtils.nextId();
 
         if (provider == null) {
-            provider = TechContentProviderEntityBuilder.create(true);
+            provider = TechContentProviderEntityBuilder.create();
         }
         if (url == null) {
-            url = "content-url-" + fieldId;
+            url = "content-url-" + id;
         }
         if (title == null) {
-            title = "content-title-" + fieldId;
+            title = "content-title-" + id;
         }
         if (summary == null) {
-            summary = "content-summary-" + fieldId;
+            summary = "content-summary-" + id;
         }
         if (publishedDate == null) {
             publishedDate = LocalDate.of(2021, 1, 1);

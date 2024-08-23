@@ -28,7 +28,7 @@ class TechContentSwipeQueryReaderTest {
     @Test
     void 스와이프_쿼리를_읽을_수_있다() {
         // given
-        TechContentEntity techContentEntity = TechContentEntityBuilder.create(true);
+        TechContentEntity techContentEntity = TechContentEntityBuilder.create();
         PageParam pageParam = new PageParam(1, 10);
         List<TechCategory> categories = List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING);
         given(techContentJpaRepository.findAllWithAllByCategoryInOrderByPublishedDateDescAndNotDeleted(
