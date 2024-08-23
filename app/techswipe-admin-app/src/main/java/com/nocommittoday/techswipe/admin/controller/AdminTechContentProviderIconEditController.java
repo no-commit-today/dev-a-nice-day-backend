@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.admin.domain.AdminTechContentProviderIconEdit
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.domain.user.AdminApiUser;
-import com.nocommittoday.techswipe.infrastructure.image.ImageStore;
+import com.nocommittoday.techswipe.infrastructure.aws.image.ImageStore;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;

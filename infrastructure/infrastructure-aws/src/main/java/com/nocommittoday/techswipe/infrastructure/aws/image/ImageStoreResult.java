@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.infrastructure.image;
+package com.nocommittoday.techswipe.infrastructure.aws.image;
 
 import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.domain.image.exception.ImageApplicationException;

@@ -1,4 +1,4 @@
-package com.nocommittoday.techswipe.infrastructure.image;
+package com.nocommittoday.techswipe.infrastructure.aws.image;
 
 import com.nocommittoday.techswipe.client.core.ClientResponse;
 import com.nocommittoday.techswipe.domain.core.UuidHolder;
