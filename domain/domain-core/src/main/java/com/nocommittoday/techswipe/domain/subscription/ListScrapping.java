@@ -19,7 +19,14 @@ public class ListScrapping {
     private final String contentUrlFormat;
 
     public ListScrapping(
-            String url, Scrapping scrapping, @Nullable String pageUrlFormat, @Nullable String contentUrlFormat) {
+            String url, Scrapping scrapping, @Nullable String pageUrlFormat, @Nullable String contentUrlFormat
+    ) {
+        if (pageUrlFormat != null && !pageUrlFormat.contains(PAGE_URL_PAGE_PLACEHOLDER)) {
+            throw new IllegalArgumentException("페이지 URL 포맷이 잘못되었습니다. url: " + url);
+        }
+        if (contentUrlFormat != null && !contentUrlFormat.contains(CONTENT_URL_ID_PLACEHOLDER)) {
+            throw new IllegalArgumentException("컨텐츠 URL 포맷이 잘못되었습니다. url: " + url);
+        }
         this.url = url;
         this.scrapping = scrapping;
         this.pageUrlFormat = pageUrlFormat;
@@ -48,7 +55,7 @@ public class ListScrapping {
             return true;
         }
 
-        return url.matches(contentUrlFormat.replace(CONTENT_URL_ID_PLACEHOLDER, ".+"));
+        return url.matches(contentUrlFormat.replace(CONTENT_URL_ID_PLACEHOLDER, "[가-힣a-zA-Z0-9\\-_]+"));
     }
 
     public String getUrl() {
