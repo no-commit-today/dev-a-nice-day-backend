@@ -21,7 +21,7 @@ public class FeedSubscription extends Subscription {
 
     @Override
     public boolean isInitRequired() {
-        return false;
+        return true;
     }
 
     public String getUrl() {
