@@ -115,6 +115,23 @@ public class CollectedContent {
         );
 
         collectedContent.validateInitialized();
+
+        if (collectedContent.calculateContentTokenCount() < MIN_TOKEN_COUNT) {
+            return new CollectedContent(
+                    collectedContent.getId(),
+                    CollectionStatus.FILTERED,
+                    collectedContent.getCategoryList(),
+                    collectedContent.getSummary(),
+                    collectedContent.getProviderId(),
+                    collectedContent.getSubscriptionId(),
+                    collectedContent.getUrl(),
+                    collectedContent.getTitle(),
+                    collectedContent.getPublishedDate(),
+                    collectedContent.getContent(),
+                    collectedContent.getImageUrl()
+            );
+        }
+
         return collectedContent;
     }
 
@@ -126,14 +143,9 @@ public class CollectedContent {
         if (title == null || publishedDate == null || content == null) {
             throw new CollectionInitializationFailureException(id);
         }
-
-        int tokenCount = calculateContentTokenCount();
-        if (tokenCount < MIN_TOKEN_COUNT) {
-            throw new CollectionInitializationFailureException(id, tokenCount);
-        }
     }
 
-    private int calculateContentTokenCount() {
+    public int calculateContentTokenCount() {
         return (int) Arrays.stream(content.split("[ \t\n]"))
                 .filter(token -> !token.isBlank())
                 .count();
@@ -244,6 +256,7 @@ public class CollectedContent {
         return categoryList;
     }
 
+    @Nullable
     public String getContent() {
         return content;
     }
@@ -252,6 +265,7 @@ public class CollectedContent {
         return id;
     }
 
+    @Nullable
     public String getImageUrl() {
         return imageUrl;
     }
@@ -264,6 +278,7 @@ public class CollectedContent {
         return subscriptionId;
     }
 
+    @Nullable
     public LocalDate getPublishedDate() {
         return publishedDate;
     }
@@ -277,6 +292,7 @@ public class CollectedContent {
         return summary;
     }
 
+    @Nullable
     public String getTitle() {
         return title;
     }

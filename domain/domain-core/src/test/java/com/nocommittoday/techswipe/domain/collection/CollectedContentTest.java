@@ -20,19 +20,20 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class CollectedContentTest {
 
     @Test
-    void 컨텐츠_내용의_토큰이_100개_미만일_경우_초기화될_수_없다() {
+    void 컨텐츠_내용의_토큰이_100개_미만일_경우_초기화시_필터상태가_된다() {
         // given
         String content = "이것은 테스트입니다.";
         CollectedContent collected = CollectedContentBuilder.createCollected();
 
         // when
-        // then
-        assertThatThrownBy(() -> collected.initialize(
+        CollectedContent result = collected.initialize(
                 "title",
                 LocalDate.of(2021, 1, 1),
                 content,
                 "imageUrl"
-        )).isInstanceOf(CollectionInitializationFailureException.class);
+        );
+        // then
+        assertThat(result.getStatus()).isEqualTo(CollectionStatus.FILTERED);
     }
 
     @Test
