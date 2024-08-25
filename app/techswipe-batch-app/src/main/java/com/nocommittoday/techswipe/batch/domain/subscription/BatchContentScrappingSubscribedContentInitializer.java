@@ -43,7 +43,9 @@ public class BatchContentScrappingSubscribedContentInitializer implements BatchS
         return content.initialize(
                 DocumentScrappingHelper.scrap(htmlDocument, contentScrapping.getTitle()),
                 DocumentScrappingHelper.scrap(htmlDocument, contentScrapping.getImage()),
-                localDateParser.parse(DocumentScrappingHelper.scrap(htmlDocument, contentScrapping.getDate())),
+                Optional.ofNullable(DocumentScrappingHelper.scrap(htmlDocument, contentScrapping.getDate()))
+                        .map(localDateParser::parse)
+                        .orElse(null),
                 Optional.ofNullable(DocumentScrappingHelper.html(htmlDocument, contentScrapping.getContent()))
                         .map(htmlTagCleaner::clean)
                         .orElse(null)
