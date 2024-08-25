@@ -1,41 +1,59 @@
 package com.nocommittoday.techswipe.infrastructure.web;
 
+import org.springframework.web.client.HttpClientErrorException;
+
 import javax.annotation.Nullable;
 import java.util.Objects;
 
 public class ClientResponse<T> {
 
-    private final ClientResponseType type;
     @Nullable private final T data;
     @Nullable private final ClientException exception;
 
-    private ClientResponse(ClientResponseType type, @Nullable T data, @Nullable ClientException exception) {
-        this.type = type;
+    private ClientResponse(@Nullable T data, @Nullable ClientException exception) {
         this.data = data;
         this.exception = exception;
     }
 
     public static <T> ClientResponse<T> success(T data) {
-        return new ClientResponse<>(ClientResponseType.SUCCESS, data, null);
+        return new ClientResponse<>(data, null);
     }
 
-    public static <T> ClientResponse<T> fail(ClientResponseType type, Exception ex) {
-        return new ClientResponse<>(type, null, new ClientException(ex));
+    public static <T> ClientResponse<T> fail(Exception ex) {
+        return switch (ex) {
+            case HttpClientErrorException.NotFound notFound -> new ClientResponse<>(
+                    null, new ClientException.NotFound(notFound));
+            case HttpClientErrorException.Unauthorized unauthorized -> new ClientResponse<>(
+                    null, new ClientException.Unauthorized(unauthorized));
+            default -> new ClientResponse<>(null, new ClientException(ex));
+        };
     }
 
-    public ClientResponseType getType() {
-        return type;
+    public boolean isSuccess() {
+        return this.exception == null;
+    }
+
+    public boolean isError() {
+        return this.exception != null;
+    }
+
+    public boolean isNotFound() {
+        return this.exception instanceof ClientException.NotFound;
+    }
+
+    public boolean isUnauthorized() {
+        return this.exception instanceof ClientException.Unauthorized;
     }
 
     public T getData() {
-        if (ClientResponseType.SUCCESS != type) {
+        if (!isSuccess()) {
             throw new IllegalStateException("클라이언트 응답이 실패해서 데이터를 가져올 수 없습니다.");
         }
         return Objects.requireNonNull(data);
     }
 
     public ClientException getException() {
-        if (ClientResponseType.SUCCESS == type) {
+        if (!isError()) {
             throw new IllegalStateException("클라이언트 응답이 성공해서 예외를 가져올 수 없습니다.");
         }
         return Objects.requireNonNull(exception);

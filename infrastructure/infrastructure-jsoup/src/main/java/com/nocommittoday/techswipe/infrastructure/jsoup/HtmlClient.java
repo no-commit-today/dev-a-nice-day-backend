@@ -2,7 +2,6 @@ package com.nocommittoday.techswipe.infrastructure.jsoup;
 
 import com.nocommittoday.techswipe.infrastructure.web.ClientLoggingInterceptor;
 import com.nocommittoday.techswipe.infrastructure.web.ClientResponse;
-import com.nocommittoday.techswipe.infrastructure.web.ClientResponseType;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -29,8 +28,8 @@ public class HtmlClient {
                             .retrieve()
                             .body(String.class)
             );
-        } catch (HttpClientErrorException.NotFound e) {
-            return ClientResponse.fail(ClientResponseType.NOT_FOUND, e);
+        } catch (HttpClientErrorException e) {
+            return ClientResponse.fail(e);
         }
     }
 }

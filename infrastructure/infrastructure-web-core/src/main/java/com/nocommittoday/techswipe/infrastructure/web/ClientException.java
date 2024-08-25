@@ -2,18 +2,19 @@ package com.nocommittoday.techswipe.infrastructure.web;
 
 public class ClientException extends RuntimeException {
 
-    public ClientException() {
-    }
-
     public ClientException(Exception cause) {
         super(cause);
     }
 
-    public ClientException(String message) {
-        super(message);
+    public static class NotFound extends ClientException {
+        NotFound(Exception cause) {
+            super(cause);
+        }
     }
 
-    public ClientException(String message, Exception cause) {
-        super(message, cause);
+    public static class Unauthorized extends ClientException {
+        Unauthorized(Exception cause) {
+            super(cause);
+        }
     }
 }

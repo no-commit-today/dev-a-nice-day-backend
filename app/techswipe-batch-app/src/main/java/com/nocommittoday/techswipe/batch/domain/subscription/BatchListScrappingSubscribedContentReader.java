@@ -4,17 +4,16 @@ import com.nocommittoday.techswipe.batch.domain.subscription.exception.NotSuppor
 import com.nocommittoday.techswipe.domain.subscription.IndexScrapping;
 import com.nocommittoday.techswipe.domain.subscription.ListScrapping;
 import com.nocommittoday.techswipe.domain.subscription.ListScrappingSubscription;
-import com.nocommittoday.techswipe.domain.subscription.SubscribedContent;
-import com.nocommittoday.techswipe.domain.subscription.Subscription;
 import com.nocommittoday.techswipe.domain.subscription.Scrapping;
 import com.nocommittoday.techswipe.domain.subscription.ScrappingType;
 import com.nocommittoday.techswipe.domain.subscription.SelectorScrapping;
+import com.nocommittoday.techswipe.domain.subscription.SubscribedContent;
+import com.nocommittoday.techswipe.domain.subscription.Subscription;
 import com.nocommittoday.techswipe.domain.subscription.SubscriptionType;
 import com.nocommittoday.techswipe.infrastructure.jsoup.HtmlClient;
 import com.nocommittoday.techswipe.infrastructure.jsoup.HtmlDocument;
 import com.nocommittoday.techswipe.infrastructure.jsoup.HtmlDocumentCreator;
 import com.nocommittoday.techswipe.infrastructure.web.ClientResponse;
-import com.nocommittoday.techswipe.infrastructure.web.ClientResponseType;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashSet;
@@ -44,7 +43,7 @@ public class BatchListScrappingSubscribedContentReader implements BatchSubscribe
         } else if (listScrapping.isPaginated()) {
             String url = listScrapping.getPageUrl(page);
             ClientResponse<String> htmlResponse = htmlClient.get(url);
-            if (ClientResponseType.NOT_FOUND == htmlResponse.getType()) {
+            if (htmlResponse.isNotFound()) {
                 return List.of();
             }
 
