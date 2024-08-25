@@ -47,7 +47,7 @@ public class ClientResponse<T> {
 
     public T getData() {
         if (!isSuccess()) {
-            throw new IllegalStateException("클라이언트 응답이 실패해서 데이터를 가져올 수 없습니다.");
+            throw Objects.requireNonNull(this.exception);
         }
         return Objects.requireNonNull(data);
     }

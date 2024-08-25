@@ -117,22 +117,26 @@ public class CollectedContent {
         collectedContent.validateInitialized();
 
         if (collectedContent.calculateContentTokenCount() < MIN_TOKEN_COUNT) {
-            return new CollectedContent(
-                    collectedContent.getId(),
-                    CollectionStatus.FILTERED,
-                    collectedContent.getCategoryList(),
-                    collectedContent.getSummary(),
-                    collectedContent.getProviderId(),
-                    collectedContent.getSubscriptionId(),
-                    collectedContent.getUrl(),
-                    collectedContent.getTitle(),
-                    collectedContent.getPublishedDate(),
-                    collectedContent.getContent(),
-                    collectedContent.getImageUrl()
-            );
+            return collectedContent.filtered();
         }
 
         return collectedContent;
+    }
+
+    public CollectedContent filtered() {
+        return new CollectedContent(
+                id,
+                CollectionStatus.FILTERED,
+                categoryList,
+                summary,
+                providerId,
+                subscriptionId,
+                url,
+                title,
+                publishedDate,
+                content,
+                imageUrl
+        );
     }
 
     private void validateInitialized() {

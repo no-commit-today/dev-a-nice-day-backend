@@ -1,11 +1,10 @@
 package com.nocommittoday.techswipe.batch.job;
 
-import com.nocommittoday.techswipe.batch.domain.subscription.BatchSubscribedContentInitializerDelegator;
+import com.nocommittoday.techswipe.batch.domain.collection.BatchCollectedContentInitializeService;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.reader.QuerydslZeroPagingItemReader;
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
-import com.nocommittoday.techswipe.domain.subscription.SubscribedContent;
 import com.nocommittoday.techswipe.domain.subscription.Subscription;
 import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
@@ -38,20 +37,20 @@ public class CollectedContentInitializeJobConfig {
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
 
-    private final BatchSubscribedContentInitializerDelegator contentInitializer;
+    private final BatchCollectedContentInitializeService initializeService;
     private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
 
     public CollectedContentInitializeJobConfig(
             JobRepository jobRepository,
             PlatformTransactionManager txManager,
             EntityManagerFactory emf,
-            BatchSubscribedContentInitializerDelegator contentInitializer,
+            BatchCollectedContentInitializeService initializeService,
             BatchCollectedContentEntityMapper collectedContentEntityMapper
     ) {
         this.jobRepository = jobRepository;
         this.txManager = txManager;
         this.emf = emf;
-        this.contentInitializer = contentInitializer;
+        this.initializeService = initializeService;
         this.collectedContentEntityMapper = collectedContentEntityMapper;
     }
 
@@ -102,26 +101,9 @@ public class CollectedContentInitializeJobConfig {
         return entity -> {
             CollectedContent collectedContent = entity.toDomain();
             Subscription subscription = entity.getSubscription().toDomain();
-            SubscribedContent subscribedContent = new SubscribedContent(
-                    subscription.getId(),
-                    collectedContent.getUrl(),
-                    false,
-                    collectedContent.getTitle(),
-                    collectedContent.getImageUrl(),
-                    collectedContent.getPublishedDate(),
-                    collectedContent.getContent()
-            );
-            SubscribedContent initializedSubscribedContent = contentInitializer
-                    .initialize(subscription, subscribedContent);
-
-            CollectedContent initializedCollectedContent = collectedContent.initialize(
-                    initializedSubscribedContent.getTitle(),
-                    initializedSubscribedContent.getPublishedDate(),
-                    initializedSubscribedContent.getContent(),
-                    initializedSubscribedContent.getImageUrl()
-            );
+            CollectedContent initialized = initializeService.initialize(subscription, collectedContent);
             return collectedContentEntityMapper.from(
-                    initializedCollectedContent
+                    initialized
             );
         };
     }
