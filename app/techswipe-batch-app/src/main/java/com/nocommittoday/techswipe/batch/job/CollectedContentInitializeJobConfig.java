@@ -114,13 +114,14 @@ public class CollectedContentInitializeJobConfig {
             SubscribedContent initializedSubscribedContent = contentInitializer
                     .initialize(subscription, subscribedContent);
 
+            CollectedContent initializedCollectedContent = collectedContent.initialize(
+                    initializedSubscribedContent.getTitle(),
+                    initializedSubscribedContent.getPublishedDate(),
+                    initializedSubscribedContent.getContent(),
+                    initializedSubscribedContent.getImageUrl()
+            );
             return collectedContentEntityMapper.from(
-                    collectedContent.initialize(
-                            initializedSubscribedContent.getTitle(),
-                            initializedSubscribedContent.getPublishedDate(),
-                            initializedSubscribedContent.getImageUrl(),
-                            initializedSubscribedContent.getContent()
-                    )
+                    initializedCollectedContent
             );
         };
     }
