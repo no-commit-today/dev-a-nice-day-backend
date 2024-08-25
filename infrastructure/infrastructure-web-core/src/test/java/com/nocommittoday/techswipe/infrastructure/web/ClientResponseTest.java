@@ -39,7 +39,7 @@ class ClientResponseTest {
         // when
         // then
         assertThatThrownBy(() -> response.getData())
-                .isInstanceOf(IllegalStateException.class);
+                .isInstanceOf(ClientException.class);
         assertThat(response.isError()).isTrue();
     }
 
