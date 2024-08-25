@@ -4,7 +4,7 @@ import com.nocommittoday.techswipe.domain.test.AccessTokenDecodedBuilder;
 import com.nocommittoday.techswipe.domain.user.AccessTokenDecoded;
 import com.nocommittoday.techswipe.domain.user.ApiUserOrGuest;
 import com.nocommittoday.techswipe.domain.user.exception.UserAuthenticationFailureException;
-import com.nocommittoday.techswipe.infrastructure.user.JwtAccessTokenDecoder;
+import com.nocommittoday.techswipe.infrastructure.jwt.user.JwtAccessTokenDecoder;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

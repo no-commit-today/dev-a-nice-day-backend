@@ -6,12 +6,12 @@ import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriter;
 import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriterBuilder;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
-import com.nocommittoday.techswipe.infrastructure.image.ImageStore;
 import com.nocommittoday.techswipe.domain.image.exception.ImageApplicationException;
+import com.nocommittoday.techswipe.infrastructure.aws.image.ImageStore;
+import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
+import com.nocommittoday.techswipe.storage.mysql.batch.BatchTechContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
-import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
-import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntityMapper;
 import jakarta.persistence.EntityManagerFactory;
 import org.javatuples.Pair;
 import org.springframework.batch.core.Job;
@@ -40,16 +40,16 @@ public class CollectedContentPublishJobConfig {
     private final EntityManagerFactory emf;
 
     private final ImageStore imageStore;
-    private final CollectedContentEntityMapper collectedContentEntityMapper;
-    private final TechContentEntityMapper techContentEntityMapper;
+    private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
+    private final BatchTechContentEntityMapper techContentEntityMapper;
 
     public CollectedContentPublishJobConfig(
             JobRepository jobRepository,
             PlatformTransactionManager txManager,
             EntityManagerFactory emf,
             ImageStore imageStore,
-            CollectedContentEntityMapper collectedContentEntityMapper,
-            TechContentEntityMapper techContentEntityMapper
+            BatchCollectedContentEntityMapper collectedContentEntityMapper,
+            BatchTechContentEntityMapper techContentEntityMapper
     ) {
         this.jobRepository = jobRepository;
         this.txManager = txManager;

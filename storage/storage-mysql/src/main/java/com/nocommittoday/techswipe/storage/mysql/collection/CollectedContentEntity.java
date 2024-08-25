@@ -7,8 +7,10 @@ import com.nocommittoday.techswipe.domain.collection.CollectionCategoryList;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.subscription.SubscriptionId;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
+import com.nocommittoday.techswipe.storage.mysql.subscription.SubscriptionEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Convert;
@@ -28,6 +30,7 @@ import org.springframework.data.domain.Persistable;
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(
@@ -49,6 +52,10 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "provider_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private TechContentProviderEntity provider;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "subscription_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    private SubscriptionEntity subscription;
 
     @Column(name = "url", length = 500, nullable = false)
     private String url;
@@ -83,6 +90,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
             Long id,
             CollectionStatus status,
             TechContentProviderEntity provider,
+            SubscriptionEntity subscription,
             String url,
             String title,
             LocalDate publishedDate,
@@ -94,6 +102,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
         this.id = id;
         this.status = status;
         this.provider = provider;
+        this.subscription = subscription;
         this.url = url;
         this.title = title;
         this.publishedDate = publishedDate;
@@ -109,7 +118,14 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
                 status,
                 categories != null ? new CollectionCategoryList(categories) : null,
                 new Summary(summary),
-                provider.getId() != null ? new TechContentProviderId(provider.getId()) : null,
+                Optional.ofNullable(provider)
+                        .map(TechContentProviderEntity::getId)
+                        .map(TechContentProviderId::new)
+                        .orElseThrow(),
+                Optional.ofNullable(subscription)
+                        .map(SubscriptionEntity::getId)
+                        .map(SubscriptionId::new)
+                        .orElseThrow(),
                 url,
                 title,
                 publishedDate,
@@ -120,8 +136,6 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
 
     public void update(CollectedContent collectedContent) {
         this.status = collectedContent.getStatus();
-        this.provider = TechContentProviderEntity.from(collectedContent.getProviderId());
-        this.url = collectedContent.getUrl();
         this.title = collectedContent.getTitle();
         this.publishedDate = collectedContent.getPublishedDate();
         this.content = collectedContent.getContent();
@@ -157,6 +171,10 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
 
     public TechContentProviderEntity getProvider() {
         return provider;
+    }
+
+    public SubscriptionEntity getSubscription() {
+        return subscription;
     }
 
     public LocalDate getPublishedDate() {

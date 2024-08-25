@@ -3,13 +3,13 @@ package com.nocommittoday.techswipe.batch.processor;
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
-import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
-import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
 import com.nocommittoday.techswipe.domain.content.TechContentCreate;
-import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
-import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntityMapper;
 import com.nocommittoday.techswipe.domain.image.ImageId;
-import com.nocommittoday.techswipe.infrastructure.image.ImageStore;
+import com.nocommittoday.techswipe.infrastructure.aws.image.ImageStore;
+import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
+import com.nocommittoday.techswipe.storage.mysql.batch.BatchTechContentEntityMapper;
+import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
 import org.javatuples.Pair;
 import org.springframework.batch.item.ItemProcessor;
 
@@ -20,13 +20,13 @@ public class CollectedContentPublishProcessor
         implements ItemProcessor<CollectedContentEntity, Pair<CollectedContentEntity, TechContentEntity>> {
 
     private final ImageStore imageStore;
-    private final CollectedContentEntityMapper collectedContentEntityMapper;
-    private final TechContentEntityMapper techContentEntityMapper;
+    private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
+    private final BatchTechContentEntityMapper techContentEntityMapper;
 
     public CollectedContentPublishProcessor(
             ImageStore imageStore,
-            CollectedContentEntityMapper collectedContentEntityMapper,
-            TechContentEntityMapper techContentEntityMapper
+            BatchCollectedContentEntityMapper collectedContentEntityMapper,
+            BatchTechContentEntityMapper techContentEntityMapper
     ) {
         this.imageStore = imageStore;
         this.collectedContentEntityMapper = collectedContentEntityMapper;

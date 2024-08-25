@@ -1,10 +1,10 @@
 package com.nocommittoday.techswipe.batch.processor;
 
-import com.nocommittoday.techswipe.infrastructure.collection.CategorizationProcessor;
-import com.nocommittoday.techswipe.infrastructure.collection.CategorizationResult;
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
+import com.nocommittoday.techswipe.infrastructure.openai.collection.CategorizationProcessor;
+import com.nocommittoday.techswipe.infrastructure.openai.collection.CategorizationResult;
+import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
-import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
@@ -15,11 +15,11 @@ public class CollectedContentCategorizeProcessor implements
     private static final Logger log = LoggerFactory.getLogger(CollectedContentCategorizeProcessor.class);
 
     private final CategorizationProcessor categorizationProcessor;
-    private final CollectedContentEntityMapper collectedContentEntityMapper;
+    private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
 
     public CollectedContentCategorizeProcessor(
             CategorizationProcessor categorizationProcessor,
-            CollectedContentEntityMapper collectedContentEntityMapper
+            BatchCollectedContentEntityMapper collectedContentEntityMapper
     ) {
         this.categorizationProcessor = categorizationProcessor;
         this.collectedContentEntityMapper = collectedContentEntityMapper;

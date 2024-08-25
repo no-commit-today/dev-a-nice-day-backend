@@ -1,17 +1,15 @@
 package com.nocommittoday.techswipe.batch.job;
 
-import com.nocommittoday.techswipe.batch.infrastructure.CollectedUrlFilterCreator;
-import com.nocommittoday.techswipe.batch.listener.SubscriptionFailureSkipListener;
-import com.nocommittoday.techswipe.batch.param.LocalDateDateJobParameter;
+import com.nocommittoday.techswipe.batch.domain.collection.BatchCollectedContentIdGenerator;
+import com.nocommittoday.techswipe.batch.domain.collection.BatchSubscribedContentCollectService;
+import com.nocommittoday.techswipe.batch.param.TechContentProviderIdJobParameter;
 import com.nocommittoday.techswipe.batch.processor.ContentCollectJobItemProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
-import com.nocommittoday.techswipe.domain.collection.CollectedContentIdGenerator;
+import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
-import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.subscription.SubscriptionEntity;
-import com.nocommittoday.techswipe.domain.subscription.exception.SubscriptionSubscribeFailureException;
-import com.nocommittoday.techswipe.domain.subscription.SubscribedContentListQueryService;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersValidator;
@@ -31,6 +29,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.nocommittoday.techswipe.storage.mysql.subscription.QSubscriptionEntity.subscriptionEntity;
 
@@ -45,26 +44,23 @@ public class ContentCollectJobConfig {
     private final PlatformTransactionManager txManager;
     private final EntityManagerFactory emf;
 
-    private final SubscribedContentListQueryService subscribedContentListQueryService;
-    private final CollectedContentIdGenerator collectedContentIdGenerator;
-    private final CollectedUrlFilterCreator collectedUrlFilterCreator;
-    private final CollectedContentEntityMapper collectedContentEntityMapper;
+    private final BatchSubscribedContentCollectService subscribedContentCollectService;
+    private final BatchCollectedContentIdGenerator collectedContentIdGenerator;
+    private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
 
     public ContentCollectJobConfig(
             JobRepository jobRepository,
             PlatformTransactionManager txManager,
             EntityManagerFactory emf,
-            SubscribedContentListQueryService subscribedContentListQueryService,
-            CollectedContentIdGenerator collectedContentIdGenerator,
-            CollectedUrlFilterCreator collectedUrlFilterCreator,
-            CollectedContentEntityMapper collectedContentEntityMapper
+            BatchSubscribedContentCollectService subscribedContentCollectService,
+            BatchCollectedContentIdGenerator collectedContentIdGenerator,
+            BatchCollectedContentEntityMapper collectedContentEntityMapper
     ) {
         this.jobRepository = jobRepository;
         this.txManager = txManager;
         this.emf = emf;
-        this.subscribedContentListQueryService = subscribedContentListQueryService;
+        this.subscribedContentCollectService = subscribedContentCollectService;
         this.collectedContentIdGenerator = collectedContentIdGenerator;
-        this.collectedUrlFilterCreator = collectedUrlFilterCreator;
         this.collectedContentEntityMapper = collectedContentEntityMapper;
     }
 
@@ -78,18 +74,18 @@ public class ContentCollectJobConfig {
                 .build();
     }
 
-    @Bean(JOB_NAME + LocalDateDateJobParameter.NAME)
-    @JobScope
-    public LocalDateDateJobParameter dateJobParameter() {
-        return new LocalDateDateJobParameter();
-    }
-
     @Bean(JOB_NAME + "JobParametersValidator")
     public JobParametersValidator jobParametersValidator() {
         return new DefaultJobParametersValidator(
-                new String[]{"date"},
-                new String[]{}
+                new String[]{},
+                new String[]{"provider.id"}
         );
+    }
+
+    @Bean(JOB_NAME + TechContentProviderIdJobParameter.NAME)
+    @JobScope
+    public TechContentProviderIdJobParameter providerIdListJobParameter() {
+        return new TechContentProviderIdJobParameter();
     }
 
     @Bean(STEP_NAME)
@@ -101,10 +97,6 @@ public class ContentCollectJobConfig {
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
-
-                .faultTolerant()
-                .skip(SubscriptionSubscribeFailureException.class)
-                .listener(listener())
 
                 .build();
     }
@@ -118,37 +110,39 @@ public class ContentCollectJobConfig {
         reader.setTransacted(false);
         reader.setQueryFunction(queryFactory -> queryFactory
                 .selectFrom(subscriptionEntity)
-                .where(subscriptionEntity.deleted.isFalse())
+                .where(
+                        providerIdEq(),
+                        subscriptionEntity.deleted.isFalse()
+                )
                 .orderBy(subscriptionEntity.id.asc())
         );
         return reader;
+    }
+
+    private BooleanExpression providerIdEq() {
+        return Optional.ofNullable(providerIdListJobParameter().getProviderId())
+                .map(providerId -> subscriptionEntity.provider.id.eq(providerId.value()))
+                .orElse(null);
     }
 
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
     public ItemProcessor<SubscriptionEntity, List<CollectedContentEntity>> processor() {
         return new ContentCollectJobItemProcessor(
-                subscribedContentListQueryService,
-                collectedUrlFilterCreator,
+                subscribedContentCollectService,
                 collectedContentIdGenerator,
-                collectedContentEntityMapper,
-                dateJobParameter().getDate()
+                collectedContentEntityMapper
         );
     }
 
     @Bean(STEP_NAME + "ItemWriter")
     @StepScope
     public JpaItemListWriter<CollectedContentEntity> writer() {
-        final JpaItemWriter<CollectedContentEntity> jpaItemWriter = new JpaItemWriterBuilder<CollectedContentEntity>()
+        JpaItemWriter<CollectedContentEntity> jpaItemWriter = new JpaItemWriterBuilder<CollectedContentEntity>()
                 .entityManagerFactory(emf)
                 .usePersist(true)
                 .build();
         return new JpaItemListWriter<>(jpaItemWriter);
     }
 
-    @Bean(STEP_NAME + "SubscriptionFailureSkipListener")
-    @StepScope
-    public SubscriptionFailureSkipListener listener() {
-        return new SubscriptionFailureSkipListener();
-    }
 }

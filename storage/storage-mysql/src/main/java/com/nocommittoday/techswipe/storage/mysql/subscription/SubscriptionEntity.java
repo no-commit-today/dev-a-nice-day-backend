@@ -1,12 +1,11 @@
 package com.nocommittoday.techswipe.storage.mysql.subscription;
 
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
-import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
-import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.domain.subscription.Subscription;
 import com.nocommittoday.techswipe.domain.subscription.SubscriptionId;
-import com.nocommittoday.techswipe.domain.subscription.SubscriptionRegister;
 import com.nocommittoday.techswipe.domain.subscription.SubscriptionType;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
+import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
@@ -15,12 +14,16 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+
+import javax.annotation.Nullable;
+import java.util.Objects;
+import java.util.Optional;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -28,8 +31,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(
         name = "subscription",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "uk_subscription__provider_id", columnNames = {"provider_id"})
+        indexes = {
+                @Index(name = "ix_providerid", columnList = "provider_id")
         }
 )
 public class SubscriptionEntity extends BaseSoftDeleteEntity {
@@ -46,76 +49,54 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
     @Column(name = "type", columnDefinition = "varchar(45)", nullable = false)
     private SubscriptionType type;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "init_type", columnDefinition = "varchar(45)", nullable = false)
-    private SubscriptionType initType;
-
+    @Nullable
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "data", columnDefinition = "json", nullable = false)
-    private SubscriptionData data;
+    @Column(name = "feed", columnDefinition = "json")
+    private FeedSubscriptionData feed;
+
+    @Nullable
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "list_scrapping", columnDefinition = "json")
+    private ListScrappingSubscriptionData listScrapping;
 
     protected SubscriptionEntity() {
     }
 
     public SubscriptionEntity(
-            Long id,
             TechContentProviderEntity provider,
             SubscriptionType type,
-            SubscriptionType initType,
-            SubscriptionData data
+            @Nullable FeedSubscriptionData feed,
+            @Nullable ListScrappingSubscriptionData listScrapping
     ) {
-        this.id = id;
         this.provider = provider;
         this.type = type;
-        this.initType = initType;
-        this.data = data;
-    }
-
-    public static SubscriptionEntity from(SubscriptionRegister register) {
-        return new SubscriptionEntity(
-                null,
-                TechContentProviderEntity.from(register.providerId()),
-                register.type(),
-                register.initType(),
-                new SubscriptionData(
-                        new FeedData(register.feedUrl()),
-                        ContentCrawlingData.from(register.contentCrawling()),
-                        ListCrawlingListData.from(register.listCrawlings())
-                ));
-    }
-
-    public void update(SubscriptionRegister register) {
-        type = register.type();
-        initType = register.initType();
-        data = new SubscriptionData(
-                new FeedData(register.feedUrl()),
-                ContentCrawlingData.from(register.contentCrawling()),
-                ListCrawlingListData.from(register.listCrawlings())
-        );
+        this.feed = feed;
+        this.listScrapping = listScrapping;
     }
 
     public Subscription toDomain() {
-        return new Subscription(
-                new SubscriptionId(id),
-                provider.getId() != null ? new TechContentProviderId(provider.getId()) : null,
-                type,
-                initType,
-                data.getFeed().getUrl(),
-                data.getContentCrawling().toDomain(),
-                data.getListCrawlings().toDomain()
-        );
-    }
-
-    public SubscriptionData getData() {
-        return data;
+        return switch (type) {
+            case FEED -> Subscription.createFeed(
+                    new SubscriptionId(id),
+                    Optional.ofNullable(provider)
+                            .map(TechContentProviderEntity::getId)
+                            .map(TechContentProviderId::new).orElseThrow(),
+                    Objects.requireNonNull(feed).getUrl(),
+                    feed.getContentScrapping().toDomain()
+            );
+            case LIST_SCRAPPING -> Subscription.createListScrapping(
+                    new SubscriptionId(id),
+                    Optional.ofNullable(provider)
+                            .map(TechContentProviderEntity::getId)
+                            .map(TechContentProviderId::new).orElseThrow(),
+                    Objects.requireNonNull(listScrapping).getListScrapping().toDomain(),
+                    listScrapping.getContentScrapping().toDomain()
+            );
+        };
     }
 
     public Long getId() {
         return id;
-    }
-
-    public SubscriptionType getInitType() {
-        return initType;
     }
 
     public TechContentProviderEntity getProvider() {
@@ -124,5 +105,15 @@ public class SubscriptionEntity extends BaseSoftDeleteEntity {
 
     public SubscriptionType getType() {
         return type;
+    }
+
+    @Nullable
+    public FeedSubscriptionData getFeed() {
+        return feed;
+    }
+
+    @Nullable
+    public ListScrappingSubscriptionData getListScrapping() {
+        return listScrapping;
     }
 }

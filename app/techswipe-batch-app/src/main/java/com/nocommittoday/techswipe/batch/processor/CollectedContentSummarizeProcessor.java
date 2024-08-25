@@ -1,10 +1,10 @@
 package com.nocommittoday.techswipe.batch.processor;
 
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
-import com.nocommittoday.techswipe.infrastructure.collection.SummarizationProcessor;
-import com.nocommittoday.techswipe.infrastructure.collection.SummarizationResult;
+import com.nocommittoday.techswipe.infrastructure.openai.collection.SummarizationProcessor;
+import com.nocommittoday.techswipe.infrastructure.openai.collection.SummarizationResult;
+import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
-import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
@@ -15,11 +15,11 @@ public class CollectedContentSummarizeProcessor
     private static final Logger log = LoggerFactory.getLogger(CollectedContentSummarizeProcessor.class);
 
     private final SummarizationProcessor summarizationProcessor;
-    private final CollectedContentEntityMapper collectedContentEntityMapper;
+    private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
 
     public CollectedContentSummarizeProcessor(
             SummarizationProcessor summarizationProcessor,
-            CollectedContentEntityMapper collectedContentEntityMapper
+            BatchCollectedContentEntityMapper collectedContentEntityMapper
     ) {
         this.summarizationProcessor = summarizationProcessor;
         this.collectedContentEntityMapper = collectedContentEntityMapper;

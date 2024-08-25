@@ -99,19 +99,18 @@ public class TechContentEntityBuilder {
         if (id == null) {
             id = LocalAutoIncrementIdUtils.nextId();
         }
-        long fieldId = id;
 
         if (provider == null) {
             provider = TechContentProviderEntityBuilder.create();
         }
         if (url == null) {
-            url = "content-url-" + fieldId;
+            url = "content-url-" + id;
         }
         if (title == null) {
-            title = "content-title-" + fieldId;
+            title = "content-title-" + id;
         }
         if (summary == null) {
-            summary = "content-summary-" + fieldId;
+            summary = "content-summary-" + id;
         }
         if (publishedDate == null) {
             publishedDate = LocalDate.of(2021, 1, 1);

@@ -6,6 +6,8 @@ dependencies {
 
     implementation(project(":infrastructure:infrastructure-aws"))
     implementation(project(":infrastructure:infrastructure-openai"))
+    implementation(project(":infrastructure:infrastructure-jsoup"))
+    implementation(project(":infrastructure:infrastructure-feed"))
 
     implementation(project(":storage:storage-mysql"))
 
@@ -19,6 +21,7 @@ dependencies {
 
     testRuntimeOnly("com.h2database:h2")
     testImplementation("org.springframework.batch:spring-batch-test")
+    testImplementation(testFixtures(project(":domain:domain-core")))
 }
 
 

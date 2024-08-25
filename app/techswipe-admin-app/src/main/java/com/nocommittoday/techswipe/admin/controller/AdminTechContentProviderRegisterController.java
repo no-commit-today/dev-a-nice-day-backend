@@ -7,7 +7,7 @@ import com.nocommittoday.techswipe.admin.domain.AdminTechContentProviderRegister
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.domain.user.AdminApiUser;
-import com.nocommittoday.techswipe.infrastructure.image.ImageStore;
+import com.nocommittoday.techswipe.infrastructure.aws.image.ImageStore;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

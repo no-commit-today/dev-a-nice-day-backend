@@ -51,6 +51,7 @@ public class TechContentProviderEntityBuilder {
         return this;
     }
 
+
     public TechContentProviderEntity build() {
         fillRequiredFields();
         return new TechContentProviderEntity(
@@ -66,16 +67,15 @@ public class TechContentProviderEntityBuilder {
         if (id == null) {
             id = LocalAutoIncrementIdUtils.nextId();
         }
-        long fieldId = id;
 
         if (type == null) {
             type = TechContentProviderType.DOMESTIC_COMPANY_BLOG;
         }
         if (title == null) {
-            title = "provider-title-" + fieldId;
+            title = "provider-title-" + id;
         }
         if (url == null) {
-            url = "provider-url-" + fieldId;
+            url = "provider-url-" + id;
         }
     }
 

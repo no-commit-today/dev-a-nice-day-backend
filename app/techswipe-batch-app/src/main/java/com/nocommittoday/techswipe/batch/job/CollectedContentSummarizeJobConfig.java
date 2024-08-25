@@ -3,9 +3,9 @@ package com.nocommittoday.techswipe.batch.job;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentSummarizeProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslZeroPagingItemReader;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
-import com.nocommittoday.techswipe.infrastructure.collection.SummarizationProcessor;
+import com.nocommittoday.techswipe.infrastructure.openai.collection.SummarizationProcessor;
+import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
-import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityMapper;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -35,14 +35,14 @@ public class CollectedContentSummarizeJobConfig {
     private final EntityManagerFactory emf;
 
     private final SummarizationProcessor summarizationProcessor;
-    private final CollectedContentEntityMapper collectedContentEntityMapper;
+    private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
 
     public CollectedContentSummarizeJobConfig(
             JobRepository jobRepository,
             PlatformTransactionManager txManager,
             EntityManagerFactory emf,
             SummarizationProcessor summarizationProcessor,
-            CollectedContentEntityMapper collectedContentEntityMapper
+            BatchCollectedContentEntityMapper collectedContentEntityMapper
     ) {
         this.jobRepository = jobRepository;
         this.txManager = txManager;

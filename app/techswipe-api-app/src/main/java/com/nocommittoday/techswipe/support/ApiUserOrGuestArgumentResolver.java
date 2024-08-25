@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.support;
 
 import com.nocommittoday.techswipe.domain.user.AccessToken;
 import com.nocommittoday.techswipe.domain.user.ApiUserOrGuest;
-import com.nocommittoday.techswipe.infrastructure.user.JwtAccessTokenDecoder;
+import com.nocommittoday.techswipe.infrastructure.jwt.user.JwtAccessTokenDecoder;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;

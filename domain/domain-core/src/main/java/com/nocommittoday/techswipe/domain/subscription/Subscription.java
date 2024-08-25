@@ -2,85 +2,49 @@ package com.nocommittoday.techswipe.domain.subscription;
 
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
-
-public class Subscription {
+public abstract class Subscription {
 
     private final SubscriptionId id;
 
-    private final TechContentProviderId providerId;
-
     private final SubscriptionType type;
 
-    private final SubscriptionType initType;
+    private final TechContentProviderId providerId;
 
-    @Nullable
-    private final String feedUrl;
+    protected Subscription(SubscriptionId id, SubscriptionType type, TechContentProviderId providerId) {
+        this.id = id;
+        this.type = type;
+        this.providerId = providerId;
+    }
 
-    private final ContentCrawling contentCrawling;
-
-    private final List<ListCrawling> listCrawlings;
-
-    public Subscription(
+    public static ListScrappingSubscription createListScrapping(
             SubscriptionId id,
             TechContentProviderId providerId,
-            SubscriptionType type,
-            SubscriptionType initType,
-            @Nullable String feedUrl,
-            ContentCrawling contentCrawling,
-            List<ListCrawling> listCrawlings
+            ListScrapping listScrapping,
+            ContentScrapping contentScrapping
     ) {
-        this.contentCrawling = contentCrawling;
-        this.id = id;
-        this.providerId = providerId;
-        this.type = type;
-        this.initType = initType;
-        this.feedUrl = feedUrl;
-        this.listCrawlings = listCrawlings;
+        return new ListScrappingSubscription(id, providerId, listScrapping, contentScrapping);
     }
 
-    public FeedSubscription toFeed() {
-        return new FeedSubscription(
-                feedUrl,
-                contentCrawling
-        );
+    public static FeedSubscription createFeed(
+            SubscriptionId id,
+            TechContentProviderId providerId,
+            String url,
+            ContentScrapping contentScrapping
+    ) {
+        return new FeedSubscription(id, providerId, url, contentScrapping);
     }
 
-    public List<ListCrawlingSubscription> toListCrawlings() {
-        return listCrawlings.stream()
-                .map(listCrawling ->
-                        new ListCrawlingSubscription(listCrawling, contentCrawling)
-                ).toList();
-    }
-
-    public ContentCrawling getContentCrawling() {
-        return contentCrawling;
-    }
-
-    @Nullable
-    public String getFeedUrl() {
-        return feedUrl;
-    }
+    public abstract boolean isInitRequired();
 
     public SubscriptionId getId() {
         return id;
     }
 
-    public SubscriptionType getInitType() {
-        return initType;
-    }
-
-    public List<ListCrawling> getListCrawlings() {
-        return listCrawlings;
+    public SubscriptionType getType() {
+        return type;
     }
 
     public TechContentProviderId getProviderId() {
         return providerId;
-    }
-
-    public SubscriptionType getType() {
-        return type;
     }
 }
