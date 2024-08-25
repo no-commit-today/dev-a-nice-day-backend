@@ -8,4 +8,8 @@ public class CollectionInitializationFailureException extends AbstractDomainExce
     public CollectionInitializationFailureException(CollectedContentId id) {
         super(CollectionErrorCode.INITIALIZATION_FAILURE, "id=" + id);
     }
+
+    public CollectionInitializationFailureException(CollectedContentId id, int tokenCount) {
+        super(CollectionErrorCode.INITIALIZATION_FAILURE, "id=" + id + " tokenCount=" + tokenCount);
+    }
 }

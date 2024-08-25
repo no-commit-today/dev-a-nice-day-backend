@@ -10,8 +10,11 @@ import com.nocommittoday.techswipe.domain.subscription.SubscriptionId;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class CollectedContent {
+
+    private static final int MIN_TOKEN_COUNT = 100;
 
     private final CollectedContentId id;
 
@@ -123,6 +126,17 @@ public class CollectedContent {
         if (title == null || publishedDate == null || content == null) {
             throw new CollectionInitializationFailureException(id);
         }
+
+        int tokenCount = calculateContentTokenCount();
+        if (tokenCount < MIN_TOKEN_COUNT) {
+            throw new CollectionInitializationFailureException(id, tokenCount);
+        }
+    }
+
+    private int calculateContentTokenCount() {
+        return (int) Arrays.stream(content.split("[ \t\n]"))
+                .filter(token -> !token.isBlank())
+                .count();
     }
 
     public CollectedContent categorize(CollectionCategoryList categoryList) {

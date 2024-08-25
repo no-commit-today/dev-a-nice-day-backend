@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.domain.collection;
 
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionCategorizeUnableException;
+import com.nocommittoday.techswipe.domain.collection.exception.CollectionInitializationFailureException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionSummarizeUnableException;
 import com.nocommittoday.techswipe.domain.content.Summary;
@@ -8,6 +9,7 @@ import com.nocommittoday.techswipe.domain.test.CollectedContentBuilder;
 import com.nocommittoday.techswipe.domain.test.SummaryBuilder;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,6 +18,50 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class CollectedContentTest {
+
+    @Test
+    void 컨텐츠_내용의_토큰이_100개_미만일_경우_초기화될_수_없다() {
+        // given
+        String content = "이것은 테스트입니다.";
+        CollectedContent collected = CollectedContentBuilder.createCollected();
+
+        // when
+        // then
+        assertThatThrownBy(() -> collected.initialize(
+                "title",
+                LocalDate.of(2021, 1, 1),
+                content,
+                "imageUrl"
+        )).isInstanceOf(CollectionInitializationFailureException.class);
+    }
+
+    @Test
+    void 컨텐츠_초기화에_부족한_정보가_있을경우_초기화될_수_없다() {
+        // given
+        CollectedContent collected = CollectedContentBuilder.createCollected();
+        String content = CollectedContentBuilder.createContent();
+
+        // when
+        // then
+        assertThatThrownBy(() -> collected.initialize(
+                "title",
+                LocalDate.of(2021, 1, 1),
+                null,
+                null
+        )).isInstanceOf(CollectionInitializationFailureException.class);
+        assertThatThrownBy(() -> collected.initialize(
+                "title",
+                null,
+                content,
+                null
+        )).isInstanceOf(CollectionInitializationFailureException.class);
+        assertThatThrownBy(() -> collected.initialize(
+                null,
+                LocalDate.of(2021, 1, 1),
+                content,
+                null
+        )).isInstanceOf(CollectionInitializationFailureException.class);
+    }
 
     @Test
     void 카테고리가_분류되면_status_가_CATEGORIZED_로_변경된다() {

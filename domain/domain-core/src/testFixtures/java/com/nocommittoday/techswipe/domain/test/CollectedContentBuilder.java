@@ -10,6 +10,7 @@ import com.nocommittoday.techswipe.domain.subscription.SubscriptionId;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
+import java.util.Random;
 
 public class CollectedContentBuilder {
 
@@ -60,9 +61,24 @@ public class CollectedContentBuilder {
         return collected.initialize(
                 "title-" + fieldId,
                 LocalDate.of(2021, 1, 1),
-                "content-" + fieldId,
+                createContent(),
                 "imageUrl-" + fieldId
         );
+    }
+
+    public static String createContent() {
+        Random random = new Random();
+        int lineNum = random.nextInt(20, 50);
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < lineNum; i++) {
+            int wordNum = random.nextInt(5, 20);
+            for (int j = 0; j < wordNum; j++) {
+                sb.append("token-").append(random.nextInt()).append(" ");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     public static CollectedContent createCategorized() {
