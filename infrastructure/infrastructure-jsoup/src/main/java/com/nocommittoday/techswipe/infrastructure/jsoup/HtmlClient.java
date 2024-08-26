@@ -4,8 +4,10 @@ import com.nocommittoday.techswipe.infrastructure.web.ClientLoggingInterceptor;
 import com.nocommittoday.techswipe.infrastructure.web.ClientResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClient;
 
 @Component
@@ -20,6 +22,7 @@ public class HtmlClient {
                 .build();
     }
 
+    @Retryable(retryFor = HttpServerErrorException.class)
     public ClientResponse<String> get(String url) {
         try {
             return ClientResponse.success(

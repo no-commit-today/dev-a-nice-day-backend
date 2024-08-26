@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.infrastructure.web;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
 import javax.annotation.Nullable;
@@ -19,12 +20,12 @@ public class ClientResponse<T> {
         return new ClientResponse<>(data, null);
     }
 
-    public static <T> ClientResponse<T> fail(Exception ex) {
-        return switch (ex) {
-            case HttpClientErrorException.NotFound notFound -> new ClientResponse<>(
-                    null, new ClientException.NotFound(notFound));
-            case HttpClientErrorException.Unauthorized unauthorized -> new ClientResponse<>(
-                    null, new ClientException.Unauthorized(unauthorized));
+    public static <T> ClientResponse<T> fail(HttpClientErrorException ex) {
+        return switch (ex.getStatusCode()) {
+            case HttpStatus.NOT_FOUND -> new ClientResponse<>(
+                    null, new ClientException.NotFound(ex));
+            case HttpStatus.UNAUTHORIZED -> new ClientResponse<>(
+                    null, new ClientException.Unauthorized(ex));
             default -> new ClientResponse<>(null, new ClientException(ex));
         };
     }
