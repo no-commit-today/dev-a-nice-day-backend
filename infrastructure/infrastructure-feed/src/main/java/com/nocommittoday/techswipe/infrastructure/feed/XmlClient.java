@@ -2,7 +2,9 @@ package com.nocommittoday.techswipe.infrastructure.feed;
 
 import com.nocommittoday.techswipe.infrastructure.web.ClientLoggingInterceptor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClient;
 
 @Component
@@ -17,6 +19,7 @@ public class XmlClient {
                 .build();
     }
 
+    @Retryable(retryFor = HttpServerErrorException.class)
     public String get(String url) {
         return restClient.get().uri(url).retrieve().body(String.class);
     }

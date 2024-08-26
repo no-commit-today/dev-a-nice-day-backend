@@ -52,11 +52,11 @@ public class ImageClient {
     private final UuidHolder uuidHolder;
 
     public ImageClient(
-            final RestClient.Builder restClientBuilder,
-            final UuidHolder uuidHolder
+            RestClient.Builder restClientBuilder,
+            UuidHolder uuidHolder
     ) {
 
-        final HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(
+        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(
                 HttpClients.custom().setRedirectStrategy(new DefaultRedirectStrategy()).build()
         );
         requestFactory.setConnectTimeout(Duration.ofMillis(2000));
