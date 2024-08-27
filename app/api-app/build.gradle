@@ -14,7 +14,7 @@ dependencies {
 
     implementation(project(":infrastructure:infrastructure-jwt"))
 
-    implementation(project(":app:servlet-api-app-core"))
+    implementation(project(":app:api-app-core"))
 
     implementation(project(":support:monitoring"))
     implementation(project(":support:logging"))
