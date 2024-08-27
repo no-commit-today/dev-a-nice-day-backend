@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @Tag("context")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-class TechSwipeBatchApplicationTests {
+class BatchApplicationTests {
 
     @Test
     void contextLoads() {
