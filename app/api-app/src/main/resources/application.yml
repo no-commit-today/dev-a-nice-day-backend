@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: api-app
+
+  profiles:
+    active: local
+
+  config:
+    import:
+      - monitoring.yml
+      - logging.yml
+      - storage-mysql.yml
+      - jwt.yml
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+logging:
+  level:
+    org.apache.coyote.http11: trace
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local-dev
+
+logging:
+  level:
+    org.apache.coyote.http11: trace
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+logging:
+  level:
+    org.apache.coyote.http11: trace
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod

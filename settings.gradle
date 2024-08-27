@@ -7,12 +7,12 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'tech-swipe-backend'
+rootProject.name = 'dev-a-nice-day-backend'
 
-include("app:techswipe-api-app")
-include("app:techswipe-admin-app")
-include("app:techswipe-batch-app")
-include("app:servlet-api-app-core")
+include("app:api-app")
+include("app:admin-app")
+include("app:batch-app")
+include("app:api-app-core")
 
 include("domain:domain-core")
 include("domain:domain-application")
