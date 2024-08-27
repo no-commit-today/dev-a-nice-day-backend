@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @Tag("context")
 @SpringBootTest
-class TechSwipeAdminApplicationTests {
+class AdminApplicationTests {
 
     @Test
     void contextLoads() {
