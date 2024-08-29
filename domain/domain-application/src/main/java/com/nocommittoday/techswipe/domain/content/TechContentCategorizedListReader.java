@@ -18,7 +18,7 @@ public class TechContentCategorizedListReader {
     }
 
     @Transactional(readOnly = true)
-    public List<TechContent> getList(
+    public List<TechContentWithProvider> getList(
             PageParam pageParam,
             List<TechCategory> categories
     ) {

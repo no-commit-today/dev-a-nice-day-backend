@@ -50,7 +50,7 @@ class TechContentListQueryServiceTest {
                 .build();
         given(techContentCategorizedListReader.getList(pageParam, List.of(TechCategory.SERVER)))
                 .willReturn(List.of(
-                        new TechContent(
+                        new TechContentWithProvider(
                                 new TechContentId(1L),
                                 contentProvider,
                                 null,
@@ -60,7 +60,7 @@ class TechContentListQueryServiceTest {
                                 summary1,
                                 List.of(TechCategory.SERVER)
                         ),
-                        new TechContent(
+                        new TechContentWithProvider(
                                 new TechContentId(2L),
                                 contentProvider,
                                 new ImageId(22L),

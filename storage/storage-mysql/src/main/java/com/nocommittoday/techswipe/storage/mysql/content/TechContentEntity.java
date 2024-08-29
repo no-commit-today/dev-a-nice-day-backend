@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.storage.mysql.content;
 
 import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechCategory;
-import com.nocommittoday.techswipe.domain.content.TechContent;
+import com.nocommittoday.techswipe.domain.content.TechContentWithProvider;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.domain.image.ImageId;
@@ -111,8 +111,8 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
         categories.add(new TechContentCategoryEntity(this, category));
     }
 
-    public TechContent toDomain() {
-        return new TechContent(
+    public TechContentWithProvider toDomain() {
+        return new TechContentWithProvider(
                 new TechContentId(id),
                 provider.toDomain(),
                 image == null ? null : new ImageId(image.getId()),

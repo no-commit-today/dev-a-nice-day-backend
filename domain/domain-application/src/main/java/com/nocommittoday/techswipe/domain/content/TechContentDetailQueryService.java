@@ -18,7 +18,7 @@ public class TechContentDetailQueryService {
     }
 
     public TechContentDetailQueryResult get(TechContentId id) {
-        TechContent techContent = techContentReader.get(id);
+        TechContentWithProvider techContent = techContentReader.get(id);
         return new TechContentDetailQueryResult(
                 techContent.getId(),
                 techContent.getUrl(),

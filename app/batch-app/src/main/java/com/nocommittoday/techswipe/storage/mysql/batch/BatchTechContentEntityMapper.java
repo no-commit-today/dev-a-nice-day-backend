@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.storage.mysql.batch;
 
-import com.nocommittoday.techswipe.domain.content.TechContent;
+import com.nocommittoday.techswipe.domain.content.TechContentWithProvider;
 import com.nocommittoday.techswipe.domain.content.TechContentCreate;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
@@ -28,7 +28,7 @@ public class BatchTechContentEntityMapper {
         return techContentJpaRepository.getReferenceById(id.value());
     }
 
-    public TechContentEntity from(TechContent domain) {
+    public TechContentEntity from(TechContentWithProvider domain) {
         TechContentEntity entity = new TechContentEntity(
                 domain.getId().value(),
                 techContentProviderEntityMapper.from(domain.getProvider().getId()),

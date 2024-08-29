@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
-public class TechContent {
+public class TechContentWithProvider {
 
     private final TechContentId id;
 
@@ -26,7 +26,7 @@ public class TechContent {
 
     private final List<TechCategory> categories;
 
-    public TechContent(
+    public TechContentWithProvider(
             TechContentId id,
             TechContentProvider provider,
             @Nullable ImageId imageId,

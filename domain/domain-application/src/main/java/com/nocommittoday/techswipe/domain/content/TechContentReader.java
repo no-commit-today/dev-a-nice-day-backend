@@ -16,7 +16,7 @@ public class TechContentReader {
     }
 
     @Transactional(readOnly = true)
-    public TechContent get(TechContentId id) {
+    public TechContentWithProvider get(TechContentId id) {
         return techContentJpaRepository.findById(id.value())
                 .filter(TechContentEntity::isUsed)
                 .map(TechContentEntity::toDomain)

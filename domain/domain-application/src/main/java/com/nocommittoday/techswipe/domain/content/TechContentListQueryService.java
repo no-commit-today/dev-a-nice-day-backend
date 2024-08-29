@@ -28,7 +28,7 @@ public class TechContentListQueryService {
     }
 
     public List<TechContentQueryResult> getList(PageParam pageParam, TechContentListQueryParam queryParam) {
-        List<TechContent> contents = techContentCategorizedListReader.getList(pageParam, queryParam.categories());
+        List<TechContentWithProvider> contents = techContentCategorizedListReader.getList(pageParam, queryParam.categories());
         Map<ImageId, String> imageIdToUrl = getImageIdStringMap(contents);
         return contents.stream()
                 .map(content -> new TechContentQueryResult(
@@ -49,14 +49,14 @@ public class TechContentListQueryService {
                 ).toList();
     }
 
-    private Map<ImageId, String> getImageIdStringMap(List<TechContent> contentList) {
+    private Map<ImageId, String> getImageIdStringMap(List<TechContentWithProvider> contentList) {
         Set<ImageId> imageIds = new HashSet<>();
         contentList.stream()
-                .map(TechContent::getImageId)
+                .map(TechContentWithProvider::getImageId)
                 .filter(Objects::nonNull)
                 .forEach(imageIds::add);
         contentList.stream()
-                .map(TechContent::getProvider)
+                .map(TechContentWithProvider::getProvider)
                 .map(TechContentProvider::getIconId)
                 .filter(Objects::nonNull)
                 .forEach(imageIds::add);
