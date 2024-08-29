@@ -1,9 +1,11 @@
 package com.nocommittoday.techswipe.batch.processor;
 
+import com.nocommittoday.techswipe.batch.domain.content.BatchTechContentIdGenerator;
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.domain.content.TechContentCreate;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.infrastructure.aws.image.ImageStore;
 import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
@@ -22,15 +24,18 @@ public class CollectedContentPublishProcessor
     private final ImageStore imageStore;
     private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
     private final BatchTechContentEntityMapper techContentEntityMapper;
+    private final BatchTechContentIdGenerator techContentIdGenerator;
 
     public CollectedContentPublishProcessor(
             ImageStore imageStore,
             BatchCollectedContentEntityMapper collectedContentEntityMapper,
-            BatchTechContentEntityMapper techContentEntityMapper
+            BatchTechContentEntityMapper techContentEntityMapper,
+            BatchTechContentIdGenerator techContentIdGenerator
     ) {
         this.imageStore = imageStore;
         this.collectedContentEntityMapper = collectedContentEntityMapper;
         this.techContentEntityMapper = techContentEntityMapper;
+        this.techContentIdGenerator = techContentIdGenerator;
     }
 
     @Override
@@ -42,8 +47,9 @@ public class CollectedContentPublishProcessor
         ImageId imageId = Optional.ofNullable(collectedContent.getImageUrl())
                 .map(imageUrl -> imageStore.store(collectedContent.getImageUrl(), "content").get())
                 .orElse(null);
+        TechContentId techContentId = techContentIdGenerator.nextId();
         TechContentCreate content = new TechContentCreate(
-                collectedContent.getId().toTechContentId(),
+                techContentId,
                 collectedContent.getProviderId(),
                 collectedContent.getUrl(),
                 collectedContent.getTitle(),
@@ -55,7 +61,7 @@ public class CollectedContentPublishProcessor
                         .toList()
         );
         return Pair.with(
-                collectedContentEntityMapper.from(collectedContent.published()),
+                collectedContentEntityMapper.from(collectedContent.published(techContentId)),
                 techContentEntityMapper.from(content)
         );
     }

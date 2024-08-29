@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.batch.job;
 
+import com.nocommittoday.techswipe.batch.domain.content.BatchTechContentIdGenerator;
 import com.nocommittoday.techswipe.batch.listener.CollectedContentPublishJobSkipListener;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentPublishProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
@@ -42,6 +43,7 @@ public class CollectedContentPublishJobConfig {
     private final ImageStore imageStore;
     private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
     private final BatchTechContentEntityMapper techContentEntityMapper;
+    private final BatchTechContentIdGenerator techContentIdGenerator;
 
     public CollectedContentPublishJobConfig(
             JobRepository jobRepository,
@@ -49,7 +51,8 @@ public class CollectedContentPublishJobConfig {
             EntityManagerFactory emf,
             ImageStore imageStore,
             BatchCollectedContentEntityMapper collectedContentEntityMapper,
-            BatchTechContentEntityMapper techContentEntityMapper
+            BatchTechContentEntityMapper techContentEntityMapper,
+            BatchTechContentIdGenerator techContentIdGenerator
     ) {
         this.jobRepository = jobRepository;
         this.txManager = txManager;
@@ -57,6 +60,7 @@ public class CollectedContentPublishJobConfig {
         this.imageStore = imageStore;
         this.collectedContentEntityMapper = collectedContentEntityMapper;
         this.techContentEntityMapper = techContentEntityMapper;
+        this.techContentIdGenerator = techContentIdGenerator;
     }
 
     @Bean(JOB_NAME)
@@ -108,7 +112,8 @@ public class CollectedContentPublishJobConfig {
         return new CollectedContentPublishProcessor(
                 imageStore,
                 collectedContentEntityMapper,
-                techContentEntityMapper
+                techContentEntityMapper,
+                techContentIdGenerator
         );
     }
 
