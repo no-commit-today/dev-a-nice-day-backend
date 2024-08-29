@@ -10,6 +10,7 @@ spring:
       - storage-mysql.yml
       - logging.yml
       - aws.yml
+      - openai.yml
 
   batch:
     job:
@@ -18,17 +19,6 @@ spring:
     jdbc:
       initialize-schema: never
       isolation-level-for-create: default
-
-  ai:
-    openai:
-      api-key: ${OPENAI_API_KEY:not-used}
-      chat:
-        options:
-          model: gpt-4o-mini
-
-  collection:
-    openai:
-      categorization-model: ${OPENAI_CATEGORIZATION_MODEL}
 
 ---
 spring:

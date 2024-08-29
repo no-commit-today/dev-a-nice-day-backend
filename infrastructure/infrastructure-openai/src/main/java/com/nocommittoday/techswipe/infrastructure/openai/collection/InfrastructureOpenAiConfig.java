@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-class CollectionInfraWebConfig {
+class InfrastructureOpenAiConfig {
 
     @Configuration
     @ConditionalOnProperty(name = "app.collection.openai.enabled", havingValue = "true")
@@ -23,7 +23,7 @@ class CollectionInfraWebConfig {
         @Bean
         CategorizationClient categorizationClientOpenAi(
                 ChatClient.Builder chatClientBuilder,
-                @Value("${app.collection.openai.categorization-model}") final String model
+                @Value("${app.collection.openai.categorization-model}") String model
         ) {
             return new CategorizationClientOpenAi(chatClientBuilder, model);
         }
@@ -45,6 +45,6 @@ class CollectionInfraWebConfig {
         }
     }
 
-    private CollectionInfraWebConfig() {
+    private InfrastructureOpenAiConfig() {
     }
 }
