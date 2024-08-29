@@ -5,7 +5,6 @@ import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
 import com.nocommittoday.techswipe.domain.collection.CollectionCategoryList;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionNotFoundException;
-import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.storage.mysql.admin.AdminCollectedContentEntityJpaRepository;
 import com.nocommittoday.techswipe.storage.mysql.admin.AdminTechContentEntityJpaRepository;
 import com.nocommittoday.techswipe.storage.mysql.admin.AdminTechContentProviderEntityJpaRepository;
@@ -13,6 +12,8 @@ import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEnti
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class AdminContentCategoryEditService {
@@ -38,12 +39,13 @@ public class AdminContentCategoryEditService {
         CollectionStatus nextStatus = getNextStatus(collectedContentEntity.getStatus(), categoryList);
         adminCollectedContentEntityJpaRepository.updateStatusAndCategoriesById(id.value(), nextStatus, categoryList.getContent());
 
-        TechContentId techContentId = id.toTechContentId();
+        TechContentEntity publishedContentEntity = collectedContentEntity.getPublishedContent();
         if (CollectionStatus.FILTERED == nextStatus) {
-            adminTechContentEntityJpaRepository.findById(techContentId.value())
+            Optional.ofNullable(publishedContentEntity)
                     .ifPresent(TechContentEntity::delete);
-        } else if (adminTechContentEntityJpaRepository.existsById(techContentId.value())) {
-            adminTechContentEntityJpaRepository.updateCategoriesById(techContentId.value(), categoryList.toTechCategories());
+        } else if (publishedContentEntity != null) {
+            adminTechContentEntityJpaRepository.updateCategoriesById(
+                    publishedContentEntity.getId(), categoryList.toTechCategories());
         }
 
     }

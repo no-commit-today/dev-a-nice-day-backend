@@ -60,6 +60,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
     @JoinColumn(name = "subscription_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private SubscriptionEntity subscription;
 
+    @Nullable
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "published_content_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private TechContentEntity publishedContent;
@@ -152,23 +153,13 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
         return getCreatedAt() == null;
     }
 
-    @Nullable
-    public List<CollectionCategory> getCategories() {
-        return categories;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
     @Override
     public Long getId() {
         return id;
     }
 
-    @Nullable
-    public String getImageUrl() {
-        return imageUrl;
+    public CollectionStatus getStatus() {
+        return status;
     }
 
     public TechContentProviderEntity getProvider() {
@@ -179,24 +170,39 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
         return subscription;
     }
 
-    public LocalDate getPublishedDate() {
-        return publishedDate;
-    }
-
-    public CollectionStatus getStatus() {
-        return status;
-    }
-
     @Nullable
-    public String getSummary() {
-        return summary;
+    public TechContentEntity getPublishedContent() {
+        return publishedContent;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getUrl() {
-        return url;
+    public LocalDate getPublishedDate() {
+        return publishedDate;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    @Nullable
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    @Nullable
+    public List<CollectionCategory> getCategories() {
+        return categories;
+    }
+
+    @Nullable
+    public String getSummary() {
+        return summary;
     }
 }
