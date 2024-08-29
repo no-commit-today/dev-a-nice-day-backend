@@ -46,19 +46,6 @@ public class TechContent {
         this.categories = Collections.unmodifiableList(categories);
     }
 
-    public TechContent edit(TechContentCategoryEdit categoryEdit) {
-        return new TechContent(
-                id,
-                provider,
-                imageId,
-                url,
-                title,
-                publishedDate,
-                summary,
-                categoryEdit.categories()
-        );
-    }
-
     public List<TechCategory> getCategories() {
         return categories;
     }
