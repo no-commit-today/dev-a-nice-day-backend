@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.storage.mysql.content;
 
 import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechCategory;
+import com.nocommittoday.techswipe.domain.content.TechContentQuery;
 import com.nocommittoday.techswipe.domain.content.TechContentWithProvider;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
@@ -28,6 +29,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(
@@ -116,6 +118,22 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
                 new TechContentId(id),
                 provider.toDomain(),
                 image == null ? null : new ImageId(image.getId()),
+                url,
+                title,
+                publishedDate,
+                new Summary(summary),
+                categories.stream().map(TechContentCategoryEntity::getCategory).toList()
+        );
+    }
+
+    public TechContentQuery toQuery() {
+        return new TechContentQuery(
+                new TechContentId(id),
+                provider.toQuery(),
+                Optional.ofNullable(image)
+                        .filter(ImageEntity::isUsed)
+                        .map(ImageEntity::getUrl)
+                        .orElse(null),
                 url,
                 title,
                 publishedDate,
