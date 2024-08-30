@@ -2,7 +2,7 @@ package com.nocommittoday.techswipe.domain.content;
 
 import com.nocommittoday.techswipe.domain.core.PageParam;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
-import com.nocommittoday.techswipe.storage.mysql.content.TechContentJpaQueryRepository;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentJpaRepository;
 import com.nocommittoday.techswipe.storage.mysql.test.TechContentEntityBuilder;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class TechContentSwipeQueryReaderTest {
     private TechContentSwipeQueryReader techContentSwipeQueryReader;
 
     @Mock
-    private TechContentJpaQueryRepository techContentJpaRepository;
+    private TechContentJpaRepository techContentJpaRepository;
 
     @Test
     void 스와이프_쿼리를_읽을_수_있다() {

@@ -22,7 +22,7 @@ public class TechContentCategorizedListReader {
             PageParam pageParam,
             List<TechCategory> categories
     ) {
-        return techContentJpaRepository.findAllWithProviderByCategoryInOrderByPublishedDateDesc(
+        return techContentJpaRepository.findAllWithAllByCategoryInOrderByPublishedDateDescAndNotDeleted(
                         pageParam,
                         categories
                 ).stream()

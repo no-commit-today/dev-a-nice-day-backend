@@ -8,7 +8,7 @@ import java.util.Optional;
 
 interface TechContentJpaRepositoryCustom {
 
-    List<TechContentEntity> findAllWithProviderByCategoryInOrderByPublishedDateDesc(
+    List<TechContentEntity> findAllWithAllByCategoryInOrderByPublishedDateDescAndNotDeleted(
             PageParam pageParam, List<TechCategory> categories
     );
 

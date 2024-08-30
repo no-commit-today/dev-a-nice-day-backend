@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.domain.content;
 
 import com.nocommittoday.techswipe.domain.core.PageParam;
-import com.nocommittoday.techswipe.storage.mysql.content.TechContentJpaQueryRepository;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentJpaRepository;
 import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,9 +12,9 @@ import java.util.Objects;
 @Repository
 public class TechContentSwipeQueryReader {
 
-    private final TechContentJpaQueryRepository techContentJpaRepository;
+    private final TechContentJpaRepository techContentJpaRepository;
 
-    public TechContentSwipeQueryReader(TechContentJpaQueryRepository techContentJpaRepository) {
+    public TechContentSwipeQueryReader(TechContentJpaRepository techContentJpaRepository) {
         this.techContentJpaRepository = techContentJpaRepository;
     }
 
