@@ -5,13 +5,16 @@ import com.nocommittoday.techswipe.domain.collection.exception.CollectionInitial
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionSummarizeUnableException;
 import com.nocommittoday.techswipe.domain.content.Summary;
+import com.nocommittoday.techswipe.domain.content.TechContent;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.domain.subscription.SubscriptionId;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class CollectedContent {
 
@@ -266,6 +269,24 @@ public class CollectedContent {
                 publishedDate,
                 content,
                 imageUrl
+        );
+    }
+
+    public TechContent toTechContent(@Nullable ImageId imageId) {
+        if (CollectionStatus.PUBLISHED != status) {
+            throw new IllegalStateException("[" + CollectionStatus.PUBLISHED + "] 상태에서 호출해야 합니다. " +
+                    "status=" + status + ", id=" + id);
+        }
+
+        return new TechContent(
+                publishedContentId,
+                providerId,
+                imageId,
+                url,
+                title,
+                publishedDate,
+                summary,
+                Objects.requireNonNull(categoryList).toTechCategories()
         );
     }
 
