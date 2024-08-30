@@ -7,7 +7,7 @@ import com.nocommittoday.techswipe.domain.content.TechCategory;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.content.TechContentListQueryParam;
 import com.nocommittoday.techswipe.domain.content.TechContentListQueryResult;
-import com.nocommittoday.techswipe.domain.content.TechContentListQueryServiceV2;
+import com.nocommittoday.techswipe.domain.content.TechContentListQueryService;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderQuery;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TechContentListQueryControllerDocsTest extends AbstractDocsTest {
 
     @MockBean
-    private TechContentListQueryServiceV2 techContentListQueryService;
+    private TechContentListQueryService techContentListQueryService;
 
 
     @Test

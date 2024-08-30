@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.controller.content.v1.response.TechContentCou
 import com.nocommittoday.techswipe.controller.content.v1.response.TechContentQueryResponse;
 import com.nocommittoday.techswipe.domain.content.TechContentListQueryParam;
 import com.nocommittoday.techswipe.domain.content.TechContentListQueryResult;
-import com.nocommittoday.techswipe.domain.content.TechContentListQueryServiceV2;
+import com.nocommittoday.techswipe.domain.content.TechContentListQueryService;
 import com.nocommittoday.techswipe.controller.core.ListResponse;
 import com.nocommittoday.techswipe.controller.core.PageRequest;
 import jakarta.validation.Valid;
@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TechContentListQueryController {
 
-    private final TechContentListQueryServiceV2 techContentListQueryService;
+    private final TechContentListQueryService techContentListQueryService;
 
-    public TechContentListQueryController(TechContentListQueryServiceV2 techContentListQueryService) {
+    public TechContentListQueryController(TechContentListQueryService techContentListQueryService) {
         this.techContentListQueryService = techContentListQueryService;
     }
 
