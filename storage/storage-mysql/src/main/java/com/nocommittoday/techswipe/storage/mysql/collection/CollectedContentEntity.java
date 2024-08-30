@@ -13,6 +13,7 @@ import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.storage.mysql.subscription.SubscriptionEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Convert;
@@ -53,29 +54,32 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
     private CollectionStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "provider_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "provider_id", updatable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private TechContentProviderEntity provider;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "subscription_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "subscription_id", updatable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private SubscriptionEntity subscription;
 
     @Nullable
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "published_content_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private TechContentEntity publishedContent;
 
-    @Column(name = "url", length = 500, nullable = false)
+    @Column(name = "url", length = 500, updatable = false, nullable = false)
     private String url;
 
-    @Column(name = "title", length = 500, nullable = false)
+    @Nullable
+    @Column(name = "title", length = 500)
     private String title;
 
-    @Column(name = "published_date", nullable = false)
+    @Nullable
+    @Column(name = "published_date")
     private LocalDate publishedDate;
 
+    @Nullable
     @Lob
-    @Column(name = "content", length = 100_000_000, nullable = false)
+    @Column(name = "content", length = 100_000_000)
     private String content;
 
     @Nullable
@@ -179,14 +183,17 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
         return url;
     }
 
+    @Nullable
     public String getTitle() {
         return title;
     }
 
+    @Nullable
     public LocalDate getPublishedDate() {
         return publishedDate;
     }
 
+    @Nullable
     public String getContent() {
         return content;
     }
