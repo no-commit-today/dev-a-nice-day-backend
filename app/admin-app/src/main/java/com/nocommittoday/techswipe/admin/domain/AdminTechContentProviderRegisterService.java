@@ -2,7 +2,6 @@ package com.nocommittoday.techswipe.admin.domain;
 
 import com.nocommittoday.techswipe.admin.domain.exception.AdminTechContentProviderAlreadyExistsException;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
-import com.nocommittoday.techswipe.domain.content.provider.TechContentProviderIdGenerator;
 import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.storage.mysql.admin.AdminImageEntityJpaRepository;
 import com.nocommittoday.techswipe.storage.mysql.admin.AdminTechContentProviderEntityJpaRepository;
@@ -18,12 +17,12 @@ public class AdminTechContentProviderRegisterService {
 
     private final AdminImageEntityJpaRepository adminImageEntityJpaRepository;
     private final AdminTechContentProviderEntityJpaRepository adminTechContentProviderEntityJpaRepository;
-    private final TechContentProviderIdGenerator techContentProviderIdGenerator;
+    private final AdminTechContentProviderIdGenerator techContentProviderIdGenerator;
 
     public AdminTechContentProviderRegisterService(
             AdminImageEntityJpaRepository adminImageEntityJpaRepository,
             AdminTechContentProviderEntityJpaRepository adminTechContentProviderEntityJpaRepository,
-            TechContentProviderIdGenerator techContentProviderIdGenerator
+            AdminTechContentProviderIdGenerator techContentProviderIdGenerator
     ) {
         this.adminImageEntityJpaRepository = adminImageEntityJpaRepository;
         this.adminTechContentProviderEntityJpaRepository = adminTechContentProviderEntityJpaRepository;
