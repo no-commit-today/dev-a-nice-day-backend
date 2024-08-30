@@ -44,7 +44,3 @@ spring:
     activate:
       on-profile: prod
 
-app:
-  collection:
-    openai:
-      enabled: true
