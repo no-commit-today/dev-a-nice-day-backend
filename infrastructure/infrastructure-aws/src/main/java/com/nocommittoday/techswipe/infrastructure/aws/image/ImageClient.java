@@ -62,6 +62,7 @@ public class ImageClient {
         requestFactory.setConnectTimeout(Duration.ofMillis(2000));
 
         this.restClient = restClientBuilder
+                .defaultHeader(HttpHeaders.USER_AGENT, "Mozilla/5.0")
                 .requestFactory(requestFactory)
                 .build();
         this.uuidHolder = uuidHolder;
