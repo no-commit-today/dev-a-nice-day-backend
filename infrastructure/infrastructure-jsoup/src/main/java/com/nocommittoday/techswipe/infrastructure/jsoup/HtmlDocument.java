@@ -4,8 +4,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.Nullable;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +32,8 @@ public class HtmlDocument {
                                 .first()
                 )
                 .map(element -> element.attr("content"))
-                .filter(url -> !url.isBlank())
+                .filter(imageUrl -> !imageUrl.isBlank())
+                .map(this::toAbsoluteUrl)
                 .orElse(null);
     }
 
@@ -59,7 +62,28 @@ public class HtmlDocument {
     }
 
     private List<String> extractUrls(Element element) {
-        return element.select("a").eachAttr("abs:href");
+        return element.select("a").eachAttr("abs:href")
+                .stream()
+                .filter(url -> !url.isBlank())
+                .map(this::toAbsoluteUrl)
+                .toList();
+    }
+
+    private String toAbsoluteUrl(String url) {
+        URI uri = URI.create(url);
+        if (uri.isAbsolute()) {
+            return url;
+        }
+
+        URI baseUri = URI.create(document.baseUri());
+        return UriComponentsBuilder.newInstance()
+                .scheme(baseUri.getScheme())
+                .host(baseUri.getHost())
+                .port(baseUri.getPort())
+                .build()
+                .toUri()
+                .resolve(uri)
+                .toString();
     }
 
     public String htmlBySelector(String selector) {
