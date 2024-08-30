@@ -25,8 +25,9 @@ class TechContentJpaQueryRepositoryCustomImpl implements TechContentJpaQueryRepo
     public List<TechContentEntity> findAllWithAllByCategoryInOrderByPublishedDateDescAndNotDeleted(PageParam pageParam, List<TechCategory> categories) {
         return queryFactory
                 .selectFrom(techContentEntity)
-                .join(techContentEntity.provider).fetchJoin()
                 .leftJoin(techContentEntity.image).fetchJoin()
+                .join(techContentEntity.provider).fetchJoin()
+                .leftJoin(techContentEntity.provider.icon).fetchJoin()
                 .join(techContentCategoryEntity).on(
                         techContentEntity.id.eq(techContentCategoryEntity.content.id))
                 .where(
