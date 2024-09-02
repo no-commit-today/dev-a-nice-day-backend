@@ -19,7 +19,7 @@ public class TechContentListQueryReader {
 
     @Transactional(readOnly = true)
     public List<TechContentQuery> getListV1(PageParam pageParam, List<TechCategory> categories) {
-        return techContentJpaRepository.findAllWithAllByCategoryInOrderByPublishedDateDescAndNotDeleted(
+        return techContentJpaRepository.findAllByCategoryInOrderByPublishedDateDescAndNotDeleted(
                         pageParam, categories
                 ).stream()
                 .map(TechContentEntity::toQuery)

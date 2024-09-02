@@ -24,18 +24,14 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
     }
 
     @Override
-    public List<TechContentEntity> findAllWithAllByCategoryInOrderByPublishedDateDescAndNotDeleted(PageParam pageParam, List<TechCategory> categories) {
+    public List<TechContentEntity> findAllByCategoryInOrderByPublishedDateDescAndNotDeleted(PageParam pageParam, List<TechCategory> categories) {
         return queryFactory
                 .selectFrom(techContentEntity)
-                .leftJoin(techContentEntity.image).fetchJoin()
-                .join(techContentEntity.provider).fetchJoin()
-                .leftJoin(techContentEntity.provider.icon).fetchJoin()
                 .join(techContentCategoryEntity).on(
                         techContentEntity.id.eq(techContentCategoryEntity.content.id))
                 .where(
                         techContentCategoryEntity.category.in(categories),
-                        techContentEntity.deleted.isFalse(),
-                        techContentEntity.provider.deleted.isFalse()
+                        techContentEntity.deleted.isFalse()
                 )
                 .groupBy(techContentEntity.publishedDate, techContentEntity.id)
                 .orderBy(techContentEntity.publishedDate.desc())
