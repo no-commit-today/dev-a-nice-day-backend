@@ -1,0 +1,92 @@
+package com.nocommittoday.techswipe.domain.core;
+
+import java.time.Clock;
+import java.time.Duration;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
+
+public abstract class AbstractLocalCacheReader<K, V> {
+
+    private final Map<K, CacheEntry<V>> cache = Collections.synchronizedMap(new HashMap<>());
+
+    private final Clock clock;
+
+    private final Duration ttl;
+
+    private final double beta;
+
+    protected AbstractLocalCacheReader(Duration ttl) {
+        this(Clock.systemDefaultZone(), ttl, 1.0);
+    }
+
+    protected AbstractLocalCacheReader(Duration ttl, double beta) {
+        this(Clock.systemDefaultZone(), ttl, beta);
+    }
+
+    protected AbstractLocalCacheReader(Clock clock, Duration ttl, double beta) {
+        this.clock = clock;
+        this.ttl = ttl;
+        this.beta = beta;
+    }
+
+    public V get(K key) {
+        if (!validate(key)) {
+            set(key);
+        }
+        return this.cache.get(key).getValue();
+    }
+
+    private void set(K key) {
+        long currentTime = this.clock.millis();
+        V value = loadData(key);
+        long timeToCompute = this.clock.millis() - currentTime;
+
+        long expiry = this.clock.millis() + this.ttl.toMillis();
+        this.cache.put(key, new CacheEntry<>(value, expiry, timeToCompute));
+    }
+
+    private boolean validate(K key) {
+        if (!this.cache.containsKey(key)) {
+            return false;
+        }
+        CacheEntry<V> entry = this.cache.get(key);
+        long currentTime = this.clock.millis();
+        long gapScore = currentTime
+                - (long) (entry.getTimeToCompute() * this.beta * Math.log(ThreadLocalRandom.current().nextDouble()));
+        if (gapScore > entry.getExpiry()) {
+            this.cache.remove(key);
+            return false;
+        }
+
+        return true;
+    }
+
+    protected abstract V loadData(K key);
+
+    static class CacheEntry<V> {
+
+        private final V value;
+        private final long expiry;
+        private final long timeToCompute;
+
+        public CacheEntry(V value, long expiry, long timeToCompute) {
+            this.value = value;
+            this.expiry = expiry;
+            this.timeToCompute = timeToCompute;
+        }
+
+        public V getValue() {
+            return value;
+        }
+
+        public long getExpiry() {
+            return expiry;
+        }
+
+        public long getTimeToCompute() {
+            return timeToCompute;
+        }
+    }
+}
