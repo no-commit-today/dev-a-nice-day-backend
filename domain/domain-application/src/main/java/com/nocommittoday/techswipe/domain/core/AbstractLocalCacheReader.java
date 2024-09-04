@@ -1,5 +1,8 @@
 package com.nocommittoday.techswipe.domain.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.Clock;
 import java.time.Duration;
 import java.util.Collections;
@@ -8,6 +11,8 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class AbstractLocalCacheReader<K, V> {
+
+    private static final Logger log = LoggerFactory.getLogger(AbstractLocalCacheReader.class);
 
     private final Map<K, CacheEntry<V>> cache = Collections.synchronizedMap(new HashMap<>());
 
@@ -33,7 +38,10 @@ public abstract class AbstractLocalCacheReader<K, V> {
 
     public V get(K key) {
         if (!validate(key)) {
+            log.debug("캐시 미스 키: {}", key);
             set(key);
+        } else {
+            log.debug("캐시 히트 키: {}", key);
         }
         return this.cache.get(key).getValue();
     }

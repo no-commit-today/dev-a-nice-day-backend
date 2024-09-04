@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 public class TechContentListQueryService {
 
     private final TechContentListQueryReader techContentListQueryReader;
-    private final TechContentCountReader techContentCountReader;
+    private final TechContentCountReaderLocalCache techContentCountReader;
 
     public TechContentListQueryService(
             TechContentListQueryReader techContentListQueryReader,
-            TechContentCountReader techContentCountReader
+            TechContentCountReaderLocalCache techContentCountReader
     ) {
         this.techContentListQueryReader = techContentListQueryReader;
         this.techContentCountReader = techContentCountReader;
@@ -24,6 +24,6 @@ public class TechContentListQueryService {
     }
 
     public long count(TechContentListQueryParam queryParam) {
-        return techContentCountReader.count(queryParam.categories());
+        return techContentCountReader.get(queryParam.categories());
     }
 }
