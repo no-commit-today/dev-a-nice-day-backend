@@ -5,16 +5,15 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Clock;
 import java.time.Duration;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class AbstractLocalCacheReader<K, V> {
 
     private static final Logger log = LoggerFactory.getLogger(AbstractLocalCacheReader.class);
 
-    private final Map<K, CacheEntry<V>> cache = Collections.synchronizedMap(new HashMap<>());
+    private final Map<K, CacheEntry<V>> cache = new ConcurrentHashMap<>();
 
     private final Clock clock;
 
@@ -61,10 +60,14 @@ public abstract class AbstractLocalCacheReader<K, V> {
         }
         CacheEntry<V> entry = this.cache.get(key);
         long currentTime = this.clock.millis();
-        long gapScore = currentTime
-                - (long) (entry.getTimeToCompute() * this.beta * Math.log(ThreadLocalRandom.current().nextDouble()));
+        if (currentTime > entry.getExpiry()) {
+            cache.remove(key);
+            return false;
+        }
+
+        long gapScore = (long) (currentTime
+                - (entry.getTimeToCompute() * this.beta * Math.log(ThreadLocalRandom.current().nextDouble())));
         if (gapScore > entry.getExpiry()) {
-            this.cache.remove(key);
             return false;
         }
 
