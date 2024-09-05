@@ -12,7 +12,7 @@ public class TechContentCountReaderLocalCache extends AbstractLocalCacheReader<L
     private final TechContentCountReader techContentCountReader;
 
     public TechContentCountReaderLocalCache(TechContentCountReader techContentCountReader) {
-        super(Duration.ofMinutes(30));
+        super(Duration.ofMinutes(30), 5.0);
         this.techContentCountReader = techContentCountReader;
     }
 
