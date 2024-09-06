@@ -2,6 +2,8 @@ package com.nocommittoday.techswipe.controller.core;
 
 
 import com.nocommittoday.techswipe.domain.core.AbstractDomainException;
+import com.nocommittoday.techswipe.domain.core.DomainException;
+import com.nocommittoday.techswipe.domain.core.DomainValidationException;
 import com.nocommittoday.techswipe.domain.core.ErrorCodeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,40 @@ public class GlobalServletExceptionHandler extends ResponseEntityExceptionHandle
             log.info("handleDomainException[{}]: {}", ex.getClass(), ex.getMessage(), ex);
         }
 
+        return handleExceptionInternal(ex, body, headers, status, request);
+    }
+
+    @ExceptionHandler(DomainException.class)
+    private ResponseEntity<Object> handleDomainException(DomainException ex, WebRequest request) {
+        HttpHeaders headers = new HttpHeaders();
+        ErrorCodeType errorCode = ex.getErrorCode();
+        HttpStatusCode status = HttpStatusCode.valueOf(errorCode.getStatus());
+        ProblemDetail body = createProblemDetail(
+                ex, status, errorCode.getMessage(), null, null, request);
+        body.setProperty("errorCode", errorCode.getCode());
+        if (ex.getData() != null) {
+            body.setProperty("data", ex.getData());
+        }
+
+        if (HttpStatus.valueOf(errorCode.getStatus()).is5xxServerError()) {
+            log.error("handleDomainException[{}]: {}", ex.getClass(), ex.getMessage(), ex);
+        } else {
+            log.info("handleDomainException[{}]: {}", ex.getClass(), ex.getMessage(), ex);
+        }
+
+        return handleExceptionInternal(ex, body, headers, status, request);
+    }
+
+    @ExceptionHandler(DomainValidationException.class)
+    private ResponseEntity<Object> handleDomainValidationException(
+            DomainValidationException ex, WebRequest request) {
+        HttpHeaders headers = new HttpHeaders();
+        HttpStatusCode status = HttpStatus.BAD_REQUEST;
+        ProblemDetail body = createProblemDetail(
+                ex, status, ex.getMessage(), null, null, request);
+        if (ex.getData() != null) {
+            body.setProperty("data", ex.getData());
+        }
         return handleExceptionInternal(ex, body, headers, status, request);
     }
 

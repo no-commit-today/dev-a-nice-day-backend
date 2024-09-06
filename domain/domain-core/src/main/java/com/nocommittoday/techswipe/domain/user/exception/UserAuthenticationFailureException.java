@@ -19,6 +19,10 @@ public class UserAuthenticationFailureException extends AbstractDomainException 
         super(UserErrorCode.AUTHENTICATION_FAILURE, "RefreshTokenId: " + refreshTokenId);
     }
 
+    public UserAuthenticationFailureException(UserId userId, RefreshTokenId refreshTokenId) {
+        super(UserErrorCode.AUTHENTICATION_FAILURE, "UserId: " + userId + ", RefreshTokenId: " + refreshTokenId);
+    }
+
     public UserAuthenticationFailureException(Exception exception) {
         super(UserErrorCode.AUTHENTICATION_FAILURE, exception);
     }

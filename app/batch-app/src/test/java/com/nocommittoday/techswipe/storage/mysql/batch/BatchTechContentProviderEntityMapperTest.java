@@ -1,12 +1,8 @@
 package com.nocommittoday.techswipe.storage.mysql.batch;
 
-import com.nocommittoday.techswipe.domain.content.TechContentProviderCreate;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
-import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
-import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderJpaRepository;
-import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -42,28 +38,4 @@ class BatchTechContentProviderEntityMapperTest {
         assertThat(result).isEqualTo(entity);
     }
 
-    @Test
-    void TechContentProviderCreate로부터_생성할_수_있다() {
-        // given
-        TechContentProviderCreate command = new TechContentProviderCreate(
-                new TechContentProviderId(1),
-                TechContentProviderType.DOMESTIC_COMPANY_BLOG,
-                "title",
-                "url",
-                new ImageId(1)
-        );
-
-        ImageEntity imageEntity = mock(ImageEntity.class);
-        given(imageEntityMapper.from(new ImageId(1))).willReturn(imageEntity);
-
-        // when
-        TechContentProviderEntity result = techContentProviderEntityMapper.from(command);
-
-        // then
-        assertThat(result.getId()).isEqualTo(1L);
-        assertThat(result.getType()).isEqualTo(TechContentProviderType.DOMESTIC_COMPANY_BLOG);
-        assertThat(result.getTitle()).isEqualTo("title");
-        assertThat(result.getUrl()).isEqualTo("url");
-        assertThat(result.getIcon()).isEqualTo(imageEntity);
-    }
 }

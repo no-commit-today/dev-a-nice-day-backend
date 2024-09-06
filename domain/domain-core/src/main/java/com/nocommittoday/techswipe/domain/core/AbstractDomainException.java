@@ -5,7 +5,7 @@ public abstract class AbstractDomainException extends RuntimeException {
     private final ErrorCodeType errorCode;
 
     protected AbstractDomainException(ErrorCodeType errorCode) {
-        super();
+        super(errorCode.getMessage());
         this.errorCode = errorCode;
     }
 
@@ -20,7 +20,7 @@ public abstract class AbstractDomainException extends RuntimeException {
     }
 
     protected AbstractDomainException(ErrorCodeType errorCode, Exception cause) {
-        super(cause);
+        super(errorCode.getMessage(), cause);
         this.errorCode = errorCode;
     }
 

@@ -7,6 +7,7 @@ import com.nocommittoday.techswipe.storage.mysql.user.UserEntity;
 
 import javax.annotation.Nullable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class LoggedInEntityBuilder {
 
@@ -80,14 +81,12 @@ public class LoggedInEntityBuilder {
             id = LocalAutoIncrementIdUtils.nextId();
         }
 
-        long fieldId = id != null ? id : LocalAutoIncrementIdUtils.nextId();
-
         if (user == null) {
             user = UserEntityBuilder.create(withId);
         }
 
         if (refreshTokenId == null) {
-            refreshTokenId = "refresh-token-id-" + fieldId;
+            refreshTokenId = UUID.randomUUID().toString();
         }
 
         if (expiresAt == null) {

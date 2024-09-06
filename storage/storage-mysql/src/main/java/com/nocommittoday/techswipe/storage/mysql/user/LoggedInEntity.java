@@ -66,6 +66,19 @@ public class LoggedInEntity extends BaseSoftDeleteEntity {
         this.expiresAt = expiresAt;
     }
 
+    public static LoggedInEntity create(
+            UserEntity user,
+            RefreshTokenId refreshTokenId,
+            LocalDateTime expiresAt
+    ) {
+        return new LoggedInEntity(
+                null,
+                user,
+                refreshTokenId.value().toString(),
+                expiresAt
+        );
+    }
+
     public LoggedInUser toDomain() {
         return new LoggedInUser(
                 new UserId(user.getId()),

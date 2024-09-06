@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.image;
 
-import com.nocommittoday.techswipe.domain.image.exception.ImageNotFoundException;
+import com.nocommittoday.techswipe.domain.core.DomainValidationException;
 import com.nocommittoday.techswipe.storage.mysql.image.ImageJpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +15,7 @@ public class ImageIdValidator {
 
     public void validate(ImageId imageId) {
         if (!imageJpaRepository.existsByIdAndDeletedIsFalse(imageId.value())) {
-            throw new ImageNotFoundException(imageId);
+            throw new DomainValidationException("잘못된 이미지 ID 입니다.", imageId.value());
         }
     }
 }

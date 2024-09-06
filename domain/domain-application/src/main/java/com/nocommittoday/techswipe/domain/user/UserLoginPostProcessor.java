@@ -27,10 +27,18 @@ public class UserLoginPostProcessor {
         UserEntity userEntity = userEntityJpaRepository.findById(loggedInUser.getId().value())
                 .filter(UserEntity::isUsed)
                 .orElseThrow(() -> new UserAuthenticationFailureException(loggedInUser.getId()));
-        loggedInEntityJpaRepository.save(new LoggedInEntity(
-                null,
+
+        if (loggedInEntityJpaRepository.existsByRefreshTokenId(
+                loggedInUser.getLoggedIn().getRefreshTokenId().value().toString())) {
+            throw new UserAuthenticationFailureException(
+                    loggedInUser.getId(),
+                    loggedInUser.getLoggedIn().getRefreshTokenId()
+            );
+        }
+
+        loggedInEntityJpaRepository.save(LoggedInEntity.create(
                 userEntity,
-                loggedInUser.getLoggedIn().getRefreshTokenId().value().toString(),
+                loggedInUser.getLoggedIn().getRefreshTokenId(),
                 loggedInUser.getLoggedIn().getExpiresAt()
         ));
     }

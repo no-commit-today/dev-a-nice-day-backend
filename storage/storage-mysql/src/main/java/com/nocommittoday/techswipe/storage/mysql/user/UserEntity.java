@@ -21,6 +21,9 @@ public class UserEntity extends BaseSoftDeleteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    protected UserEntity() {
+    }
+
     public UserEntity(@Nullable Long id) {
         this.id = id;
     }

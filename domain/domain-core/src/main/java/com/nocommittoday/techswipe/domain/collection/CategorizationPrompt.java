@@ -28,6 +28,9 @@ public class CategorizationPrompt {
     }
 
     public static CategorizationPrompt of(CollectedContent collectedContent) {
+        if (!collectedContent.getStatus().categorizable()) {
+            throw new IllegalArgumentException("분류 가능한 상태가 아닙니다. status=" + collectedContent.getStatus());
+        }
         return new CategorizationPrompt(
                 collectedContent.getTitle() + "\n\n" + collectedContent.getContent()
         );

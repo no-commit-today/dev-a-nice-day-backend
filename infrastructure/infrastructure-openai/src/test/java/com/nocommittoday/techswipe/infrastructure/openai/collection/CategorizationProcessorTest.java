@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.infrastructure.openai.collection;
 
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
+import com.nocommittoday.techswipe.domain.core.DomainValidationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -104,7 +105,7 @@ class CategorizationProcessorTest {
 
         // then
         assertThat(result.success()).isFalse();
-        assertThat(result.exception()).isInstanceOf(CategorizationResponseInvalidException.class);
+        assertThat(result.exception()).isInstanceOf(DomainValidationException.class);
     }
 
     @Test
@@ -123,6 +124,6 @@ class CategorizationProcessorTest {
 
         // then
         assertThat(result.success()).isFalse();
-        assertThat(result.exception()).isInstanceOf(CategorizationResponseInvalidException.class);
+        assertThat(result.exception()).isInstanceOf(DomainValidationException.class);
     }
 }

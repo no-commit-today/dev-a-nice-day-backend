@@ -7,4 +7,6 @@ import java.util.Optional;
 public interface LoggedInEntityJpaRepository extends JpaRepository<LoggedInEntity, Long> {
 
     Optional<LoggedInEntity> findByRefreshTokenId(String refreshTokenId);
+
+    boolean existsByRefreshTokenId(String refreshTokenId);
 }
