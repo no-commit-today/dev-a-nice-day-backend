@@ -56,7 +56,7 @@ class LoggedInUserReaderTest {
     }
 
     @Test
-    void 삭제된_로그인_정보를_조회할_수_없는_경우_예외를_발생시킨다() {
+    void 로그인_정보가_삭제된_경우_예외를_발생시킨다() {
         // given
         RefreshTokenId refreshTokenId = new RefreshTokenId(UUID.randomUUID());
         LoggedInEntity loggedInEntity = new LoggedInEntityBuilder()
