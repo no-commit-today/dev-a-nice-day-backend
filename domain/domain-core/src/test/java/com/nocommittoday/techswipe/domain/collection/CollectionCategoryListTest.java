@@ -1,7 +1,7 @@
 package com.nocommittoday.techswipe.domain.collection;
 
-import com.nocommittoday.techswipe.domain.collection.exception.CollectionIllegalCategoryException;
 import com.nocommittoday.techswipe.domain.content.TechCategory;
+import com.nocommittoday.techswipe.domain.core.DomainValidationException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,6 +10,36 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class CollectionCategoryListTest {
+
+    @Test
+    void 생성형_모델의_응답으로_생성할_수_있다() {
+        // given
+        String chatCompletionResult = "" +
+                "- " + CollectionCategory.SERVER.name() + "\n" +
+                "- " + CollectionCategory.AI.name();
+        // when
+        CollectionCategoryList collectionCategoryList = CollectionCategoryList.create(chatCompletionResult);
+
+        // then
+        assertThat(collectionCategoryList.getContent()).containsExactly(
+                CollectionCategory.AI,
+                CollectionCategory.SERVER
+        );
+    }
+
+    @Test
+    void 생성형_모델의_응답으로_생성할_때_잘못된_카테고리가_포함되면_예외가_발생한다() {
+        // given
+        // when
+        // then
+        assertThatThrownBy(() -> CollectionCategoryList.create("invalid"))
+                .isInstanceOf(DomainValidationException.class);
+        assertThatThrownBy(() -> CollectionCategoryList.create("- invalid"))
+                .isInstanceOf(DomainValidationException.class);
+        assertThatThrownBy(() -> CollectionCategoryList.create(
+                "- " + CollectionCategory.SERVER.name() + "- " + CollectionCategory.AI.name())
+        ).isInstanceOf(DomainValidationException.class);
+    }
 
     @Test
     void 생성할_때_카테고리_중복은_제거한다() {
@@ -52,12 +82,12 @@ class CollectionCategoryListTest {
         // when
         // then
         assertThatThrownBy(() -> CollectionCategoryList.create(List.of()))
-                .isInstanceOf(CollectionIllegalCategoryException.class);
+                .isInstanceOf(DomainValidationException.class);
         CollectionCategoryList.create(List.of(CollectionCategory.SERVER));
         CollectionCategoryList.create(List.of(CollectionCategory.SERVER, CollectionCategory.AI));
         CollectionCategoryList.create(List.of(CollectionCategory.SERVER, CollectionCategory.AI, CollectionCategory.DATA_ENGINEERING));
         assertThatThrownBy(() -> CollectionCategoryList.create(List.of(CollectionCategory.SERVER, CollectionCategory.AI, CollectionCategory.DATA_ENGINEERING, CollectionCategory.DEVOPS)))
-                .isInstanceOf(CollectionIllegalCategoryException.class);
+                .isInstanceOf(DomainValidationException.class);
     }
 
     @Test

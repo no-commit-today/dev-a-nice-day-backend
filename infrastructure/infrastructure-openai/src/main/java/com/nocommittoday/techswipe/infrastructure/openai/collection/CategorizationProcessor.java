@@ -6,7 +6,6 @@ import com.nocommittoday.techswipe.domain.collection.CollectionCategoryList;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -31,24 +30,8 @@ public class CategorizationProcessor {
     public CategorizationResult categorize(CollectedContent collectedContent) {
         try {
             String responseContent = categorizationClient.categorize(collectedContent);
-            List<String> responseContentLines = Arrays.stream(
-                            responseContent.split("\n"))
-                    .filter(message -> !message.isBlank())
-                    .map(String::trim)
-                    .toList();
 
-            if (responseContentLines.stream()
-                    .anyMatch(line -> !RESULT_PATTERN.matcher(line).matches())) {
-                throw new CategorizationResponseInvalidException(
-                        "분류 결과가 올바르지 않습니다. ", collectedContent.getId(), responseContent);
-            }
-
-            CollectionCategoryList categoryList = CollectionCategoryList.create(
-                    responseContentLines.stream()
-                            .map(line -> line.replaceFirst("^- ", ""))
-                            .map(CollectionCategory::valueOf)
-                            .toList()
-            );
+            CollectionCategoryList categoryList = CollectionCategoryList.create(responseContent);
 
             return CategorizationResult.success(categoryList);
         } catch (Exception e) {
