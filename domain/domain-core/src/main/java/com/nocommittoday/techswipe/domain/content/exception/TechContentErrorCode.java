@@ -5,7 +5,7 @@ import com.nocommittoday.techswipe.domain.core.ErrorCodeType;
 import java.net.HttpURLConnection;
 
 public enum TechContentErrorCode implements ErrorCodeType {
-    PROVIDER_NOT_FOUND("Provider 가 존재하지 않습니다.", HttpURLConnection.HTTP_BAD_REQUEST),
+    PROVIDER_NOT_FOUND("Provider 가 존재하지 않습니다.", HttpURLConnection.HTTP_NOT_FOUND),
     CONTENT_NOT_FOUND("Content 가 존재하지 않습니다.", HttpURLConnection.HTTP_NOT_FOUND),
     ;
 

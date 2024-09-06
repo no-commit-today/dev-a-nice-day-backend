@@ -2,11 +2,9 @@ package com.nocommittoday.techswipe.storage.mysql.content;
 
 import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechCategory;
-import com.nocommittoday.techswipe.domain.content.TechContentQuery;
-import com.nocommittoday.techswipe.domain.content.TechContentWithProvider;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
+import com.nocommittoday.techswipe.domain.content.TechContentQuery;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
-import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
@@ -111,19 +109,6 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
             return;
         }
         categories.add(new TechContentCategoryEntity(this, category));
-    }
-
-    public TechContentWithProvider toDomain() {
-        return new TechContentWithProvider(
-                new TechContentId(id),
-                provider.toDomain(),
-                image == null ? null : new ImageId(image.getId()),
-                url,
-                title,
-                publishedDate,
-                new Summary(summary),
-                categories.stream().map(TechContentCategoryEntity::getCategory).toList()
-        );
     }
 
     public TechContentQuery toQuery() {

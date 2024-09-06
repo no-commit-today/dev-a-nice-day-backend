@@ -3,23 +3,23 @@ package com.nocommittoday.techswipe.domain.content;
 import com.nocommittoday.techswipe.domain.content.exception.TechContentNotFoundException;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentJpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-@Repository
-public class TechContentReader {
+@Component
+public class TechContentQueryReader {
 
     private final TechContentJpaRepository techContentJpaRepository;
 
-    public TechContentReader(TechContentJpaRepository techContentJpaRepository) {
+    public TechContentQueryReader(TechContentJpaRepository techContentJpaRepository) {
         this.techContentJpaRepository = techContentJpaRepository;
     }
 
     @Transactional(readOnly = true)
-    public TechContentWithProvider get(TechContentId id) {
+    public TechContentQuery get(TechContentId id) {
         return techContentJpaRepository.findById(id.value())
                 .filter(TechContentEntity::isUsed)
-                .map(TechContentEntity::toDomain)
+                .map(TechContentEntity::toQuery)
                 .orElseThrow(() -> new TechContentNotFoundException(id));
     }
 }
