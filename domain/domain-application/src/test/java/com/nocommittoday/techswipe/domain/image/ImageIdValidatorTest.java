@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.image;
 
-import com.nocommittoday.techswipe.domain.image.exception.ImageNotFoundException;
+import com.nocommittoday.techswipe.domain.core.DomainValidationException;
 import com.nocommittoday.techswipe.storage.mysql.image.ImageJpaRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,6 +30,6 @@ class ImageIdValidatorTest {
         // when
         // then
         assertThatThrownBy(() -> imageIdValidator.validate(imageId))
-                .isInstanceOf(ImageNotFoundException.class);
+                .isInstanceOf(DomainValidationException.class);
     }
 }
