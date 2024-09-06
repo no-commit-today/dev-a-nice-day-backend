@@ -41,7 +41,7 @@ public class CollectionCategoryList {
 
     public List<TechCategory> toTechCategories() {
         return content.stream()
-                .map(category -> Objects.requireNonNull(category.getTechCategory()))
+                .map(category -> Objects.requireNonNull(category.toTechCategory()))
                 .toList();
     }
 

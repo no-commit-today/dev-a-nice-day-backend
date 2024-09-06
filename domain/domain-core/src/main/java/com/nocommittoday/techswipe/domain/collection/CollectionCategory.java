@@ -38,8 +38,10 @@ public enum CollectionCategory implements EnumMapperType {
         return title;
     }
 
-    @Nullable
-    public TechCategory getTechCategory() {
+    public TechCategory toTechCategory() {
+        if (techCategory == null) {
+            throw new IllegalStateException("techCategory is null");
+        }
         return techCategory;
     }
 
