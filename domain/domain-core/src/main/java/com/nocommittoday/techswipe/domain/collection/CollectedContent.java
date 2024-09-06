@@ -5,12 +5,16 @@ import com.nocommittoday.techswipe.domain.collection.exception.CollectionInitial
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionSummarizeUnableException;
 import com.nocommittoday.techswipe.domain.content.Summary;
+import com.nocommittoday.techswipe.domain.content.TechContent;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.domain.subscription.SubscriptionId;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class CollectedContent {
 
@@ -30,6 +34,9 @@ public class CollectedContent {
 
     private final SubscriptionId subscriptionId;
 
+    @Nullable
+    private final TechContentId publishedContentId;
+
     private final String url;
 
     private final String title;
@@ -47,6 +54,7 @@ public class CollectedContent {
             @Nullable Summary summary,
             TechContentProviderId providerId,
             SubscriptionId subscriptionId,
+            @Nullable TechContentId publishedContentId,
             String url,
             String title,
             LocalDate publishedDate,
@@ -59,6 +67,7 @@ public class CollectedContent {
         this.summary = summary;
         this.providerId = providerId;
         this.subscriptionId = subscriptionId;
+        this.publishedContentId = publishedContentId;
         this.url = url;
         this.title = title;
         this.publishedDate = publishedDate;
@@ -84,6 +93,7 @@ public class CollectedContent {
                 null,
                 providerId,
                 subscriptionId,
+                null,
                 url,
                 title,
                 publishedDate,
@@ -107,6 +117,7 @@ public class CollectedContent {
                 this.summary,
                 this.providerId,
                 this.subscriptionId,
+                this.publishedContentId,
                 this.url,
                 title != null ? title : this.title,
                 publishedDate != null ? publishedDate : this.publishedDate,
@@ -131,6 +142,7 @@ public class CollectedContent {
                 summary,
                 providerId,
                 subscriptionId,
+                publishedContentId,
                 url,
                 title,
                 publishedDate,
@@ -169,6 +181,7 @@ public class CollectedContent {
                 summary,
                 providerId,
                 subscriptionId,
+                publishedContentId,
                 url,
                 title,
                 publishedDate,
@@ -189,6 +202,7 @@ public class CollectedContent {
                 summary,
                 providerId,
                 subscriptionId,
+                publishedContentId,
                 url,
                 title,
                 publishedDate,
@@ -208,6 +222,7 @@ public class CollectedContent {
                 summary,
                 providerId,
                 subscriptionId,
+                publishedContentId,
                 url,
                 title,
                 publishedDate,
@@ -228,6 +243,7 @@ public class CollectedContent {
                 summary,
                 providerId,
                 subscriptionId,
+                publishedContentId,
                 url,
                 title,
                 publishedDate,
@@ -236,7 +252,7 @@ public class CollectedContent {
         );
     }
 
-    public CollectedContent published() {
+    public CollectedContent published(TechContentId publishedContentId) {
         if (!status.publishable()) {
             throw new CollectionPublishUnableException(id, status);
         }
@@ -247,6 +263,7 @@ public class CollectedContent {
                 summary,
                 providerId,
                 subscriptionId,
+                publishedContentId,
                 url,
                 title,
                 publishedDate,
@@ -255,23 +272,40 @@ public class CollectedContent {
         );
     }
 
-    @Nullable
-    public CollectionCategoryList getCategoryList() {
-        return categoryList;
-    }
+    public TechContent toTechContent(@Nullable ImageId imageId) {
+        if (CollectionStatus.PUBLISHED != status) {
+            throw new IllegalStateException("[" + CollectionStatus.PUBLISHED + "] 상태에서 호출해야 합니다. " +
+                    "status=" + status + ", id=" + id);
+        }
 
-    @Nullable
-    public String getContent() {
-        return content;
+        return new TechContent(
+                publishedContentId,
+                providerId,
+                imageId,
+                url,
+                title,
+                publishedDate,
+                summary,
+                Objects.requireNonNull(categoryList).toTechCategories()
+        );
     }
 
     public CollectedContentId getId() {
         return id;
     }
 
+    public CollectionStatus getStatus() {
+        return status;
+    }
+
     @Nullable
-    public String getImageUrl() {
-        return imageUrl;
+    public CollectionCategoryList getCategoryList() {
+        return categoryList;
+    }
+
+    @Nullable
+    public Summary getSummary() {
+        return summary;
     }
 
     public TechContentProviderId getProviderId() {
@@ -283,17 +317,12 @@ public class CollectedContent {
     }
 
     @Nullable
-    public LocalDate getPublishedDate() {
-        return publishedDate;
+    public TechContentId getPublishedContentId() {
+        return publishedContentId;
     }
 
-    public CollectionStatus getStatus() {
-        return status;
-    }
-
-    @Nullable
-    public Summary getSummary() {
-        return summary;
+    public String getUrl() {
+        return url;
     }
 
     @Nullable
@@ -301,7 +330,18 @@ public class CollectedContent {
         return title;
     }
 
-    public String getUrl() {
-        return url;
+    @Nullable
+    public String getContent() {
+        return content;
+    }
+
+    @Nullable
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    @Nullable
+    public LocalDate getPublishedDate() {
+        return publishedDate;
     }
 }

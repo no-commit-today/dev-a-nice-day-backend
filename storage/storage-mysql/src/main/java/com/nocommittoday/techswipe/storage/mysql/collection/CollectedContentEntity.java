@@ -6,11 +6,14 @@ import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
 import com.nocommittoday.techswipe.domain.collection.CollectionCategoryList;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.domain.content.Summary;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.subscription.SubscriptionId;
+import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentProviderEntity;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.storage.mysql.subscription.SubscriptionEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Convert;
@@ -23,6 +26,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import org.springframework.data.domain.Persistable;
@@ -50,24 +54,32 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
     private CollectionStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "provider_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "provider_id", updatable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private TechContentProviderEntity provider;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "subscription_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "subscription_id", updatable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private SubscriptionEntity subscription;
 
-    @Column(name = "url", length = 500, nullable = false)
+    @Nullable
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "published_content_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    private TechContentEntity publishedContent;
+
+    @Column(name = "url", length = 500, updatable = false, nullable = false)
     private String url;
 
-    @Column(name = "title", length = 500, nullable = false)
+    @Nullable
+    @Column(name = "title", length = 500)
     private String title;
 
-    @Column(name = "published_date", nullable = false)
+    @Nullable
+    @Column(name = "published_date")
     private LocalDate publishedDate;
 
+    @Nullable
     @Lob
-    @Column(name = "content", length = 100_000_000, nullable = false)
+    @Column(name = "content", length = 100_000_000)
     private String content;
 
     @Nullable
@@ -91,6 +103,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
             CollectionStatus status,
             TechContentProviderEntity provider,
             SubscriptionEntity subscription,
+            TechContentEntity publishedContent,
             String url,
             String title,
             LocalDate publishedDate,
@@ -103,6 +116,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
         this.status = status;
         this.provider = provider;
         this.subscription = subscription;
+        this.publishedContent = publishedContent;
         this.url = url;
         this.title = title;
         this.publishedDate = publishedDate;
@@ -126,6 +140,10 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
                         .map(SubscriptionEntity::getId)
                         .map(SubscriptionId::new)
                         .orElseThrow(),
+                Optional.ofNullable(publishedContent)
+                        .map(TechContentEntity::getId)
+                        .map(TechContentId::new)
+                        .orElse(null),
                 url,
                 title,
                 publishedDate,
@@ -134,29 +152,9 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
         );
     }
 
-    public void update(CollectedContent collectedContent) {
-        this.status = collectedContent.getStatus();
-        this.title = collectedContent.getTitle();
-        this.publishedDate = collectedContent.getPublishedDate();
-        this.content = collectedContent.getContent();
-        this.imageUrl = collectedContent.getImageUrl();
-        this.categories = collectedContent.getCategoryList() != null
-                ? collectedContent.getCategoryList().getContent() : null;
-        this.summary = collectedContent.getSummary() != null ? collectedContent.getSummary().getContent() : null;
-    }
-
     @Override
     public boolean isNew() {
         return getCreatedAt() == null;
-    }
-
-    @Nullable
-    public List<CollectionCategory> getCategories() {
-        return categories;
-    }
-
-    public String getContent() {
-        return content;
     }
 
     @Override
@@ -164,9 +162,8 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
         return id;
     }
 
-    @Nullable
-    public String getImageUrl() {
-        return imageUrl;
+    public CollectionStatus getStatus() {
+        return status;
     }
 
     public TechContentProviderEntity getProvider() {
@@ -177,24 +174,42 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
         return subscription;
     }
 
+    @Nullable
+    public TechContentEntity getPublishedContent() {
+        return publishedContent;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    @Nullable
+    public String getTitle() {
+        return title;
+    }
+
+    @Nullable
     public LocalDate getPublishedDate() {
         return publishedDate;
     }
 
-    public CollectionStatus getStatus() {
-        return status;
+    @Nullable
+    public String getContent() {
+        return content;
+    }
+
+    @Nullable
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    @Nullable
+    public List<CollectionCategory> getCategories() {
+        return categories;
     }
 
     @Nullable
     public String getSummary() {
         return summary;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getUrl() {
-        return url;
     }
 }

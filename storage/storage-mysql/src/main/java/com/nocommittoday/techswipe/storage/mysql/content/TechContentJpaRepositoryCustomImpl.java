@@ -1,11 +1,17 @@
 package com.nocommittoday.techswipe.storage.mysql.content;
 
 import com.nocommittoday.techswipe.domain.content.TechCategory;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.core.PageParam;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Nullable;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,13 +30,10 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
     }
 
     @Override
-    public List<TechContentEntity> findAllWithProviderByCategoryInOrderByPublishedDateDesc(
-            PageParam pageParam, List<TechCategory> categories
-    ) {
+    public List<TechContentEntity> findAllByCategoryInOrderByPublishedDateDescAndNotDeleted(
+            PageParam pageParam, List<TechCategory> categories) {
         return queryFactory
                 .selectFrom(techContentEntity)
-                .join(techContentEntity.provider).fetchJoin()
-                .leftJoin(techContentEntity.image).fetchJoin()
                 .join(techContentCategoryEntity).on(
                         techContentEntity.id.eq(techContentCategoryEntity.content.id))
                 .where(
@@ -42,6 +45,46 @@ class TechContentJpaRepositoryCustomImpl implements TechContentJpaRepositoryCust
                 .offset(pageParam.offset())
                 .limit(pageParam.size())
                 .fetch();
+    }
+
+    @Override
+    public List<TechContentEntity> findAllByGreaterThanContentCategoryInOrderByPublishedDateDescAndDeletedIsFalse(
+            @Nullable TechContentId lastContentId, List<TechCategory> categories, int size) {
+        return queryFactory
+                .selectFrom(techContentEntity)
+                .join(techContentCategoryEntity).on(
+                        techContentEntity.id.eq(techContentCategoryEntity.content.id)
+                )
+                .where(
+                        techContentCategoryEntity.category.in(categories),
+                        lastContentCondition(lastContentId),
+                        techContentEntity.deleted.isFalse()
+                )
+                .orderBy(
+                        techContentEntity.publishedDate.desc(),
+                        techContentEntity.id.asc()
+                )
+                .groupBy(
+                        techContentEntity.publishedDate,
+                        techContentEntity.id
+                )
+                .limit(size)
+                .fetch();
+    }
+
+    @Nullable
+    private BooleanExpression lastContentCondition(@Nullable TechContentId lastContentId) {
+        if (lastContentId == null) {
+            return null;
+        }
+
+        JPQLQuery<LocalDate> lastContentPublishedDate = JPAExpressions.select(techContentEntity.publishedDate)
+                .from(techContentEntity)
+                .where(techContentEntity.id.eq(lastContentId.value()));
+
+        return techContentEntity.publishedDate.eq(lastContentPublishedDate).and(
+                        techContentEntity.id.gt(lastContentId.value()))
+                .or(techContentEntity.publishedDate.lt(lastContentPublishedDate));
     }
 
     @Override

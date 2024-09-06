@@ -1,19 +1,15 @@
 package com.nocommittoday.techswipe.batch.job;
 
+import com.nocommittoday.techswipe.batch.domain.content.BatchTechContentIdGenerator;
 import com.nocommittoday.techswipe.batch.listener.CollectedContentPublishJobSkipListener;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentPublishProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
-import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriter;
-import com.nocommittoday.techswipe.batch.writer.JpaItemTupleWriterBuilder;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.domain.image.exception.ImageApplicationException;
 import com.nocommittoday.techswipe.infrastructure.aws.image.ImageStore;
-import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
-import com.nocommittoday.techswipe.storage.mysql.batch.BatchTechContentEntityMapper;
+import com.nocommittoday.techswipe.storage.mysql.batch.BatchImageEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
-import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
 import jakarta.persistence.EntityManagerFactory;
-import org.javatuples.Pair;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
@@ -22,6 +18,8 @@ import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.item.database.JpaItemWriter;
+import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -40,23 +38,23 @@ public class CollectedContentPublishJobConfig {
     private final EntityManagerFactory emf;
 
     private final ImageStore imageStore;
-    private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
-    private final BatchTechContentEntityMapper techContentEntityMapper;
+    private final BatchTechContentIdGenerator techContentIdGenerator;
+    private final BatchImageEntityMapper imageEntityMapper;
 
     public CollectedContentPublishJobConfig(
             JobRepository jobRepository,
             PlatformTransactionManager txManager,
             EntityManagerFactory emf,
             ImageStore imageStore,
-            BatchCollectedContentEntityMapper collectedContentEntityMapper,
-            BatchTechContentEntityMapper techContentEntityMapper
+            BatchTechContentIdGenerator techContentIdGenerator,
+            BatchImageEntityMapper imageEntityMapper
     ) {
         this.jobRepository = jobRepository;
         this.txManager = txManager;
         this.emf = emf;
         this.imageStore = imageStore;
-        this.collectedContentEntityMapper = collectedContentEntityMapper;
-        this.techContentEntityMapper = techContentEntityMapper;
+        this.techContentIdGenerator = techContentIdGenerator;
+        this.imageEntityMapper = imageEntityMapper;
     }
 
     @Bean(JOB_NAME)
@@ -73,7 +71,7 @@ public class CollectedContentPublishJobConfig {
     public Step step() {
         StepBuilder stepBuilder = new StepBuilder(STEP_NAME, jobRepository);
         return stepBuilder
-                .<CollectedContentEntity, Pair<CollectedContentEntity, TechContentEntity>>chunk(CHUNK_SIZE, txManager)
+                .<CollectedContentEntity, CollectedContentEntity>chunk(CHUNK_SIZE, txManager)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
@@ -107,15 +105,15 @@ public class CollectedContentPublishJobConfig {
     public CollectedContentPublishProcessor processor() {
         return new CollectedContentPublishProcessor(
                 imageStore,
-                collectedContentEntityMapper,
-                techContentEntityMapper
+                techContentIdGenerator,
+                imageEntityMapper
         );
     }
 
     @Bean(STEP_NAME + "ItemWriter")
     @StepScope
-    public JpaItemTupleWriter<Pair<CollectedContentEntity, TechContentEntity>> writer() {
-        return new JpaItemTupleWriterBuilder<Pair<CollectedContentEntity, TechContentEntity>>()
+    public JpaItemWriter<CollectedContentEntity> writer() {
+        return new JpaItemWriterBuilder<CollectedContentEntity>()
                 .entityManagerFactory(emf)
                 .usePersist(false)
                 .build();

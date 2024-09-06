@@ -1,17 +1,14 @@
 package com.nocommittoday.techswipe.domain.content;
 
-import com.nocommittoday.techswipe.domain.image.ImageId;
-
 import javax.annotation.Nullable;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
-public class TechContent {
+public class TechContentQuery {
 
     private final TechContentId id;
 
-    private final TechContentProviderId providerId;
+    private final TechContentProviderQuery provider;
 
     private final String url;
 
@@ -20,16 +17,16 @@ public class TechContent {
     private final LocalDate publishedDate;
 
     @Nullable
-    private final ImageId imageId;
+    private final String imageUrl;
 
     private final Summary summary;
 
     private final List<TechCategory> categories;
 
-    public TechContent(
+    public TechContentQuery(
             TechContentId id,
-            TechContentProviderId providerId,
-            @Nullable ImageId imageId,
+            TechContentProviderQuery provider,
+            @Nullable String imageUrl,
             String url,
             String title,
             LocalDate publishedDate,
@@ -37,26 +34,21 @@ public class TechContent {
             List<TechCategory> categories
     ) {
         this.id = id;
-        this.providerId = providerId;
-        this.imageId = imageId;
+        this.provider = provider;
+        this.imageUrl = imageUrl;
         this.url = url;
         this.title = title;
         this.publishedDate = publishedDate;
         this.summary = summary;
-        this.categories = Collections.unmodifiableList(categories);
+        this.categories = categories;
     }
 
     public TechContentId getId() {
         return id;
     }
 
-    public TechContentProviderId getProviderId() {
-        return providerId;
-    }
-
-    @Nullable
-    public ImageId getImageId() {
-        return imageId;
+    public TechContentProviderQuery getProvider() {
+        return provider;
     }
 
     public String getUrl() {
@@ -69,6 +61,11 @@ public class TechContent {
 
     public LocalDate getPublishedDate() {
         return publishedDate;
+    }
+
+    @Nullable
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public Summary getSummary() {

@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.controller.content.v1.response;
 
 import com.nocommittoday.techswipe.domain.content.TechCategory;
-import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
 import com.nocommittoday.techswipe.domain.content.TechContentDetailQueryResult;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
@@ -25,18 +25,18 @@ public record TechContentDetailQueryResponse(
 
     public static TechContentDetailQueryResponse from(TechContentDetailQueryResult result) {
         return new TechContentDetailQueryResponse(
-                String.valueOf(result.id().value()),
-                result.url(),
-                result.title(),
-                result.publishedDate(),
-                result.imageUrl(),
-                result.summary(),
-                result.categories(),
-                String. valueOf(result.providerId().value()),
-                result.providerType(),
-                result.providerTitle(),
-                result.providerUrl(),
-                result.providerIconUrl()
+                String.valueOf(result.content().getId().value()),
+                result.content().getUrl(),
+                result.content().getTitle(),
+                result.content().getPublishedDate(),
+                result.content().getImageUrl(),
+                result.content().getSummary().getContent(),
+                result.content().getCategories(),
+                String.valueOf(result.content().getProvider().getId().value()),
+                result.content().getProvider().getType(),
+                result.content().getProvider().getTitle(),
+                result.content().getProvider().getUrl(),
+                result.content().getProvider().getIconUrl()
         );
     }
 }

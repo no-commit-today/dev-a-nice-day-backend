@@ -13,10 +13,15 @@
 operation::content/get-content-swipe-list[snippets='http-request,query-parameters,http-response,response-fields']
 
 
-[[get-content-list]]
-== 컨텐츠 리스트 조회
+[[get-content-list-v1]]
+== 컨텐츠 리스트 조회 v1
 
 operation::content/get-content-list[snippets='http-request,query-parameters,http-response,response-fields']
+
+[[get-content-list-v2]]
+== 컨텐츠 리스트 조회 v2
+
+operation::content/get-content-list-v2[snippets='http-request,query-parameters,http-response,response-fields']
 
 [[get-content-detail]]
 == 컨텐츠 상세 조회

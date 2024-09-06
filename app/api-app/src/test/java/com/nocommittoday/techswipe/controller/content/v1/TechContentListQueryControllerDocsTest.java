@@ -1,16 +1,19 @@
 package com.nocommittoday.techswipe.controller.content.v1;
 
-import com.nocommittoday.techswipe.domain.content.TechCategory;
-import com.nocommittoday.techswipe.domain.content.TechContentId;
-import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
-import com.nocommittoday.techswipe.domain.content.TechContentListQueryParam;
-import com.nocommittoday.techswipe.domain.content.TechContentListQueryService;
-import com.nocommittoday.techswipe.domain.content.provider.TechContentProviderQueryResult;
-import com.nocommittoday.techswipe.domain.content.TechContentQueryResult;
 import com.nocommittoday.techswipe.controller.core.PageRequest;
-import com.nocommittoday.techswipe.domain.core.PageParam;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import com.nocommittoday.techswipe.docs.restdocs.RestDocsAttribute;
+import com.nocommittoday.techswipe.domain.content.TechCategory;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
+import com.nocommittoday.techswipe.domain.content.TechContentListQueryParam;
+import com.nocommittoday.techswipe.domain.content.TechContentListQueryResult;
+import com.nocommittoday.techswipe.domain.content.TechContentListQueryService;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderQuery;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
+import com.nocommittoday.techswipe.domain.content.TechContentQuery;
+import com.nocommittoday.techswipe.domain.core.PageParam;
+import com.nocommittoday.techswipe.domain.test.SummaryBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -41,22 +44,23 @@ class TechContentListQueryControllerDocsTest extends AbstractDocsTest {
         given(techContentListQueryService.getList(
                 new PageParam(1, 10),
                 new TechContentListQueryParam(List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING))
-        )).willReturn(List.of(
-                new TechContentQueryResult(
+        )).willReturn(new TechContentListQueryResult(List.of(
+                new TechContentQuery(
                         new TechContentId(1L),
-                        new TechContentProviderQueryResult(
+                        new TechContentProviderQuery(
                                 new TechContentProviderId(2L),
+                                TechContentProviderType.DOMESTIC_COMPANY_BLOG,
                                 "title",
                                 "https://provider-url",
                                 "https://provider-icon-url"
                         ),
+                        "image-url",
                         "https://content-url",
                         "title",
                         LocalDate.of(2021, 1, 1),
-                        "https://content-image-url",
-                        "summary",
+                        SummaryBuilder.create(),
                         List.of(TechCategory.SERVER)
-                )
+                ))
         ));
 
         // when

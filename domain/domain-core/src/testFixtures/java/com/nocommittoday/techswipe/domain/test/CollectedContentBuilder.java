@@ -5,6 +5,7 @@ import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
 import com.nocommittoday.techswipe.domain.collection.CollectionCategoryList;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.domain.content.Summary;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.subscription.SubscriptionId;
 
@@ -26,6 +27,8 @@ public class CollectedContentBuilder {
     private TechContentProviderId providerId;
     @Nullable
     private SubscriptionId subscriptionId;
+    @Nullable
+    private TechContentId publishedContentId;
     @Nullable
     private String url;
     @Nullable
@@ -97,7 +100,7 @@ public class CollectedContentBuilder {
 
     public static CollectedContent createPublished() {
         CollectedContent summarized = createSummarized();
-        return summarized.published();
+        return summarized.published(new TechContentId(LocalAutoIncrementIdUtils.nextId()));
     }
 
     public CollectedContentBuilder id(CollectedContentId id) {
@@ -127,6 +130,11 @@ public class CollectedContentBuilder {
 
     public CollectedContentBuilder subscriptionId(SubscriptionId subscriptionId) {
         this.subscriptionId = subscriptionId;
+        return this;
+    }
+
+    public CollectedContentBuilder publishedContentId(TechContentId publishedContentId) {
+        this.publishedContentId = publishedContentId;
         return this;
     }
 
@@ -164,6 +172,7 @@ public class CollectedContentBuilder {
                 summary,
                 providerId,
                 subscriptionId,
+                publishedContentId,
                 url,
                 title,
                 publishedDate,

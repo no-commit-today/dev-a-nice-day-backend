@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.storage.mysql.content;
 
 import com.nocommittoday.techswipe.domain.content.TechContentProvider;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderQuery;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
 import com.nocommittoday.techswipe.domain.image.ImageId;
@@ -20,6 +21,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import org.springframework.data.domain.Persistable;
+
+import java.util.Optional;
 
 @Entity
 @Table(
@@ -73,6 +76,19 @@ public class TechContentProviderEntity extends BaseSoftDeleteEntity implements P
                 title,
                 url,
                 icon == null ? null : new ImageId(icon.getId())
+        );
+    }
+
+    public TechContentProviderQuery toQuery() {
+        return new TechContentProviderQuery(
+                new TechContentProviderId(id),
+                type,
+                title,
+                url,
+                Optional.ofNullable(icon)
+                        .filter(ImageEntity::isUsed)
+                        .map(ImageEntity::getUrl)
+                        .orElse(null)
         );
     }
 

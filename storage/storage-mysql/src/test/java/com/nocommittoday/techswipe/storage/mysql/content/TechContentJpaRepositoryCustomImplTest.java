@@ -127,7 +127,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         techContentJpaRepository.saveAll(techContentEntities);
 
         // when
-        List<TechContentEntity> result = techContentJpaRepository.findAllWithProviderByCategoryInOrderByPublishedDateDesc(
+        List<TechContentEntity> result = techContentJpaRepository.findAllByCategoryInOrderByPublishedDateDescAndNotDeleted(
                 new PageParam(1, 10),
                 List.of(TechCategory.SW_ENGINEERING)
         );
@@ -188,7 +188,7 @@ class TechContentJpaRepositoryCustomImplTest extends AbstractDataJpaTest {
         techContentJpaRepository.saveAll(techContentEntities);
 
         // when
-        List<TechContentEntity> result = techContentJpaRepository.findAllWithProviderByCategoryInOrderByPublishedDateDesc(
+        List<TechContentEntity> result = techContentJpaRepository.findAllByCategoryInOrderByPublishedDateDescAndNotDeleted(
                 new PageParam(1, 10),
                 List.of(TechCategory.SW_ENGINEERING, TechCategory.APP)
         );

@@ -5,6 +5,7 @@ import com.nocommittoday.techswipe.domain.collection.exception.CollectionInitial
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
 import com.nocommittoday.techswipe.domain.collection.exception.CollectionSummarizeUnableException;
 import com.nocommittoday.techswipe.domain.content.Summary;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.test.CollectedContentBuilder;
 import com.nocommittoday.techswipe.domain.test.SummaryBuilder;
 import org.junit.jupiter.api.Test;
@@ -152,7 +153,7 @@ class CollectedContentTest {
         CollectedContent collectedContent = CollectedContentBuilder.createSummarized();
 
         // when
-        CollectedContent result = collectedContent.published();
+        CollectedContent result = collectedContent.published(new TechContentId(10L));
 
         // then
         assertThat(result.getStatus()).isEqualTo(CollectionStatus.PUBLISHED);
@@ -166,6 +167,7 @@ class CollectedContentTest {
         assertThat(result.getImageUrl()).isEqualTo(collectedContent.getImageUrl());
         assertThat(result.getCategoryList()).isEqualTo(collectedContent.getCategoryList());
         assertThat(result.getSummary()).isEqualTo(collectedContent.getSummary());
+        assertThat(result.getSubscriptionId()).isEqualTo(collectedContent.getSubscriptionId());
     }
 
     @Test
@@ -174,12 +176,15 @@ class CollectedContentTest {
         // when
         // then
         assertAll(
-                () -> assertThatThrownBy(() -> CollectedContentBuilder.createCollected().published())
-                        .isInstanceOf(CollectionPublishUnableException.class),
-                () -> assertThatThrownBy(() -> CollectedContentBuilder.createInit().published())
-                        .isInstanceOf(CollectionPublishUnableException.class),
-                () -> assertThatThrownBy(() -> CollectedContentBuilder.createCategorized().published())
-                        .isInstanceOf(CollectionPublishUnableException.class)
+                () -> assertThatThrownBy(() ->
+                        CollectedContentBuilder.createCollected().published(new TechContentId(10L))
+                ).isInstanceOf(CollectionPublishUnableException.class),
+                () -> assertThatThrownBy(() ->
+                        CollectedContentBuilder.createInit().published(new TechContentId(10L))
+                ).isInstanceOf(CollectionPublishUnableException.class),
+                () -> assertThatThrownBy(() ->
+                        CollectedContentBuilder.createCategorized().published(new TechContentId(10L))
+                ).isInstanceOf(CollectionPublishUnableException.class)
         );
     }
 }

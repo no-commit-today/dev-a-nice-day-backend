@@ -1,0 +1,23 @@
+spring:
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:not-used}
+      chat:
+        options:
+          model: gpt-4o-mini
+
+---
+spring.config.activate.on-profile:
+  - local
+
+app.collection.openai:
+  enabled: false
+---
+spring.config.activate.on-profile:
+  - local-dev
+  - dev
+  - prod
+
+app.collection.openai:
+  enabled: true
+  categorization-model: ${OPENAI_CATEGORIZATION_MODEL}

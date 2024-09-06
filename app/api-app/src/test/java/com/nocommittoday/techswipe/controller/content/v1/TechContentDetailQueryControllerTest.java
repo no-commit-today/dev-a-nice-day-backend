@@ -3,10 +3,13 @@ package com.nocommittoday.techswipe.controller.content.v1;
 import com.nocommittoday.techswipe.domain.content.TechCategory;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
+import com.nocommittoday.techswipe.domain.content.TechContentProviderQuery;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
 import com.nocommittoday.techswipe.domain.content.TechContentDetailQueryResult;
 import com.nocommittoday.techswipe.domain.content.TechContentDetailQueryService;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
+import com.nocommittoday.techswipe.domain.content.TechContentQuery;
+import com.nocommittoday.techswipe.domain.test.SummaryBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -34,21 +37,25 @@ class TechContentDetailQueryControllerTest extends AbstractDocsTest {
         // given
         given(techContentDetailQueryService.get(new TechContentId(1)))
                 .willReturn(new TechContentDetailQueryResult(
+                        new TechContentQuery(
                                 new TechContentId(1L),
+                                new TechContentProviderQuery(
+                                        new TechContentProviderId(2L),
+                                        TechContentProviderType.DOMESTIC_COMPANY_BLOG,
+                                        "provider-title",
+                                        "provider-url",
+                                        "provider-icon-url"
+                                ),
                                 "url",
                                 "title",
-                                LocalDate.of(2021, 1, 1),
                                 "content-image-url",
-                                "1. 요약-1\n2. 요약-2\n3. 요약-3",
-                                List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING),
-                                new TechContentProviderId(2L),
-                                TechContentProviderType.DOMESTIC_COMPANY_BLOG,
-                                "provider-title",
-                                "provider-url",
-                                "provider-icon-url"
+                                LocalDate.of(2021, 1, 1),
+                                SummaryBuilder.create(),
+                                List.of(TechCategory.SERVER, TechCategory.SW_ENGINEERING)
                         )
-                );
+                ));
         // when
+        // then
         mockMvc.perform(get("/api/content/v1/contents/{contentId}", 1L))
                 .andExpect(status().isOk())
                 .andDo(document("content/get-content-detail",

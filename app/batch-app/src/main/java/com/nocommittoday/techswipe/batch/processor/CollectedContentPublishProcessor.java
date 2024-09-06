@@ -1,62 +1,68 @@
 package com.nocommittoday.techswipe.batch.processor;
 
+import com.nocommittoday.techswipe.batch.domain.content.BatchTechContentIdGenerator;
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
-import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
-import com.nocommittoday.techswipe.domain.collection.exception.CollectionPublishUnableException;
-import com.nocommittoday.techswipe.domain.content.TechContentCreate;
+import com.nocommittoday.techswipe.domain.content.TechContent;
+import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.infrastructure.aws.image.ImageStore;
-import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
-import com.nocommittoday.techswipe.storage.mysql.batch.BatchTechContentEntityMapper;
+import com.nocommittoday.techswipe.storage.mysql.batch.BatchImageEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
-import org.javatuples.Pair;
 import org.springframework.batch.item.ItemProcessor;
 
-import java.util.Objects;
 import java.util.Optional;
 
 public class CollectedContentPublishProcessor
-        implements ItemProcessor<CollectedContentEntity, Pair<CollectedContentEntity, TechContentEntity>> {
+        implements ItemProcessor<CollectedContentEntity, CollectedContentEntity> {
 
     private final ImageStore imageStore;
-    private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
-    private final BatchTechContentEntityMapper techContentEntityMapper;
+    private final BatchTechContentIdGenerator techContentIdGenerator;
+    private final BatchImageEntityMapper imageEntityMapper;
 
     public CollectedContentPublishProcessor(
             ImageStore imageStore,
-            BatchCollectedContentEntityMapper collectedContentEntityMapper,
-            BatchTechContentEntityMapper techContentEntityMapper
+            BatchTechContentIdGenerator techContentIdGenerator,
+            BatchImageEntityMapper imageEntityMapper
     ) {
         this.imageStore = imageStore;
-        this.collectedContentEntityMapper = collectedContentEntityMapper;
-        this.techContentEntityMapper = techContentEntityMapper;
+        this.techContentIdGenerator = techContentIdGenerator;
+        this.imageEntityMapper = imageEntityMapper;
     }
 
     @Override
-    public Pair<CollectedContentEntity, TechContentEntity> process(CollectedContentEntity item) throws Exception {
+    public CollectedContentEntity process(CollectedContentEntity item) throws Exception {
         CollectedContent collectedContent = item.toDomain();
-        if (!collectedContent.getStatus().publishable()) {
-            throw new CollectionPublishUnableException(collectedContent.getId(), collectedContent.getStatus());
-        }
         ImageId imageId = Optional.ofNullable(collectedContent.getImageUrl())
                 .map(imageUrl -> imageStore.store(collectedContent.getImageUrl(), "content").get())
                 .orElse(null);
-        TechContentCreate content = new TechContentCreate(
-                collectedContent.getId().toTechContentId(),
-                collectedContent.getProviderId(),
-                collectedContent.getUrl(),
-                collectedContent.getTitle(),
-                collectedContent.getPublishedDate(),
-                imageId,
-                Objects.requireNonNull(collectedContent.getSummary()).getContent(),
-                Objects.requireNonNull(collectedContent.getCategoryList()).getContent().stream()
-                        .map(CollectionCategory::getTechCategory)
-                        .toList()
-        );
-        return Pair.with(
-                collectedContentEntityMapper.from(collectedContent.published()),
-                techContentEntityMapper.from(content)
+        TechContentId techContentId = techContentIdGenerator.nextId();
+        CollectedContent collectedContentPublished = collectedContent.published(techContentId);
+        TechContent techContent = collectedContentPublished.toTechContent(imageId);
+
+        return new CollectedContentEntity(
+                collectedContentPublished.getId().value(),
+                collectedContentPublished.getStatus(),
+                item.getProvider(),
+                item.getSubscription(),
+                new TechContentEntity(
+                        techContent.getId().value(),
+                        item.getProvider(),
+                        imageEntityMapper.from(techContent.getImageId()),
+                        techContent.getUrl(),
+                        techContent.getTitle(),
+                        techContent.getSummary().getContent(),
+                        techContent.getPublishedDate()
+                ),
+                collectedContentPublished.getUrl(),
+                collectedContentPublished.getTitle(),
+                collectedContentPublished.getPublishedDate(),
+                collectedContentPublished.getContent(),
+                collectedContentPublished.getImageUrl(),
+                collectedContentPublished.getCategoryList() != null
+                        ? collectedContentPublished.getCategoryList().getContent() : null,
+                collectedContentPublished.getSummary() != null
+                        ? collectedContentPublished.getSummary().getContent() : null
         );
     }
 }

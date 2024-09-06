@@ -2,10 +2,9 @@ package com.nocommittoday.techswipe.storage.mysql.content;
 
 import com.nocommittoday.techswipe.domain.content.Summary;
 import com.nocommittoday.techswipe.domain.content.TechCategory;
-import com.nocommittoday.techswipe.domain.content.TechContent;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
+import com.nocommittoday.techswipe.domain.content.TechContentQuery;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseSoftDeleteEntity;
-import com.nocommittoday.techswipe.domain.image.ImageId;
 import com.nocommittoday.techswipe.storage.mysql.image.ImageEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
@@ -28,6 +27,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(
@@ -111,11 +111,14 @@ public class TechContentEntity extends BaseSoftDeleteEntity implements Persistab
         categories.add(new TechContentCategoryEntity(this, category));
     }
 
-    public TechContent toDomain() {
-        return new TechContent(
+    public TechContentQuery toQuery() {
+        return new TechContentQuery(
                 new TechContentId(id),
-                provider.toDomain(),
-                image == null ? null : new ImageId(image.getId()),
+                provider.toQuery(),
+                Optional.ofNullable(image)
+                        .filter(ImageEntity::isUsed)
+                        .map(ImageEntity::getUrl)
+                        .orElse(null),
                 url,
                 title,
                 publishedDate,
