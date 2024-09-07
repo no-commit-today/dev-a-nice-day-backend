@@ -5,11 +5,13 @@ import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.subscription.Subscription;
 import com.nocommittoday.techswipe.infrastructure.alert.AlertCommand;
 import com.nocommittoday.techswipe.infrastructure.alert.AlertManager;
+import com.nocommittoday.techswipe.infrastructure.jsoup.HtmlDocumentScrapException;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.web.client.RestClientResponseException;
 
 public class CollectedContentInitializeJobItemProcessor
         implements ItemProcessor<CollectedContentEntity, CollectedContentEntity> {
@@ -40,7 +42,7 @@ public class CollectedContentInitializeJobItemProcessor
             editor.setPublishedDate(initialized.getPublishedDate());
             editor.setContent(initialized.getContent());
             editor.setImageUrl(initialized.getImageUrl());
-        } catch (Exception e) {
+        } catch (HtmlDocumentScrapException | RestClientResponseException e) {
             CollectedContent contentInitializationFailed = collectedContent.initializationFailed();
             editor.setStatus(contentInitializationFailed.getStatus());
             log.error("CollectedContent.id={} 의 초기화에 실패했습니다.", item.getId(), e);
