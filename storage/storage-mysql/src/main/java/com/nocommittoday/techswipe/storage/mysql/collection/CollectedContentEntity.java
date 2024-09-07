@@ -23,6 +23,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
@@ -41,6 +42,9 @@ import java.util.Optional;
         name = "collected_content",
         uniqueConstraints = {
                 @UniqueConstraint(name = "uk_collected_content__url", columnNames = {"url"})
+        },
+        indexes = {
+                @Index(name = "ix_deleted_status", columnList = "deleted, status"),
         }
 )
 public class CollectedContentEntity extends BaseSoftDeleteEntity implements Persistable<Long> {
