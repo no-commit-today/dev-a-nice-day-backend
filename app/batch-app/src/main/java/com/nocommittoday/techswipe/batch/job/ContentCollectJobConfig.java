@@ -38,7 +38,7 @@ public class ContentCollectJobConfig {
 
     private static final String JOB_NAME = "contentCollectJob";
     private static final String STEP_NAME = "contentCollectStep";
-    private static final int CHUNK_SIZE = 1;
+    private static final int CHUNK_SIZE = 10;
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager txManager;
