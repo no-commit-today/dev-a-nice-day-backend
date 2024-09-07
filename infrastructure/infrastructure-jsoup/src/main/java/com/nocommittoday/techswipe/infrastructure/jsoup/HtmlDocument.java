@@ -4,6 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.Nullable;
@@ -70,16 +71,16 @@ public class HtmlDocument {
     }
 
     private String toAbsoluteUrl(String url) {
-        URI uri = URI.create(url);
+        URI uri = UriComponentsBuilder.fromHttpUrl(url).build().toUri();
         if (uri.isAbsolute()) {
             return url;
         }
 
-        URI baseUri = URI.create(document.baseUri());
+        UriComponents baseUriComponents = UriComponentsBuilder.fromHttpUrl(document.baseUri()).build();
         return UriComponentsBuilder.newInstance()
-                .scheme(baseUri.getScheme())
-                .host(baseUri.getHost())
-                .port(baseUri.getPort())
+                .scheme(baseUriComponents.getScheme())
+                .host(baseUriComponents.getHost())
+                .port(baseUriComponents.getPort())
                 .build()
                 .toUri()
                 .resolve(uri)

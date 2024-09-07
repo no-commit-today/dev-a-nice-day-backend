@@ -55,7 +55,7 @@ public class CollectedContentSummarizeJobConfig {
     public Job job() {
         JobBuilder jobBuilder = new JobBuilder(JOB_NAME, jobRepository);
         return jobBuilder
-                .incrementer(new RunIdIncrementer())
+                .incrementer(new SystemClockRunIdIncrementer())
                 .start(step())
                 .build();
     }
