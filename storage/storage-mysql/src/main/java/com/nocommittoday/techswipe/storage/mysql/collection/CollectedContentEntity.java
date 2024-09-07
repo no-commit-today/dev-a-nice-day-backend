@@ -157,6 +157,30 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
         return getCreatedAt() == null;
     }
 
+    public CollectedContentEntityEditor toEditor() {
+        return new CollectedContentEntityEditor(
+                status,
+                publishedContent,
+                title,
+                publishedDate,
+                content,
+                imageUrl,
+                categories,
+                summary
+        );
+    }
+
+    public void edit(CollectedContentEntityEditor editor) {
+        status = editor.getStatus();
+        publishedContent = editor.getPublishedContent();
+        title = editor.getTitle();
+        publishedDate = editor.getPublishedDate();
+        content = editor.getContent();
+        imageUrl = editor.getImageUrl();
+        categories = editor.getCategories();
+        summary = editor.getSummary();
+    }
+
     @Override
     public Long getId() {
         return id;
