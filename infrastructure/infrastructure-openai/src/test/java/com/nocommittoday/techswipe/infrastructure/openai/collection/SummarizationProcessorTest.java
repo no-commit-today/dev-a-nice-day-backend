@@ -1,6 +1,7 @@
 package com.nocommittoday.techswipe.infrastructure.openai.collection;
 
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
+import com.nocommittoday.techswipe.domain.core.DomainValidationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -8,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -23,8 +25,8 @@ class SummarizationProcessorTest {
     @Test
     void 내용을_형식에_맞게_반환한다() {
         // given
-        final CollectedContent collectedContent = mock(CollectedContent.class);
-        final String responseContent = """
+        CollectedContent collectedContent = mock(CollectedContent.class);
+        String responseContent = """
                 1. 요약 1
                 2. 요약 2
                 3. 요약 3
@@ -33,11 +35,10 @@ class SummarizationProcessorTest {
 
 
         // when
-        final SummarizationResult result = summarizationProcessor.summarize(collectedContent);
+        var result = summarizationProcessor.summarize(collectedContent);
 
         // then
-        assertThat(result.success()).isTrue();
-        assertThat(result.summary().getContent()).isEqualTo("""
+        assertThat(result.getContent()).isEqualTo("""
                 1. 요약 1
                 2. 요약 2
                 3. 요약 3
@@ -47,20 +48,17 @@ class SummarizationProcessorTest {
     @Test
     void 내용이_형식에_맞지_않을_경우_예외를_발생시킨다() {
         // given
-        final CollectedContent collectedContent = mock(CollectedContent.class);
-        final String responseContent = """
+        CollectedContent collectedContent = mock(CollectedContent.class);
+        String responseContent = """
                 1. 요약 1
                 2. 요약 2
                 """.trim();
         given(summarizationClient.summarize(collectedContent)).willReturn(responseContent);
 
         // when
-        final SummarizationResult result = summarizationProcessor.summarize(collectedContent);
-
         // then
-        assertThat(result.success()).isFalse();
-        assertThat(result.exception()).isInstanceOf(SummarizationResponseInvalidException.class);
-        assertThat(result.summary()).isNull();
+        assertThatThrownBy(() -> summarizationProcessor.summarize(collectedContent))
+                .isInstanceOf(DomainValidationException.class);
     }
 
 }

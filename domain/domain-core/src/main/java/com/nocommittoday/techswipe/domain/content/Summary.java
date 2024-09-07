@@ -1,5 +1,8 @@
 package com.nocommittoday.techswipe.domain.content;
 
+import com.nocommittoday.techswipe.domain.core.DomainValidationException;
+
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Summary {
@@ -13,6 +16,15 @@ public class Summary {
 
     public Summary(String content) {
         this.content = content;
+    }
+
+    public static Summary create(String content) {
+        Summary summary = new Summary(content);
+        if (!summary.isValid()) {
+            throw new DomainValidationException("요약 형식이 올바르지 않습니다.", Map.of("content", content));
+        }
+
+        return summary;
     }
 
     public boolean isValid() {
