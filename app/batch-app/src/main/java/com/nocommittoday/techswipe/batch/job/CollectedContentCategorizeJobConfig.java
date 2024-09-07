@@ -3,8 +3,8 @@ package com.nocommittoday.techswipe.batch.job;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentCategorizeProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslZeroPagingItemReader;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
+import com.nocommittoday.techswipe.infrastructure.alert.AlertManager;
 import com.nocommittoday.techswipe.infrastructure.openai.collection.CategorizationProcessor;
-import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.core.Job;
@@ -35,20 +35,20 @@ public class CollectedContentCategorizeJobConfig {
     private final EntityManagerFactory emf;
 
     private final CategorizationProcessor categorizationProcessor;
-    private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
+    private final AlertManager alertManager;
 
     public CollectedContentCategorizeJobConfig(
             JobRepository jobRepository,
             PlatformTransactionManager txManager,
             EntityManagerFactory emf,
             CategorizationProcessor categorizationProcessor,
-            BatchCollectedContentEntityMapper collectedContentEntityMapper
+            AlertManager alertManager
     ) {
         this.jobRepository = jobRepository;
         this.txManager = txManager;
         this.emf = emf;
         this.categorizationProcessor = categorizationProcessor;
-        this.collectedContentEntityMapper = collectedContentEntityMapper;
+        this.alertManager = alertManager;
     }
 
     @Bean(JOB_NAME)
@@ -94,8 +94,7 @@ public class CollectedContentCategorizeJobConfig {
     @StepScope
     public CollectedContentCategorizeProcessor processor() {
         return new CollectedContentCategorizeProcessor(
-                categorizationProcessor,
-                collectedContentEntityMapper
+                categorizationProcessor, alertManager
         );
     }
 
