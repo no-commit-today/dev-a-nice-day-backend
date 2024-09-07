@@ -46,6 +46,7 @@ public class CollectedContentInitializeJobItemProcessor
             log.error("CollectedContent.id={} 의 초기화에 실패했습니다.", item.getId(), e);
             alertManager.alert(
                     AlertCommand.builder()
+                            .error()
                             .title("CollectedContentInitializeJob CollectedContent 초기화 실패")
                             .content(String.format("- CollectedContent.id: %d", item.getId()))
                             .ex(e)

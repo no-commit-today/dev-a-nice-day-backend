@@ -46,6 +46,7 @@ public class CollectedContentSummarizeProcessor
             editor.setStatus(summarizationFailed.getStatus());
             alertManager.alert(
                     AlertCommand.builder()
+                            .error()
                             .title("CollectedContentSummarizeJob CollectedContent 요약 실��")
                             .content(String.format("- CollectedContent.id: %d", item.getId()))
                             .ex(e)

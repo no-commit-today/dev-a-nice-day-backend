@@ -23,7 +23,8 @@ public class ContentCollectJobSkipListener implements SkipListener<SubscriptionE
         log.error("컨텐츠 수집 중 오류 발생 subscriptionId={}", item.getId(), t);
         alertManager.alert(
                 AlertCommand.builder()
-                        .title("🚨ContentCollectJob 중 오류 발생")
+                        .error()
+                        .title("ContentCollectJob 중 오류 발생")
                         .content(String.format("- subscriptionId: %d", item.getId()))
                         .ex((Exception) t)
                         .build()

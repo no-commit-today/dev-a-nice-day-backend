@@ -6,6 +6,7 @@ import com.nocommittoday.techswipe.batch.processor.CollectedContentPublishProces
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.domain.image.exception.ImageApplicationException;
+import com.nocommittoday.techswipe.infrastructure.alert.AlertManager;
 import com.nocommittoday.techswipe.infrastructure.aws.image.ImageStore;
 import com.nocommittoday.techswipe.storage.mysql.batch.BatchImageEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
@@ -40,6 +41,7 @@ public class CollectedContentPublishJobConfig {
     private final ImageStore imageStore;
     private final BatchTechContentIdGenerator techContentIdGenerator;
     private final BatchImageEntityMapper imageEntityMapper;
+    private final AlertManager alertManager;
 
     public CollectedContentPublishJobConfig(
             JobRepository jobRepository,
@@ -47,7 +49,8 @@ public class CollectedContentPublishJobConfig {
             EntityManagerFactory emf,
             ImageStore imageStore,
             BatchTechContentIdGenerator techContentIdGenerator,
-            BatchImageEntityMapper imageEntityMapper
+            BatchImageEntityMapper imageEntityMapper,
+            AlertManager alertManager
     ) {
         this.jobRepository = jobRepository;
         this.txManager = txManager;
@@ -55,6 +58,7 @@ public class CollectedContentPublishJobConfig {
         this.imageStore = imageStore;
         this.techContentIdGenerator = techContentIdGenerator;
         this.imageEntityMapper = imageEntityMapper;
+        this.alertManager = alertManager;
     }
 
     @Bean(JOB_NAME)
@@ -106,7 +110,8 @@ public class CollectedContentPublishJobConfig {
         return new CollectedContentPublishProcessor(
                 imageStore,
                 techContentIdGenerator,
-                imageEntityMapper
+                imageEntityMapper,
+                alertManager
         );
     }
 

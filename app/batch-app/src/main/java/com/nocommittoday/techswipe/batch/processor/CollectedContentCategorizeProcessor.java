@@ -46,6 +46,7 @@ public class CollectedContentCategorizeProcessor
             editor.setStatus(categorizationFailed.getStatus());
             alertManager.alert(
                     AlertCommand.builder()
+                            .error()
                             .title("CollectedContentCategorizeJob CollectedContent 분류 실패")
                             .content(String.format("- CollectedContent.id: %d", item.getId()))
                             .ex(e)
