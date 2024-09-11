@@ -14,9 +14,9 @@ import java.util.List;
 @SpringBootTest
 @TestPropertySource(properties = {
         "spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver",
-        "spring.datasource.url=jdbc:mysql://dev-a-nice-day-test.cjgy0880m9p0.ap-northeast-2.rds.amazonaws.com:3306/techswipe",
-        "spring.datasource.username=root",
-        "spring.datasource.password=5ut8ltDgZekKlshtqUzX",
+        "spring.datasource.url={DATABASE_URL}",
+        "spring.datasource.username={DATABASE_USERNAME}",
+        "spring.datasource.password={DATABASE_PASSWORD}",
         "spring.jpa.hibernate.ddl-auto=none",
         "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect",
 //        "logging.level.org.hibernate.SQL=DEBUG",
