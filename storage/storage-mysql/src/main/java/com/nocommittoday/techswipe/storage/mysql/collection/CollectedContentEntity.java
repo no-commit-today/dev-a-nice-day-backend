@@ -66,7 +66,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
     private SubscriptionEntity subscription;
 
     @Nullable
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "published_content_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private TechContentEntity publishedContent;
 
