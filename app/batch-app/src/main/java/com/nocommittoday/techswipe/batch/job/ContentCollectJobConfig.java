@@ -2,10 +2,12 @@ package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.domain.collection.BatchCollectedContentIdGenerator;
 import com.nocommittoday.techswipe.batch.domain.collection.BatchSubscribedContentCollectService;
+import com.nocommittoday.techswipe.batch.listener.ContentCollectJobSkipListener;
 import com.nocommittoday.techswipe.batch.param.TechContentProviderIdJobParameter;
 import com.nocommittoday.techswipe.batch.processor.ContentCollectJobItemProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.writer.JpaItemListWriter;
+import com.nocommittoday.techswipe.infrastructure.alert.AlertManager;
 import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.subscription.SubscriptionEntity;
@@ -18,9 +20,9 @@ import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.DefaultJobParametersValidator;
 import org.springframework.batch.core.job.builder.JobBuilder;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.core.step.skip.AlwaysSkipItemSkipPolicy;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
@@ -38,7 +40,7 @@ public class ContentCollectJobConfig {
 
     private static final String JOB_NAME = "contentCollectJob";
     private static final String STEP_NAME = "contentCollectStep";
-    private static final int CHUNK_SIZE = 1;
+    private static final int CHUNK_SIZE = 10;
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager txManager;
@@ -47,6 +49,7 @@ public class ContentCollectJobConfig {
     private final BatchSubscribedContentCollectService subscribedContentCollectService;
     private final BatchCollectedContentIdGenerator collectedContentIdGenerator;
     private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
+    private final AlertManager alertManager;
 
     public ContentCollectJobConfig(
             JobRepository jobRepository,
@@ -54,7 +57,8 @@ public class ContentCollectJobConfig {
             EntityManagerFactory emf,
             BatchSubscribedContentCollectService subscribedContentCollectService,
             BatchCollectedContentIdGenerator collectedContentIdGenerator,
-            BatchCollectedContentEntityMapper collectedContentEntityMapper
+            BatchCollectedContentEntityMapper collectedContentEntityMapper,
+            AlertManager alertManager
     ) {
         this.jobRepository = jobRepository;
         this.txManager = txManager;
@@ -62,6 +66,7 @@ public class ContentCollectJobConfig {
         this.subscribedContentCollectService = subscribedContentCollectService;
         this.collectedContentIdGenerator = collectedContentIdGenerator;
         this.collectedContentEntityMapper = collectedContentEntityMapper;
+        this.alertManager = alertManager;
     }
 
     @Bean(JOB_NAME)
@@ -69,7 +74,7 @@ public class ContentCollectJobConfig {
         JobBuilder jobBuilder = new JobBuilder(JOB_NAME, jobRepository);
         return jobBuilder
                 .validator(jobParametersValidator())
-                .incrementer(new RunIdIncrementer())
+                .incrementer(new SystemClockRunIdIncrementer())
                 .start(step())
                 .build();
     }
@@ -97,6 +102,11 @@ public class ContentCollectJobConfig {
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
+
+                .faultTolerant()
+                .skip(Exception.class)
+                .skipPolicy(new AlwaysSkipItemSkipPolicy())
+                .listener(listener())
 
                 .build();
     }
@@ -145,4 +155,9 @@ public class ContentCollectJobConfig {
         return new JpaItemListWriter<>(jpaItemWriter);
     }
 
+    @Bean(STEP_NAME + "SkipListener")
+    @StepScope
+    public ContentCollectJobSkipListener listener() {
+        return new ContentCollectJobSkipListener(this.alertManager);
+    }
 }

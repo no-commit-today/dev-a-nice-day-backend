@@ -1,12 +1,11 @@
 package com.nocommittoday.techswipe.batch.job;
 
 import com.nocommittoday.techswipe.batch.domain.collection.BatchCollectedContentInitializeService;
+import com.nocommittoday.techswipe.batch.processor.CollectedContentInitializeJobItemProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslPagingItemReader;
 import com.nocommittoday.techswipe.batch.reader.QuerydslZeroPagingItemReader;
-import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
-import com.nocommittoday.techswipe.domain.subscription.Subscription;
-import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
+import com.nocommittoday.techswipe.infrastructure.alert.AlertManager;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.core.Job;
@@ -38,27 +37,27 @@ public class CollectedContentInitializeJobConfig {
     private final EntityManagerFactory emf;
 
     private final BatchCollectedContentInitializeService initializeService;
-    private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
+    private final AlertManager alertManager;
 
     public CollectedContentInitializeJobConfig(
             JobRepository jobRepository,
             PlatformTransactionManager txManager,
             EntityManagerFactory emf,
             BatchCollectedContentInitializeService initializeService,
-            BatchCollectedContentEntityMapper collectedContentEntityMapper
+            AlertManager alertManager
     ) {
         this.jobRepository = jobRepository;
         this.txManager = txManager;
         this.emf = emf;
         this.initializeService = initializeService;
-        this.collectedContentEntityMapper = collectedContentEntityMapper;
+        this.alertManager = alertManager;
     }
 
     @Bean(JOB_NAME)
     public Job job() {
         JobBuilder jobBuilder = new JobBuilder(JOB_NAME, jobRepository);
         return jobBuilder
-                .incrementer(new RunIdIncrementer())
+                .incrementer(new SystemClockRunIdIncrementer())
                 .start(step())
                 .build();
     }
@@ -98,14 +97,7 @@ public class CollectedContentInitializeJobConfig {
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
     public ItemProcessor<CollectedContentEntity, CollectedContentEntity> processor() {
-        return entity -> {
-            CollectedContent collectedContent = entity.toDomain();
-            Subscription subscription = entity.getSubscription().toDomain();
-            CollectedContent initialized = initializeService.initialize(subscription, collectedContent);
-            return collectedContentEntityMapper.from(
-                    initialized
-            );
-        };
+        return new CollectedContentInitializeJobItemProcessor(initializeService, alertManager);
     }
 
     @Bean(STEP_NAME + "ItemWriter")

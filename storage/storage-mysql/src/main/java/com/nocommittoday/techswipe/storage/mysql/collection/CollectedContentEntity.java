@@ -23,6 +23,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
@@ -41,6 +42,9 @@ import java.util.Optional;
         name = "collected_content",
         uniqueConstraints = {
                 @UniqueConstraint(name = "uk_collected_content__url", columnNames = {"url"})
+        },
+        indexes = {
+                @Index(name = "ix_deleted_status", columnList = "deleted, status"),
         }
 )
 public class CollectedContentEntity extends BaseSoftDeleteEntity implements Persistable<Long> {
@@ -62,7 +66,7 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
     private SubscriptionEntity subscription;
 
     @Nullable
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "published_content_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private TechContentEntity publishedContent;
 
@@ -155,6 +159,30 @@ public class CollectedContentEntity extends BaseSoftDeleteEntity implements Pers
     @Override
     public boolean isNew() {
         return getCreatedAt() == null;
+    }
+
+    public CollectedContentEntityEditor toEditor() {
+        return new CollectedContentEntityEditor(
+                status,
+                publishedContent,
+                title,
+                publishedDate,
+                content,
+                imageUrl,
+                categories,
+                summary
+        );
+    }
+
+    public void edit(CollectedContentEntityEditor editor) {
+        status = editor.getStatus();
+        publishedContent = editor.getPublishedContent();
+        title = editor.getTitle();
+        publishedDate = editor.getPublishedDate();
+        content = editor.getContent();
+        imageUrl = editor.getImageUrl();
+        categories = editor.getCategories();
+        summary = editor.getSummary();
     }
 
     @Override

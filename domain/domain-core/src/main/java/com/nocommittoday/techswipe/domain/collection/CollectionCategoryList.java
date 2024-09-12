@@ -40,7 +40,9 @@ public class CollectionCategoryList {
                 .map(line -> {
                     Matcher matcher = CHAT_COMPLETION_RESULT_PATTERN.matcher(line);
                     if (!matcher.matches()) {
-                        throw new DomainValidationException("chatCompletionResult=" + chatCompletionResult);
+                        throw new DomainValidationException(
+                                "카테고리 리스트 형식이 올바르지 않습니다.", "chatCompletionResult=" + chatCompletionResult
+                        );
                     }
                     return CollectionCategory.valueOf(matcher.group(PATTERN_CATEGORY_GROUP_NAME));
                 })

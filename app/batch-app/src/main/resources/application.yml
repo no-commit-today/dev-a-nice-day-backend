@@ -44,3 +44,8 @@ spring:
     activate:
       on-profile: prod
 
+app:
+  alert:
+    type: discord
+    discord:
+      webhook-url: ${DISCORD_WEBHOOK_URL}

@@ -94,3 +94,16 @@ docker compose up -d
 - `contextTest`: Spring Context 내에서 실행되거나 DB, 외부 API, 멀티스레드 등을 사용하는 테스트
 - `restDocsTest`: Spring Rest Docs 를 이용한 테스트
 - `developTest`: 개발용 테스트. CI 에서 실행하지 않음. 실험용 실행 등 자유롭게 사용.
+
+## Git 컨벤션
+
+### 커밋 메시지 접두사
+
+- `feat`: 기능관련 추가, 변경
+- `fix`: 버그 수정
+- `docs`: 문서
+- `style`: 코드 스타일 변경
+- `refactor`: 코드 리팩토링
+- `test`: 테스트 코드
+- `chore`: 빌드, 패키지 등의 변경
+- `prune`: 불필요한 코드 제거

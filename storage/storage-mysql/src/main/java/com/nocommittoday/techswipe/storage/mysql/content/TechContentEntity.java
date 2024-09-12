@@ -40,7 +40,8 @@ import java.util.Optional;
                         name = "ix_tech_content__provider_published_date",
                         columnList = "provider_id, published_date desc"
                 ),
-                @Index(name = "ix_tech_content__published_date", columnList = "published_date desc")
+                @Index(name = "ix_tech_content__published_date", columnList = "published_date desc"),
+                @Index(name = "ix_deleted_publisheddate", columnList = "deleted, published_date desc"),
         }
 )
 public class TechContentEntity extends BaseSoftDeleteEntity implements Persistable<Long> {

@@ -3,8 +3,8 @@ package com.nocommittoday.techswipe.batch.job;
 import com.nocommittoday.techswipe.batch.processor.CollectedContentSummarizeProcessor;
 import com.nocommittoday.techswipe.batch.reader.QuerydslZeroPagingItemReader;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
+import com.nocommittoday.techswipe.infrastructure.alert.AlertManager;
 import com.nocommittoday.techswipe.infrastructure.openai.collection.SummarizationProcessor;
-import com.nocommittoday.techswipe.storage.mysql.batch.BatchCollectedContentEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.core.Job;
@@ -35,27 +35,27 @@ public class CollectedContentSummarizeJobConfig {
     private final EntityManagerFactory emf;
 
     private final SummarizationProcessor summarizationProcessor;
-    private final BatchCollectedContentEntityMapper collectedContentEntityMapper;
+    private final AlertManager alertManager;
 
     public CollectedContentSummarizeJobConfig(
             JobRepository jobRepository,
             PlatformTransactionManager txManager,
             EntityManagerFactory emf,
             SummarizationProcessor summarizationProcessor,
-            BatchCollectedContentEntityMapper collectedContentEntityMapper
+            AlertManager alertManager
     ) {
         this.jobRepository = jobRepository;
         this.txManager = txManager;
         this.emf = emf;
         this.summarizationProcessor = summarizationProcessor;
-        this.collectedContentEntityMapper = collectedContentEntityMapper;
+        this.alertManager = alertManager;
     }
 
     @Bean(JOB_NAME)
     public Job job() {
         JobBuilder jobBuilder = new JobBuilder(JOB_NAME, jobRepository);
         return jobBuilder
-                .incrementer(new RunIdIncrementer())
+                .incrementer(new SystemClockRunIdIncrementer())
                 .start(step())
                 .build();
     }
@@ -84,7 +84,8 @@ public class CollectedContentSummarizeJobConfig {
                 .where(
                         collectedContentEntity.status.eq(CollectionStatus.CATEGORIZED),
                         collectedContentEntity.deleted.isFalse()
-                ).orderBy(collectedContentEntity.id.asc())
+                )
+                .orderBy(collectedContentEntity.id.asc())
         );
         return reader;
     }
@@ -94,7 +95,7 @@ public class CollectedContentSummarizeJobConfig {
     public CollectedContentSummarizeProcessor processor() {
         return new CollectedContentSummarizeProcessor(
                 summarizationProcessor,
-                collectedContentEntityMapper
+                alertManager
         );
     }
 

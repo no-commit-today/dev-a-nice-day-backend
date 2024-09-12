@@ -60,6 +60,7 @@ public class ImageClient {
                 HttpClients.custom().setRedirectStrategy(new DefaultRedirectStrategy()).build()
         );
         requestFactory.setConnectTimeout(Duration.ofMillis(2000));
+        requestFactory.setConnectionRequestTimeout(Duration.ofMillis(2000));
 
         this.restClient = restClientBuilder
                 .defaultHeader(HttpHeaders.USER_AGENT, "Mozilla/5.0")

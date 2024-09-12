@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.infrastructure.openai.collection;
 
 import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.collection.CollectionCategory;
+import com.nocommittoday.techswipe.domain.collection.CollectionCategoryList;
 import com.nocommittoday.techswipe.domain.core.DomainValidationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -32,12 +34,10 @@ class CategorizationProcessorTest {
                 """, CollectionCategory.SW_ENGINEERING, CollectionCategory.SERVER).trim());
 
         // when
-        CategorizationResult result = categorizationProcessor.categorize(collectedContent);
+        CollectionCategoryList result = categorizationProcessor.categorize(collectedContent);
 
         // then
-        assertThat(result.success()).isTrue();
-        assertThat(result.categoryList().getContent()).containsExactlyInAnyOrder(CollectionCategory.SW_ENGINEERING, CollectionCategory.SERVER);
-        assertThat(result.exception()).isNull();
+        assertThat(result.getContent()).containsExactlyInAnyOrder(CollectionCategory.SW_ENGINEERING, CollectionCategory.SERVER);
     }
 
     @Test
@@ -51,13 +51,11 @@ class CategorizationProcessorTest {
                 """, CollectionCategory.SW_ENGINEERING, CollectionCategory.SERVER, CollectionCategory.DEVOPS).trim());
 
         // when
-        CategorizationResult result = categorizationProcessor.categorize(collectedContent);
+        CollectionCategoryList result = categorizationProcessor.categorize(collectedContent);
 
         // then
-        assertThat(result.success()).isTrue();
-        assertThat(result.categoryList().getContent()).containsExactlyInAnyOrder(
+        assertThat(result.getContent()).containsExactlyInAnyOrder(
                 CollectionCategory.SW_ENGINEERING, CollectionCategory.SERVER, CollectionCategory.DEVOPS);
-        assertThat(result.exception()).isNull();
     }
 
     @Test
@@ -69,12 +67,10 @@ class CategorizationProcessorTest {
                 """, CollectionCategory.SW_ENGINEERING).trim());
 
         // when
-        CategorizationResult result = categorizationProcessor.categorize(collectedContent);
+        CollectionCategoryList result = categorizationProcessor.categorize(collectedContent);
 
         // then
-        assertThat(result.success()).isTrue();
-        assertThat(result.categoryList().getContent()).containsExactlyInAnyOrder(CollectionCategory.SW_ENGINEERING);
-        assertThat(result.exception()).isNull();
+        assertThat(result.getContent()).containsExactlyInAnyOrder(CollectionCategory.SW_ENGINEERING);
     }
 
     @Test
@@ -84,11 +80,10 @@ class CategorizationProcessorTest {
         given(categorizationClient.categorize(collectedContent)).willReturn("");
 
         // when
-        CategorizationResult result = categorizationProcessor.categorize(collectedContent);
-
         // then
-        assertThat(result.success()).isFalse();
-        assertThat(result.exception()).isNotNull();
+        assertThatThrownBy(() -> categorizationProcessor.categorize(collectedContent))
+                .isInstanceOf(DomainValidationException.class);
+
     }
 
     @Test
@@ -101,11 +96,9 @@ class CategorizationProcessorTest {
                 """, CollectionCategory.SW_ENGINEERING, "INVALID").trim());
 
         // when
-        CategorizationResult result = categorizationProcessor.categorize(collectedContent);
-
         // then
-        assertThat(result.success()).isFalse();
-        assertThat(result.exception()).isInstanceOf(DomainValidationException.class);
+        assertThatThrownBy(() -> categorizationProcessor.categorize(collectedContent))
+                .isInstanceOf(DomainValidationException.class);
     }
 
     @Test
@@ -120,10 +113,7 @@ class CategorizationProcessorTest {
                 """, CollectionCategory.SW_ENGINEERING, CollectionCategory.SERVER).trim());
 
         // when
-        CategorizationResult result = categorizationProcessor.categorize(collectedContent);
-
-        // then
-        assertThat(result.success()).isFalse();
-        assertThat(result.exception()).isInstanceOf(DomainValidationException.class);
+        assertThatThrownBy(() -> categorizationProcessor.categorize(collectedContent))
+                .isInstanceOf(DomainValidationException.class);
     }
 }

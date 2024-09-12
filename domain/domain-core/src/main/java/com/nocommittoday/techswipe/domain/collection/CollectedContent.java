@@ -39,12 +39,16 @@ public class CollectedContent {
 
     private final String url;
 
+    @Nullable
     private final String title;
 
+    @Nullable
     private final LocalDate publishedDate;
 
+    @Nullable
     private final String content;
 
+    @Nullable
     private final String imageUrl;
 
     public CollectedContent(
@@ -56,9 +60,9 @@ public class CollectedContent {
             SubscriptionId subscriptionId,
             @Nullable TechContentId publishedContentId,
             String url,
-            String title,
-            LocalDate publishedDate,
-            String content,
+            @Nullable String title,
+            @Nullable LocalDate publishedDate,
+            @Nullable String content,
             @Nullable String imageUrl
     ) {
         this.id = id;
@@ -110,20 +114,13 @@ public class CollectedContent {
             @Nullable String content,
             @Nullable String imageUrl
     ) {
-        CollectedContent collectedContent = new CollectedContent(
-                this.id,
-                CollectionStatus.INIT,
-                this.categoryList,
-                this.summary,
-                this.providerId,
-                this.subscriptionId,
-                this.publishedContentId,
-                this.url,
-                title != null ? title : this.title,
-                publishedDate != null ? publishedDate : this.publishedDate,
-                content != null ? content : this.content,
-                imageUrl != null ? imageUrl : this.imageUrl
-        );
+        CollectedContent collectedContent = CollectedContentBuilder.from(this)
+                .status(CollectionStatus.INIT)
+                .title(title != null ? title : this.title)
+                .publishedDate(publishedDate != null ? publishedDate : this.publishedDate)
+                .content(content != null ? content : this.content)
+                .imageUrl(imageUrl != null ? imageUrl : this.imageUrl)
+                .build();
 
         collectedContent.validateInitialized();
 
@@ -134,21 +131,16 @@ public class CollectedContent {
         return collectedContent;
     }
 
+    public CollectedContent initializationFailed() {
+        return CollectedContentBuilder.from(this)
+                .status(CollectionStatus.INIT_FAILED)
+                .build();
+    }
+
     public CollectedContent filtered() {
-        return new CollectedContent(
-                id,
-                CollectionStatus.FILTERED,
-                categoryList,
-                summary,
-                providerId,
-                subscriptionId,
-                publishedContentId,
-                url,
-                title,
-                publishedDate,
-                content,
-                imageUrl
-        );
+        return CollectedContentBuilder.from(this)
+                .status(CollectionStatus.FILTERED)
+                .build();
     }
 
     private void validateInitialized() {
@@ -162,7 +154,7 @@ public class CollectedContent {
     }
 
     public int calculateContentTokenCount() {
-        return (int) Arrays.stream(content.split("[ \t\n]"))
+        return (int) Arrays.stream(Objects.requireNonNull(content).split("[ \t\n]"))
                 .filter(token -> !token.isBlank())
                 .count();
     }
@@ -174,20 +166,10 @@ public class CollectedContent {
         CollectionStatus nextStatus = categoryList.containsUnused()
                 ? CollectionStatus.FILTERED : CollectionStatus.CATEGORIZED;
 
-        return new CollectedContent(
-                id,
-                nextStatus,
-                categoryList,
-                summary,
-                providerId,
-                subscriptionId,
-                publishedContentId,
-                url,
-                title,
-                publishedDate,
-                content,
-                imageUrl
-        );
+        return CollectedContentBuilder.from(this)
+                .status(nextStatus)
+                .categoryList(categoryList)
+                .build();
     }
 
     public CollectedContent failCategorization() {
@@ -195,40 +177,20 @@ public class CollectedContent {
             throw new CollectionCategorizeUnableException(id, status);
         }
 
-        return new CollectedContent(
-                id,
-                CollectionStatus.CATEGORIZATION_FAILED,
-                categoryList,
-                summary,
-                providerId,
-                subscriptionId,
-                publishedContentId,
-                url,
-                title,
-                publishedDate,
-                content,
-                imageUrl
-        );
+        return CollectedContentBuilder.from(this)
+                .status(CollectionStatus.CATEGORIZATION_FAILED)
+                .build();
     }
 
     public CollectedContent summarize(Summary summary) {
         if (!status.summarizable()) {
             throw new CollectionSummarizeUnableException(id, status);
         }
-        return new CollectedContent(
-                id,
-                CollectionStatus.SUMMARIZED,
-                categoryList,
-                summary,
-                providerId,
-                subscriptionId,
-                publishedContentId,
-                url,
-                title,
-                publishedDate,
-                content,
-                imageUrl
-        );
+
+        return CollectedContentBuilder.from(this)
+                .status(CollectionStatus.SUMMARIZED)
+                .summary(summary)
+                .build();
     }
 
     public CollectedContent failSummarization() {
@@ -236,40 +198,20 @@ public class CollectedContent {
             throw new CollectionSummarizeUnableException(id, status);
         }
 
-        return new CollectedContent(
-                id,
-                CollectionStatus.SUMMARIZATION_FAILED,
-                categoryList,
-                summary,
-                providerId,
-                subscriptionId,
-                publishedContentId,
-                url,
-                title,
-                publishedDate,
-                content,
-                imageUrl
-        );
+        return CollectedContentBuilder.from(this)
+                .status(CollectionStatus.SUMMARIZATION_FAILED)
+                .build();
     }
 
     public CollectedContent published(TechContentId publishedContentId) {
         if (!status.publishable()) {
             throw new CollectionPublishUnableException(id, status);
         }
-        return new CollectedContent(
-                id,
-                CollectionStatus.PUBLISHED,
-                categoryList,
-                summary,
-                providerId,
-                subscriptionId,
-                publishedContentId,
-                url,
-                title,
-                publishedDate,
-                content,
-                imageUrl
-        );
+
+        return CollectedContentBuilder.from(this)
+                .status(CollectionStatus.PUBLISHED)
+                .publishedContent(publishedContentId)
+                .build();
     }
 
     public TechContent toTechContent(@Nullable ImageId imageId) {
