@@ -44,5 +44,8 @@ public class ImageStoreResult {
         return imageId;
     }
 
+    public ImageApplicationException getException() {
+        return exception;
+    }
 
 }

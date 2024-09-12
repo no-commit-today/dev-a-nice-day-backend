@@ -5,10 +5,10 @@ import com.nocommittoday.techswipe.domain.collection.CollectedContent;
 import com.nocommittoday.techswipe.domain.content.TechContent;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.image.ImageId;
-import com.nocommittoday.techswipe.domain.image.exception.ImageApplicationException;
 import com.nocommittoday.techswipe.infrastructure.alert.AlertCommand;
 import com.nocommittoday.techswipe.infrastructure.alert.AlertManager;
 import com.nocommittoday.techswipe.infrastructure.aws.image.ImageStore;
+import com.nocommittoday.techswipe.infrastructure.aws.image.ImageStoreResult;
 import com.nocommittoday.techswipe.storage.mysql.batch.BatchImageEntityMapper;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntity;
 import com.nocommittoday.techswipe.storage.mysql.collection.CollectedContentEntityEditor;
@@ -46,36 +46,39 @@ public class CollectedContentPublishProcessor
         CollectedContent collectedContent = item.toDomain();
         CollectedContentEntityEditor editor = item.toEditor();
 
-        try {
-            ImageId imageId = Optional.ofNullable(collectedContent.getImageUrl())
-                    .map(imageUrl -> imageStore.store(collectedContent.getImageUrl(), "content").get())
-                    .orElse(null);
-            TechContentId techContentId = techContentIdGenerator.nextId();
-            CollectedContent collectedContentPublished = collectedContent.published(techContentId);
-            TechContent techContent = collectedContentPublished.toTechContent(imageId);
-
-            editor.setStatus(collectedContentPublished.getStatus());
-            editor.setPublishedContent(new TechContentEntity(
-                    techContent.getId().value(),
-                    item.getProvider(),
-                    imageEntityMapper.from(techContent.getImageId()),
-                    techContent.getUrl(),
-                    techContent.getTitle(),
-                    techContent.getSummary().getContent(),
-                    techContent.getPublishedDate()
-            ));
-        } catch (ImageApplicationException exception) {
-            alertManager.alert(
-                    AlertCommand.builder()
-                            .warn()
-                            .title("CollectedContentPublishJob 이미지 저장 실패")
-                            .content(String.format("- CollectedContent.id: %d", item.getId()))
-                            .ex(exception)
-                            .build()
-            );
-        }
+        TechContentId techContentId = techContentIdGenerator.nextId();
+        CollectedContent collectedContentPublished = collectedContent.published(techContentId);
+        ImageId imageId = Optional.ofNullable(collectedContent.getImageUrl())
+                .map(imageUrl -> imageStore.store(collectedContent.getImageUrl(), "content"))
+                .filter(result -> {
+                    if (!result.isSuccess()) {
+                        alertManager.alert(
+                                AlertCommand.builder()
+                                        .warn()
+                                        .title("CollectedContentPublishJob 이미지 저장 실패")
+                                        .content(String.format("- CollectedContent.id: %d", item.getId()))
+                                        .ex(result.getException())
+                                        .build()
+                        );
+                    }
+                    return result.isSuccess();
+                })
+                .map(ImageStoreResult::get)
+                .orElse(null);
+        TechContent techContent = collectedContentPublished.toTechContent(imageId);
+        editor.setStatus(collectedContentPublished.getStatus());
+        editor.setPublishedContent(new TechContentEntity(
+                techContent.getId().value(),
+                item.getProvider(),
+                imageEntityMapper.from(techContent.getImageId()),
+                techContent.getUrl(),
+                techContent.getTitle(),
+                techContent.getSummary().getContent(),
+                techContent.getPublishedDate()
+        ));
 
         item.edit(editor);
         return item;
     }
+
 }
