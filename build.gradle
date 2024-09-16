@@ -53,6 +53,7 @@ subprojects {
 			classDirectories.setFrom(
 					files(classDirectories.files.collect {
 						fileTree(dir: it, excludes: [
+								'**/*Exception',
 								'**/*Application',
 						])
 					})
@@ -73,7 +74,8 @@ subprojects {
 					minimum = 0.3
 				}
 				excludes = [
-						'*.*Application'
+						'*.*Exception',
+						'*.*Application',
 				]
 
 			}
