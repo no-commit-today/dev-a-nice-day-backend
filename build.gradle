@@ -67,11 +67,11 @@ subprojects {
 		violationRules {
 			rule {
 				enabled = true
-				element = "CLASS"
+				element = "BUNDLE"
 				limit {
 					counter = "LINE"
 					value = "COVEREDRATIO"
-					minimum = 0.3
+					minimum = 0.5
 				}
 				excludes = [
 						'*.*Exception',
