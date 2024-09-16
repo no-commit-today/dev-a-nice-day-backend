@@ -1,30 +1,34 @@
 package com.nocommittoday.techswipe.domain.core;
 
+import javax.annotation.Nullable;
+
 public abstract class AbstractDomainException extends RuntimeException {
 
     private final ErrorCodeType errorCode;
 
-    protected AbstractDomainException(ErrorCodeType errorCode) {
-        super(errorCode.getMessage());
+    @Nullable
+    private final Object data;
+
+    protected AbstractDomainException(ErrorCodeType errorCode, @Nullable Object data) {
+        super(errorCode.getMessage() + " >> " + data);
         this.errorCode = errorCode;
+        this.data = data;
     }
 
-    protected AbstractDomainException(ErrorCodeType errorCode, String message) {
-        super(errorCode.getMessage() + " >> " + message);
+    protected AbstractDomainException(
+            ErrorCodeType errorCode, Exception cause, @Nullable Object data
+    ) {
+        super(errorCode.getMessage() + " >> " + data, cause);
         this.errorCode = errorCode;
-    }
-
-    protected AbstractDomainException(ErrorCodeType errorCode, String message, Exception cause) {
-        super(errorCode.getMessage() + " >> " + message, cause);
-        this.errorCode = errorCode;
-    }
-
-    protected AbstractDomainException(ErrorCodeType errorCode, Exception cause) {
-        super(errorCode.getMessage(), cause);
-        this.errorCode = errorCode;
+        this.data = data;
     }
 
     public ErrorCodeType getErrorCode() {
         return errorCode;
+    }
+
+    @Nullable
+    public Object getData() {
+        return data;
     }
 }

@@ -5,6 +5,6 @@ import com.nocommittoday.techswipe.domain.core.AbstractDomainException;
 public class AuthenticationRequiredException extends AbstractDomainException {
 
     public AuthenticationRequiredException() {
-        super(UserErrorCode.AUTHENTICATION_REQUIRED);
+        super(UserErrorCode.AUTHENTICATION_REQUIRED, null);
     }
 }

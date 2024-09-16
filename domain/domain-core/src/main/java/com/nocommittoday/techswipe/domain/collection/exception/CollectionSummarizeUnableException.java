@@ -4,12 +4,11 @@ import com.nocommittoday.techswipe.domain.collection.CollectedContentId;
 import com.nocommittoday.techswipe.domain.collection.CollectionStatus;
 import com.nocommittoday.techswipe.domain.core.AbstractDomainException;
 
+import java.util.Map;
+
 public class CollectionSummarizeUnableException extends AbstractDomainException {
 
-    public CollectionSummarizeUnableException(
-            final CollectedContentId id,
-            final CollectionStatus status
-    ) {
-        super(CollectionErrorCode.SUMMARIZE_UNABLE, "id=" + id + ", status=" + status);
+    public CollectionSummarizeUnableException(CollectedContentId id, CollectionStatus status) {
+        super(CollectionErrorCode.SUMMARIZE_UNABLE, Map.of("id", id, "status", status));
     }
 }
