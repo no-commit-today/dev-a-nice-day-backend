@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.domain.content;
 import com.nocommittoday.techswipe.domain.core.DomainValidationException;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class Summary {
@@ -29,6 +30,19 @@ public class Summary {
 
     public boolean isValid() {
         return SUMMARY_PATTERN.matcher(content).matches();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Summary summary = (Summary) object;
+        return Objects.equals(content, summary.content);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(content);
     }
 
     public String getContent() {
