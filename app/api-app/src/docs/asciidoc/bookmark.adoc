@@ -1,0 +1,18 @@
+= 북마크
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+
+[[create-group]]
+== 북마크 그룹 생성
+
+operation::bookmark/create-group[snippets='http-request,request-headers,request-fields,http-response']
+
+[[create]]
+== 북마크 생성
+
+operation::bookmark/create[snippets='http-request,request-headers,request-fields,http-response']

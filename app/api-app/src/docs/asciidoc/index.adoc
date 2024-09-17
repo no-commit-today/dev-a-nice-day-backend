@@ -10,6 +10,7 @@
 - xref:code.adoc[코드]
 - xref:content.adoc[컨텐츠]
 - xref:user.adoc[회원]
+- xref:bookmark.adoc[북마크]
 
 == 에러 응답
 

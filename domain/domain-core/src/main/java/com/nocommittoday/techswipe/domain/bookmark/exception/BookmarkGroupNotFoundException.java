@@ -1,5 +1,6 @@
 package com.nocommittoday.techswipe.domain.bookmark.exception;
 
+import com.nocommittoday.techswipe.domain.bookmark.BookmarkGroupId;
 import com.nocommittoday.techswipe.domain.core.AbstractDomainException;
 import com.nocommittoday.techswipe.domain.user.UserId;
 
@@ -11,6 +12,12 @@ public class BookmarkGroupNotFoundException extends AbstractDomainException {
         super(BookmarkErrorCode.GROUP_NOT_FOUND, Map.of(
                 "userId", userId.value(),
                 "name", name
+        ));
+    }
+
+    public BookmarkGroupNotFoundException(BookmarkGroupId id) {
+        super(BookmarkErrorCode.GROUP_NOT_FOUND, Map.of(
+                "id", id
         ));
     }
 }
