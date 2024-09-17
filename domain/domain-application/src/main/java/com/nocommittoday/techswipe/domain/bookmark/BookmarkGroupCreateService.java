@@ -6,7 +6,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookmarkGroupCreateService {
 
-    public void create(ApiUser user, String name) {
+    private final BookmarkGroupAppender bookmarkGroupAppender;
 
+    public BookmarkGroupCreateService(BookmarkGroupAppender bookmarkGroupAppender) {
+        this.bookmarkGroupAppender = bookmarkGroupAppender;
+    }
+
+    public void create(ApiUser user, String name) {
+        bookmarkGroupAppender.append(user.getUserId(), name);
     }
 }

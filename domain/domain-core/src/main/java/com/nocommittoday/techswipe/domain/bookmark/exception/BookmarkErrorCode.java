@@ -2,7 +2,10 @@ package com.nocommittoday.techswipe.domain.bookmark.exception;
 
 import com.nocommittoday.techswipe.domain.core.ErrorCodeType;
 
+import java.net.HttpURLConnection;
+
 public enum BookmarkErrorCode implements ErrorCodeType {
+    GROUP_ALREADY_EXISTS("이미 존재하는 그룹입니다.", HttpURLConnection.HTTP_CONFLICT),
     ;
 
     private final String message;
