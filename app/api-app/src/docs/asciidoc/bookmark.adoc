@@ -21,3 +21,9 @@ operation::bookmark/create[snippets='http-request,request-headers,request-fields
 == 북마크 목록 조회
 
 operation::bookmark/list-query[snippets='http-request,request-headers,query-parameters,http-response,response-fields']
+
+[[delete]]
+== 북마크 삭제
+
+operation::bookmark/delete[snippets='http-request,request-headers,path-parameters,http-response']
+

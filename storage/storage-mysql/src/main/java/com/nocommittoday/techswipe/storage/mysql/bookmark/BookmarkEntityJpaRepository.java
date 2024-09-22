@@ -9,4 +9,6 @@ public interface BookmarkEntityJpaRepository
         extends JpaRepository<BookmarkEntity, Long>, BookmarkEntityJpaRepositoryCustom {
 
     Optional<BookmarkEntity> findByGroupAndContent(BookmarkGroupEntity group, TechContentEntity content);
+
+    Optional<BookmarkEntity> findByGroupIdAndContentId(Long groupId, Long contentId);
 }
