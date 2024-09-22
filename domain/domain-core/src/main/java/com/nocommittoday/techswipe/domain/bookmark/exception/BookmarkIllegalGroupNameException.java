@@ -5,10 +5,10 @@ import com.nocommittoday.techswipe.domain.user.UserId;
 
 import java.util.Map;
 
-public class BookmarkGroupAlreadyExistsException extends AbstractDomainException {
+public class BookmarkIllegalGroupNameException extends AbstractDomainException {
 
-    public BookmarkGroupAlreadyExistsException(UserId userId, String name) {
-        super(BookmarkErrorCode.GROUP_ALREADY_EXISTS, Map.of(
+    public BookmarkIllegalGroupNameException(UserId userId, String name) {
+        super(BookmarkErrorCode.ILLEGAL_GROUP_NAME, Map.of(
                 "userId", userId.value(),
                 "name", name
         ));

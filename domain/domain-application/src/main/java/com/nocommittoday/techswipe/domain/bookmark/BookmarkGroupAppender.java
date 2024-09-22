@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.bookmark;
 
-import com.nocommittoday.techswipe.domain.bookmark.exception.BookmarkGroupAlreadyExistsException;
+import com.nocommittoday.techswipe.domain.bookmark.exception.BookmarkIllegalGroupNameException;
 import com.nocommittoday.techswipe.domain.user.UserId;
 import com.nocommittoday.techswipe.storage.mysql.bookmark.BookmarkGroupEntity;
 import com.nocommittoday.techswipe.storage.mysql.bookmark.BookmarkGroupEntityJpaRepository;
@@ -16,9 +16,15 @@ public class BookmarkGroupAppender {
     }
 
     public BookmarkGroupId append(UserId userId, String name) {
+        if (BookmarkGroupConst.ALL_GROUP_NAME.equals(name)) {
+            throw new BookmarkIllegalGroupNameException(userId, name);
+        }
+        if (name.isBlank()) {
+            throw new BookmarkIllegalGroupNameException(userId, name);
+        }
         bookmarkGroupEntityJpaRepository.findByUserIdAndName(userId.value(), name)
                 .ifPresent(bookmarkGroupEntity -> {
-                    throw new BookmarkGroupAlreadyExistsException(userId, name);
+                    throw new BookmarkIllegalGroupNameException(userId, name);
                 });
 
         return new BookmarkGroupId(

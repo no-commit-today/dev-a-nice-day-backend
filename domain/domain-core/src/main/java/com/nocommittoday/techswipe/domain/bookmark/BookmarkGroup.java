@@ -4,8 +4,6 @@ import com.nocommittoday.techswipe.domain.user.UserId;
 
 public class BookmarkGroup {
 
-    public static final String ALL_BOOKMARKS_GROUP_NAME = "모든 게시물";
-
     private final BookmarkGroupId id;
 
     private final UserId userId;

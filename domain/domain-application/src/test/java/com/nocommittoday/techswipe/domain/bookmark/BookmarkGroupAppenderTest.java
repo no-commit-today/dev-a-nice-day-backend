@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.domain.bookmark;
 
-import com.nocommittoday.techswipe.domain.bookmark.exception.BookmarkGroupAlreadyExistsException;
+import com.nocommittoday.techswipe.domain.bookmark.exception.BookmarkIllegalGroupNameException;
 import com.nocommittoday.techswipe.domain.user.UserId;
 import com.nocommittoday.techswipe.storage.mysql.bookmark.BookmarkGroupEntity;
 import com.nocommittoday.techswipe.storage.mysql.bookmark.BookmarkGroupEntityJpaRepository;
@@ -60,6 +60,6 @@ class BookmarkGroupAppenderTest {
         // when
         // then
         assertThatThrownBy(() -> bookmarkGroupAppender.append(new UserId(1L), "그룹"))
-                .isInstanceOf(BookmarkGroupAlreadyExistsException.class);
+                .isInstanceOf(BookmarkIllegalGroupNameException.class);
     }
 }
