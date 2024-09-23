@@ -19,7 +19,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.pathPara
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(BookmarkGroupDeleteController.class)
-class BookmarkGroupDeleteControllerTest extends AbstractDocsTest {
+class BookmarkGroupDeleteControllerDocsTest extends AbstractDocsTest {
 
     @MockBean
     private BookmarkGroupDeleteService bookmarkGroupDeleteService;
