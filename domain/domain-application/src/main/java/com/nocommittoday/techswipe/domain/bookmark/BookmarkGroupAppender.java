@@ -16,16 +16,12 @@ public class BookmarkGroupAppender {
     }
 
     public BookmarkGroupId append(UserId userId, String name) {
-        if (BookmarkGroupConst.ALL_GROUP_NAME.equals(name)) {
+        if (
+                name.isBlank()
+                || bookmarkGroupEntityJpaRepository.findByUserIdAndName(userId.value(), name).isPresent()
+        ) {
             throw new BookmarkIllegalGroupNameException(userId, name);
         }
-        if (name.isBlank()) {
-            throw new BookmarkIllegalGroupNameException(userId, name);
-        }
-        bookmarkGroupEntityJpaRepository.findByUserIdAndName(userId.value(), name)
-                .ifPresent(bookmarkGroupEntity -> {
-                    throw new BookmarkIllegalGroupNameException(userId, name);
-                });
 
         return new BookmarkGroupId(
                 bookmarkGroupEntityJpaRepository.save(new BookmarkGroupEntity(userId.value(), name)).getId()

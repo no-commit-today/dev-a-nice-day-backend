@@ -52,6 +52,15 @@ class BookmarkGroupAppenderTest {
     }
 
     @Test
+    void 북마크_그룹_이름이_공백일_경우_예외를_발생시킨다() {
+        // given
+        // when
+        // then
+        assertThatThrownBy(() -> bookmarkGroupAppender.append(new UserId(1L), ""))
+                .isInstanceOf(BookmarkIllegalGroupNameException.class);
+    }
+
+    @Test
     void 북마크_그룹이_존재할_경우_예외를_발생시킨다() {
         // given
         given(bookmarkGroupEntityJpaRepository.findByUserIdAndName(1L, "그룹"))
