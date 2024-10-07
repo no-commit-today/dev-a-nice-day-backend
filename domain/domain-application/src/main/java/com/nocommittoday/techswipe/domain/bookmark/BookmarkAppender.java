@@ -37,10 +37,9 @@ public class BookmarkAppender {
                 .filter(TechContentEntity::isUsed)
                 .orElseThrow(() -> new TechContentNotFoundException(contentId));
 
-        bookmarkEntityJpaRepository.findByGroupAndContent(bookmarkGroup, content)
-                .ifPresent(bookmarkEntity -> {
-                    throw new BookmarkAlreadyExistsException(groupId, contentId);
-                });
+        if (bookmarkEntityJpaRepository.findByGroupAndContent(bookmarkGroup, content).isPresent()) {
+            throw new BookmarkAlreadyExistsException(groupId, contentId);
+        }
 
         return new BookmarkId(
                 bookmarkEntityJpaRepository.save(new BookmarkEntity(bookmarkGroup, content)).getId()
