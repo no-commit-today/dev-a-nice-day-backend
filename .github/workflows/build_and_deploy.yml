@@ -52,14 +52,12 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ vars.AWS_REGION }}
     - name: Login to AWS ECR
-      id: ecr-login
       uses: aws-actions/amazon-ecr-login@v1
     - name: Build and push
       env:
-        AWS_ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
         IMAGE_TAG: prod
       run: |
-        docker build -t $ECR_REGISTRY/dev-a-nice-day-backend:$IMAGE_TAG --push .
+        docker build -t ${{ vars.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend:$IMAGE_TAG --push .
     - name: Logout docker
       run: docker logout
         
