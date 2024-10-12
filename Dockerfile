@@ -3,7 +3,7 @@ WORKDIR /workspace
 # ARG APP_NAME  # for local build
 # COPY app/${APP_NAME}/build/libs/application.jar ./application.jar  # for local build
 # RUN java -Djarmode=tools -jar application.jar extract --layers --launcher  # for local build
-COPY app/api-app/build/libs/application.jar application.jar
+COPY application.jar application.jar
 RUN java -Djarmode=tools -jar application.jar extract --layers --launcher
 
 FROM eclipse-temurin:21-jre
