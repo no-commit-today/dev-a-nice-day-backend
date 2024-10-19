@@ -54,12 +54,36 @@ jobs:
         aws-region: ${{ vars.AWS_REGION }}
     - name: Login to AWS ECR
       uses: aws-actions/amazon-ecr-login@v1
+    - name: Set GITHUB_SHA for image tag
+      run: |
+        if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
+          GITHUB_SHA=$(cat $GITHUB_EVENT_PATH | jq -r .pull_request.head.sha)
+        fi
     - name: Build and push
       env:
-        IMAGE_TAG: prod
+        IMAGE_TAG: prod@$GITHUB_SHA
       run: |
         docker build -t ${{ vars.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend:$IMAGE_TAG --push .
     - name: Logout docker
-      run: docker logout
-        
-  
+      run: |
+        docker logout
+    - name: Change Deployment spec
+      env:
+        IMAGE_NAME: ${{ vars.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend
+        IMAGE_TAG: prod@$GITHUB_SHA
+      run: |
+        eval `ssh-agent`
+        ssh-add - <<< ${{ secrets.GITOPS_PRIVATE_KEY }}
+        git clone git@github.com:no-commit-today/dev-a-nice-day-gitops.git
+        cd backend
+        BEFORE=$(cat dev-a-nice-day-backend.yaml | grep 'image: $IMAGE_NAME` | sed -e 's/^ *//g' -e 's/ *$//g')
+        sed -i 's@$BEFORE@image: $IMAGE_NAME:$IMAGE_TAG@g' dev-a-nice-day-backend.yaml
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions Bot"
+        git add .
+        git commit -m "Updated by GitHub Actions Bot"
+    - name: Push changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git push origin main
