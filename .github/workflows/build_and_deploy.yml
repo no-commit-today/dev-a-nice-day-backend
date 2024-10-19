@@ -69,7 +69,7 @@ jobs:
       env:
         IMAGE_NAME: ${{ vars.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend
       run: |
-        eval `ssh-agent`
+        eval `ssh-agent -s`
         ssh-add - <<< ${{ secrets.GITOPS_PRIVATE_KEY }}
         git clone git@github.com:no-commit-today/dev-a-nice-day-gitops.git
         cd backend
