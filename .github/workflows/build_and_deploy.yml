@@ -59,13 +59,20 @@ jobs:
         if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
           GITHUB_SHA=$(cat $GITHUB_EVENT_PATH | jq -r .pull_request.head.sha)
         fi
-    - name: debug
-      run: |
-        env
-        echo ${{ vars.SPRING_PROFILES_ACTIVE }}
     - name: Build and push
       run: |
-        docker build -t ${{ vars.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend:$GITHUB_SHA --push .
+        docker build \
+        --build-arg SPRING_PROFILES_ACTIVE=${{ vars.SPRING_PROFILES_ACTIVE }} \
+        --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} \
+        --build-arg DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} \
+        --build-arg DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
+        --build-arg APP_CORS_ENABLED=${{ vars.APP_CORS_ENABLED }} \
+        --build-arg APP_CORS_ALLOWED_ORIGINS=${{ vars.APP_CORS_ALLOWED_ORIGINS }} \
+        --build-arg JWT_ACCESS_TOKEN_SECRET=${{ secrets.JWT_ACCESS_TOKEN_SECRET }} \
+        --build-arg JWT_ACCESS_TOKEN_EXPIRATION=${{ secrets.JWT_ACCESS_TOKEN_EXPIRATION }} \
+        --build-arg JWT_REFRESH_TOKEN_SECRET=${{ secrets.JWT_REFRESH_TOKEN_SECRET }} \
+        --build-arg JWT_REFRESH_TOKEN_EXPIRATION=${{ secrets.JWT_REFRESH_TOKEN_EXPIRATION }} \
+        -t ${{ vars.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend:$GITHUB_SHA --push .
     - name: Logout docker
       run: |
         docker logout
@@ -73,18 +80,19 @@ jobs:
       env:
         IMAGE_NAME: ${{ vars.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend
       run: |
-        eval `ssh-agent -s`
-        ssh-add - <<< ${{ secrets.GITOPS_PRIVATE_KEY }}
-        git clone git@github.com:no-commit-today/dev-a-nice-day-gitops.git
-        cd backend
-        BEFORE=$(cat dev-a-nice-day-backend.yaml | grep 'image: $IMAGE_NAME` | sed -e 's/^ *//g' -e 's/ *$//g')
-        sed -i 's@$BEFORE@image: $IMAGE_NAME:$GITHUB_SHA@g' dev-a-nice-day-backend.yaml
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Actions Bot"
-        git add .
-        git commit -m "Updated by GitHub Actions Bot"
-    - name: Push changes
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        git push origin main
+        echo $GITHUB_SHA
+    #     eval `ssh-agent -s`
+    #     ssh-add - <<< ${{ secrets.GITOPS_PRIVATE_KEY }}
+    #     git clone git@github.com:no-commit-today/dev-a-nice-day-gitops.git
+    #     cd backend
+    #     BEFORE=$(cat dev-a-nice-day-backend.yaml | grep 'image: $IMAGE_NAME` | sed -e 's/^ *//g' -e 's/ *$//g')
+    #     sed -i 's@$BEFORE@image: $IMAGE_NAME:$GITHUB_SHA@g' dev-a-nice-day-backend.yaml
+    #     git config --global user.email "actions@github.com"
+    #     git config --global user.name "GitHub Actions Bot"
+    #     git add .
+    #     git commit -m "Updated by GitHub Actions Bot"
+    # - name: Push changes
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   run: |
+    #     git push origin main
