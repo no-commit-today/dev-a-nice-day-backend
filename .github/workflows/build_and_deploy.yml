@@ -79,7 +79,7 @@ jobs:
     - name: Setup SSH agent
       uses: webfactory/ssh-agent@v0.7.0
       with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        ssh-private-key: ${{ secrets.GITOPS_PRIVATE_KEY }}
     - name: Checkout gitops repo
       run: |
         cd
