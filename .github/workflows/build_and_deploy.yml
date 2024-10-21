@@ -87,7 +87,7 @@ jobs:
     - name: Change Deployment spec
       uses: mikefarah/yq@master
       with:
-        cmd: yq eval -i '.spec.template.spec.containers[0].image = ${{ vars.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend:$GITHUB_SHA 'backend/dev-a-nice-day-backend.yaml'
+        cmd: yq eval -i '.spec.template.spec.containers[0].image = ${{ vars.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend:$GITHUB_SHA' 'backend/dev-a-nice-day-backend.yaml'
     - name: Git commit and push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
