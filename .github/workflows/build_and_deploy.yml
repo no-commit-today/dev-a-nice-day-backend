@@ -84,6 +84,9 @@ jobs:
       run: |
         cd
         git clone git@github.com:no-commit-today/dev-a-nice-day-gitops.git
+    - name: debug
+      run: |
+        ls -al
     - name: Change Deployment spec
       uses: mikefarah/yq@master
       with:
