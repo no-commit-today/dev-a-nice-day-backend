@@ -82,8 +82,8 @@ jobs:
         ssh-private-key: ${{ secrets.GITOPS_PRIVATE_KEY }}
     - name: Checkout gitops repo
       run: |
-        cd
         git clone git@github.com:no-commit-today/dev-a-nice-day-gitops.git
+        cd backend/
     - name: debug
       run: |
         ls -al
