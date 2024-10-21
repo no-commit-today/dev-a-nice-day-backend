@@ -83,11 +83,10 @@ jobs:
     - name: Checkout gitops repo
       run: |
         git clone git@github.com:no-commit-today/dev-a-nice-day-gitops.git
-        cd dev-a-nice-day-gitops
     - name: Change Deployment spec
       uses: mikefarah/yq@master
       with:
-        cmd: yq eval -i '.spec.template.spec.containers[0].image = ${{ vars.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend:$GITHUB_SHA' 'backend/dev-a-nice-day-backend.yaml'
+        cmd: yq eval -i '.spec.template.spec.containers[0].image = ${{ vars.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend:$GITHUB_SHA' 'dev-a-nice-day-gitops/backend/dev-a-nice-day-backend.yaml'
     - name: Git commit and push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
