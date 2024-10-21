@@ -76,23 +76,24 @@ jobs:
     - name: Logout docker
       run: |
         docker logout
-    - name: Change Deployment spec
-      env:
-        IMAGE_NAME: ${{ vars.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend
+    - name: Setup SSH agent
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Checkout gitops repo
       run: |
-        echo $GITHUB_SHA
-    #     eval `ssh-agent -s`
-    #     ssh-add - <<< ${{ secrets.GITOPS_PRIVATE_KEY }}
-    #     git clone git@github.com:no-commit-today/dev-a-nice-day-gitops.git
-    #     cd backend
-    #     BEFORE=$(cat dev-a-nice-day-backend.yaml | grep 'image: $IMAGE_NAME` | sed -e 's/^ *//g' -e 's/ *$//g')
-    #     sed -i 's@$BEFORE@image: $IMAGE_NAME:$GITHUB_SHA@g' dev-a-nice-day-backend.yaml
-    #     git config --global user.email "actions@github.com"
-    #     git config --global user.name "GitHub Actions Bot"
-    #     git add .
-    #     git commit -m "Updated by GitHub Actions Bot"
-    # - name: Push changes
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   run: |
-    #     git push origin main
+        cd
+        git clone git@github.com:username/repository.git
+    - name: Change Deployment spec
+      uses: mikefarah/yq@master
+      with:
+        cmd: yq eval -i '.spec.template.spec.containers[0].image = ${{ vars.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend:$GITHUB_SHA 'backend/dev-a-nice-day-backend.yaml'
+    - name: Git commit and push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions Bot"
+        git add .
+        git commit -m "Updated by GitHub Actions Bot"
+        git push origin main
