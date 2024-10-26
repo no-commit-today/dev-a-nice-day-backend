@@ -75,7 +75,7 @@ class TechContentDetailQueryControllerTest extends AbstractDocsTest {
                 .andExpect(status().isOk())
                 .andDo(document("content/get-content-detail",
                         requestHeaders(
-                                headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰").optional()
+                                headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰. 없을 경우 게스트.").optional()
                         ),
                         pathParameters(
                                 parameterWithName("contentId").description("컨텐츠 ID")
