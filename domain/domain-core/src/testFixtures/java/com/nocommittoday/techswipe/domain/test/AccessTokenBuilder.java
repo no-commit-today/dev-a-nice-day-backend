@@ -21,6 +21,10 @@ public class AccessTokenBuilder {
         return new AccessTokenBuilder().build();
     }
 
+    public static AccessToken create(UserId userId) {
+        return new AccessTokenBuilder().userId(userId).build();
+    }
+
     public AccessTokenBuilder() {
     }
 

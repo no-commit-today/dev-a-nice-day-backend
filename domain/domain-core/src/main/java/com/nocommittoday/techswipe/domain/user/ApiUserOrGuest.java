@@ -31,4 +31,17 @@ public class ApiUserOrGuest {
     public UserId getUserId() {
         return Objects.requireNonNull(userId);
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        ApiUserOrGuest that = (ApiUserOrGuest) object;
+        return Objects.equals(userId, that.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(userId);
+    }
 }

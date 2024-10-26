@@ -8,6 +8,7 @@ import com.nocommittoday.techswipe.domain.content.TechContentListQueryResult;
 import com.nocommittoday.techswipe.domain.content.TechContentListQueryService;
 import com.nocommittoday.techswipe.controller.core.ListResponse;
 import com.nocommittoday.techswipe.controller.core.PageRequest;
+import com.nocommittoday.techswipe.domain.user.ApiUserOrGuest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +26,13 @@ public class TechContentListQueryController {
 
     @GetMapping("/api/content/v1/contents")
     public ResponseEntity<ListResponse<TechContentQueryResponse>> getList(
+            ApiUserOrGuest apiUserOrGuest,
             @ModelAttribute @Valid PageRequest pageRequest,
             @ModelAttribute TechContentListQueryRequest request
     ) {
 
         TechContentListQueryResult result = techContentListQueryService.getList(
+                apiUserOrGuest,
                 pageRequest.toPageParam(), new TechContentListQueryParam(request.categories())
         );
 

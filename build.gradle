@@ -54,6 +54,8 @@ subprojects {
 					files(classDirectories.files.collect {
 						fileTree(dir: it, excludes: [
 								'**/*Exception',
+								'**/*Config',
+								'**/*Configuration',
 								'**/*Application',
 						])
 					})
@@ -75,6 +77,8 @@ subprojects {
 				}
 				excludes = [
 						'*.*Exception',
+						'*.*Config',
+						'*.*Configuration',
 						'*.*Application',
 				]
 
