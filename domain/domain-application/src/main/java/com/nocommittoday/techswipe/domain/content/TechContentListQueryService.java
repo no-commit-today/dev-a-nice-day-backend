@@ -50,6 +50,11 @@ public class TechContentListQueryService {
     }
 
     public long count(TechContentListQueryParam queryParam) {
-        return techContentCountReader.get(queryParam.categories());
+        List<TechCategory> categories = queryParam.categories()
+                .stream()
+                .distinct()
+                .sorted()
+                .toList();
+        return techContentCountReader.get(categories);
     }
 }
