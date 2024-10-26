@@ -43,3 +43,14 @@ operation::content/get-content-count[snippets='http-request,http-response']
 호스트는 컨텐츠를 조회한 서버와 같습니다.
 
 operation::content/content-link[snippets='http-request,path-parameters,http-response']
+
+
+[[user-category-get]]
+== 사용자 카테고리 조회
+
+operation::content/user-category-get[snippets='http-request,request-headers,http-response,response-fields']
+
+[[user-category-save]]
+== 사용자 카테고리 저장
+
+operation::content/user-category-save[snippets='http-request,request-headers,request-fields,http-response']
