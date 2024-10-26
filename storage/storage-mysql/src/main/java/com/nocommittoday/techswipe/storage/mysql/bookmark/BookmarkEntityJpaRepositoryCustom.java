@@ -11,4 +11,6 @@ interface BookmarkEntityJpaRepositoryCustom {
     List<BookmarkEntity> findAllWithGroupAndContentByGroupIdAndContentNotDeleted(Long groupId);
 
     List<BookmarkEntity> findAllByUserIdAndContentNotDeleted(Long userId);
+
+    List<BookmarkEntity> findAllByUserIdAndContentIdIn(long userId, List<Long> contentIds);
 }

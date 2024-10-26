@@ -76,4 +76,13 @@ class BookmarkEntityJpaRepositoryCustomImpl implements BookmarkEntityJpaReposito
                         bookmarkEntity.content.provider.deleted.isFalse()
                 ).fetch();
     }
+
+    @Override
+    public List<BookmarkEntity> findAllByUserIdAndContentIdIn(long userId, List<Long> contentIds) {
+        return queryFactory.selectFrom(bookmarkEntity)
+                .where(
+                        bookmarkEntity.group.userId.eq(userId),
+                        bookmarkEntity.content.id.in(contentIds)
+                ).fetch();
+    }
 }

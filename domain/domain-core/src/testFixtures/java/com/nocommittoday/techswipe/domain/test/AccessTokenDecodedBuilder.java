@@ -2,6 +2,7 @@ package com.nocommittoday.techswipe.domain.test;
 
 import com.nocommittoday.techswipe.domain.user.AccessToken;
 import com.nocommittoday.techswipe.domain.user.AccessTokenDecoded;
+import com.nocommittoday.techswipe.domain.user.UserId;
 
 public class AccessTokenDecodedBuilder {
 
@@ -14,6 +15,10 @@ public class AccessTokenDecodedBuilder {
 
     public static AccessTokenDecoded valid() {
         return AccessTokenDecoded.valid(AccessTokenBuilder.create());
+    }
+
+    public static AccessTokenDecoded valid(UserId userId) {
+        return AccessTokenDecoded.valid(AccessTokenBuilder.create(userId));
     }
 
     public static AccessTokenDecoded invalid(Exception exception) {

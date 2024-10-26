@@ -20,7 +20,8 @@ public record TechContentDetailQueryResponse(
         TechContentProviderType providerType,
         String providerTitle,
         String providerUrl,
-        @Nullable String providerIconUrl
+        @Nullable String providerIconUrl,
+        boolean bookmarked
 ) {
 
     public static TechContentDetailQueryResponse from(TechContentDetailQueryResult result) {
@@ -36,7 +37,8 @@ public record TechContentDetailQueryResponse(
                 result.content().getProvider().getType(),
                 result.content().getProvider().getTitle(),
                 result.content().getProvider().getUrl(),
-                result.content().getProvider().getIconUrl()
+                result.content().getProvider().getIconUrl(),
+                result.bookmarked()
         );
     }
 }

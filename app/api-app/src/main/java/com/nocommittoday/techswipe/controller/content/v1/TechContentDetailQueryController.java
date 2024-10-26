@@ -3,6 +3,7 @@ package com.nocommittoday.techswipe.controller.content.v1;
 import com.nocommittoday.techswipe.controller.content.v1.response.TechContentDetailQueryResponse;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.content.TechContentDetailQueryService;
+import com.nocommittoday.techswipe.domain.user.ApiUserOrGuest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,9 +20,11 @@ public class TechContentDetailQueryController {
     }
 
     @GetMapping("/api/content/v1/contents/{contentId}")
-    public TechContentDetailQueryResponse getDetail(@PathVariable Long contentId) {
+    public TechContentDetailQueryResponse getDetail(
+            @PathVariable Long contentId, ApiUserOrGuest apiUserOrGuest
+    ) {
         return TechContentDetailQueryResponse.from(
-                techContentDetailQueryService.get(new TechContentId(contentId))
+                techContentDetailQueryService.get(apiUserOrGuest, new TechContentId(contentId))
         );
     }
 }

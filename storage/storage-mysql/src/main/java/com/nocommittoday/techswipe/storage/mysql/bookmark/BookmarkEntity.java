@@ -1,5 +1,8 @@
 package com.nocommittoday.techswipe.storage.mysql.bookmark;
 
+import com.nocommittoday.techswipe.domain.content.TechContentId;
+import com.nocommittoday.techswipe.domain.content.bookmark.Bookmark;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupId;
 import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkId;
 import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkQuery;
 import com.nocommittoday.techswipe.storage.mysql.content.TechContentEntity;
@@ -17,6 +20,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+
+import java.util.Objects;
 
 @Entity
 @Table(
@@ -49,6 +54,14 @@ public class BookmarkEntity extends BaseTimeEntity {
     public BookmarkEntity(BookmarkGroupEntity group, TechContentEntity content) {
         this.group = group;
         this.content = content;
+    }
+
+    public Bookmark toDomain() {
+        return new Bookmark(
+                new BookmarkId(id),
+                new BookmarkGroupId(Objects.requireNonNull(group.getId())),
+                new TechContentId(Objects.requireNonNull(content.getId()))
+        );
     }
 
     public BookmarkQuery toQuery() {
