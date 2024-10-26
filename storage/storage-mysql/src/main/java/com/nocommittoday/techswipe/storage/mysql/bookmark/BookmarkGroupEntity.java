@@ -1,8 +1,8 @@
 package com.nocommittoday.techswipe.storage.mysql.bookmark;
 
-import com.nocommittoday.techswipe.domain.bookmark.BookmarkGroup;
-import com.nocommittoday.techswipe.domain.bookmark.BookmarkGroupId;
-import com.nocommittoday.techswipe.domain.bookmark.BookmarkGroupQuery;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroup;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupId;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupQuery;
 import com.nocommittoday.techswipe.domain.user.UserId;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseTimeEntity;
 import jakarta.persistence.Column;
