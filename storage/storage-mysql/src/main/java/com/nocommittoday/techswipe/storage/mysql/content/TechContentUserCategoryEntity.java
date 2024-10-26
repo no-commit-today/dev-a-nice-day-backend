@@ -2,16 +2,10 @@ package com.nocommittoday.techswipe.storage.mysql.content;
 
 import com.nocommittoday.techswipe.domain.content.TechCategory;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseTimeEntity;
-import com.nocommittoday.techswipe.storage.mysql.user.UserEntity;
 import jakarta.persistence.Column;
-import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
@@ -30,9 +24,8 @@ public class TechContentUserCategoryEntity extends BaseTimeEntity {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private UserEntity user;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Convert(converter = TechCategoryListToStringConverter.class)
     @Column(name = "categories", length = 500)
@@ -42,19 +35,27 @@ public class TechContentUserCategoryEntity extends BaseTimeEntity {
     }
 
     public TechContentUserCategoryEntity(
-            UserEntity user,
+            Long userId,
             List<TechCategory> categories
     ) {
-        this.user = user;
+        this.userId = userId;
         this.categories = categories;
+    }
+
+    public TechContentUserCategoryEntityEditor toEditor() {
+        return new TechContentUserCategoryEntityEditor(categories);
+    }
+
+    public void edit(TechContentUserCategoryEntityEditor editor) {
+        this.categories = editor.getCategories();
     }
 
     public Long getId() {
         return id;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
     public List<TechCategory> getCategories() {
