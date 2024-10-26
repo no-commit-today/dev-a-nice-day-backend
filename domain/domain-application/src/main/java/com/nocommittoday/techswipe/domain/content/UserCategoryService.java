@@ -9,9 +9,11 @@ import java.util.List;
 public class UserCategoryService {
 
     private final UserCategorySaver userCategorySaver;
+    private final UserCategoryReader userCategoryReader;
 
-    public UserCategoryService(UserCategorySaver userCategorySaver) {
+    public UserCategoryService(UserCategorySaver userCategorySaver, UserCategoryReader userCategoryReader) {
         this.userCategorySaver = userCategorySaver;
+        this.userCategoryReader = userCategoryReader;
     }
 
     public void save(ApiUser apiUser, List<TechCategory> categories) {
@@ -19,5 +21,9 @@ public class UserCategoryService {
                 apiUser.getUserId(),
                 categories.stream().distinct().sorted().toList()
         );
+    }
+
+    public UserCategoryList get(ApiUser apiUser) {
+        return userCategoryReader.get(apiUser.getUserId());
     }
 }
