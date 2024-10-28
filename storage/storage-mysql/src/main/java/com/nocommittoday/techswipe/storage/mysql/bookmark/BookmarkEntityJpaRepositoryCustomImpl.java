@@ -49,11 +49,6 @@ class BookmarkEntityJpaRepositoryCustomImpl implements BookmarkEntityJpaReposito
     public List<BookmarkEntity> findAllWithGroupAndContentByGroupIdAndContentNotDeleted(Long groupId) {
         return queryFactory
                 .selectFrom(bookmarkEntity)
-                .join(bookmarkEntity.group).fetchJoin()
-                .join(bookmarkEntity.content).fetchJoin()
-                .leftJoin(bookmarkEntity.content.image).fetchJoin()
-                .join(bookmarkEntity.content.provider).fetchJoin()
-                .leftJoin(bookmarkEntity.content.provider.icon).fetchJoin()
                 .where(
                         bookmarkEntity.group.id.eq(groupId),
                         bookmarkEntity.content.deleted.isFalse(),
@@ -65,11 +60,6 @@ class BookmarkEntityJpaRepositoryCustomImpl implements BookmarkEntityJpaReposito
     public List<BookmarkEntity> findAllByUserIdAndContentNotDeleted(Long userId) {
         return queryFactory
                 .selectFrom(bookmarkEntity)
-                .join(bookmarkEntity.group).fetchJoin()
-                .join(bookmarkEntity.content).fetchJoin()
-                .leftJoin(bookmarkEntity.content.image).fetchJoin()
-                .join(bookmarkEntity.content.provider).fetchJoin()
-                .leftJoin(bookmarkEntity.content.provider.icon).fetchJoin()
                 .where(
                         bookmarkEntity.group.userId.eq(userId),
                         bookmarkEntity.content.deleted.isFalse(),
