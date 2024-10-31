@@ -25,6 +25,12 @@ operation::bookmark/group-delete[snippets='http-request,request-headers,path-par
 operation::bookmark/groups[snippets='http-request,request-headers,http-response,response-fields']
 
 
+[[get-groups-with-contains]]
+== 북마크 그룹 목록 조회(컨텐츠 북마크 여부 포함)
+
+operation::bookmark/get-groups-with-contains[snippets='http-request,request-headers,query-parameters,http-response,response-fields']
+
+
 [[update-group]]
 
 [[create]]

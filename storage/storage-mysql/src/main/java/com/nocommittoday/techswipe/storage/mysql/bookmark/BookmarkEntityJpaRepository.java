@@ -14,4 +14,6 @@ public interface BookmarkEntityJpaRepository
     Optional<BookmarkEntity> findByGroupIdAndContentId(Long groupId, Long contentId);
 
     List<BookmarkEntity> findAllByGroup(BookmarkGroupEntity group);
+
+    List<BookmarkEntity> findAllByContentId(Long contentId);
 }
