@@ -8,14 +8,14 @@ import javax.annotation.Nullable;
 @Service
 public class BookmarkListQueryService {
 
-    private final BookmarkGroupQueryReader bookmarkGroupQueryReader;
+    private final BookmarkGroupReader bookmarkGroupReader;
     private final BookmarkListQueryReader bookmarkListQueryReader;
 
     public BookmarkListQueryService(
-            BookmarkGroupQueryReader bookmarkGroupQueryReader,
+            BookmarkGroupReader bookmarkGroupReader,
             BookmarkListQueryReader bookmarkListQueryReader
     ) {
-        this.bookmarkGroupQueryReader = bookmarkGroupQueryReader;
+        this.bookmarkGroupReader = bookmarkGroupReader;
         this.bookmarkListQueryReader = bookmarkListQueryReader;
     }
 
@@ -23,7 +23,7 @@ public class BookmarkListQueryService {
         if (groupName == null) {
             return new BookmarkListQueryResult(bookmarkListQueryReader.getAllList(user.getUserId()));
         }
-        BookmarkGroupQuery group = bookmarkGroupQueryReader.read(user.getUserId(), groupName);
+        BookmarkGroup group = bookmarkGroupReader.read(user.getUserId(), groupName);
         return new BookmarkListQueryResult(bookmarkListQueryReader.getList(group));
     }
 }

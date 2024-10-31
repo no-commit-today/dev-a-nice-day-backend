@@ -8,13 +8,13 @@ import java.util.List;
 @Service
 public class BookmarkGroupListQueryService {
 
-    private final BookmarkGroupListQueryReader bookmarkGroupListQueryReader;
+    private final BookmarkGroupListReader bookmarkGroupListReader;
 
-    public BookmarkGroupListQueryService(BookmarkGroupListQueryReader bookmarkGroupListQueryReader) {
-        this.bookmarkGroupListQueryReader = bookmarkGroupListQueryReader;
+    public BookmarkGroupListQueryService(BookmarkGroupListReader bookmarkGroupListReader) {
+        this.bookmarkGroupListReader = bookmarkGroupListReader;
     }
 
-    public List<BookmarkGroupQuery> getList(ApiUser apiUser) {
-        return bookmarkGroupListQueryReader.getList(apiUser.getUserId());
+    public List<BookmarkGroup> getList(ApiUser apiUser) {
+        return bookmarkGroupListReader.getList(apiUser.getUserId());
     }
 }

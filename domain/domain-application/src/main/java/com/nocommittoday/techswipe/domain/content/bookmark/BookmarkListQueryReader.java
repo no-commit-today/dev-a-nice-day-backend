@@ -18,7 +18,7 @@ public class BookmarkListQueryReader {
     }
 
     @Transactional(readOnly = true)
-    public List<BookmarkQuery> getList(BookmarkGroupQuery group) {
+    public List<BookmarkQuery> getList(BookmarkGroup group) {
         if (group.getId() == null) {
             return bookmarkEntityJpaRepository.findAllByUserIdAndContentNotDeleted(group.getUserId().value())
                     .stream()

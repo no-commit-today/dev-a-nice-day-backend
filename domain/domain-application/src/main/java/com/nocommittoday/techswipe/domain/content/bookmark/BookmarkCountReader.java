@@ -4,15 +4,15 @@ import com.nocommittoday.techswipe.storage.mysql.bookmark.BookmarkEntityJpaRepos
 import org.springframework.stereotype.Component;
 
 @Component
-public class BookmarkCountQueryReader {
+public class BookmarkCountReader {
 
     private final BookmarkEntityJpaRepository bookmarkEntityJpaRepository;
 
-    public BookmarkCountQueryReader(BookmarkEntityJpaRepository bookmarkEntityJpaRepository) {
+    public BookmarkCountReader(BookmarkEntityJpaRepository bookmarkEntityJpaRepository) {
         this.bookmarkEntityJpaRepository = bookmarkEntityJpaRepository;
     }
 
-    public int count(BookmarkGroupQuery group) {
+    public int count(BookmarkGroup group) {
         if (group.getId() == null) {
             return (int) bookmarkEntityJpaRepository.countByUserIdAndContentNotDeleted(group.getUserId().value());
         }

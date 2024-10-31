@@ -1,10 +1,9 @@
 package com.nocommittoday.techswipe.controller.content.bookmark.v1;
 
-import com.nocommittoday.techswipe.controller.content.bookmark.v1.BookmarkGroupListQueryController;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroup;
 import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupId;
 import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupListQueryService;
-import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupQuery;
 import com.nocommittoday.techswipe.domain.test.AccessTokenDecodedBuilder;
 import com.nocommittoday.techswipe.domain.user.UserId;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,7 +40,7 @@ class BookmarkGroupListQueryControllerDocsTest extends AbstractDocsTest {
     void 북마크_그룹_리스트_조회_Docs() throws Exception {
         // given
         given(bookmarkGroupListQueryService.getList(any())).willReturn(
-                List.of(new BookmarkGroupQuery(
+                List.of(new BookmarkGroup(
                         new BookmarkGroupId(1L),
                         new UserId(1L),
                         "프론트"

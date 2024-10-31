@@ -6,11 +6,11 @@ public class BookmarkQuery {
 
     private final BookmarkId id;
 
-    private final BookmarkGroupQuery group;
+    private final BookmarkGroup group;
 
     private final TechContentQuery content;
 
-    public BookmarkQuery(BookmarkId id, BookmarkGroupQuery group, TechContentQuery content) {
+    public BookmarkQuery(BookmarkId id, BookmarkGroup group, TechContentQuery content) {
         this.id = id;
         this.group = group;
         this.content = content;
@@ -20,7 +20,7 @@ public class BookmarkQuery {
         return id;
     }
 
-    public BookmarkGroupQuery getGroup() {
+    public BookmarkGroup getGroup() {
         return group;
     }
 

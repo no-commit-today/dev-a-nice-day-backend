@@ -2,18 +2,18 @@ package com.nocommittoday.techswipe.controller.content.bookmark.v1;
 
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import com.nocommittoday.techswipe.docs.restdocs.RestDocsAttribute;
-import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupId;
-import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupQuery;
-import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkId;
-import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkListQueryResult;
-import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkListQueryService;
-import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkQuery;
 import com.nocommittoday.techswipe.domain.content.TechCategory;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderId;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderQuery;
 import com.nocommittoday.techswipe.domain.content.TechContentProviderType;
 import com.nocommittoday.techswipe.domain.content.TechContentQuery;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroup;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupId;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkId;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkListQueryResult;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkListQueryService;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkQuery;
 import com.nocommittoday.techswipe.domain.test.AccessTokenDecodedBuilder;
 import com.nocommittoday.techswipe.domain.test.SummaryBuilder;
 import com.nocommittoday.techswipe.domain.user.UserId;
@@ -59,7 +59,7 @@ class BookmarkListQueryControllerDocsTest extends AbstractDocsTest {
                         List.of(
                                 new BookmarkQuery(
                                         new BookmarkId(1L),
-                                        new BookmarkGroupQuery(
+                                        new BookmarkGroup(
                                                 new BookmarkGroupId(1L),
                                                 new UserId(2L),
                                                 "프론트"
