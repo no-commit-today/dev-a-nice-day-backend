@@ -1,6 +1,6 @@
 package com.nocommittoday.techswipe.controller.content.bookmark.v1.response;
 
-import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkListQuery;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkListQueryResult;
 import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkQuery;
 import com.nocommittoday.techswipe.domain.content.TechCategory;
 
@@ -9,14 +9,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record BookmarkListQueryResponse(
-        int count,
         List<BookmarkedContent> content
 ) {
 
-    public static BookmarkListQueryResponse from(BookmarkListQuery query) {
+    public static BookmarkListQueryResponse from(BookmarkListQueryResult query) {
         return new BookmarkListQueryResponse(
-                query.getCount(),
-                query.getContent().stream()
+                query.bookmarks().stream()
                         .map(BookmarkQuery::getContent)
                         .map(content -> new BookmarkedContent(
                                 String.valueOf(content.getId().value()),

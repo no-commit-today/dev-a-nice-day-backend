@@ -4,32 +4,26 @@ import com.nocommittoday.techswipe.domain.user.ApiUser;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
 @Service
 public class BookmarkListQueryService {
 
-    private final BookmarkGroupQueryReader bookmarkGroupQueryReader;
-    private final BookmarkCountQueryReader bookmarkCountQueryReader;
+    private final BookmarkGroupReader bookmarkGroupReader;
     private final BookmarkListQueryReader bookmarkListQueryReader;
 
     public BookmarkListQueryService(
-            BookmarkGroupQueryReader bookmarkGroupQueryReader,
-            BookmarkCountQueryReader bookmarkCountQueryReader,
+            BookmarkGroupReader bookmarkGroupReader,
             BookmarkListQueryReader bookmarkListQueryReader
     ) {
-        this.bookmarkGroupQueryReader = bookmarkGroupQueryReader;
-        this.bookmarkCountQueryReader = bookmarkCountQueryReader;
+        this.bookmarkGroupReader = bookmarkGroupReader;
         this.bookmarkListQueryReader = bookmarkListQueryReader;
     }
 
-    public BookmarkListQuery getList(ApiUser user, @Nullable String groupName) {
-        BookmarkGroupQuery group = bookmarkGroupQueryReader.read(user.getUserId(), groupName);
-        int count = bookmarkCountQueryReader.count(group);
-        List<BookmarkQuery> bookmarks = bookmarkListQueryReader.getList(group);
-        return new BookmarkListQuery(
-                bookmarks,
-                count
-        );
+    public BookmarkListQueryResult getList(ApiUser user, @Nullable String groupName) {
+        if (groupName == null) {
+            return new BookmarkListQueryResult(bookmarkListQueryReader.getAllList(user.getUserId()));
+        }
+        BookmarkGroup group = bookmarkGroupReader.read(user.getUserId(), groupName);
+        return new BookmarkListQueryResult(bookmarkListQueryReader.getList(group));
     }
 }

@@ -8,18 +8,18 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class BookmarkGroupListQueryReader {
+public class BookmarkGroupListReader {
 
     private final BookmarkGroupEntityJpaRepository bookmarkGroupEntityJpaRepository;
 
-    public BookmarkGroupListQueryReader(BookmarkGroupEntityJpaRepository bookmarkGroupEntityJpaRepository) {
+    public BookmarkGroupListReader(BookmarkGroupEntityJpaRepository bookmarkGroupEntityJpaRepository) {
         this.bookmarkGroupEntityJpaRepository = bookmarkGroupEntityJpaRepository;
     }
 
-    public List<BookmarkGroupQuery> getList(UserId userId) {
+    public List<BookmarkGroup> getList(UserId userId) {
         return bookmarkGroupEntityJpaRepository.findAllByUserId(userId.value())
                 .stream()
-                .map(BookmarkGroupEntity::toQuery)
+                .map(BookmarkGroupEntity::toDomain)
                 .toList();
     }
 }

@@ -1,10 +1,10 @@
 package com.nocommittoday.techswipe.controller.content.bookmark.v1;
 
-import com.nocommittoday.techswipe.controller.content.bookmark.v1.BookmarkGroupListQueryController;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroup;
 import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupId;
 import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupListQueryService;
-import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupQuery;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupWithContains;
 import com.nocommittoday.techswipe.domain.test.AccessTokenDecodedBuilder;
 import com.nocommittoday.techswipe.domain.user.UserId;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +23,8 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(BookmarkGroupListQueryController.class)
@@ -41,7 +43,7 @@ class BookmarkGroupListQueryControllerDocsTest extends AbstractDocsTest {
     void 북마크_그룹_리스트_조회_Docs() throws Exception {
         // given
         given(bookmarkGroupListQueryService.getList(any())).willReturn(
-                List.of(new BookmarkGroupQuery(
+                List.of(new BookmarkGroup(
                         new BookmarkGroupId(1L),
                         new UserId(1L),
                         "프론트"
@@ -60,6 +62,42 @@ class BookmarkGroupListQueryControllerDocsTest extends AbstractDocsTest {
                         responseFields(
                                 fieldWithPath("content").description("리스트 데이터"),
                                 fieldWithPath("content[].name").description("그룹 이름")
+                        )
+                ));
+    }
+
+    @Test
+    void 북마크_여부를_포함한_북마크_그룹_리스트_조회_Docs() throws Exception {
+        // given
+        given(bookmarkGroupListQueryService.getListWithContains(any(), any())).willReturn(
+                List.of(new BookmarkGroupWithContains(
+                                new BookmarkGroup(
+                                        new BookmarkGroupId(1L),
+                                        new UserId(1L),
+                                        "프론트"
+                                ),
+                        true
+                        )
+                )
+        );
+
+        // when
+        // then
+        mockMvc.perform(get("/api/bookmark/v1/groups-with-contains")
+                        .queryParam("contentId", "1")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer access-token"))
+                .andExpect(status().isOk())
+                .andDo(document("bookmark/get-groups-with-contains",
+                        requestHeaders(
+                                headerWithName(HttpHeaders.AUTHORIZATION).description("인증 필요")
+                        ),
+                        queryParameters(
+                                parameterWithName("contentId").description("컨텐츠 ID")
+                        ),
+                        responseFields(
+                                fieldWithPath("content").description("리스트 데이터"),
+                                fieldWithPath("content[].name").description("그룹 이름"),
+                                fieldWithPath("content[].contains").description("북마크 포함 여부")
                         )
                 ));
     }

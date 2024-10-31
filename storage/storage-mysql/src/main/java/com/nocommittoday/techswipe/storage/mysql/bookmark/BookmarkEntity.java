@@ -67,7 +67,7 @@ public class BookmarkEntity extends BaseTimeEntity {
     public BookmarkQuery toQuery() {
         return new BookmarkQuery(
                 new BookmarkId(id),
-                group.toQuery(),
+                group.toDomain(),
                 content.toQuery()
         );
     }

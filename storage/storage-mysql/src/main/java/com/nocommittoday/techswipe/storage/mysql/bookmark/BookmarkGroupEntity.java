@@ -2,7 +2,6 @@ package com.nocommittoday.techswipe.storage.mysql.bookmark;
 
 import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroup;
 import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupId;
-import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupQuery;
 import com.nocommittoday.techswipe.domain.user.UserId;
 import com.nocommittoday.techswipe.storage.mysql.core.BaseTimeEntity;
 import jakarta.persistence.Column;
@@ -43,14 +42,6 @@ public class BookmarkGroupEntity extends BaseTimeEntity {
 
     public BookmarkGroup toDomain() {
         return new BookmarkGroup(
-                new BookmarkGroupId(id),
-                new UserId(userId),
-                name
-        );
-    }
-
-    public BookmarkGroupQuery toQuery() {
-        return new BookmarkGroupQuery(
                 new BookmarkGroupId(id),
                 new UserId(userId),
                 name
