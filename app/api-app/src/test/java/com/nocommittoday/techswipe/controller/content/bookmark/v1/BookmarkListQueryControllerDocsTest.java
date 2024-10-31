@@ -1,12 +1,11 @@
 package com.nocommittoday.techswipe.controller.content.bookmark.v1;
 
-import com.nocommittoday.techswipe.controller.content.bookmark.v1.BookmarkListQueryController;
 import com.nocommittoday.techswipe.docs.restdocs.AbstractDocsTest;
 import com.nocommittoday.techswipe.docs.restdocs.RestDocsAttribute;
 import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupId;
 import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkGroupQuery;
 import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkId;
-import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkListQuery;
+import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkListQueryResult;
 import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkListQueryService;
 import com.nocommittoday.techswipe.domain.content.bookmark.BookmarkQuery;
 import com.nocommittoday.techswipe.domain.content.TechCategory;
@@ -56,7 +55,7 @@ class BookmarkListQueryControllerDocsTest extends AbstractDocsTest {
     void 북마크_리스트_조회() throws Exception {
         // given
         given(bookmarkListQueryService.getList(any(), any())).willReturn(
-                new BookmarkListQuery(
+                new BookmarkListQueryResult(
                         List.of(
                                 new BookmarkQuery(
                                         new BookmarkId(1L),
@@ -82,8 +81,7 @@ class BookmarkListQueryControllerDocsTest extends AbstractDocsTest {
                                                 List.of(TechCategory.SERVER)
                                         )
                                 )
-                        ),
-                        1
+                        )
                 )
         );
 
@@ -105,7 +103,6 @@ class BookmarkListQueryControllerDocsTest extends AbstractDocsTest {
                                         .attributes(RestDocsAttribute.defaultValue("전체 그룹"))
                         ),
                         responseFields(
-                                fieldWithPath("count").description("북마크된 컨텐츠 개수"),
                                 fieldWithPath("content").description("리스트 데이터"),
                                 fieldWithPath("content[].id").description("컨텐츠 ID"),
                                 fieldWithPath("content[].title").description("컨텐츠 제목"),

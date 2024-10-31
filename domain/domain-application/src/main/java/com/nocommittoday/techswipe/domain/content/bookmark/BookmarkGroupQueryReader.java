@@ -6,8 +6,6 @@ import com.nocommittoday.techswipe.storage.mysql.bookmark.BookmarkGroupEntity;
 import com.nocommittoday.techswipe.storage.mysql.bookmark.BookmarkGroupEntityJpaRepository;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Nullable;
-
 @Component
 public class BookmarkGroupQueryReader {
 
@@ -17,10 +15,7 @@ public class BookmarkGroupQueryReader {
         this.bookmarkGroupEntityJpaRepository = bookmarkGroupEntityJpaRepository;
     }
 
-    public BookmarkGroupQuery read(UserId userId, @Nullable String name) {
-        if (name == null || name.equals(BookmarkGroupConst.ALL_GROUP_NAME)) {
-            return BookmarkGroupQuery.allGroup(userId);
-        }
+    public BookmarkGroupQuery read(UserId userId, String name) {
 
         return bookmarkGroupEntityJpaRepository.findByUserIdAndName(userId.value(), name)
                 .map(BookmarkGroupEntity::toQuery)
