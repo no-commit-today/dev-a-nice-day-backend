@@ -1,11 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
-
-name: gradle build and push to AWS ECR
+name: build and push
 
 on:
   push:
@@ -53,14 +46,9 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ vars.AWS_REGION }}
+        aws-region: ${{ secrets.AWS_REGION }}
     - name: Login to AWS ECR
       uses: aws-actions/amazon-ecr-login@v1
-    - name: Set GITHUB_SHA for image tag
-      run: |
-        if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
-          GITHUB_SHA=$(cat $GITHUB_EVENT_PATH | jq -r .pull_request.head.sha)
-        fi
     - name: Build and push
       run: |
         docker build \
@@ -74,7 +62,7 @@ jobs:
         --build-arg JWT_ACCESS_TOKEN_EXPIRATION=${{ secrets.JWT_ACCESS_TOKEN_EXPIRATION }} \
         --build-arg JWT_REFRESH_TOKEN_SECRET=${{ secrets.JWT_REFRESH_TOKEN_SECRET }} \
         --build-arg JWT_REFRESH_TOKEN_EXPIRATION=${{ secrets.JWT_REFRESH_TOKEN_EXPIRATION }} \
-        -t ${{ vars.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend:$GITHUB_SHA --push .
+        -t ${{ secrets.AWS_ECR_REGISTRY }}/dev-a-nice-day-backend:${{ github.sha }} --push .
     - name: Logout docker
       run: |
         docker logout
@@ -93,7 +81,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        cd dev-a-nice-day-gitops
+        cd dev-a-nice-day-gitops/backend
         git config --global user.email "actions@github.com"
         git config --global user.name "GitHub Actions Bot"
         git add .
