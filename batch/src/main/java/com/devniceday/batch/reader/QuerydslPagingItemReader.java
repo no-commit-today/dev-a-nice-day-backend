@@ -1,4 +1,4 @@
-package com.devniceday.reader;
+package com.devniceday.batch.reader;
 
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;

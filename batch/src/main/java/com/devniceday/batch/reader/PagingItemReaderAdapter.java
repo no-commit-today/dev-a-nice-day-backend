@@ -1,4 +1,4 @@
-package com.devniceday.reader;
+package com.devniceday.batch.reader;
 
 import org.springframework.batch.item.database.AbstractPagingItemReader;
 
