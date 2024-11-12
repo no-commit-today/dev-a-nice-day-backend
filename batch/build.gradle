@@ -1,0 +1,15 @@
+bootJar.enabled = true
+
+dependencies {
+
+    implementation(project(":storage:storage-mysql"))
+    implementation(project(":support:logging"))
+
+    // Spring
+    implementation("org.springframework.boot:spring-boot-starter-batch")
+
+    testRuntimeOnly("com.h2database:h2")
+    testImplementation("org.springframework.batch:spring-batch-test")
+}
+
+
