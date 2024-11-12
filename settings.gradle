@@ -13,6 +13,7 @@ include("app:api-app")
 include("app:admin-app")
 include("app:batch-app")
 include("app:api-app-core")
+include("batch")
 
 include("domain:domain-core")
 include("domain:domain-application")
