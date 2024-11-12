@@ -1,8 +1,7 @@
 package com.nocommittoday.techswipe.domain.content.bookmark;
 
-import com.nocommittoday.techswipe.domain.content.bookmark.exception.BookmarkAlreadyExistsException;
-import com.nocommittoday.techswipe.domain.content.bookmark.exception.BookmarkGroupNotFoundException;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
+import com.nocommittoday.techswipe.domain.content.bookmark.exception.BookmarkGroupNotFoundException;
 import com.nocommittoday.techswipe.domain.content.exception.TechContentNotFoundException;
 import com.nocommittoday.techswipe.storage.mysql.bookmark.BookmarkEntity;
 import com.nocommittoday.techswipe.storage.mysql.bookmark.BookmarkEntityJpaRepository;
@@ -37,12 +36,8 @@ public class BookmarkAppender {
                 .filter(TechContentEntity::isUsed)
                 .orElseThrow(() -> new TechContentNotFoundException(contentId));
 
-        if (bookmarkEntityJpaRepository.findByGroupAndContent(bookmarkGroup, content).isPresent()) {
-            throw new BookmarkAlreadyExistsException(groupId, contentId);
-        }
-
-        return new BookmarkId(
-                bookmarkEntityJpaRepository.save(new BookmarkEntity(bookmarkGroup, content)).getId()
-        );
+        return new BookmarkId(bookmarkEntityJpaRepository.findByGroupAndContent(bookmarkGroup, content)
+                .orElseGet(() -> bookmarkEntityJpaRepository.save(new BookmarkEntity(bookmarkGroup, content)))
+                .getId());
     }
 }

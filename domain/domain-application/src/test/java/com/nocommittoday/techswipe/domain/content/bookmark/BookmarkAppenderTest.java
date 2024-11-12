@@ -1,8 +1,7 @@
 package com.nocommittoday.techswipe.domain.content.bookmark;
 
-import com.nocommittoday.techswipe.domain.content.bookmark.exception.BookmarkAlreadyExistsException;
-import com.nocommittoday.techswipe.domain.content.bookmark.exception.BookmarkGroupNotFoundException;
 import com.nocommittoday.techswipe.domain.content.TechContentId;
+import com.nocommittoday.techswipe.domain.content.bookmark.exception.BookmarkGroupNotFoundException;
 import com.nocommittoday.techswipe.domain.content.exception.TechContentNotFoundException;
 import com.nocommittoday.techswipe.storage.mysql.bookmark.BookmarkEntity;
 import com.nocommittoday.techswipe.storage.mysql.bookmark.BookmarkEntityJpaRepository;
@@ -69,7 +68,7 @@ class BookmarkAppenderTest {
     }
 
     @Test
-    void 북마크가_이미_존재하는_경우_에러가_발생한다() {
+    void 북마크가_이미_존재하는_경우_아무_로직을_실행하지_않는다() {
         // given
         BookmarkGroupEntity bookmarkGroup = mock(BookmarkGroupEntity.class);
         TechContentEntity content = mock(TechContentEntity.class);
@@ -77,11 +76,13 @@ class BookmarkAppenderTest {
 
         given(bookmarkGroupEntityJpaRepository.findById(1L)).willReturn(Optional.of(bookmarkGroup));
         given(techContentJpaRepository.findById(2L)).willReturn(Optional.of(content));
-        given(bookmarkEntityJpaRepository.findByGroupAndContent(bookmarkGroup, content)).willReturn(Optional.of(mock(BookmarkEntity.class)));
+        BookmarkEntity bookmarkEntity = mock(BookmarkEntity.class);
+        given(bookmarkEntity.getId()).willReturn(3L);
+        given(bookmarkEntityJpaRepository.findByGroupAndContent(bookmarkGroup, content)).willReturn(Optional.of(bookmarkEntity));
 
         // when, then
-        assertThatThrownBy(() -> bookmarkAppender.append(new BookmarkGroupId(1L), new TechContentId(2L)))
-                .isInstanceOf(BookmarkAlreadyExistsException.class);
+        BookmarkId bookmarkId = bookmarkAppender.append(new BookmarkGroupId(1L), new TechContentId(2L));
+        assertThat(bookmarkId.value()).isEqualTo(3L);
     }
 
     @Test

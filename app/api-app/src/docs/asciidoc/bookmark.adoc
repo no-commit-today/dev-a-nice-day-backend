@@ -31,12 +31,15 @@ operation::bookmark/groups[snippets='http-request,request-headers,http-response,
 operation::bookmark/get-groups-with-contains[snippets='http-request,request-headers,query-parameters,http-response,response-fields']
 
 
-[[update-group]]
-
 [[create]]
 == 북마크 생성
 
-operation::bookmark/create[snippets='http-request,request-headers,request-fields,http-response']
+operation::bookmark/create[snippets='http-request,request-headers,path-parameters,http-response']
+
+[[create-old]]
+== 북마크 생성 - Deprecated (곧 지울 것..)
+
+operation::bookmark/create-old[snippets='http-request,request-headers,request-fields,http-response']
 
 [[list-query]]
 == 북마크 목록 조회
