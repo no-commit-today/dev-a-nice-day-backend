@@ -1,4 +1,4 @@
-package com.devniceday.batch;
+package com.devniceday.batch.job;
 
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;

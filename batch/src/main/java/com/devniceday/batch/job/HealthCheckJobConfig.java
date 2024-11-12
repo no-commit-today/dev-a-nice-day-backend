@@ -1,4 +1,4 @@
-package com.devniceday.batch;
+package com.devniceday.batch.job;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
