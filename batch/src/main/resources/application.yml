@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: batch-app
+
+  profiles:
+    active: local
+
+  config:
+    import:
+      - storage-mysql.yml
+      - logging.yml
+
+  batch:
+    job:
+      enabled: true
+      name: ${job.name:healthCheckJob}
+    jdbc:
+      initialize-schema: never
+      isolation-level-for-create: default
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local-dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
