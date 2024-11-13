@@ -9,11 +9,14 @@ pluginManagement {
 
 rootProject.name = 'dev-a-nice-day-backend'
 
+include("core-enum")
+include("batch")
+include("storage:core-db")
+
 include("app:api-app")
 include("app:admin-app")
 include("app:batch-app")
 include("app:api-app-core")
-include("batch")
 
 include("domain:domain-core")
 include("domain:domain-application")
@@ -27,7 +30,7 @@ include("infrastructure:infrastructure-alert")
 include("infrastructure:infrastructure-web-core")
 
 include("storage:storage-mysql")
-include("storage:core-db")
+
 
 include("client:client-core")
 include("client:oauth2-client")
