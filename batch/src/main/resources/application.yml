@@ -7,7 +7,7 @@ spring:
 
   config:
     import:
-      - storage-mysql.yml
+      - core-db.yml
       - logging.yml
 
   batch:

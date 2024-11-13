@@ -2,7 +2,7 @@ bootJar.enabled = true
 
 dependencies {
 
-    implementation(project(":storage:storage-mysql"))
+    implementation(project(":storage:core-db"))
     implementation(project(":support:logging"))
 
     // Spring
