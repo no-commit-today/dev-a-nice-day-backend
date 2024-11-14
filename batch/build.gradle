@@ -6,9 +6,15 @@ dependencies {
     implementation(project(":storage:core-db"))
     implementation(project(":support:logging"))
     implementation(project(":module:id-generator"))
+    implementation(project(":module:time-tracer"))
 
     // Spring
     implementation("org.springframework.boot:spring-boot-starter-batch")
+    implementation("org.springframework:spring-web")
+    implementation("org.springframework.retry:spring-retry")
+
+    // Web
+    implementation("org.apache.httpcomponents.client5:httpclient5")
 
     // JSON type column
     implementation("com.vladmihalcea:hibernate-types-60:${hibernateTypes60Version}")
@@ -19,6 +25,9 @@ dependencies {
     annotationProcessor("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta")
     annotationProcessor("jakarta.annotation:jakarta.annotation-api")
     annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+
+    // RSS
+    implementation("com.rometools:rome:${romeVersion}")
 
     // Test
     testRuntimeOnly("com.h2database:h2")
