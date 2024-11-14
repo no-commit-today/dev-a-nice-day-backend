@@ -13,6 +13,13 @@ dependencies {
     implementation("com.vladmihalcea:hibernate-types-60:${hibernateTypes60Version}")
     implementation("com.fasterxml.jackson.core:jackson-databind")
 
+    // Querydsl
+    api("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+    annotationProcessor("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta")
+    annotationProcessor("jakarta.annotation:jakarta.annotation-api")
+    annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+
+    // Test
     testRuntimeOnly("com.h2database:h2")
     testImplementation("org.springframework.batch:spring-batch-test")
 }
