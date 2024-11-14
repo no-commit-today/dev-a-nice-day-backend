@@ -1,6 +1,6 @@
 package com.devniceday.batch.config;
 
-import com.devniceday.module.IdGenerator;
+import com.devniceday.module.idgenerator.IdGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
