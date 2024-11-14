@@ -5,6 +5,7 @@ dependencies {
     implementation(project(":core-enum"))
     implementation(project(":storage:core-db"))
     implementation(project(":support:logging"))
+    implementation(project(":module:id-generator"))
 
     // Spring
     implementation("org.springframework.boot:spring-boot-starter-batch")
