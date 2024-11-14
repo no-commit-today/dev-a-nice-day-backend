@@ -9,6 +9,10 @@ dependencies {
     // Spring
     implementation("org.springframework.boot:spring-boot-starter-batch")
 
+    // JSON type column
+    implementation("com.vladmihalcea:hibernate-types-60:${hibernateTypes60Version}")
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+
     testRuntimeOnly("com.h2database:h2")
     testImplementation("org.springframework.batch:spring-batch-test")
 }
