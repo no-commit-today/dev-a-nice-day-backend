@@ -12,6 +12,7 @@ rootProject.name = 'dev-a-nice-day-backend'
 include("core-enum")
 include("batch")
 include("storage:core-db")
+include("module:id-generator")
 
 include("app:api-app")
 include("app:admin-app")
