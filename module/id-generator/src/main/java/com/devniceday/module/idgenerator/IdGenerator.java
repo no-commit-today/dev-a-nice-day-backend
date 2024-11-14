@@ -1,4 +1,4 @@
-package com.devniceday.module;
+package com.devniceday.module.idgenerator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

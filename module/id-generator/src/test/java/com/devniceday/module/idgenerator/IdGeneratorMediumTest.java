@@ -1,5 +1,6 @@
-package com.devniceday.module;
+package com.devniceday.module.idgenerator;
 
+import com.devniceday.module.idgenerator.IdGenerator;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
