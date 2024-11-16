@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.time.Clock;
+
 @Configuration
 public class HealthCheckJobConfig {
 
@@ -22,10 +24,14 @@ public class HealthCheckJobConfig {
     private static final String JOB_NAME = "healthCheckJob";
     private static final String STEP_NAME = "healthCheckStep";
 
+    private final Clock clock;
     private final JobRepository jobRepository;
     private final PlatformTransactionManager txManager;
 
-    public HealthCheckJobConfig(JobRepository jobRepository, PlatformTransactionManager txManager) {
+    public HealthCheckJobConfig(
+            Clock clock, JobRepository jobRepository, PlatformTransactionManager txManager
+    ) {
+        this.clock = clock;
         this.jobRepository = jobRepository;
         this.txManager = txManager;
     }
@@ -34,9 +40,13 @@ public class HealthCheckJobConfig {
     public Job job() {
         JobBuilder jobBuilder = new JobBuilder(JOB_NAME, jobRepository);
         return jobBuilder
-                .incrementer(new SystemClockRunIdIncrementer())
+                .incrementer(systemClockRunIdIncrementer())
                 .start(step())
                 .build();
+    }
+
+    public SystemClockRunIdIncrementer systemClockRunIdIncrementer() {
+        return new SystemClockRunIdIncrementer(clock);
     }
 
     @Bean(STEP_NAME)
