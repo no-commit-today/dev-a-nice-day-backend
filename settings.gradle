@@ -16,6 +16,7 @@ include("storage:core-db")
 
 include("module:id-generator")
 include("module:time-tracer")
+include("module:alert-manager")
 
 include("tests:java-test-util")
 
