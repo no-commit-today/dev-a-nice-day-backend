@@ -30,7 +30,7 @@ dependencies {
     implementation("com.rometools:rome:${romeVersion}")
 
     // Test
-    testRuntimeOnly("com.h2database:h2")
+    testImplementation(testFixtures(project(":storage:core-db")))
     testImplementation("org.springframework.batch:spring-batch-test")
 }
 
