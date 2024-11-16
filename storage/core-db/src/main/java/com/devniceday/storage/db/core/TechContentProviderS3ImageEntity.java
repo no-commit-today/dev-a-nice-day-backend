@@ -12,7 +12,7 @@ import jakarta.persistence.UniqueConstraint;
 @Table(
         name = "tech_content_provider_s3_image",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uk_contentid", columnNames = {"content_id"})
+                @UniqueConstraint(name = "uk_techcontentproviders3image__contentid", columnNames = {"content_id"})
         }
 )
 public class TechContentProviderS3ImageEntity extends BaseEntity {

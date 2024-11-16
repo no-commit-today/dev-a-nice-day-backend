@@ -14,7 +14,7 @@ import org.springframework.data.domain.Persistable;
 @Table(
         name = "tech_content_provider",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uk_url", columnNames = {"url"})
+                @UniqueConstraint(name = "uk_techcontentprovider__url", columnNames = {"url"})
         }
 )
 public class TechContentProviderEntity extends BaseEntity implements Persistable<Long> {
