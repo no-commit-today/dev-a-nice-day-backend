@@ -1,4 +1,11 @@
 spring:
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: embedded
+      isolation-level-for-create: default
+
   datasource:
     url: jdbc:h2:mem:tech-swipe-mem-db;MODE=MySQL;
     username: sa
