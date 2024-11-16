@@ -14,7 +14,7 @@ import java.util.List;
 @Table(
         name = "tech_content_user_category",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uk_userid", columnNames = "user_id")
+                @UniqueConstraint(name = "uk_techcontenetusercategory__userid", columnNames = "user_id")
         }
 )
 public class TechContentUserCategoryEntity extends BaseEntity {
