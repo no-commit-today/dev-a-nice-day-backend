@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Table(
         name = "tech_content",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uk_url", columnNames = {"url"})
+                @UniqueConstraint(name = "uk_techcontent__url", columnNames = {"url"})
         }
 )
 public class TechContentEntity extends BaseEntity {

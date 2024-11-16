@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -22,10 +21,7 @@ import java.util.List;
 @Table(
         name = "collected_content",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uk_url", columnNames = {"url"})
-        },
-        indexes = {
-                @Index(name = "ix_deleted_status", columnList = "deleted, status"),
+                @UniqueConstraint(name = "uk_collectedcontent__url", columnNames = {"url"})
         }
 )
 public class BatchCollectedContentEntity extends BaseEntity implements Persistable<Long> {

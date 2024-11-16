@@ -20,7 +20,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Table(
         name = "subscription",
         indexes = {
-                @Index(name = "ix_providerid", columnList = "provider_id")
+                @Index(name = "ix_subscription__providerid", columnList = "provider_id")
         }
 )
 public class BatchSubscriptionEntity extends BaseEntity {
