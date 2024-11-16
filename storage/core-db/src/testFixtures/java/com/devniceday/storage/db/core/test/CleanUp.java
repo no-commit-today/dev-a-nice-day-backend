@@ -1,10 +1,12 @@
-package com.nocommittoday.techswipe.storage.mysql.test;
+package com.devniceday.storage.db.core.test;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Table;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+@Component
 public class CleanUp {
 
     private final JdbcTemplate jdbcTemplate;
