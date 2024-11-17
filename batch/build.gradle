@@ -21,7 +21,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind")
 
     // Querydsl
-    api("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+    implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     annotationProcessor("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta")
     annotationProcessor("jakarta.annotation:jakarta.annotation-api")
     annotationProcessor("jakarta.persistence:jakarta.persistence-api")
@@ -29,8 +29,12 @@ dependencies {
     // RSS
     implementation("com.rometools:rome:${romeVersion}")
 
+    // JSoup
+    implementation("org.jsoup:jsoup:${jsoupVersion}")
+
     // Test
     testImplementation(testFixtures(project(":storage:core-db")))
+    testImplementation(project(":tests:java-test-util"))
     testImplementation("org.springframework.batch:spring-batch-test")
 }
 
