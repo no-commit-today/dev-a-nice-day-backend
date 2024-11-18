@@ -25,7 +25,7 @@ class ContentSubscriberTest {
     private SubscribedContentFetcher contentFetcher;
 
     @Mock
-    private SubscribedContentFilterCreator filterCreator;
+    private SubscribedContentFilterFactory filterCreator;
 
     @Test
     void 최대_페이지에_도달할_때까지_구독_컨텐츠를_수집한다() {
