@@ -13,9 +13,9 @@ public class ContentSubscriber {
     private static final int MAX_PAGE = 10;
 
     private final SubscribedContentFetcher contentFetcher;
-    private final SubscribedContentFilterCreator filterCreator;
+    private final SubscribedContentFilterFactory filterCreator;
 
-    public ContentSubscriber(SubscribedContentFetcher contentFetcher, SubscribedContentFilterCreator filterCreator) {
+    public ContentSubscriber(SubscribedContentFetcher contentFetcher, SubscribedContentFilterFactory filterCreator) {
         this.contentFetcher = contentFetcher;
         this.filterCreator = filterCreator;
     }
