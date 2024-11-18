@@ -44,7 +44,7 @@ public class BatchSubscriptionEntity extends BaseEntity {
     @Nullable
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "list_scrapping", columnDefinition = "json")
-    private BatchListScrappingSubscriptionData listScrapping;
+    private BatchWebListSubscriptionData webList;
 
     protected BatchSubscriptionEntity() {
     }
@@ -67,7 +67,7 @@ public class BatchSubscriptionEntity extends BaseEntity {
     }
 
     @Nullable
-    public BatchListScrappingSubscriptionData getListScrapping() {
-        return listScrapping;
+    public BatchWebListSubscriptionData getWebList() {
+        return webList;
     }
 }

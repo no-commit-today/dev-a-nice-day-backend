@@ -76,6 +76,28 @@ public class BatchCollectedContentEntity extends BaseEntity implements Persistab
     protected BatchCollectedContentEntity() {
     }
 
+    public BatchCollectedContentEntity(
+            long id,
+            CollectionStatus status,
+            long providerId,
+            long subscriptionId,
+            String url,
+            @Nullable String title,
+            @Nullable LocalDate publishedDate,
+            @Nullable String content,
+            @Nullable String imageUrl
+    ) {
+        this.id = id;
+        this.status = status;
+        this.providerId = providerId;
+        this.subscriptionId = subscriptionId;
+        this.url = url;
+        this.title = title;
+        this.publishedDate = publishedDate;
+        this.content = content;
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public boolean isNew() {
         return getCreatedAt() == null;
