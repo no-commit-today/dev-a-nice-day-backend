@@ -4,6 +4,6 @@ public record ContentScrapping(
         Scrapping title,
         Scrapping date,
         Scrapping content,
-        Scrapping image
+        ImageScrapping image
 ) {
 }
