@@ -46,6 +46,9 @@ public class BatchSubscriptionEntity extends BaseEntity {
     @Column(name = "list_scrapping", columnDefinition = "json")
     private BatchWebListSubscriptionData webList;
 
+    @Column(name = "disabled", nullable = false)
+    private boolean disabled = false;
+
     protected BatchSubscriptionEntity() {
     }
 
@@ -69,5 +72,9 @@ public class BatchSubscriptionEntity extends BaseEntity {
     @Nullable
     public BatchWebListSubscriptionData getWebList() {
         return webList;
+    }
+
+    public void disable() {
+        this.disabled = true;
     }
 }
