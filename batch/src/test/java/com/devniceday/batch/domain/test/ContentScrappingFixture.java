@@ -1,11 +1,12 @@
 package com.devniceday.batch.domain.test;
 
 import com.devniceday.batch.domain.ContentScrapping;
+import com.devniceday.batch.domain.ImageScrapping;
 import com.devniceday.batch.domain.Scrapping;
 
 import javax.annotation.Nullable;
 
-public class ContentScrappingBuilder {
+public class ContentScrappingFixture {
 
     @Nullable
     private Scrapping title;
@@ -17,29 +18,29 @@ public class ContentScrappingBuilder {
     private Scrapping content;
 
     @Nullable
-    private Scrapping image;
+    private ImageScrapping image;
 
     public static ContentScrapping create() {
-        return new ContentScrappingBuilder().build();
+        return new ContentScrappingFixture().build();
     }
 
 
-    public ContentScrappingBuilder title(Scrapping title) {
+    public ContentScrappingFixture title(Scrapping title) {
         this.title = title;
         return this;
     }
 
-    public ContentScrappingBuilder date(Scrapping date) {
+    public ContentScrappingFixture date(Scrapping date) {
         this.date = date;
         return this;
     }
 
-    public ContentScrappingBuilder content(Scrapping content) {
+    public ContentScrappingFixture content(Scrapping content) {
         this.content = content;
         return this;
     }
 
-    public ContentScrappingBuilder image(Scrapping image) {
+    public ContentScrappingFixture image(ImageScrapping image) {
         this.image = image;
         return this;
     }
@@ -51,16 +52,16 @@ public class ContentScrappingBuilder {
 
     private void fillRequiredFields() {
         if (title == null) {
-            title = ScrappingBuilder.selector();
+            title = ScrappingFixture.selector();
         }
         if (date == null) {
-            date = ScrappingBuilder.selector();
+            date = ScrappingFixture.selector();
         }
         if (content == null) {
-            content = ScrappingBuilder.selector();
+            content = ScrappingFixture.selector();
         }
         if (image == null) {
-            image = ScrappingBuilder.openGraphImage();
+            image = ImageScrappingFixture.create();
         }
     }
 }

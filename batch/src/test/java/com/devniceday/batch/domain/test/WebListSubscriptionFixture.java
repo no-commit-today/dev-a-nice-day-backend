@@ -5,7 +5,7 @@ import com.devniceday.batch.domain.ListScrapping;
 import com.devniceday.batch.domain.WebListSubscription;
 import jakarta.annotation.Nullable;
 
-public class WebListSubscriptionBuilder {
+public class WebListSubscriptionFixture {
 
     @Nullable
     private ListScrapping listScrapping;
@@ -15,15 +15,15 @@ public class WebListSubscriptionBuilder {
 
 
     public static WebListSubscription create() {
-        return new WebListSubscriptionBuilder().build();
+        return new WebListSubscriptionFixture().build();
     }
 
-    public WebListSubscriptionBuilder listScrapping(ListScrapping listScrapping) {
+    public WebListSubscriptionFixture listScrapping(ListScrapping listScrapping) {
         this.listScrapping = listScrapping;
         return this;
     }
 
-    public WebListSubscriptionBuilder contentScrapping(ContentScrapping contentScrapping) {
+    public WebListSubscriptionFixture contentScrapping(ContentScrapping contentScrapping) {
         this.contentScrapping = contentScrapping;
         return this;
     }
@@ -38,10 +38,10 @@ public class WebListSubscriptionBuilder {
 
     private void fillRequiredFields() {
         if (listScrapping == null) {
-            listScrapping = ListScrappingBuilder.create();
+            listScrapping = ListScrappingFixture.create();
         }
         if (contentScrapping == null) {
-            contentScrapping = ContentScrappingBuilder.create();
+            contentScrapping = ContentScrappingFixture.create();
         }
     }
 }

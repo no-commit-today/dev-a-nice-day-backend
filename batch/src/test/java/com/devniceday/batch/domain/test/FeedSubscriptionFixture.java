@@ -7,7 +7,7 @@ import com.devniceday.test.java.LongIncrementUtil;
 
 import javax.annotation.Nullable;
 
-public class FeedSubscriptionBuilder {
+public class FeedSubscriptionFixture {
 
     @Nullable
     private String url;
@@ -16,15 +16,15 @@ public class FeedSubscriptionBuilder {
     private ContentScrapping contentScrapping;
 
     public static FeedSubscription create() {
-        return new FeedSubscriptionBuilder().build();
+        return new FeedSubscriptionFixture().build();
     }
 
-    public FeedSubscriptionBuilder url(String url) {
+    public FeedSubscriptionFixture url(String url) {
         this.url = url;
         return this;
     }
 
-    public FeedSubscriptionBuilder contentScrapping(ContentScrapping contentScrapping) {
+    public FeedSubscriptionFixture contentScrapping(ContentScrapping contentScrapping) {
         this.contentScrapping = contentScrapping;
         return this;
     }
@@ -42,7 +42,7 @@ public class FeedSubscriptionBuilder {
             url = "url-" + LongIncrementUtil.next();
         }
         if (contentScrapping == null) {
-            contentScrapping = ContentScrappingBuilder.create();
+            contentScrapping = ContentScrappingFixture.create();
         }
     }
 }
