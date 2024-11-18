@@ -1,9 +1,9 @@
 package com.devniceday.batch.job;
 
 import com.devniceday.batch.domain.ContentSubscriber;
-import com.devniceday.batch.param.TechContentProviderIdJobParameter;
-import com.devniceday.batch.reader.QuerydslPagingItemReader;
-import com.devniceday.batch.writer.JpaItemListWriter;
+import com.devniceday.batch.job.param.TechContentProviderIdJobParameter;
+import com.devniceday.batch.job.reader.QuerydslPagingItemReader;
+import com.devniceday.batch.job.writer.JpaItemListWriter;
 import com.devniceday.module.idgenerator.IdGenerator;
 import com.devniceday.storage.db.core.BatchCollectedContentEntity;
 import com.devniceday.storage.db.core.BatchSubscriptionEntity;
