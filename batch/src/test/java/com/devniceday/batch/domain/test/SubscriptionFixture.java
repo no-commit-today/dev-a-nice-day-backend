@@ -7,7 +7,7 @@ import com.devniceday.batch.domain.WebListSubscription;
 import com.devniceday.test.java.LongIncrementUtil;
 import jakarta.annotation.Nullable;
 
-public class SubscriptionBuilder {
+public class SubscriptionFixture {
 
     @Nullable
     private Long id;
@@ -25,34 +25,34 @@ public class SubscriptionBuilder {
     private WebListSubscription webList;
 
     public static Subscription createFeed() {
-        return new SubscriptionBuilder().type(SubscriptionType.FEED).build();
+        return new SubscriptionFixture().type(SubscriptionType.FEED).build();
     }
 
     public static Subscription createWebList() {
-        return new SubscriptionBuilder().type(SubscriptionType.LIST_SCRAPPING).build();
+        return new SubscriptionFixture().type(SubscriptionType.LIST_SCRAPPING).build();
     }
 
-    public SubscriptionBuilder id(long id) {
+    public SubscriptionFixture id(long id) {
         this.id = id;
         return this;
     }
 
-    public SubscriptionBuilder providerId(long providerId) {
+    public SubscriptionFixture providerId(long providerId) {
         this.providerId = providerId;
         return this;
     }
 
-    public SubscriptionBuilder type(SubscriptionType type) {
+    public SubscriptionFixture type(SubscriptionType type) {
         this.type = type;
         return this;
     }
 
-    public SubscriptionBuilder feed(FeedSubscription feed) {
+    public SubscriptionFixture feed(FeedSubscription feed) {
         this.feed = feed;
         return this;
     }
 
-    public SubscriptionBuilder webList(WebListSubscription webList) {
+    public SubscriptionFixture webList(WebListSubscription webList) {
         this.webList = webList;
         return this;
     }
@@ -79,10 +79,10 @@ public class SubscriptionBuilder {
             type = SubscriptionType.FEED;
         }
         if (feed == null && type == SubscriptionType.FEED) {
-            feed = FeedSubscriptionBuilder.create();
+            feed = FeedSubscriptionFixture.create();
         }
         if (webList == null && type == SubscriptionType.LIST_SCRAPPING) {
-            webList = WebListSubscriptionBuilder.create();
+            webList = WebListSubscriptionFixture.create();
         }
     }
 }
