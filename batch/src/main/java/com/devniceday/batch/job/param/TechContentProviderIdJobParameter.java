@@ -1,4 +1,4 @@
-package com.devniceday.batch.param;
+package com.devniceday.batch.job.param;
 
 import org.springframework.beans.factory.annotation.Value;
 
