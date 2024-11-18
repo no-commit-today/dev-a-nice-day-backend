@@ -11,11 +11,11 @@ import java.util.Set;
 import static com.devniceday.storage.db.core.QBatchCollectedContentEntity.batchCollectedContentEntity;
 
 @Component
-public class SubscribedContentFilterCreator {
+public class SubscribedContentFilterFactory {
 
     private final JPAQueryFactory queryFactory;
 
-    public SubscribedContentFilterCreator(EntityManager em) {
+    public SubscribedContentFilterFactory(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
