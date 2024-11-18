@@ -1,4 +1,4 @@
-package com.devniceday.batch.writer;
+package com.devniceday.batch.job.writer;
 
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.json.JsonObjectMarshaller;

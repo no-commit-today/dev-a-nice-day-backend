@@ -1,5 +1,6 @@
 package com.devniceday.batch.param;
 
+import com.devniceday.batch.job.param.TechContentProviderIdJobParameter;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

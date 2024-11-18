@@ -1,4 +1,4 @@
-package com.devniceday.batch.reader;
+package com.devniceday.batch.job.reader;
 
 import java.util.List;
 
