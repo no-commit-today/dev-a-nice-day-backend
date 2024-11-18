@@ -17,7 +17,7 @@ public record ListScrapping(
         return pageUrlFormat != null;
     }
 
-    public String getPageUrl(int page) {
+    public String pageUrl(int page) {
         if (!isPaginated()) {
             throw new IllegalStateException("페이지네이션을 지원하지 않습니다. url: " + url);
         }
