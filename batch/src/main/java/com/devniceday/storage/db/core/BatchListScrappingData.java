@@ -2,7 +2,7 @@ package com.devniceday.storage.db.core;
 
 import javax.annotation.Nullable;
 
-public class BatchSubscriptionListScrappingData {
+public class BatchListScrappingData {
 
     private String url;
 
@@ -14,7 +14,7 @@ public class BatchSubscriptionListScrappingData {
     @Nullable
     private String contentUrlFormat;
 
-    public BatchSubscriptionListScrappingData(String url, BatchScrappingData scrapping, @Nullable String pageUrlFormat, @Nullable String contentUrlFormat) {
+    public BatchListScrappingData(String url, BatchScrappingData scrapping, @Nullable String pageUrlFormat, @Nullable String contentUrlFormat) {
         this.url = url;
         this.scrapping = scrapping;
         this.pageUrlFormat = pageUrlFormat;

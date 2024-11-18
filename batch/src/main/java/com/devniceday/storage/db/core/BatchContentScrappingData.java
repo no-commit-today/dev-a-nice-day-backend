@@ -1,14 +1,18 @@
 package com.devniceday.storage.db.core;
 
-public class BatchSubscriptionContentScrappingData {
+public class BatchContentScrappingData {
 
     private BatchScrappingData title;
     private BatchScrappingData date;
     private BatchScrappingData content;
-    private BatchScrappingData image;
+    private BatchImageScrappingData image;
 
-    public BatchSubscriptionContentScrappingData(
-            BatchScrappingData title, BatchScrappingData date, BatchScrappingData content, BatchScrappingData image) {
+    public BatchContentScrappingData(
+            BatchScrappingData title,
+            BatchScrappingData date,
+            BatchScrappingData content,
+            BatchImageScrappingData image
+    ) {
         this.title = title;
         this.date = date;
         this.content = content;
@@ -27,7 +31,7 @@ public class BatchSubscriptionContentScrappingData {
         return content;
     }
 
-    public BatchScrappingData getImage() {
+    public BatchImageScrappingData getImage() {
         return image;
     }
 }
