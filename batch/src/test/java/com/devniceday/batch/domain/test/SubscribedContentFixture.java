@@ -1,12 +1,11 @@
 package com.devniceday.batch.domain.test;
 
-import com.devniceday.batch.domain.SubscribedContent;
 import com.devniceday.test.java.LongIncrementUtil;
 import jakarta.annotation.Nullable;
 
 import java.time.LocalDate;
 
-public class SubscribedContentBuilder {
+public class SubscribedContentFixture {
 
     @Nullable
     private Long subscriptionId;
@@ -27,43 +26,43 @@ public class SubscribedContentBuilder {
     private String content;
 
 
-    public static SubscribedContent create() {
-        return new SubscribedContentBuilder().build();
+    public static com.devniceday.batch.domain.SubscribedContent create() {
+        return new SubscribedContentFixture().build();
     }
 
-    public SubscribedContentBuilder subscriptionId(long subscriptionId) {
+    public SubscribedContentFixture subscriptionId(long subscriptionId) {
         this.subscriptionId = subscriptionId;
         return this;
     }
 
-    public SubscribedContentBuilder url(String url) {
+    public SubscribedContentFixture url(String url) {
         this.url = url;
         return this;
     }
 
-    public SubscribedContentBuilder title(String title) {
+    public SubscribedContentFixture title(String title) {
         this.title = title;
         return this;
     }
 
-    public SubscribedContentBuilder imageUrl(String imageUrl) {
+    public SubscribedContentFixture imageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }
 
-    public SubscribedContentBuilder publishedDate(LocalDate publishedDate) {
+    public SubscribedContentFixture publishedDate(LocalDate publishedDate) {
         this.publishedDate = publishedDate;
         return this;
     }
 
-    public SubscribedContentBuilder content(String content) {
+    public SubscribedContentFixture content(String content) {
         this.content = content;
         return this;
     }
 
-    public SubscribedContent build() {
+    public com.devniceday.batch.domain.SubscribedContent build() {
         fillRequiredFields();
-        return new SubscribedContent(
+        return new com.devniceday.batch.domain.SubscribedContent(
             subscriptionId,
             url,
             title,

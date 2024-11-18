@@ -6,7 +6,7 @@ import com.devniceday.test.java.LongIncrementUtil;
 
 import javax.annotation.Nullable;
 
-public class ListScrappingBuilder {
+public class ListScrappingFixture {
 
     @Nullable
     private String url;
@@ -21,25 +21,25 @@ public class ListScrappingBuilder {
     private String contentUrlFormat;
 
     public static ListScrapping create() {
-        return new ListScrappingBuilder().build();
+        return new ListScrappingFixture().build();
     }
 
-    public ListScrappingBuilder url(String url) {
+    public ListScrappingFixture url(String url) {
         this.url = url;
         return this;
     }
 
-    public ListScrappingBuilder scrapping(Scrapping scrapping) {
+    public ListScrappingFixture scrapping(Scrapping scrapping) {
         this.scrapping = scrapping;
         return this;
     }
 
-    public ListScrappingBuilder pageUrlFormat(String pageUrlFormat) {
+    public ListScrappingFixture pageUrlFormat(String pageUrlFormat) {
         this.pageUrlFormat = pageUrlFormat;
         return this;
     }
 
-    public ListScrappingBuilder contentUrlFormat(String contentUrlFormat) {
+    public ListScrappingFixture contentUrlFormat(String contentUrlFormat) {
         this.contentUrlFormat = contentUrlFormat;
         return this;
     }
@@ -54,7 +54,7 @@ public class ListScrappingBuilder {
             url = "url-" + LongIncrementUtil.next();
         }
         if (scrapping == null) {
-            scrapping = ScrappingBuilder.selector();
+            scrapping = ScrappingFixture.selector();
         }
     }
 }

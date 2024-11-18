@@ -5,7 +5,7 @@ import com.devniceday.batch.domain.ScrappingType;
 
 import java.util.List;
 
-public class ScrappingBuilder {
+public class ScrappingFixture {
 
     public static Scrapping none() {
         return new Scrapping(ScrappingType.NONE, null, null);
@@ -13,10 +13,6 @@ public class ScrappingBuilder {
 
     public static Scrapping title() {
         return new Scrapping(ScrappingType.TITLE, null, null);
-    }
-
-    public static Scrapping openGraphImage() {
-        return new Scrapping(ScrappingType.OPEN_GRAPH_IMAGE, null, null);
     }
 
     public static Scrapping index() {
