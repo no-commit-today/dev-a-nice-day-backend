@@ -4,9 +4,9 @@ public class BatchFeedSubscriptionData {
 
     private String url;
 
-    private BatchSubscriptionContentScrappingData contentScrapping;
+    private BatchContentScrappingData contentScrapping;
 
-    public BatchFeedSubscriptionData(String url, BatchSubscriptionContentScrappingData contentScrapping) {
+    public BatchFeedSubscriptionData(String url, BatchContentScrappingData contentScrapping) {
         this.url = url;
         this.contentScrapping = contentScrapping;
     }
@@ -15,7 +15,7 @@ public class BatchFeedSubscriptionData {
         return url;
     }
 
-    public BatchSubscriptionContentScrappingData getContentScrapping() {
+    public BatchContentScrappingData getContentScrapping() {
         return contentScrapping;
     }
 }
