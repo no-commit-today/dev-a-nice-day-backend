@@ -1,12 +1,16 @@
 package com.devniceday.batch.job;
 
 import com.devniceday.batch.domain.ContentSubscriber;
+import com.devniceday.batch.job.listener.ExceptionAlertJobExecutionListener;
+import com.devniceday.batch.job.listener.SubscriptionDisableSkipListener;
 import com.devniceday.batch.job.param.TechContentProviderIdJobParameter;
 import com.devniceday.batch.job.reader.QuerydslPagingItemReader;
 import com.devniceday.batch.job.writer.JpaItemListWriter;
+import com.devniceday.module.alert.AlertManager;
 import com.devniceday.module.idgenerator.IdGenerator;
 import com.devniceday.storage.db.core.BatchCollectedContentEntity;
 import com.devniceday.storage.db.core.BatchSubscriptionEntity;
+import com.devniceday.storage.db.core.BatchSubscriptionEntityRepository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.EntityManagerFactory;
@@ -19,6 +23,7 @@ import org.springframework.batch.core.job.DefaultJobParametersValidator;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.core.step.skip.AlwaysSkipItemSkipPolicy;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
@@ -48,6 +53,9 @@ public class ContentCollectJobConfig {
     private final SubscriptionMapper subscriptionMapper;
     private final ContentSubscriber contentSubscriber;
 
+    private final AlertManager alertManager;
+    private final BatchSubscriptionEntityRepository subscriptionEntityRepository;
+
     public ContentCollectJobConfig(
             Clock clock,
             JobRepository jobRepository,
@@ -55,7 +63,9 @@ public class ContentCollectJobConfig {
             EntityManagerFactory emf,
             IdGenerator idGenerator,
             SubscriptionMapper subscriptionMapper,
-            ContentSubscriber contentSubscriber
+            ContentSubscriber contentSubscriber,
+            AlertManager alertManager,
+            BatchSubscriptionEntityRepository subscriptionEntityRepository
     ) {
         this.clock = clock;
         this.jobRepository = jobRepository;
@@ -64,6 +74,8 @@ public class ContentCollectJobConfig {
         this.idGenerator = idGenerator;
         this.subscriptionMapper = subscriptionMapper;
         this.contentSubscriber = contentSubscriber;
+        this.alertManager = alertManager;
+        this.subscriptionEntityRepository = subscriptionEntityRepository;
     }
 
     @Bean(JOB_NAME)
@@ -73,6 +85,8 @@ public class ContentCollectJobConfig {
                 .validator(jobParametersValidator())
                 .incrementer(systemClockRunIdIncrementer())
                 .start(step())
+
+                .listener(new ExceptionAlertJobExecutionListener(alertManager))
                 .build();
     }
 
@@ -102,8 +116,13 @@ public class ContentCollectJobConfig {
         return stepBuilder
                 .<BatchSubscriptionEntity, List<BatchCollectedContentEntity>>chunk(CHUNK_SIZE, txManager)
                 .reader(reader())
-//                .processor(processor())
+                .processor(processor())
                 .writer(writer())
+
+                .faultTolerant()
+                .skip(Exception.class)
+                .skipPolicy(new AlwaysSkipItemSkipPolicy())
+                .listener(new SubscriptionDisableSkipListener(subscriptionEntityRepository, alertManager))
 
                 .build();
     }
@@ -119,7 +138,8 @@ public class ContentCollectJobConfig {
                 .selectFrom(batchSubscriptionEntity)
                 .where(
                         providerIdEq(),
-                        batchSubscriptionEntity.deleted.isFalse()
+                        batchSubscriptionEntity.deleted.isFalse(),
+                        batchSubscriptionEntity.disabled.isFalse()
                 )
                 .orderBy(batchSubscriptionEntity.id.asc())
         );
