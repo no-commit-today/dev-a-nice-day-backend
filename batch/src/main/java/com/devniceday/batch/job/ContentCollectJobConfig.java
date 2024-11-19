@@ -1,21 +1,20 @@
 package com.devniceday.batch.job;
 
 import com.devniceday.batch.domain.ContentSubscriber;
+import com.devniceday.batch.domain.SubscriptionExceptionProcessor;
 import com.devniceday.batch.job.listener.ExceptionAlertJobExecutionListener;
-import com.devniceday.batch.job.listener.SubscriptionDisableSkipListener;
 import com.devniceday.batch.job.param.TechContentProviderIdJobParameter;
 import com.devniceday.batch.job.reader.QuerydslPagingItemReader;
 import com.devniceday.batch.job.writer.JpaItemListWriter;
-import com.devniceday.module.alert.AlertManager;
 import com.devniceday.module.idgenerator.IdGenerator;
 import com.devniceday.storage.db.core.BatchCollectedContentEntity;
 import com.devniceday.storage.db.core.BatchSubscriptionEntity;
-import com.devniceday.storage.db.core.BatchSubscriptionEntityRepository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersValidator;
+import org.springframework.batch.core.SkipListener;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -52,9 +51,8 @@ public class ContentCollectJobConfig {
     private final IdGenerator idGenerator;
     private final SubscriptionMapper subscriptionMapper;
     private final ContentSubscriber contentSubscriber;
-
-    private final AlertManager alertManager;
-    private final BatchSubscriptionEntityRepository subscriptionEntityRepository;
+    private final SubscriptionExceptionProcessor subscriptionExceptionProcessor;
+    private final ExceptionAlertJobExecutionListener exceptionAlertJobExecutionListener;
 
     public ContentCollectJobConfig(
             Clock clock,
@@ -64,8 +62,8 @@ public class ContentCollectJobConfig {
             IdGenerator idGenerator,
             SubscriptionMapper subscriptionMapper,
             ContentSubscriber contentSubscriber,
-            AlertManager alertManager,
-            BatchSubscriptionEntityRepository subscriptionEntityRepository
+            SubscriptionExceptionProcessor subscriptionExceptionProcessor,
+            ExceptionAlertJobExecutionListener exceptionAlertJobExecutionListener
     ) {
         this.clock = clock;
         this.jobRepository = jobRepository;
@@ -74,8 +72,8 @@ public class ContentCollectJobConfig {
         this.idGenerator = idGenerator;
         this.subscriptionMapper = subscriptionMapper;
         this.contentSubscriber = contentSubscriber;
-        this.alertManager = alertManager;
-        this.subscriptionEntityRepository = subscriptionEntityRepository;
+        this.subscriptionExceptionProcessor = subscriptionExceptionProcessor;
+        this.exceptionAlertJobExecutionListener = exceptionAlertJobExecutionListener;
     }
 
     @Bean(JOB_NAME)
@@ -83,15 +81,11 @@ public class ContentCollectJobConfig {
         JobBuilder jobBuilder = new JobBuilder(JOB_NAME, jobRepository);
         return jobBuilder
                 .validator(jobParametersValidator())
-                .incrementer(systemClockRunIdIncrementer())
+                .incrementer(new SystemClockRunIdIncrementer(clock))
                 .start(step())
 
-                .listener(new ExceptionAlertJobExecutionListener(alertManager))
+                .listener(exceptionAlertJobExecutionListener)
                 .build();
-    }
-
-    public SystemClockRunIdIncrementer systemClockRunIdIncrementer() {
-        return new SystemClockRunIdIncrementer(clock);
     }
 
 
@@ -122,7 +116,7 @@ public class ContentCollectJobConfig {
                 .faultTolerant()
                 .skip(Exception.class)
                 .skipPolicy(new AlwaysSkipItemSkipPolicy())
-                .listener(new SubscriptionDisableSkipListener(subscriptionEntityRepository, alertManager))
+                .listener(listener())
 
                 .build();
     }
@@ -171,5 +165,11 @@ public class ContentCollectJobConfig {
                 .usePersist(true)
                 .build();
         return new JpaItemListWriter<>(jpaItemWriter);
+    }
+
+    @Bean(STEP_NAME + "SkipListener")
+    @StepScope
+    public SkipListener<BatchSubscriptionEntity, List<BatchCollectedContentEntity>> listener() {
+        return new ContentCollectJobSkipListener(subscriptionMapper, subscriptionExceptionProcessor);
     }
 }

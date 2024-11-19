@@ -5,7 +5,9 @@ import com.devniceday.module.alert.AlertCommand;
 import com.devniceday.module.alert.AlertManager;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ExceptionAlertJobExecutionListener implements JobExecutionListener {
 
     private final AlertManager alertManager;
