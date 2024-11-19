@@ -14,13 +14,10 @@ public class SubscribedContentFetcher {
     }
 
     public List<SubscribedContent> fetch(Subscription subscription, int page) {
-        for (SubscribedContentFetchCommand command : commands) {
-            if (command.supports(subscription)) {
-                return command.fetch(subscription, page);
-            }
-        }
-
-        throw new IllegalStateException("지원하는 커맨드가 없습니다. subscription=" + subscription +
-                ", command 타입 = " + commands.stream().map(Object::getClass).toList());
+        return commands.stream()
+                .filter(command -> command.supports(subscription))
+                .findFirst()
+                .map(command -> command.fetch(subscription, page))
+                .orElseThrow(() -> new IllegalStateException("지원하지 않는 구독 타입입니다. subscription=" + subscription));
     }
 }
