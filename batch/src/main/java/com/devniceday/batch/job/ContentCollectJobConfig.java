@@ -13,7 +13,6 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParametersValidator;
 import org.springframework.batch.core.SkipListener;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
@@ -80,21 +79,15 @@ public class ContentCollectJobConfig {
     public Job job() {
         JobBuilder jobBuilder = new JobBuilder(JOB_NAME, jobRepository);
         return jobBuilder
-                .validator(jobParametersValidator())
+                .validator(new DefaultJobParametersValidator(
+                        new String[]{},
+                        new String[]{"provider.id"}
+                ))
                 .incrementer(new SystemClockRunIdIncrementer(clock))
                 .start(step())
 
                 .listener(exceptionAlertJobExecutionListener)
                 .build();
-    }
-
-
-    @Bean(JOB_NAME + "JobParametersValidator")
-    public JobParametersValidator jobParametersValidator() {
-        return new DefaultJobParametersValidator(
-                new String[]{},
-                new String[]{"provider.id"}
-        );
     }
 
     @Bean(JOB_NAME + "TechContentProviderIdJobParameter")
