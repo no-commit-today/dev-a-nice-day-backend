@@ -2,6 +2,7 @@ package com.devniceday.batch.domain.test;
 
 import com.devniceday.batch.domain.Scrapping;
 import com.devniceday.batch.domain.ScrappingType;
+import com.devniceday.test.java.LongIncrementUtil;
 
 import java.util.List;
 
@@ -22,6 +23,6 @@ public class ScrappingFixture {
     }
 
     public static Scrapping selector() {
-        return new Scrapping(ScrappingType.SELECTOR, null, "selector");
+        return new Scrapping(ScrappingType.SELECTOR, null, "selector-" + LongIncrementUtil.next());
     }
 }
