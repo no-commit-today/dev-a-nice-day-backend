@@ -77,4 +77,8 @@ public class BatchSubscriptionEntity extends BaseEntity {
     public void disable() {
         this.disabled = true;
     }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
 }
