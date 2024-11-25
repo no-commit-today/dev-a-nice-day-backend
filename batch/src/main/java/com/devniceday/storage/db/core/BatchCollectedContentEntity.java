@@ -78,7 +78,6 @@ public class BatchCollectedContentEntity extends BaseEntity implements Persistab
 
     public BatchCollectedContentEntity(
             long id,
-            CollectionStatus status,
             long providerId,
             long subscriptionId,
             String url,
@@ -88,7 +87,7 @@ public class BatchCollectedContentEntity extends BaseEntity implements Persistab
             @Nullable String imageUrl
     ) {
         this.id = id;
-        this.status = status;
+        this.status = CollectionStatus.COLLECTED;
         this.providerId = providerId;
         this.subscriptionId = subscriptionId;
         this.url = url;
@@ -157,6 +156,10 @@ public class BatchCollectedContentEntity extends BaseEntity implements Persistab
     @Nullable
     public Long getPublishedContentId() {
         return publishedContentId;
+    }
+
+    public void setStatus(CollectionStatus status) {
+        this.status = status;
     }
 
     public void setTitle(String title) {
