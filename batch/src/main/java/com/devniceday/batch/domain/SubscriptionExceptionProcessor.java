@@ -20,14 +20,14 @@ public class SubscriptionExceptionProcessor {
         this.alertManager = alertManager;
     }
 
-    public void process(Subscription subscription, Exception ex) {
-        log.error("컨텐츠 수집 중 오류 발생 subscriptionId={}", subscription.id(), ex);
-        repository.disable(subscription.id());
+    public void process(long subscriptionId, Exception ex) {
+        log.error("컨텐츠 수집 중 오류 발생 subscriptionId={}", subscriptionId, ex);
+        repository.disable(subscriptionId);
         alertManager.alert(
                 AlertCommand.builder()
                         .error()
                         .title("구독 처리 중 오류 발생")
-                        .content(String.format("- subscriptionId: %d", subscription.id()))
+                        .content(String.format("- subscriptionId: %d", subscriptionId))
                         .ex(ex)
                         .build()
         );

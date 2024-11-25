@@ -1,6 +1,5 @@
 package com.devniceday.batch.job;
 
-import com.devniceday.batch.domain.CollectionStatus;
 import com.devniceday.batch.domain.ContentSubscriber;
 import com.devniceday.batch.domain.SubscribedContent;
 import com.devniceday.batch.domain.Subscription;
@@ -35,7 +34,6 @@ public class ContentCollectJobItemProcessor
         return subscribedContents.stream()
                 .map(content -> new BatchCollectedContentEntity(
                                 idGenerator.nextId(),
-                                CollectionStatus.COLLECTED,
                                 subscription.providerId(),
                                 subscription.id(),
                                 content.url(),

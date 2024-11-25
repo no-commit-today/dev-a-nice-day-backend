@@ -10,16 +10,14 @@ import java.util.List;
 public class ContentCollectJobSkipListener
         implements SkipListener<BatchSubscriptionEntity, List<BatchCollectedContentEntity>> {
 
-    private final SubscriptionMapper mapper;
     private final SubscriptionExceptionProcessor processor;
 
-    public ContentCollectJobSkipListener(SubscriptionMapper mapper, SubscriptionExceptionProcessor processor) {
-        this.mapper = mapper;
+    public ContentCollectJobSkipListener(SubscriptionExceptionProcessor processor) {
         this.processor = processor;
     }
 
     @Override
     public void onSkipInProcess(BatchSubscriptionEntity item, Throwable t) {
-        processor.process(mapper.map(item), (Exception) t);
+        processor.process(item.getId(), (Exception) t);
     }
 }

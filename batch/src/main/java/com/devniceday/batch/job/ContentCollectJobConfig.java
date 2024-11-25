@@ -163,6 +163,6 @@ public class ContentCollectJobConfig {
     @Bean(STEP_NAME + "SkipListener")
     @StepScope
     public SkipListener<BatchSubscriptionEntity, List<BatchCollectedContentEntity>> listener() {
-        return new ContentCollectJobSkipListener(subscriptionMapper, subscriptionExceptionProcessor);
+        return new ContentCollectJobSkipListener(subscriptionExceptionProcessor);
     }
 }
