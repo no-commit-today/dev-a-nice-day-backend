@@ -1,4 +1,4 @@
-package com.devniceday.batch.domain.openai;
+package com.devniceday.batch.openai;
 
 import com.devniceday.batch.domain.CategorizationPrompt;
 import com.devniceday.batch.domain.CollectionCategory;
