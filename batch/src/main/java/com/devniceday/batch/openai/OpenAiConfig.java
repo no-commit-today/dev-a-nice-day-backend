@@ -1,4 +1,4 @@
-package com.devniceday.batch.domain.openai;
+package com.devniceday.batch.openai;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Value;

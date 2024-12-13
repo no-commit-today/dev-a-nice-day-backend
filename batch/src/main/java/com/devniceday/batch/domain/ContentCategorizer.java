@@ -1,6 +1,6 @@
 package com.devniceday.batch.domain;
 
-import com.devniceday.batch.domain.openai.CategorizationClient;
+import com.devniceday.batch.openai.CategorizationClient;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 
