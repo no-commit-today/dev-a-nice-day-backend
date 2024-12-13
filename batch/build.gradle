@@ -14,6 +14,10 @@ dependencies {
     implementation("org.springframework:spring-web")
     implementation("org.springframework.retry:spring-retry")
 
+    // Spring AI
+    implementation(platform("org.springframework.ai:spring-ai-bom:${springAiVersion}"))
+    implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
+
     // Web
     implementation("org.apache.httpcomponents.client5:httpclient5")
 

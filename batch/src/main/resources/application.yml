@@ -28,17 +28,19 @@ spring:
 spring:
   config:
     activate:
-      on-profile: local-dev
+      on-profile:
+        - local-dev
+        - dev
+        - prod
 
----
-spring:
-  config:
-    activate:
-      on-profile: dev
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:}
+      chat:
+        options:
+          model: gpt-4o-mini
 
----
-spring:
-  config:
-    activate:
-      on-profile: prod
+app.collection.openai:
+  enabled: true
+  categorization-model: ${OPENAI_CATEGORIZATION_MODEL}
 
