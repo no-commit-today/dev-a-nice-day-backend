@@ -14,6 +14,13 @@ class OpenAiConfig {
     static class OpenAi {
 
         @Bean
+        SummarizationClient summarizationClientOpenAi(
+                ChatClient.Builder chatClientBuilder
+        ) {
+            return new SummarizationClientOpenAi(chatClientBuilder);
+        }
+
+        @Bean
         CategorizationClient categorizationClientOpenAi(
                 ChatClient.Builder chatClientBuilder,
                 @Value("${app.collection.openai.categorization-model}") String model
@@ -26,6 +33,11 @@ class OpenAiConfig {
     @Configuration
     @ConditionalOnMissingBean(OpenAi.class)
     static class Local {
+
+        @Bean
+        SummarizationClient summarizationClientLocal() {
+            return new SummarizationClientLocal();
+        }
 
         @Bean
         CategorizationClient categorizationClientLocal() {

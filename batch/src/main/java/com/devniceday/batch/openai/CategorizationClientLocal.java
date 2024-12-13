@@ -8,7 +8,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class CategorizationClientLocal implements CategorizationClient {
+class CategorizationClientLocal implements CategorizationClient {
 
     @Override
     public String categorize(CategorizationPrompt prompt) {

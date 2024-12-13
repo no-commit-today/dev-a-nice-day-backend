@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatOptions;
 
-public class CategorizationClientOpenAi implements CategorizationClient {
+class CategorizationClientOpenAi implements CategorizationClient {
 
     private static final Logger log = LoggerFactory.getLogger(CategorizationClientOpenAi.class);
 
