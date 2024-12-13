@@ -18,6 +18,13 @@ spring:
       initialize-schema: never
       isolation-level-for-create: default
 
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:}
+      chat:
+        options:
+          model: gpt-4o-mini
+
 ---
 spring:
   config:
@@ -32,13 +39,6 @@ spring:
         - local-dev
         - dev
         - prod
-
-  ai:
-    openai:
-      api-key: ${OPENAI_API_KEY:}
-      chat:
-        options:
-          model: gpt-4o-mini
 
 app.collection.openai:
   enabled: true
