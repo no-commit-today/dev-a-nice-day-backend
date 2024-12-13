@@ -17,6 +17,7 @@ dependencies {
     // Spring AI
     implementation(platform("org.springframework.ai:spring-ai-bom:${springAiVersion}"))
     implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
+    implementation("jakarta.websocket:jakarta.websocket-api:2.0.0")
 
     // Web
     implementation("org.apache.httpcomponents.client5:httpclient5")
