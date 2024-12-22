@@ -28,7 +28,6 @@ class CategorizationClientOpenAi implements CategorizationClient {
     public String categorize(CollectedContent collectedContent) {
         CategorizationPrompt prompt = CategorizationPrompt.of(collectedContent);
         return chatClient.prompt()
-                .advisors(new CategorizationLoggerAdvisor(collectedContent))
                 .system(prompt.getSystem())
                 .user(prompt.getUser())
                 .call()
