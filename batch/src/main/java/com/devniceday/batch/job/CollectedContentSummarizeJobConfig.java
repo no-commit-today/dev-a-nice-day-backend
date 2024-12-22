@@ -1,7 +1,7 @@
 package com.devniceday.batch.job;
 
 import com.devniceday.batch.domain.CollectionStatus;
-import com.devniceday.batch.domain.ContentCategorizer;
+import com.devniceday.batch.domain.ContentSummarizer;
 import com.devniceday.batch.job.reader.QuerydslZeroPagingItemReader;
 import com.devniceday.module.alert.AlertManager;
 import com.devniceday.storage.db.core.BatchCollectedContentEntity;
@@ -24,10 +24,10 @@ import java.time.Clock;
 import static com.devniceday.storage.db.core.QBatchCollectedContentEntity.batchCollectedContentEntity;
 
 @Configuration
-public class CollectedContentCategorizeJobConfig {
+public class CollectedContentSummarizeJobConfig {
 
-    private static final String JOB_NAME = "collectedContentCategorizeJob";
-    private static final String STEP_NAME = "collectedContentCategorizeStep";
+    private static final String JOB_NAME = "collectedContentSummarizeJob";
+    private static final String STEP_NAME = "collectedContentSummarizeStep";
     private static final int CHUNK_SIZE = 10;
 
     private final JobRepository jobRepository;
@@ -36,22 +36,22 @@ public class CollectedContentCategorizeJobConfig {
 
     private final Clock clock;
     private final AlertManager alertManager;
-    private final ContentCategorizer contentCategorizer;
+    private final ContentSummarizer contentSummarizer;
 
-    public CollectedContentCategorizeJobConfig(
+    public CollectedContentSummarizeJobConfig(
             JobRepository jobRepository,
             PlatformTransactionManager txManager,
             EntityManagerFactory emf,
             Clock clock,
             AlertManager alertManager,
-            ContentCategorizer contentCategorizer
+            ContentSummarizer contentSummarizer
     ) {
         this.jobRepository = jobRepository;
         this.txManager = txManager;
         this.emf = emf;
         this.clock = clock;
         this.alertManager = alertManager;
-        this.contentCategorizer = contentCategorizer;
+        this.contentSummarizer = contentSummarizer;
     }
 
     @Bean(JOB_NAME)
@@ -95,9 +95,9 @@ public class CollectedContentCategorizeJobConfig {
 
     @Bean(STEP_NAME + "ItemProcessor")
     @StepScope
-    public CollectedContentCategorizeJobItemProcessor processor() {
-        return new CollectedContentCategorizeJobItemProcessor(
-                contentCategorizer,
+    public CollectedContentSummarizeJobItemProcessor processor() {
+        return new CollectedContentSummarizeJobItemProcessor(
+                contentSummarizer,
                 alertManager
         );
     }
