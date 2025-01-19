@@ -1,6 +1,5 @@
 package com.devniceday.batch.job;
 
-import com.devniceday.batch.domain.CollectionStatus;
 import com.devniceday.batch.domain.ContentInitialization;
 import com.devniceday.batch.domain.ContentInitializer;
 import com.devniceday.batch.domain.Subscription;
@@ -58,25 +57,25 @@ public class CollectedContentInitializerJobItemProcessor
         if (contentInitialization.content() != null) {
             entity.setContent(contentInitialization.content());
         }
-        entity.setStatus(CollectionStatus.INIT);
+        entity.init();
     }
 
     private void filter(BatchCollectedContentEntity entity) {
         if (!StringUtils.hasText(entity.getTitle())) {
             log.info("제목이 없어서 필터링 되었습니다. id={}", entity.getId());
-            entity.setStatus(CollectionStatus.FILTERED);
+            entity.filtered();
         }
         if (entity.getPublishedDate() == null) {
             log.info("발행일이 없어서 필터링 되었습니다. id={}", entity.getId());
-            entity.setStatus(CollectionStatus.FILTERED);
+            entity.filtered();
         }
         if (!StringUtils.hasText(entity.getContent())) {
             log.info("컨텐츠가 없어서 필터링 되었습니다. id={}", entity.getId());
-            entity.setStatus(CollectionStatus.FILTERED);
+            entity.filtered();
         }
         if (calculateTokenCount(entity.getContent()) < MIN_TOKEN_COUNT) {
             log.info("컨텐츠 토큰 수가 " + MIN_TOKEN_COUNT + "개 미만이어서 필터링 되었습니다. id={}", entity.getId());
-            entity.setStatus(CollectionStatus.FILTERED);
+            entity.filtered();
         }
     }
 

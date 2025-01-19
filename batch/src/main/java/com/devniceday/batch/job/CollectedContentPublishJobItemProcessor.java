@@ -1,6 +1,5 @@
 package com.devniceday.batch.job;
 
-import com.devniceday.batch.domain.CollectionStatus;
 import com.devniceday.batch.domain.image.ContentImageStore;
 import com.devniceday.module.alert.AlertCommand;
 import com.devniceday.module.alert.AlertManager;
@@ -44,7 +43,7 @@ public class CollectedContentPublishJobItemProcessor
             );
         }
 
-        item.setStatus(CollectionStatus.PUBLISHED);
+        item.published();
 
         return new BatchTechContentEntity(
                 idGenerator.nextId(),
