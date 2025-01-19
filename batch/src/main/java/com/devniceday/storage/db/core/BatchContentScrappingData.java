@@ -7,6 +7,9 @@ public class BatchContentScrappingData {
     private BatchScrappingData content;
     private BatchImageScrappingData image;
 
+    protected BatchContentScrappingData() {
+    }
+
     public BatchContentScrappingData(
             BatchScrappingData title,
             BatchScrappingData date,

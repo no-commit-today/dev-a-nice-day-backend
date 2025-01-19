@@ -6,6 +6,9 @@ public class BatchWebListSubscriptionData {
 
     private BatchContentScrappingData contentScrapping;
 
+    protected BatchWebListSubscriptionData() {
+    }
+
     public BatchWebListSubscriptionData(BatchListScrappingData listScrapping, BatchContentScrappingData contentScrapping) {
         this.listScrapping = listScrapping;
         this.contentScrapping = contentScrapping;
