@@ -21,6 +21,13 @@ public record ImageContentType(
             "image/vnd.microsoft.icon", "ico"
     );
 
+    public static ImageContentType of(@Nullable String type, @Nullable String subType) {
+        if (type == null || subType == null) {
+            return new ImageContentType(null);
+        }
+        return new ImageContentType(type + "/" + subType);
+    }
+
     public boolean supports() {
         if (value == null) {
             return false;

@@ -9,13 +9,13 @@ public interface Image {
 
     String ext();
 
-    ImageContentType contentType() throws IOException;
+    ImageContentType contentType();
 
     long contentLength() throws IOException;
 
     InputStream inputStream() throws IOException;
 
-    static Image resource(Resource resource) {
-        return new ResourceImage(resource);
+    static Image of(Resource resource, ImageContentType contentType) {
+        return new ResourceImage(resource, contentType);
     }
 }
