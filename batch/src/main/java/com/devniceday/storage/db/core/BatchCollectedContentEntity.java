@@ -69,10 +69,6 @@ public class BatchCollectedContentEntity extends BaseEntity implements Persistab
     @Column(name = "summary", length = 2_000)
     private String summary;
 
-    @Nullable
-    @Column(name = "published_content_id")
-    private Long publishedContentId;
-
     protected BatchCollectedContentEntity() {
     }
 
@@ -153,11 +149,6 @@ public class BatchCollectedContentEntity extends BaseEntity implements Persistab
         return summary;
     }
 
-    @Nullable
-    public Long getPublishedContentId() {
-        return publishedContentId;
-    }
-
     public void setStatus(CollectionStatus status) {
         this.status = status;
     }
@@ -184,9 +175,5 @@ public class BatchCollectedContentEntity extends BaseEntity implements Persistab
 
     public void setSummary(String summary) {
         this.summary = summary;
-    }
-
-    public void setPublishedContentId(Long publishedContentId) {
-        this.publishedContentId = publishedContentId;
     }
 }

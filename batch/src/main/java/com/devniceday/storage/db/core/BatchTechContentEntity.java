@@ -1,5 +1,6 @@
 package com.devniceday.storage.db.core;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -19,6 +20,10 @@ public class BatchTechContentEntity extends BaseEntity implements Persistable<Lo
     @Column(name = "provider_id", nullable = false)
     private long providerId;
 
+    @Nullable
+    @Column(name = "image_id")
+    private Long imageId;
+
     @Column(name = "url", length = 500, nullable = false)
     private String url;
 
@@ -37,6 +42,7 @@ public class BatchTechContentEntity extends BaseEntity implements Persistable<Lo
     public BatchTechContentEntity(
             Long id,
             long providerId,
+            @Nullable Long imageId,
             String url,
             String title,
             String summary,
@@ -44,6 +50,7 @@ public class BatchTechContentEntity extends BaseEntity implements Persistable<Lo
     ) {
         this.id = id;
         this.providerId = providerId;
+        this.imageId = imageId;
         this.url = url;
         this.title = title;
         this.summary = summary;
@@ -62,6 +69,11 @@ public class BatchTechContentEntity extends BaseEntity implements Persistable<Lo
 
     public long getProviderId() {
         return providerId;
+    }
+
+    @Nullable
+    public Long getImageId() {
+        return imageId;
     }
 
     public String getUrl() {
