@@ -1,8 +1,10 @@
 package com.devniceday.storage.db.core;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
@@ -12,7 +14,15 @@ import java.time.LocalDate;
 @Table(
         name = "tech_content",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uk_techcontent__url", columnNames = {"url"})
+                @UniqueConstraint(name = "uk_url", columnNames = {"url"})
+        },
+        indexes = {
+                @Index(
+                        name = "ix_provider_published_date",
+                        columnList = "provider_id, published_date desc"
+                ),
+                @Index(name = "ix_published_date", columnList = "published_date desc"),
+                @Index(name = "ix_deleted_publisheddate", columnList = "deleted, published_date desc"),
         }
 )
 public class TechContentEntity extends BaseEntity {
@@ -23,6 +33,10 @@ public class TechContentEntity extends BaseEntity {
 
     @Column(name = "provider_id", nullable = false)
     private long providerId;
+
+    @Nullable
+    @Column(name = "image_id")
+    private Long imageId;
 
     @Column(name = "url", length = 500, nullable = false)
     private String url;
