@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatOptions;
 
+import java.util.Objects;
+
 class CategorizationClientOpenAi implements CategorizationClient {
 
     private static final Logger log = LoggerFactory.getLogger(CategorizationClientOpenAi.class);
@@ -25,11 +27,12 @@ class CategorizationClientOpenAi implements CategorizationClient {
 
     @Override
     public String categorize(CategorizationPrompt prompt) {
-        return chatClient.prompt()
-                .system(prompt.getSystem())
-                .user(prompt.getUser())
-                .call()
-                .content()
-                .trim();
+        return Objects.requireNonNull(
+                chatClient.prompt()
+                        .system(prompt.getSystem())
+                        .user(prompt.getUser())
+                        .call()
+                        .content()
+        ).trim();
     }
 }

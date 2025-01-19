@@ -1,6 +1,5 @@
 package com.devniceday.batch.job;
 
-import com.devniceday.batch.domain.CollectionStatus;
 import com.devniceday.batch.domain.ContentSummarizer;
 import com.devniceday.batch.domain.SummarizationException;
 import com.devniceday.batch.domain.SummarizationPrompt;
@@ -31,10 +30,10 @@ public class CollectedContentSummarizeJobItemProcessor
         var prompt = SummarizationPrompt.of(item.getTitle(), item.getContent());
         try {
             Summary summary = contentSummarizer.summarize(prompt);
-            item.setSummary(summary.content());
+            item.summarized(summary.content());
         } catch (SummarizationException e) {
             log.error("CollectedContent.id={} 의 요약에 실패했습니다.", item.getId(), e);
-            item.setStatus(CollectionStatus.CATEGORIZATION_FAILED);
+            item.summarizationFailed();
             alertManager.alert(
                     AlertCommand.builder()
                             .error()

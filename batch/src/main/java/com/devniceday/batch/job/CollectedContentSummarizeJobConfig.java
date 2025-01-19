@@ -85,7 +85,7 @@ public class CollectedContentSummarizeJobConfig {
         reader.setQueryFunction(queryFactory -> queryFactory
                 .selectFrom(batchCollectedContentEntity)
                 .where(
-                        batchCollectedContentEntity.status.eq(CollectionStatus.INIT),
+                        batchCollectedContentEntity.status.eq(CollectionStatus.CATEGORIZED),
                         batchCollectedContentEntity.deleted.isFalse()
                 ).orderBy(batchCollectedContentEntity.id.asc())
         );

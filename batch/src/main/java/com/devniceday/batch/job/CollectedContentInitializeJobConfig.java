@@ -107,7 +107,6 @@ public class CollectedContentInitializeJobConfig {
         QuerydslZeroPagingItemReader<BatchCollectedContentAndSubscriptionProjection> reader = new QuerydslZeroPagingItemReader<>();
         reader.setEntityManagerFactory(emf);
         reader.setPageSize(CHUNK_SIZE);
-        reader.setTransacted(false);
         reader.setQueryFunction(queryFactory -> queryFactory
                 .select(new QBatchCollectedContentAndSubscriptionProjection(
                         batchCollectedContentEntity,

@@ -67,7 +67,7 @@ public class HtmlDocument {
     }
 
     private String toAbsoluteUrl(String url) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(url).build().toUri();
+        URI uri = UriComponentsBuilder.fromUri(URI.create(url)).build().toUri();
         if (uri.isAbsolute()) {
             return url;
         }

@@ -97,6 +97,40 @@ public class BatchCollectedContentEntity extends BaseEntity implements Persistab
         this.imageUrl = imageUrl;
     }
 
+    public void init() {
+        this.status = CollectionStatus.INIT;
+    }
+
+    public void filtered() {
+        this.status = CollectionStatus.FILTERED;
+    }
+
+    public void categorized(List<CollectionCategory> categories) {
+        this.categories = categories;
+        if (categories.stream().anyMatch(category -> !category.isUsed())) {
+            this.status = CollectionStatus.FILTERED;
+        } else {
+            this.status = CollectionStatus.CATEGORIZED;
+        }
+    }
+
+    public void categorizationFailed() {
+        this.status = CollectionStatus.CATEGORIZATION_FAILED;
+    }
+
+    public void summarized(String summary) {
+        this.summary = summary;
+        this.status = CollectionStatus.SUMMARIZED;
+    }
+
+    public void summarizationFailed() {
+        this.status = CollectionStatus.SUMMARIZATION_FAILED;
+    }
+
+    public void published() {
+        this.status = CollectionStatus.PUBLISHED;
+    }
+
     @Override
     public boolean isNew() {
         return getCreatedAt() == null;
@@ -151,10 +185,6 @@ public class BatchCollectedContentEntity extends BaseEntity implements Persistab
     @Nullable
     public String getSummary() {
         return summary;
-    }
-
-    public void setStatus(CollectionStatus status) {
-        this.status = status;
     }
 
     public void setTitle(String title) {
