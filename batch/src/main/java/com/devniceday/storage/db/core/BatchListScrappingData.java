@@ -14,6 +14,9 @@ public class BatchListScrappingData {
     @Nullable
     private String contentUrlFormat;
 
+    protected BatchListScrappingData() {
+    }
+
     public BatchListScrappingData(String url, BatchScrappingData scrapping, @Nullable String pageUrlFormat, @Nullable String contentUrlFormat) {
         this.url = url;
         this.scrapping = scrapping;

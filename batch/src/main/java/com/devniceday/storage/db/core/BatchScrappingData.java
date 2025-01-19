@@ -16,6 +16,9 @@ public class BatchScrappingData {
     @Nullable
     private List<Integer> indexes;
 
+    protected BatchScrappingData() {
+    }
+
     public BatchScrappingData(ScrappingType type, @Nullable List<Integer> indexes, @Nullable String selector) {
         this.type = type;
         this.indexes = indexes;

@@ -7,6 +7,9 @@ public class BatchImageScrappingData {
 
     private ImageScrappingType type;
 
+    protected BatchImageScrappingData() {
+    }
+
     public BatchImageScrappingData(ImageScrappingType type) {
         this.type = type;
     }

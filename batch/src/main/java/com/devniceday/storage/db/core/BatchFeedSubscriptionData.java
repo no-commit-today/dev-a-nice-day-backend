@@ -6,6 +6,9 @@ public class BatchFeedSubscriptionData {
 
     private BatchContentScrappingData contentScrapping;
 
+    protected BatchFeedSubscriptionData() {
+    }
+
     public BatchFeedSubscriptionData(String url, BatchContentScrappingData contentScrapping) {
         this.url = url;
         this.contentScrapping = contentScrapping;
