@@ -46,3 +46,4 @@ include("client:oauth2-client")
 
 include("support:monitoring")
 include("support:logging")
+include("support:aws")
