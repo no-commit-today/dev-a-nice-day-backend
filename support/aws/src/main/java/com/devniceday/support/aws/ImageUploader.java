@@ -21,7 +21,9 @@ public class ImageUploader {
 
     public URL upload(Image image, String bucketName, String storedName) {
         try (InputStream input = image.inputStream()) {
-
+            if (!image.contentType().supports()) {
+                throw new NotSupportedImageException(image);
+            }
             ObjectMetadata metadata = ObjectMetadata.builder()
                     .contentType(image.contentType().value())
                     .contentLength(image.contentLength())

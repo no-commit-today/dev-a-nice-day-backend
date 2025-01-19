@@ -13,4 +13,8 @@ public class NotSupportedImageException extends RuntimeException {
     NotSupportedImageException(Resource resource, IOException e) {
         super("resource=" + resource, e);
     }
+
+    NotSupportedImageException(Image image) {
+        super("image=" + image);
+    }
 }
