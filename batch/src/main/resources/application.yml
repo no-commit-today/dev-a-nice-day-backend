@@ -8,6 +8,7 @@ spring:
   config:
     import:
       - core-db.yml
+      - aws.yml
       - logging.yml
 
   batch:
