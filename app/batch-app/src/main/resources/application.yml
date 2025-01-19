@@ -5,6 +5,8 @@ spring:
   profiles:
     active: local
 
+  main.web-application-type: none
+
   config:
     import:
       - storage-mysql.yml
