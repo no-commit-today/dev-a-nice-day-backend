@@ -34,4 +34,4 @@ COPY --from=builder /workspace/application/dependencies/ ./
 COPY --from=builder /workspace/application/spring-boot-loader/ ./
 COPY --from=builder /workspace/application/snapshot-dependencies/ ./
 COPY --from=builder /workspace/application/application/ ./
-ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]
+ENTRYPOINT ["java", "-Dserver.port=80", "org.springframework.boot.loader.launch.JarLauncher"]
