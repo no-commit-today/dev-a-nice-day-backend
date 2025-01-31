@@ -24,7 +24,7 @@ jobs:
     - name: Build with Gradle Wrapper
       run: ./gradlew :app:api-app:bootJar
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: api-app
         path: app/api-app/build/libs/application.jar
