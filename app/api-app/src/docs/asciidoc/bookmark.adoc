@@ -46,6 +46,11 @@ operation::bookmark/create-old[snippets='http-request,request-headers,request-fi
 
 operation::bookmark/list-query[snippets='http-request,request-headers,query-parameters,http-response,response-fields']
 
+[[group-latest]]
+== 북마크 그룹 최신 북마크 조회
+
+operation::bookmark/group-latest[snippets='http-request,request-headers,http-response,response-fields']
+
 [[delete]]
 == 북마크 삭제
 

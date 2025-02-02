@@ -114,9 +114,69 @@ class BookmarkListQueryControllerDocsTest extends AbstractDocsTest {
                                 fieldWithPath("content[].providerId").description("제공자 ID"),
                                 fieldWithPath("content[].providerTitle").description("제공자 제목"),
                                 fieldWithPath("content[].providerUrl").description("제공자 URL"),
-                                fieldWithPath("content[].providerIconUrl").description("제공자 아이콘 URL").optional()
+                                fieldWithPath("content[].providerIconUrl").description("제공자 아이콘 URL").optional(),
+                                fieldWithPath("content[].bookmarkGroupName").description("북마크 그룹 이름")
                         )
                 ));
     }
 
+    @Test
+    void 북마크_그룹_최신_북마크_조회() throws Exception {
+        // given
+        given(bookmarkListQueryService.getGroupLatestList(any())).willReturn(
+                List.of(
+                        new BookmarkQuery(
+                                new BookmarkId(1L),
+                                new BookmarkGroup(
+                                        new BookmarkGroupId(1L),
+                                        new UserId(2L),
+                                        "프론트"
+                                ),
+                                new TechContentQuery(
+                                        new TechContentId(3L),
+                                        new TechContentProviderQuery(
+                                                new TechContentProviderId(4L),
+                                                TechContentProviderType.DOMESTIC_COMPANY_BLOG,
+                                                "네이버",
+                                                "provider-url",
+                                                "provider-logo-url"
+                                        ),
+                                        "image-url",
+                                        "url",
+                                        "제목",
+                                        LocalDate.of(2021, 1, 1),
+                                        SummaryBuilder.create(),
+                                        List.of(TechCategory.SERVER)
+                                )
+                        )
+                ));
+
+        // when
+        // then
+        mockMvc.perform(get("/api/bookmark/v1/group-latest-bookmarks")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer access-token")
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andDo(document("bookmark/group-latest",
+                        requestHeaders(
+                                headerWithName(HttpHeaders.AUTHORIZATION).description("인증 필요")
+                        ),
+                        responseFields(
+                                fieldWithPath("content").description("리스트 데이터"),
+                                fieldWithPath("content[].id").description("컨텐츠 ID"),
+                                fieldWithPath("content[].title").description("컨텐츠 제목"),
+                                fieldWithPath("content[].publishedDate").description("컨텐츠 발행일"),
+                                fieldWithPath("content[].summary").description("컨텐츠 요약"),
+                                fieldWithPath("content[].imageUrl").description("컨텐츠 이미지 URL").optional(),
+                                fieldWithPath("content[].categories").description("카테고리 목록")
+                                        .attributes(RestDocsAttribute.type(TechCategory.class)),
+                                fieldWithPath("content[].providerId").description("제공자 ID"),
+                                fieldWithPath("content[].providerTitle").description("제공자 제목"),
+                                fieldWithPath("content[].providerUrl").description("제공자 URL"),
+                                fieldWithPath("content[].providerIconUrl").description("제공자 아이콘 URL").optional(),
+                                fieldWithPath("content[].bookmarkGroupName").description("북마크 그룹 이름")
+                        )
+                ));
+    }
 }
