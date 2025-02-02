@@ -25,6 +25,11 @@ spring:
     openai:
       api-key: test-openai-api-key
 
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+
 app:
   collection.openai:
     enabled: true
