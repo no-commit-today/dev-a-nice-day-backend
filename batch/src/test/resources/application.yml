@@ -25,6 +25,10 @@ spring:
     openai:
       api-key: test-openai-api-key
 
-app.collection.openai:
-  enabled: true
-  categorization-model: test-categorization-model
+app:
+  collection.openai:
+    enabled: true
+    categorization-model: test-categorization-model
+  image:
+    s3:
+      bucket-name: test-s3-bucket
