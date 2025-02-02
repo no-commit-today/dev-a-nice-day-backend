@@ -39,4 +39,11 @@ public class BookmarkListQueryReader {
                 .map(BookmarkEntity::toQuery)
                 .toList();
     }
+
+    public List<BookmarkQuery> getGroupLatestList(UserId userId) {
+        return bookmarkEntityJpaRepository.findAllGroupLatestByUserIdAndContentNotDeleted(userId.value())
+                .stream()
+                .map(BookmarkEntity::toQuery)
+                .toList();
+    }
 }

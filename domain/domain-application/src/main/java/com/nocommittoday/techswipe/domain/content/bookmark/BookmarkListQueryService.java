@@ -4,6 +4,7 @@ import com.nocommittoday.techswipe.domain.user.ApiUser;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 @Service
 public class BookmarkListQueryService {
@@ -25,5 +26,9 @@ public class BookmarkListQueryService {
         }
         BookmarkGroup group = bookmarkGroupReader.read(user.getUserId(), groupName);
         return new BookmarkListQueryResult(bookmarkListQueryReader.getList(group));
+    }
+
+    public List<BookmarkQuery> getGroupLatestList(ApiUser user) {
+        return bookmarkListQueryReader.getGroupLatestList(user.getUserId());
     }
 }

@@ -75,4 +75,23 @@ class BookmarkEntityJpaRepositoryCustomImpl implements BookmarkEntityJpaReposito
                         bookmarkEntity.content.id.in(contentIds)
                 ).fetch();
     }
+
+    @Override
+    public List<BookmarkEntity> findAllGroupLatestByUserIdAndContentNotDeleted(Long userId) {
+        List<Long> bookmarkIds = queryFactory
+                .select(bookmarkEntity.id.max())
+                .from(bookmarkEntity)
+                .where(
+                        bookmarkEntity.group.userId.eq(userId)
+                )
+                .groupBy(bookmarkEntity.group.id)
+                .fetch();
+        return queryFactory
+                .selectFrom(bookmarkEntity)
+                .where(
+                        bookmarkEntity.id.in(bookmarkIds),
+                        bookmarkEntity.content.deleted.isFalse(),
+                        bookmarkEntity.content.provider.deleted.isFalse()
+                ).fetch();
+    }
 }
