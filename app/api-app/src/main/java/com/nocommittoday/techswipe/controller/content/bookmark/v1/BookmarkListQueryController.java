@@ -20,4 +20,9 @@ public class BookmarkListQueryController {
     public BookmarkListQueryResponse getList(ApiUser apiUser, @RequestParam(required = false) String groupName) {
         return BookmarkListQueryResponse.from(bookmarkListQueryService.getList(apiUser, groupName));
     }
+
+    @GetMapping("/api/bookmark/v1/group-latest-bookmarks")
+    public BookmarkListQueryResponse getGroupLatestList(ApiUser apiUser) {
+        return BookmarkListQueryResponse.from(bookmarkListQueryService.getGroupLatestList(apiUser));
+    }
 }
