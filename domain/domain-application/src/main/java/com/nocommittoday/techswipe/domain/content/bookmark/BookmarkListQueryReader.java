@@ -40,6 +40,7 @@ public class BookmarkListQueryReader {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public List<BookmarkQuery> getGroupLatestList(UserId userId) {
         return bookmarkEntityJpaRepository.findAllGroupLatestByUserIdAndContentNotDeleted(userId.value())
                 .stream()
