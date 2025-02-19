@@ -50,7 +50,7 @@ spring:
       on-profile: local
 
   datasource:
-    url: jdbc:mysql://localhost:3306/techswipe
+    url: jdbc:mysql://localhost:3306/devniceday
     username: root
     password:
 
